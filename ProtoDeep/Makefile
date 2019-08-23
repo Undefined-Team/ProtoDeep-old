@@ -1,11 +1,9 @@
 CC = gcc
 
-NAME = compress
+NAME = test
 
-SRCS = srcs/cp_main.c \
-		srcs/sv_main.c \
-		srcs/pr_main.c \
-		srcs/db_main.c \
+SRCS = srcs/dp_math.c \
+		srcs/main.c \
 
 FLAGS = -Wall -Wextra -Werror -g -O3
 
