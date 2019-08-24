@@ -18,10 +18,17 @@ MATH		=	math_log.c			\
 				math_min.c			\
 				math_max_a.c 		\
 				math_min_a.c 		\
+				math_atof.c 		\
+
+PREP_FLD	=	prep/
+PREP		=	prep_minmax_scal.c	\
+				prep_stdiz.c		\
 
 SRC_FLDS	=	math/		\
+				prep/		\
 
 SRC 		+=	$(addprefix $(MATH_FLD), $(MATH))
+SRC 		+=	$(addprefix $(PREP_FLD), $(PREP))
 
 BIN			=	$(SRC:.c=.o)
 BIN_FLDS	=	$(addprefix $(BIN_PATH), $(SRC_FLDS))
