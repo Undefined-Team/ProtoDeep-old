@@ -10,9 +10,10 @@ BIN_PATH	=	./bins/
 SRC 		= 	main.c		\
 
 MATH_FLD	=	math/
-MATH		=	math_log.c	\
-				math_exp.c	\
-				math_pow.c	\
+MATH		=	math_log.c			\
+				math_exp.c			\
+				math_pow.c			\
+				math_activation.c	\
 
 SRC_FLDS	=	math/		\
 
