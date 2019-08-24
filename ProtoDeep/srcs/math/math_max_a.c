@@ -1,4 +1,4 @@
-#include "pd_math.h"
+#include "pd_main.h"
 
 float   math_max_a(float *x, size_t len)
 {

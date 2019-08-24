@@ -1,4 +1,4 @@
-#include "pd_math.h"
+#include "pd_main.h"
 
 /*int main(int ac, char **av)
 {
@@ -22,5 +22,6 @@ int main(void)
 
     printf("max = %f\n", math_max_a(test, 5));
     printf("min = %f\n", math_min_a(test, 5));
+    printf("atof = %f\n", math_atof("0.111111"));
     return (0);
 }

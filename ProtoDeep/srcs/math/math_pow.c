@@ -1,4 +1,4 @@
-#include "pd_math.h"
+#include "pd_main.h"
 
 float math_pow(float x, float e)
 {
