@@ -1,16 +1,16 @@
 #include "pd_main.h"
 
-float   math_min_a(float *x, size_t len)
+float   math_min_a(t_farr x)
 {
     float min;
     bool ftime = false;
 
-    for (size_t i = 0; i < len; i++)
+    for (size_t i = 0; i < x.len; i++)
     {
-        if (!ftime || min > x[i])
+        if (!ftime || min > x.arr[i])
         {
             ftime = true;
-            min = x[i];
+            min = x.arr[i];
         }
     }
     return ftime ? min : 0;

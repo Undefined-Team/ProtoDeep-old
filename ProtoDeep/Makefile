@@ -34,15 +34,20 @@ STRING_FLD	=	string/
 STRING		=	string_len.c		\
 				string_join.c		\
 
+DAST_FLD	=	dast/
+DAST		=	dast_new_farr.c	\
+
 SRC_FLDS	=	math/		\
 				prep/		\
 				csv/		\
 				string/		\
+				dast/		\
 
 SRC 		+=	$(addprefix $(MATH_FLD), $(MATH))
 SRC 		+=	$(addprefix $(PREP_FLD), $(PREP))
 SRC 		+=	$(addprefix $(CSV_FLD), $(CSV))
 SRC 		+=	$(addprefix $(STRING_FLD), $(STRING))
+SRC 		+=	$(addprefix $(DAST_FLD), $(DAST))
 
 BIN			=	$(SRC:.c=.o)
 BIN_FLDS	=	$(addprefix $(BIN_PATH), $(SRC_FLDS))

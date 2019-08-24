@@ -6,9 +6,16 @@
 // Macro
 
 // Structures
+typedef struct  s_prep_data {
+    float       mean;
+    float       std_dev;
+    float       min;
+    float       maxsmin;
+}               t_prep_data;
 
 // Prototypes
-float   *prep_minmax_scal(float *x, size_t len);
-float   *prep_stdiz(float *x, size_t len);
+t_farr  prep_minmax_scal(t_farr x);
+t_farr  prep_stdiz(t_farr x, t_prep_data pdata);
+t_farr  prep_stdiz_init(t_farr x, t_prep_data *pdata);
 
 #endif
