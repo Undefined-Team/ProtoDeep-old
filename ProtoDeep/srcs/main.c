@@ -23,5 +23,11 @@ int main(void)
     printf("max = %f\n", math_max_a(test, 5));
     printf("min = %f\n", math_min_a(test, 5));
     printf("atof = %f\n", math_atof("0.111111"));
+
+    float *test2 = prep_stdiz(test, 5);
+    for (size_t i = 0; i < 5; i++)
+    {
+        printf("--> %f\n", test2[i]);
+    }
     return (0);
 }

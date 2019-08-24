@@ -24,6 +24,7 @@ float   *math_softmax(float *x, size_t len);
 float   math_log(float x);
 float   math_exp(float p);
 float   math_pow(float x, float e);
+float   math_sqrt(const float x);
 
 float   math_mean(float *x, size_t len);
 float   math_stdev(float *x, size_t len, float mean);
