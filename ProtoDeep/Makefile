@@ -15,6 +15,9 @@ MATH		=	math_log.c			\
 				math_pow.c			\
 				math_sqrt.c			\
 				math_activation.c	\
+				math_max.c			\
+				math_min.c			\
+				math_max_a.c 		\
 
 SRC_FLDS	=	math/		\
 
