@@ -1,59 +1,60 @@
 #include "pd_main.h"
 
-float   *prep_minmax_scal_stdiz(float *x, size_t len, t_prep_data pdata)
+t_farr   prep_minmax_scal_stdiz(t_farr x, t_prep_data pdata)
 {
-    float *y;
+    t_farr y;
     float som;
 
     som = 0;
-    y = malloc(sizeof(float) * len);
-    for (size_t i = 0; i < len; i++)
+    y = dast_new_farr(x.len);
+    for (size_t i = 0; i < y.len; i++)
     {
-        y[i] = (x[i] - pdata.min) / pdata.maxsmin;
-        som += y[i];
+        y.arr[i] = (x.arr[i] - pdata.min) / pdata.maxsmin;
+        som += y.arr[i];
     }
     return y;
 }
 
-float   *prep_minmax_scal_stdiz_init(float *x, size_t len, t_prep_data *pdata)
+t_farr   prep_minmax_scal_stdiz_init(t_farr x, t_prep_data *pdata)
 {
-    float *y;
+    t_farr y;
     float som;
 
     som = 0;
-    pdata->min = math_min_a(x, len);
-    pdata->maxsmin = math_max_a(x, len) - pdata->min;
-    y = malloc(sizeof(float) * len);
-    for (size_t i = 0; i < len; i++)
+    pdata->min = math_min_a(x);
+    pdata->maxsmin = math_max_a(x) - pdata->min;
+    //y = malloc(sizeof(float) * len);
+    y = dast_new_farr(x.len);
+    for (size_t i = 0; i < y.len; i++)
     {
-        y[i] = (x[i] - pdata->min) / pdata->maxsmin;
-        som += y[i];
+        y.arr[i] = (x.arr[i] - pdata->min) / pdata->maxsmin;
+        som += y.arr[i];
     }
-    pdata->mean = som / len;
+    pdata->mean = som / x.len;
     return y;
 }
 
-float   *prep_stdiz(float *x, size_t len, t_prep_data pdata)
+t_farr   prep_stdiz(t_farr x, t_prep_data pdata)
 {
-    float *y;
+    t_farr y;
 
-    y = prep_minmax_scal_stdiz(x, len, pdata);
-    for (size_t i = 0; i < len; i++)
+    y = prep_minmax_scal_stdiz(x, pdata);
+    for (size_t i = 0; i < y.len; i++)
     {
-        y[i] = (y[i] - pdata.mean) / pdata.std_dev;
+        y.arr[i] = (y.arr[i] - pdata.mean) / pdata.std_dev;
     }
     return y;
 }
 
-float   *prep_stdiz_init(float *x, size_t len, t_prep_data *pdata)
+t_farr   prep_stdiz_init(t_farr x, t_prep_data *pdata)
 {
-    float *y;
+    t_farr y;
 
-    y = prep_minmax_scal_stdiz_init(x, len, pdata);
-    pdata->std_dev = math_stdev(y, len, pdata->mean);
-    for (size_t i = 0; i < len; i++)
+    y = prep_minmax_scal_stdiz_init(x, pdata);
+    pdata->std_dev = math_stdev(y, pdata->mean);
+    for (size_t i = 0; i < y.len; i++)
     {
-        y[i] = (y[i] - pdata->mean) / pdata->std_dev;
+        y.arr[i] = (y.arr[i] - pdata->mean) / pdata->std_dev;
     }
     return y;
 }

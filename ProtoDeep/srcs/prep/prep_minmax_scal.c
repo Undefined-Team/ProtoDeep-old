@@ -1,17 +1,17 @@
 #include "pd_main.h"
 
-float   *prep_minmax_scal(float *x, size_t len)
+t_farr   prep_minmax_scal(t_farr x)
 {
-    float *y;
-    float xmax;
-    float xmin;
+    t_farr y;
+    float min;
+    float maxsmin;
 
-    xmax = math_max_a(x, len);
-    xmin = math_min_a(x, len);
-    y = malloc(sizeof(float) * len);
-    for (size_t i = 0; i < len; i++)
+    min = math_min_a(x);
+    maxsmin = math_max_a(x) - min;
+    y = dast_new_farr(x.len);
+    for (size_t i = 0; i < y.len; i++)
     {
-        y[i] = (x[i] - xmin) / (xmax - xmin);
+        y.arr[i] = (x.arr[i] - min) / maxsmin;
     }
     return y;
 }

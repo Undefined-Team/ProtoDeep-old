@@ -27,11 +27,16 @@ PREP_FLD	=	prep/
 PREP		=	prep_minmax_scal.c	\
 				prep_stdiz.c		\
 
+DAST_FLD	=	dast/
+DAST		=	dast_new_farr.c	\
+
 SRC_FLDS	=	math/		\
 				prep/		\
+				dast/		\
 
 SRC 		+=	$(addprefix $(MATH_FLD), $(MATH))
 SRC 		+=	$(addprefix $(PREP_FLD), $(PREP))
+SRC 		+=	$(addprefix $(DAST_FLD), $(DAST))
 
 BIN			=	$(SRC:.c=.o)
 BIN_FLDS	=	$(addprefix $(BIN_PATH), $(SRC_FLDS))

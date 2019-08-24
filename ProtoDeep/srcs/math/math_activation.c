@@ -20,18 +20,18 @@ float   math_tanh(float x)
     return 1 - (2 / (math_exp(2 * x) + 1));
 }
 
-float   *math_softmax(float *x, size_t len)
+t_farr   math_softmax(t_farr x)
 {
     float sum = 0;
-    float *y;
+    t_farr y;
 
-    y = malloc(sizeof(int) * len);
-    for (size_t i = 0; i < len; i++)
+    y = dast_new_farr(x.len);
+    for (size_t i = 0; i < y.len; i++)
     {
-        y[i] = math_exp(x[i]);
-        sum += y[i];
+        y.arr[i] = math_exp(x.arr[i]);
+        sum += y.arr[i];
     }
-    for (size_t i = 0; i < len; i++)
-        y[i] /= sum;
+    for (size_t i = 0; i < y.len; i++)
+        y.arr[i] /= sum;
     return y;
 }
