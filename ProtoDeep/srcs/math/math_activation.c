@@ -26,12 +26,12 @@ float   *math_softmax(float *x, size_t len)
     float *y;
 
     y = malloc(sizeof(int) * len);
-    for (int i = 0; i < len; i++)
+    for (size_t i = 0; i < len; i++)
     {
         y[i] = math_exp(x[i]);
         sum += y[i];
     }
-    for (int i = 0; i < len; i++)
+    for (size_t i = 0; i < len; i++)
         y[i] /= sum;
     return y;
 }
