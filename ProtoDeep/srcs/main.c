@@ -7,6 +7,6 @@ int main(int ac, char **av)
         return (0);
     int i = -1;
     while (++i < 100000)
-        printf("%lu\n", string_len(av[1]));
+        printf("%lu\n", str_len(av[1]));
     return (0);
 }

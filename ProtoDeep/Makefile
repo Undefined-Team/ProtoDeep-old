@@ -30,9 +30,9 @@ PREP		=	prep_minmax_scal.c	\
 CSV_FLD		=	csv/
 CSV			=	csv_parser.c		\
 
-STRING_FLD	=	string/
-STRING		=	string_len.c		\
-				string_join.c		\
+STR_FLD	=	str/
+STR		=	str_len.c		\
+				str_join.c		\
 
 DAST_FLD	=	dast/
 DAST		=	dast_new_farr.c	\
@@ -40,13 +40,13 @@ DAST		=	dast_new_farr.c	\
 SRC_FLDS	=	math/		\
 				prep/		\
 				csv/		\
-				string/		\
+				str/		\
 				dast/		\
 
 SRC 		+=	$(addprefix $(MATH_FLD), $(MATH))
 SRC 		+=	$(addprefix $(PREP_FLD), $(PREP))
 SRC 		+=	$(addprefix $(CSV_FLD), $(CSV))
-SRC 		+=	$(addprefix $(STRING_FLD), $(STRING))
+SRC 		+=	$(addprefix $(STR_FLD), $(STR))
 SRC 		+=	$(addprefix $(DAST_FLD), $(DAST))
 
 BIN			=	$(SRC:.c=.o)

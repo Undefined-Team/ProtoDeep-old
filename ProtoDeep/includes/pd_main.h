@@ -11,7 +11,7 @@
 #include "pd_math.h"
 #include "pd_prep.h"
 #include "pd_csv.h"
-#include "pd_string.h"
+#include "pd_str.h"
 
 // Macro
 

@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-unsigned long   string_len(char *str)
+unsigned long   str_len(char *str)
 {
     int i = 0;
 
