@@ -1,10 +1,5 @@
 #include "pd_math.h"
 
-float   math_max(float x, float y)
-{
-    return x > y ? x : y;
-}
-
 float   math_sigmoid(float x)
 {
     return 1 / (1 + math_exp(-x));
@@ -25,7 +20,7 @@ float   math_tanh(float x)
     return 1 - (2 / (math_exp(2 * x) + 1));
 }
 
-float   *math_softmax(float *x, int len)
+float   *math_softmax(float *x, size_t len)
 {
     float sum = 0;
     float *y;
