@@ -13,6 +13,7 @@ MATH_FLD	=	math/
 MATH		=	math_log.c			\
 				math_exp.c			\
 				math_pow.c			\
+				math_sqrt.c			\
 				math_activation.c	\
 
 SRC_FLDS	=	math/		\
