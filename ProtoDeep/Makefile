@@ -22,17 +22,27 @@ MATH		=	math_log.c			\
 				math_atof.c 		\
 				math_mean.c 		\
 				math_stdev.c 		\
-				math_sqrt.c 		\
 
 PREP_FLD	=	prep/
 PREP		=	prep_minmax_scal.c	\
 				prep_stdiz.c		\
 
+CSV_FLD		=	csv/
+CSV			=	csv_parser.c		\
+
+STRING_FLD	=	string/
+STRING		=	string_len.c		\
+				string_join.c		\
+
 SRC_FLDS	=	math/		\
 				prep/		\
+				csv/		\
+				string/		\
 
 SRC 		+=	$(addprefix $(MATH_FLD), $(MATH))
 SRC 		+=	$(addprefix $(PREP_FLD), $(PREP))
+SRC 		+=	$(addprefix $(CSV_FLD), $(CSV))
+SRC 		+=	$(addprefix $(STRING_FLD), $(STRING))
 
 BIN			=	$(SRC:.c=.o)
 BIN_FLDS	=	$(addprefix $(BIN_PATH), $(SRC_FLDS))
