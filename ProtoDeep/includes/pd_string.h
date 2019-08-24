@@ -8,7 +8,7 @@
 // Structures
 
 // Prototypes
-char            *string_join(char *head, char *tail)
+char            *string_join(char *head, char *tail);
 unsigned long   string_len(char *str);
 
 #endif

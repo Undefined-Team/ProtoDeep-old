@@ -6,5 +6,5 @@ char    *string_join(char *head, char *tail)
         return (tail);
     else if (!tail || string_len(tail) == 0)
         return (head);
-    
+    return (NULL);
 }

@@ -19,6 +19,6 @@ void    csv_parser(char *file_name)
     if (fd)
     {
         while (read(fd, (void*)buf, BUF_SIZE))
-            csv_get_line( buf);
+            csv_get_line(buf);
     }
 }
