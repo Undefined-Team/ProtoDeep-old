@@ -1,17 +1,17 @@
 #include "pd_math.h"
 
-float   math_max_a(float *x, size_t len)
+float   math_min_a(float *x, size_t len)
 {
-    float max;
+    float min;
     bool ftime = false;
 
     for (size_t i = 0; i < len; i++)
     {
-        if (!ftime || max < x[i])
+        if (!ftime || min > x[i])
         {
             ftime = true;
-            max = x[i];
+            min = x[i];
         }
     }
-    return ftime ? max : 0;
+    return ftime ? min : 0;
 }

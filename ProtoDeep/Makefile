@@ -17,6 +17,7 @@ MATH		=	math_log.c			\
 				math_max.c			\
 				math_min.c			\
 				math_max_a.c 		\
+				math_min_a.c 		\
 
 SRC_FLDS	=	math/		\
 
