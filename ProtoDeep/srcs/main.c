@@ -27,11 +27,12 @@ int main(void)
 
     t_prep_data pdata;
     float *test3 = prep_stdiz_init(train_set, 5, &pdata);
+    printf("On standardise le train_set avec mean = %f et std_dev = %f et min = %f et maxsmin = %f\n", pdata.mean, pdata.std_dev, pdata.min, pdata.maxsmin);
     for (size_t i = 0; i < 5; i++)
     {
         printf("--> %f\n", test3[i]);
     }
-    
+    printf("\nOn standardise le test_set par rapport à la standardisation du train_set\n");
     float *test4 = prep_stdiz(test_set, 5, pdata);
     for (size_t i = 0; i < 5; i++)
     {

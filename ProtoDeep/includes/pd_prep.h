@@ -9,6 +9,8 @@
 typedef struct  s_prep_data {
     float       mean;
     float       std_dev;
+    float       min;
+    float       maxsmin;
 }               t_prep_data;
 
 // Prototypes
