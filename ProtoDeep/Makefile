@@ -7,7 +7,7 @@ INCLUDES	=	./includes/
 SRC_PATH	=	./srcs/
 BIN_PATH	=	./bins/
 
-SRC 		= 	main.c		\
+SRC 		= 	main.c				\
 
 MATH_FLD	=	math/
 MATH		=	math_log.c			\
@@ -30,18 +30,22 @@ PREP		=	prep_minmax_scal.c	\
 CSV_FLD		=	csv/
 CSV			=	csv_parser.c		\
 
-STR_FLD	=	str/
-STR		=	str_len.c		\
-				str_join.c		\
+STR_FLD		=	str/
+STR			=	str_len.c			\
+				str_join.c			\
+				str_dup.c			\
+				str_sub.c			\
+				str_split.c			\
+				str_whitespace.c	\
 
 DAST_FLD	=	dast/
-DAST		=	dast_new_farr.c	\
+DAST		=	dast_new_farr.c		\
 
-SRC_FLDS	=	math/		\
-				prep/		\
-				csv/		\
-				str/		\
-				dast/		\
+SRC_FLDS	=	math/				\
+				prep/				\
+				csv/				\
+				str/				\
+				dast/				\
 
 SRC 		+=	$(addprefix $(MATH_FLD), $(MATH))
 SRC 		+=	$(addprefix $(PREP_FLD), $(PREP))
@@ -55,7 +59,7 @@ BIN_FLDS	=	$(addprefix $(BIN_PATH), $(SRC_FLDS))
 SRCS		=	$(addprefix $(SRC_PATH), $(SRC))
 BINS		=	$(addprefix $(BIN_PATH), $(BIN))
 
-OBJ = $(SRCS:.c=.o)
+OBJ 		= 	$(SRCS:.c=.o)
 
 .PHONY: all clean fclean re
 

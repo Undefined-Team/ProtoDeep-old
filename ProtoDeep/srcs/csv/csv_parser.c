@@ -1,24 +1,63 @@
 #include "pd_main.h"
 # define BUF_SIZE 1000
 
-char    *csv_get_line(char *buf)
+char    *read_line(int fd, char *str)
 {
-    static char *line;
+    char    buffer[65];
+    int     ret;
 
-    if (line)
-        line = NULL;
-    printf("%s\n", buf);
-    return (buf);
+    while ((ret = read(fd, buffer, 64)) > 0)
+    {
+        buffer[ret] = 0;
+        str = str_join(str, buffer);
+    }
+    return (str);
+}
+
+int     csv_get_line(int fd, char **line)
+{
+    static char *str;
+    int         i;
+
+    if (!str)
+        str = (char *)malloc(65);
+    if (str[0])
+        *line = str_dup(str);
+    str = read_line(fd, str);
+    if (str[0])
+    {
+        i = 0;
+        while (str[i] != '\n' && str[i])
+            i++;
+        if (!i)
+            *line = str_dup("");
+        else
+        {
+            *line = str_sub(str, 0, i);
+            str = &str[i + 1];
+        }
+        return (1);
+    }
+    else
+        *line = str_dup("");
+    return (0);
 }
 
 void    csv_parser(char *file_name)
 {
     int     fd = open(file_name, O_RDONLY);
-    char    *buf = malloc(BUF_SIZE + 1);
+    char    *line = str_dup("");
+    char    **tokens = NULL;
 
-    if (fd)
+    while (csv_get_line(fd, &line))
     {
-        while (read(fd, (void*)buf, BUF_SIZE))
-            csv_get_line(buf);
+        printf("%s\n", line);
+        tokens = str_split(line, ',');
+        if (tokens)
+            for (int i = 0; tokens[i]; i++)
+                printf("%s\n", tokens[i]);
+        printf("\n");
     }
+    if (tokens)
+        tokens = NULL;
 }

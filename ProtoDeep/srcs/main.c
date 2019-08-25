@@ -3,10 +3,7 @@
 
 int main(int ac, char **av)
 {
-    if (!ac)
+    if (!ac && av)
         return (0);
-    int i = -1;
-    while (++i < 100000)
-        printf("%lu\n", str_len(av[1]));
-    return (0);
+    csv_parser("test.csv");
 }
