@@ -40,6 +40,6 @@ typedef struct      s_tbnode {
 // Prototypes
 t_farr      dast_new_farr(size_t len);
 t_tbnode    *dast_new_tbnode(char c);
-t_csv_col   *dast_csv_new_col(int type, size_t len, char *name);
+t_carr      dast_new_carr(char *str, size_t len);
 
 #endif

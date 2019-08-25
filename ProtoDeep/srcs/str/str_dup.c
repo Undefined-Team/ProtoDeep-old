@@ -1,18 +1,17 @@
 #include "pd_main.h"
 
-char    *str_dup(char *str)
+t_carr  str_dup(t_carr str, size_t len)
 {
-    size_t  len;
-    char    *dup;
+    t_carr  dup;
     size_t  i;
 
-    if (!str)
-        return (NULL);
-    len = str_len(str);
-    dup = (char *)malloc(len + 1);
+    if (!str.arr)
+        return (str);
+    dup.arr = (char *)malloc(len + 1);
     i = -1;
     while (++i < len)
-        dup[i] = str[i];
-    dup[i] = 0;
+        dup.arr[i] = str.arr[i];
+    dup.arr[i] = 0;
+    dup.len = len;
     return (dup);
 }

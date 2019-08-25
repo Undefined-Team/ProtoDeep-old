@@ -1,59 +1,67 @@
 #include "pd_main.h"
 # define BUF_SIZE 1000
 
-char    *read_line(int fd, char *str)
+t_carr  read_line(int fd, t_carr str)
 {
-    char    buffer[65];
+    t_carr  buffer;
     int     ret;
 
-    while ((ret = read(fd, buffer, 64)) > 0)
+    buffer = str_fill(0, 65);
+    while ((ret = read(fd, buffer.arr, 64)) > 0)
     {
-        buffer[ret] = 0;
+        buffer.arr[ret] = 0;
         str = str_join(str, buffer);
     }
+    str.len = str_len(str);
     return (str);
 }
 
-int     csv_get_line(int fd, char **line)
+int     csv_get_line(int fd, t_carr *line)
 {
-    static char *str;
-    int         i;
+    static t_carr   str;
+    int             i;
 
-    if (!str)
-        str = (char *)malloc(65);
-    if (str[0])
-        *line = str_dup(str);
+    if (!str.arr)
+        str = str_fill(0, 65);
+    if (str.arr[0])
+        *line = str_dup(str, str.len);
     str = read_line(fd, str);
-    if (str[0])
+    if (str.arr[0])
     {
         i = 0;
-        while (str[i] != '\n' && str[i])
+        while (str.arr[i] != '\n' && str.arr[i])
             i++;
         if (!i)
-            *line = str_dup("");
+            *line = dast_new_carr("", 0);
         else
         {
             *line = str_sub(str, 0, i);
-            str = &str[i + 1];
+            str.arr = &(str.arr[i + 1]);
+            str.len -= i;
         }
         return (1);
     }
     else
-        *line = str_dup("");
+        *line = dast_new_carr("", 0);
     return (0);
 }
 
 t_csv_col   csv_read(char *file_name, int header)
 {
     int         fd = open(file_name, O_RDONLY);
-    char        *line = str_dup("");
-    char        **tokens = NULL;
-    t_csv_col   *array;
+    t_carr      *line;
+    t_starr     tokens;
+    t_csv_col   array;
 
-    while (csv_get_line(fd, &line))
+    if (header)
+        header = 0;
+    line = (t_carr *)malloc(sizeof(t_carr));
+    *line = dast_new_carr("", 0);
+    while (csv_get_line(fd, line))
     {
-        tokens = str_split(line, ',');
+        tokens = str_split(*line, ',');
     }
-    if (tokens)
-        tokens = NULL;
+    if (tokens.arr)
+        tokens.arr = NULL;
+    return (array);
 }

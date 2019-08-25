@@ -2,11 +2,11 @@
 
 typedef struct  s_split_list
 {
-    char                *word;
+    t_carr              word;
     struct s_split_list *next;
 }               t_split_list;
 
-static t_split_list    *add_elem(char *word)
+static t_split_list    *add_elem(t_carr word)
 {
     t_split_list    *new;
 
@@ -16,7 +16,7 @@ static t_split_list    *add_elem(char *word)
     return (new);
 }
 
-static t_split_list    *count_sep(char *str, char sep)
+static t_split_list    *count_sep(t_carr str, char sep)
 {
     int             i = -1;
     int             j = 0;
@@ -26,9 +26,9 @@ static t_split_list    *count_sep(char *str, char sep)
 
     token_sizes = NULL;
     curr = NULL;
-    while (str[++i])
+    while (str.arr[++i])
     {
-        if (str[i] == sep && str[i + 1] != 0)
+        if (str.arr[i] == sep && str.arr[i + 1] != 0)
         {
             if ((!token_sizes && !(token_sizes = add_elem(str_sub(str, j, i - j))))
                 || (curr && !(curr->next = add_elem(str_sub(str, j, i - j)))))
@@ -41,12 +41,12 @@ static t_split_list    *count_sep(char *str, char sep)
     return (token_sizes);
 }
 
-char    **str_split(char *str, char sep)
+t_starr     str_split(t_carr str, char sep)
 {
     t_split_list    *words;
     t_split_list    *curr;
     size_t          count = 0;
-    char            **tokens;
+    t_starr         tokens;
 
     words = count_sep(str, sep);
     curr = words;
@@ -56,14 +56,15 @@ char    **str_split(char *str, char sep)
         curr = curr->next;
     }
     if (!count)
-        return (NULL);
-    tokens = (char **)malloc((count + 1) * sizeof(char *));
-    tokens[count] = NULL;
+        return (tokens);
+    tokens.arr = (t_carr *)malloc((count + 1) * sizeof(t_carr));
+    tokens.arr[count].arr = NULL;
+    tokens.arr[count].len = -1;
     count = 0;
     curr = words;
     while (curr)
     {
-        tokens[count++] = str_dup(curr->word);
+        tokens.arr[count++] = str_dup(curr->word, curr->word.len);
         curr = curr->next;
     }
     return (tokens);
