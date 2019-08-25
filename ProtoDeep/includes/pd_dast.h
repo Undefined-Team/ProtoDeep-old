@@ -33,7 +33,7 @@ typedef struct      s_tbnode {
     char            c;
     int             word_index;
     struct s_tbnode *next;
-    struct s_tbnode *f_first;
+    struct s_tbnode *f_begin;
     struct s_tbnode *f_last;
 }                   t_tbnode;
 // Prototypes
