@@ -2,11 +2,11 @@
 # define PD_MAIN_H
 
 // Lib
-#include <stdio.h> // Pour printf
-#include <stdlib.h> // Pour malloc, free, size_t
-#include <stdint.h> // Pour les types
-#include <fcntl.h> // For opening csv files
-#include <unistd.h> // For reading csv files
+#include <stdio.h> // For printf
+#include <stdlib.h> // For malloc, free, size_t
+#include <stdint.h> // For les types
+#include <fcntl.h> // For open
+#include <unistd.h> // For read
 #include "pd_dast.h"
 #include "pd_math.h"
 #include "pd_prep.h"
