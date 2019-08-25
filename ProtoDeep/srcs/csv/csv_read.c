@@ -43,20 +43,16 @@ int     csv_get_line(int fd, char **line)
     return (0);
 }
 
-void    csv_parser(char *file_name)
+t_csv_col   csv_read(char *file_name, int header)
 {
-    int     fd = open(file_name, O_RDONLY);
-    char    *line = str_dup("");
-    char    **tokens = NULL;
+    int         fd = open(file_name, O_RDONLY);
+    char        *line = str_dup("");
+    char        **tokens = NULL;
+    t_csv_col   *array;
 
     while (csv_get_line(fd, &line))
     {
-        printf("%s\n", line);
         tokens = str_split(line, ',');
-        if (tokens)
-            for (int i = 0; tokens[i]; i++)
-                printf("%s\n", tokens[i]);
-        printf("\n");
     }
     if (tokens)
         tokens = NULL;

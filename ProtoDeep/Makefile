@@ -28,7 +28,7 @@ PREP		=	prep_minmax_scal.c	\
 				prep_stdiz.c		\
 
 CSV_FLD		=	csv/
-CSV			=	csv_parser.c		\
+CSV			=	csv_read.c		\
 
 STR_FLD		=	str/
 STR			=	str_len.c			\

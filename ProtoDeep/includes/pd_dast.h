@@ -15,7 +15,7 @@ typedef struct      s_farr {
 }                   t_farr;
 
 typedef struct      s_carr {
-    float           *arr;
+    char            *arr;
     size_t          len;
 }                   t_carr;
 
@@ -25,9 +25,10 @@ typedef struct      s_tbnode {
     struct s_tbnode *f_first;
     struct s_tbnode *f_last;
 }                   t_tbnode;
+
 // Prototypes
 t_farr      dast_new_farr(size_t len);
 t_tbnode    *dsat_new_tbnode(char c);
-
+t_csv_col   *dast_new_col();
 
 #endif
