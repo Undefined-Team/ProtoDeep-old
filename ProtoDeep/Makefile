@@ -36,6 +36,8 @@ STR		=	str_len.c		\
 
 DAST_FLD	=	dast/
 DAST		=	dast_new_farr.c	\
+				dast_new_tbnode.c 		\
+
 
 SRC_FLDS	=	math/		\
 				prep/		\
