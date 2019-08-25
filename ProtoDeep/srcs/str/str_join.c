@@ -12,11 +12,11 @@ t_carr  str_join(t_carr head, t_carr tail)
         return (str_dup(head, head.len));
     joined.arr = (char *)malloc(head.len + tail.len + 1);
     i = -1;
-    while (++i < head.len)
+    while (++i < head.len && head.arr[i])
         joined.arr[i] = head.arr[i];
     j = -1;
-    while (++j < tail.len)
+    while (++j < tail.len && tail.arr[j])
         joined.arr[i + j] = tail.arr[j];
-    joined.len = head.len + tail.len;
+    joined.len = str_len(joined);
     return (joined);
 }

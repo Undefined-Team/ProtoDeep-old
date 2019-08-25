@@ -4,7 +4,7 @@ t_carr  str_fill(char c, size_t len)
 {
     t_carr  str;
 
-    str.len = len;
+    str.len = c == 0 ? 0 : len;
     str.arr = (char *)malloc(len + 1);
     for (size_t i = 0; i <= len; i++)
     {

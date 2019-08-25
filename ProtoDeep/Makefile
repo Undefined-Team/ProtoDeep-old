@@ -38,6 +38,7 @@ STR			=	str_len.c			\
 				str_split.c			\
 				str_whitespace.c	\
 				str_fill.c			\
+				str_chr.c			\
 
 DAST_FLD	=	dast/
 DAST		=	dast_new_farr.c		\

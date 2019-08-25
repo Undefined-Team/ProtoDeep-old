@@ -12,6 +12,7 @@ static t_split_list    *add_elem(t_carr word)
 
     new = (t_split_list *)malloc(sizeof(t_split_list));
     new->word = str_whitespace(word);
+    new->word.len = str_len(new->word);
     new->next = NULL;
     return (new);
 }

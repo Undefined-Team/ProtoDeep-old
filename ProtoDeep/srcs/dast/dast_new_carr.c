@@ -11,7 +11,7 @@ t_carr  dast_new_carr(char *str, size_t len)
         new_array.arr = NULL;
     }
     new_array.arr = (char *)malloc(len + 1);
-    for (size_t i = 0; i < len; i++)
+    for (size_t i = 0; i < len && str[i]; i++)
         new_array.arr[i] = str[i];
     new_array.arr[len] = 0;
     return new_array;
