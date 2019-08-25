@@ -36,9 +36,10 @@ typedef struct      s_tbnode {
     struct s_tbnode *f_begin;
     struct s_tbnode *f_last;
 }                   t_tbnode;
+
 // Prototypes
 t_farr      dast_new_farr(size_t len);
 t_tbnode    *dast_new_tbnode(char c);
-
+t_carr      dast_new_carr(char *str, size_t len);
 
 #endif

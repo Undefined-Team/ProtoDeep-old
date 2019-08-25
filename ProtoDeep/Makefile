@@ -28,7 +28,7 @@ PREP		=	prep_minmax_scal.c	\
 				prep_stdiz.c		\
 
 CSV_FLD		=	csv/
-CSV			=	csv_parser.c		\
+CSV			=	csv_read.c		\
 
 STR_FLD		=	str/
 STR			=	str_len.c			\
@@ -37,11 +37,12 @@ STR			=	str_len.c			\
 				str_sub.c			\
 				str_split.c			\
 				str_whitespace.c	\
+				str_fill.c			\
 
 DAST_FLD	=	dast/
 DAST		=	dast_new_farr.c		\
 				dast_new_tbnode.c 	\
-
+				dast_new_carr.c		\
 
 SRC_FLDS	=	math/				\
 				prep/				\
