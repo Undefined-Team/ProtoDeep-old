@@ -12,4 +12,3 @@ t_tbnode  *dast_new_tbnode(char c)
     new_node->word_index = -1;
     return new_node;
 }
-

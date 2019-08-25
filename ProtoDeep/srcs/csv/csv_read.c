@@ -10,6 +10,7 @@ t_carr  read_line(int fd, t_carr str)
     while ((ret = read(fd, buffer.arr, 64)) > 0)
     {
         buffer.arr[ret] = 0;
+        buffer.len = ret;
         str = str_join(str, buffer);
     }
     str.len = str_len(str);
@@ -36,7 +37,8 @@ int     csv_get_line(int fd, t_carr *line)
         else
         {
             *line = str_sub(str, 0, i);
-            str.arr = &(str.arr[i + 1]);
+            line->len = i;
+            str = dast_new_carr(&str.arr[i + 1], str.len - i);
             str.len -= i;
         }
         return (1);

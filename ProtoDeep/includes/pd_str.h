@@ -17,5 +17,6 @@ t_carr  str_whitespace(t_carr str);
 t_carr  str_fill(char c, size_t len);
 t_carr  str_add_char(t_carr str, char c);
 t_carr  str_char_to_str(char c);
+int     str_chr(t_carr str, char c);
 
 #endif

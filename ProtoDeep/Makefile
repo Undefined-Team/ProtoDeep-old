@@ -40,6 +40,7 @@ STR			=	str_len.c			\
 				str_fill.c			\
 				str_add_char.c		\
 				str_char_to_str.c	\
+				str_chr.c			\
 
 DAST_FLD	=	dast/
 DAST		=	dast_new_farr.c				\
