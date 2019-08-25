@@ -25,7 +25,7 @@ t_csv_col   add_col(t_csv_col last_col, size_t nbr_line, size_t max_line, t_carr
     return last_col;
 }
 
-char      *found_word(tbnode *f_begin, int *new_index, int *total_index)
+t_carr      found_word(tbnode *f_begin, int *new_index, int *total_index)
 {
     *total_index = *total_index + 1;
     f_begin->word_index = *total_index;
@@ -33,11 +33,11 @@ char      *found_word(tbnode *f_begin, int *new_index, int *total_index)
     return (str_char_to_str(f_begin->c));
 }
 
-char      *update_bin_tree(tbnode *node, char *str, int *new_index, int *total_index)
+t_carr      update_bin_tree(tbnode *node, char *str, int *new_index, int *total_index)
 {
     t_tbnode *f_begin = node->front_begin;
     t_tbnode *tmp = NULL;
-    char     *result = NULL;
+    t_carr    result;
 
     while (f_begin)
     {
@@ -48,12 +48,12 @@ char      *update_bin_tree(tbnode *node, char *str, int *new_index, int *total_i
                 if (f_begin->word_index == -1) // Ex : Found new word franc in francais
                     return (found_word(f_begin, new_index, total_index));                           
                 *new_index = f_begin->word_index; // Ex : Found old word franc in francais
-                return NULL;
+                return dast_new_static_carr("", 0);
             }
             else
             {
                 result = update_bin_tree(f_begin, str++, new_index, total_index);
-                return (result ? str_add_char(result, f_begin->c) : NULL);  // Go deeper
+                return (result.len == 0 ? result : str_add_char(result, f_begin->c));  // Go deeper
             }
         }
         tmp = f_begin;
@@ -72,7 +72,7 @@ char      *update_bin_tree(tbnode *node, char *str, int *new_index, int *total_i
     if (*(str + 1) == NULL) // If it's the last char
         return (found_word(f_begin, new_index, total_index));
     result = update_bin_tree(f_begin, str++, new_index, total_index);
-    return (result ? str_add_char(result, f_begin->c) : NULL);  // Go deeper
+    return (result.len == 0 ? result : str_add_char(result, f_begin->c));  // Go deeper
 }
 
 t_csv_col *cols_generator(t_csv_col **col)
@@ -128,8 +128,8 @@ void    prep_ohe(t_csv_col *col, t_siarr col_indexs)
 
 /*
 Taches :
-- str_add_char
-- str_char_to_str
+-  | str_add_char
+-  | str_char_to_str
 - math_sort_siarr
 - sbedene dst_new_col faut la regarder
 - Gerer erreur de type

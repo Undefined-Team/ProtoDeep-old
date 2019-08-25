@@ -38,11 +38,19 @@ STR			=	str_len.c			\
 				str_split.c			\
 				str_whitespace.c	\
 				str_fill.c			\
+				str_add_char.c		\
+				str_char_to_str.c	\
 
 DAST_FLD	=	dast/
-DAST		=	dast_new_farr.c		\
-				dast_new_tbnode.c 	\
-				dast_new_carr.c		\
+DAST		=	dast_new_farr.c				\
+				dast_new_tbnode.c 			\
+				dast_new_carr.c				\
+				dast_new_static_carr.c		\
+				dast_free.c					\
+				dast_new_col.c				\
+				dast_new_csv_float_col.c	\
+				dast_new_csv_str_col.c		\
+				
 
 SRC_FLDS	=	math/				\
 				prep/				\
