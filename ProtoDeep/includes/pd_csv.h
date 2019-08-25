@@ -11,7 +11,6 @@
 
 
 // Prototypes
-t_csv_col   csv_read(char *file_name, int header);
-t_csv_col   *dast_csv_new_col(int type, size_t len, char *name);
+t_csv_col   *csv_read(char *file_name, int header);
 
 #endif

@@ -67,8 +67,8 @@ t_tbnode        *dast_new_tbnode(char c);
 t_carr          dast_new_carr(char *str, size_t len);
 t_carr          dast_new_static_carr(char *str, size_t len);
 void	        dast_free(void **ap);
-t_csv_col       *dast_new_col(int type, size_t len, char *name);
-t_csv_float_col *dast_new_csv_float_col(int type, size_t len);
-t_csv_str_col   *dast_new_csv_str_col(int type, size_t len);
+t_csv_col       *dast_csv_new_col(int type, size_t len, t_carr name);
+t_csv_float_col *dast_csv_new_float_col(int type, size_t len);
+t_csv_str_col   *dast_csv_new_str_col(int type, size_t len);
 
 #endif

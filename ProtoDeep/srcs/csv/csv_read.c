@@ -48,12 +48,12 @@ int     csv_get_line(int fd, t_carr *line)
     return (0);
 }
 
-t_csv_col   csv_read(char *file_name, int header)
+t_csv_col   *csv_read(char *file_name, int header)
 {
     int         fd = open(file_name, O_RDONLY);
     t_carr      *line;
     t_starr     tokens;
-    t_csv_col   array;
+    t_csv_col   *array = NULL;
 
     if (header)
         header = 0;
