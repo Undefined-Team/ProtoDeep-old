@@ -14,13 +14,24 @@ typedef struct      s_farr {
     size_t          len;
 }                   t_farr;
 
-typedef struct      s_carr {
-    char            *arr;
+typedef struct      s_carr { // Char array (String)
+    char           *arr;
     size_t          len;
 }                   t_carr;
 
+typedef struct      s_siarr {
+    size_t          *arr;
+    size_t          len;
+}                   t_siarr;
+
+typedef struct      s_starr { // String array
+    t_carr          *arr;
+    size_t          len;
+}                   t_starr;
+
 typedef struct      s_tbnode {
     char            c;
+    int             word_index;
     struct s_tbnode *next;
     struct s_tbnode *f_first;
     struct s_tbnode *f_last;
@@ -28,7 +39,7 @@ typedef struct      s_tbnode {
 
 // Prototypes
 t_farr      dast_new_farr(size_t len);
-t_tbnode    *dsat_new_tbnode(char c);
-t_csv_col   *dast_new_col();
+t_tbnode    *dast_new_tbnode(char c);
+t_csv_col   *dast_csv_new_col(int type, size_t len, char *name);
 
 #endif

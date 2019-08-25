@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-t_tbnode  *dsat_new_tbnode(char c)
+t_tbnode  *dast_new_tbnode(char c)
 {
     t_tbnode *new_node;
 
@@ -9,6 +9,7 @@ t_tbnode  *dsat_new_tbnode(char c)
     new_node->f_first = NULL;
     new_node->f_last = NULL;
     new_node->c = c;
+    new_node->word_index = -1;
     return new_node;
 }
 
