@@ -33,14 +33,19 @@ void merge(size_t *arr, size_t l, size_t m, size_t r)
         k++; 
     } 
 } 
-
-void math_si_sort(size_t *arr, size_t l, size_t r)
+  
+void mergeSort(size_t *arr, size_t l, size_t r) 
 { 
     if (l < r) 
-    { 
+    {
         size_t m = l+(r-l)/2; 
-        math_si_sort(arr, l, m); 
-        math_si_sort(arr, m+1, r); 
+        mergeSort(arr, l, m); 
+        mergeSort(arr, m+1, r); 
         merge(arr, l, m, r); 
-    }
-}
+    } 
+} 
+
+void  math_si_sort(t_siarr arr) 
+{ 
+   mergeSort(arr.arr, 0, arr.len - 1); 
+} 
