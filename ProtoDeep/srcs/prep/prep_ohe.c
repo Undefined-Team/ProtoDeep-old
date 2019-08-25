@@ -114,7 +114,7 @@ void    prep_ohe(t_csv_col *col, t_siarr col_indexs)
     int i = -1;
     t_csv_col *before = NULL;
 
-    math_sort_siarr(&col_indexs);
+    col_index.arr = math_si_sort(col_indexs.arr, col_indexs.len);
     while (j < col_indexs.len)
     {
         while (++i < col_indexs.arr[j])

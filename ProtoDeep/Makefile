@@ -22,6 +22,7 @@ MATH		=	math_log.c			\
 				math_atof.c 		\
 				math_mean.c 		\
 				math_stdev.c 		\
+				math_si_sort.c 		\
 
 PREP_FLD	=	prep/
 PREP		=	prep_minmax_scal.c	\
