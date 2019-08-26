@@ -9,6 +9,12 @@
 // Structures
 typedef enum {false,true} bool;
 
+
+typedef struct      s_varr {
+    void           *arr;
+    size_t          len;
+}                   t_varr;
+
 typedef struct      s_farr {
     float           *arr;
     size_t          len;
@@ -31,25 +37,31 @@ typedef struct      s_starr { // String array
 
 // -----------------
 
-typedef struct          s_csv_str_col
+/*typedef struct          s_csv_str_col
 {
     t_starr             arr;
-    int                 type;
 }                       t_csv_str_col;
 
 typedef struct          s_csv_float_col
 {
     t_farr              arr;
-    int                 type;
-}                       t_csv_float_col;
+}                       t_csv_float_col;*/
 
 typedef struct          s_csv_col
 {
     size_t              len;
     t_carr              name;
     struct s_csv_col    *next;
+    int                 type;
     void                *columns;
 }                       t_csv_col;
+
+typedef struct          s_csv
+{
+    t_csv_col           *begin;
+    size_t              width;
+    size_t              height;
+}                       t_csv;
 
 // -----------------
 
@@ -62,13 +74,14 @@ typedef struct      s_tbnode {
 }                   t_tbnode;
 
 // Prototypes
+t_varr          dast_init_varr(size_t len, size_t so);
 t_farr          dast_new_farr(size_t len);
 t_tbnode        *dast_new_tbnode(char c);
 t_carr          dast_new_carr(char *str, size_t len);
 t_carr          dast_new_static_carr(char *str, size_t len);
 void	        dast_free(void **ap);
 t_csv_col       *dast_csv_new_col(int type, size_t len, t_carr name);
-t_csv_float_col *dast_csv_new_float_col(int type, size_t len);
-t_csv_str_col   *dast_csv_new_str_col(int type, size_t len);
+//t_csv_float_col *dast_csv_new_float_col(int type, size_t len);
+//t_csv_str_col   *dast_csv_new_str_col(int type, size_t len);
 
 #endif

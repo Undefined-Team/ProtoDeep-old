@@ -50,8 +50,10 @@ DAST		=	dast_new_farr.c				\
 				dast_new_static_carr.c		\
 				dast_free.c					\
 				dast_csv_new_col.c			\
-				dast_csv_new_float_col.c	\
-				dast_csv_new_str_col.c		\
+				dast_init_varr.c			\
+
+DBUG_FLD	=	dbug/
+DBUG		=	dbug_print_csv.c			\
 				
 
 SRC_FLDS	=	math/				\
@@ -59,12 +61,14 @@ SRC_FLDS	=	math/				\
 				csv/				\
 				str/				\
 				dast/				\
+				dbug/				\
 
 SRC 		+=	$(addprefix $(MATH_FLD), $(MATH))
 SRC 		+=	$(addprefix $(PREP_FLD), $(PREP))
 SRC 		+=	$(addprefix $(CSV_FLD), $(CSV))
 SRC 		+=	$(addprefix $(STR_FLD), $(STR))
 SRC 		+=	$(addprefix $(DAST_FLD), $(DAST))
+SRC 		+=	$(addprefix $(DBUG_FLD), $(DBUG))
 
 BIN			=	$(SRC:.c=.o)
 BIN_FLDS	=	$(addprefix $(BIN_PATH), $(SRC_FLDS))
