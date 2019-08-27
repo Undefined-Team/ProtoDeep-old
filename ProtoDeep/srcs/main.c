@@ -11,6 +11,7 @@ t_csv   get_test_csv(void)
 
 
     t_str col3[4] = {strSNew("Gros"), strSNew("Pitit"), strSNew("Moyen"), strSNew("Moyen")};
+    //t_str col3[4] = {strSNew("Moyen"), strSNew("Moyen"), strSNew("Moyen"), strSNew("Moyen")};
     tmp = dast_csv_new_col(arrSNew(T_STR, 4, col3), strSNew("Zizi"));
     csv_test.begin = tmp;
 
@@ -22,7 +23,7 @@ t_csv   get_test_csv(void)
     tmp->next = dast_csv_new_col(arrSNew(T_STR, 4, col2), strSNew("Name"));
     tmp = tmp->next;
 
-    t_str col4[4] = {strSNew("Pas trop"), strSNew("Musclée"), strSNew("Musclée"), strSNew("Musclée")};
+    t_str col4[4] = {strSNew("Ca va"), strSNew("Musclée"), strSNew("Musclée"), strSNew("Musclée")};
     tmp->next = dast_csv_new_col(arrSNew(T_STR, 4, col4), strSNew("Main droite"));
     tmp = tmp->next;
     
