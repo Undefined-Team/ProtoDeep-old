@@ -11,6 +11,6 @@
 
 
 // Prototypes
-//t_csv_col   *csv_read(char *file_name, int header);
+t_csv_col   *csv_read(char *file_name, int header);
 
 #endif

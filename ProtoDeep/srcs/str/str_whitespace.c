@@ -7,14 +7,14 @@ static int     is_whitespace(char c)
     return (0);
 }
 
-t_carr  str_whitespace(t_carr str)
+t_arr  str_whitespace(t_arr str)
 {
     int     i = 0;
     int     j = str.len - 1;
 
-    while (is_whitespace(str.arr[i]))
+    while (is_whitespace(((char *)str.val)[i]))
         i++;
-    while (is_whitespace(str.arr[j]))
+    while (is_whitespace(((char *)str.val)[j]))
         j--;
     return (str_sub(str, i, j - i + 1));
 }

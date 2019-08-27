@@ -16,7 +16,11 @@ t_arr       dast_init_arr(type type, size_t len)
         else if (type == T_SIZE_T)
             new_arr.val = malloc(sizeof(size_t) * len);
         else if (type == T_CHAR)
+        {
             new_arr.val = malloc(sizeof(char) * (len + 1));
+            if (len == 0)
+                ((char *)new_arr.val)[0] = 0;
+        }
         if (!new_arr.val)
             new_arr.len = 0;
     }
