@@ -6,31 +6,22 @@ t_csv   get_test_csv(void)
     t_csv csv_test;
     t_csv_col *tmp;
 
-    csv_test.height = 2;
-    csv_test.width = 5;
+    csv_test.height = 4;
+    csv_test.width = 3;
 
-    float col1[2] = {
-                        200,
-                        1
-                    };
-    tmp = dast_csv_new_col(arrSNew(T_FLOAT, 2, col1), strSNew("Qi"));
+    float col1[4] = {200, 1, -1, -200};
+    tmp = dast_csv_new_col(arrSNew(T_FLOAT, 4, col1), strSNew("Qi"));
     csv_test.begin = tmp;
 
-    t_str col2[2] = {
-                        strSNew("Timothée"),
-                        strSNew("Sylvainnnnnnnn")
-                    };
-    tmp->next = dast_csv_new_col(arrSNew(T_STR, 2, col2), strSNew("Name"));
+    t_str col3[4] = {strSNew("Gros"), strSNew("Pitit"), strSNew("Moyen"), strSNew("Moyen")};
+    tmp->next = dast_csv_new_col(arrSNew(T_STR, 4, col3), strSNew("Zizi"));
     tmp = tmp->next;
 
-    t_str col3[2] = {
-                        strSNew("Gros"),
-                        strSNew("Vraiment tout pitit")
-                    };
-    tmp->next = dast_csv_new_col(arrSNew(T_STR, 2, col3), strSNew("Zizi"));
+    t_str col2[4] = {strSNew("Timothée"), strSNew("Sylvain"), strSNew("Paco"), strSNew("Tony")};
+    tmp->next = dast_csv_new_col(arrSNew(T_STR, 4, col2), strSNew("Name"));
     tmp = tmp->next;
     
-    t_str col4[2] = {
+    /*t_str col4[2] = {
                         strSNew("Pas bridé"),
                         strSNew("bridé")
                     };
@@ -48,8 +39,8 @@ t_csv   get_test_csv(void)
                         strSNew("Pas cassé"),
                         strSNew("Cassé")
                     };
-    tmp->next = dast_csv_new_col(arrSNew(T_STR, 2, col6), strSNew("Ordinateurrrrrrrrrrrrr"));
-    tmp = tmp->next;
+    tmp->next = dast_csv_new_col(arrSNew(T_STR, 2, col6), strSNew("Ordinateur"));
+    tmp = tmp->next;*/
 
     return csv_test;
 }
