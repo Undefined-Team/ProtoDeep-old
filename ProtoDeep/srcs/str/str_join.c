@@ -17,6 +17,6 @@ t_carr  str_join(t_carr head, t_carr tail)
     j = -1;
     while (++j < tail.len && tail.arr[j])
         joined.arr[i + j] = tail.arr[j];
-    joined.len = str_len(joined);
+    joined.len = str_len(joined.arr);
     return (joined);
 }

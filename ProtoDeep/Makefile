@@ -29,7 +29,7 @@ PREP		=	prep_minmax_scal.c	\
 				prep_stdiz.c		\
 
 CSV_FLD		=	csv/
-CSV			=	csv_read.c		\
+#CSV			=	csv_read.c		\
 
 STR_FLD		=	str/
 STR			=	str_len.c			\
@@ -51,6 +51,7 @@ DAST		=	dast_new_farr.c				\
 				dast_free.c					\
 				dast_csv_new_col.c			\
 				dast_init_varr.c			\
+				dast_arr.c					\
 
 DBUG_FLD	=	dbug/
 DBUG		=	dbug_print_csv.c			\
@@ -65,7 +66,7 @@ SRC_FLDS	=	math/				\
 
 SRC 		+=	$(addprefix $(MATH_FLD), $(MATH))
 SRC 		+=	$(addprefix $(PREP_FLD), $(PREP))
-SRC 		+=	$(addprefix $(CSV_FLD), $(CSV))
+#SRC 		+=	$(addprefix $(CSV_FLD), $(CSV))
 SRC 		+=	$(addprefix $(STR_FLD), $(STR))
 SRC 		+=	$(addprefix $(DAST_FLD), $(DAST))
 SRC 		+=	$(addprefix $(DBUG_FLD), $(DBUG))

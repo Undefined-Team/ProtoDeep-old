@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+typedef struct      s_carr { // Char array (String)
+    char           *arr;
+    size_t          len;
+}                   t_carr;
+
 typedef struct      s_iarr {
     int             *arr;
     size_t          len;
@@ -18,8 +23,11 @@ typedef struct      s_varr {
 }                   t_varr;
 
 typedef struct      s_csv_col {
-    int             len;
-    void            *columns;
+    size_t              len;
+    t_carr              name;
+    struct s_csv_col    *next;
+    int                 type;
+    void                *columns;
 }                   t_csv_col;
 
 t_varr  dast_init_varr(size_t len, size_t so)

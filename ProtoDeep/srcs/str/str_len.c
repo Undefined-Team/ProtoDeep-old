@@ -1,10 +1,13 @@
 #include "pd_main.h"
 
-size_t  str_len(t_carr str)
+size_t  str_len(char* str)
 {
+    if (!str)
+        return 0;
+    
     size_t  i = 0;
 
-    while (str.arr && str.arr[i])
+    while (str[i])
         i++;
     return (i);
 }
