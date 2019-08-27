@@ -27,19 +27,21 @@ MATH		=	math_log.c			\
 PREP_FLD	=	prep/
 PREP		=	prep_minmax_scal.c	\
 				prep_stdiz.c		\
+				prep_ohe.c			\
 
 CSV_FLD		=	csv/
 #CSV			=	csv_read.c		\
 
 STR_FLD		=	str/
 STR			=	str_len.c			\
+				str_clen.c			\
 				str_join.c			\
+				str_fjoin.c			\
 				str_dup.c			\
 				str_sub.c			\
 				str_split.c			\
 				str_whitespace.c	\
 				str_fill.c			\
-				str_add_char.c		\
 				str_char_to_str.c	\
 				str_chr.c			\
 
@@ -105,3 +107,9 @@ fclean: clean
 		rm -f $(NAME)
 
 re: fclean all
+
+ex: all
+	./$(NAME)
+
+rex: re
+	./$(NAME)

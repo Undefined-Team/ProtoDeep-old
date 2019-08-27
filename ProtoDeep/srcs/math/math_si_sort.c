@@ -45,7 +45,9 @@ void mergeSort(size_t *arr, size_t l, size_t r)
     } 
 } 
 
-void  math_si_sort(t_siarr arr) 
-{ 
-   mergeSort(arr.arr, 0, arr.len - 1); 
-} 
+void  math_si_sort(t_arr arr) 
+{
+    if (arr.type != T_SIZE_T)
+        return ;
+    mergeSort((size_t*)arr.val, 0, arr.len - 1); 
+}

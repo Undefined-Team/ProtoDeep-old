@@ -83,11 +83,12 @@ t_varr          dast_init_varr(size_t len, size_t so); //A SUPPRIMER
 t_farr          dast_new_farr(size_t len); // A SUPPRIMER
 t_carr          dast_new_carr(char *str, size_t len); // A SUPPRIMER
 t_carr          dast_new_static_carr(char *str, size_t len); // A SUPPRIMER
-t_tbnode        *dast_new_tbnode(char c);
+t_tbnode        *dast_new_tbnode(char c, int word_index);
 void	        dast_free(void **ap);
 t_csv_col       *dast_csv_new_col(t_arr columns, t_str name);
 t_arr           dast_init_arr(type type, size_t len);
 t_arr           dast_new_s_arr(type type, size_t len, void* val);
+t_arr           dast_new_arr(type type, size_t len, void* val);
 
 //t_csv_float_col *dast_csv_new_float_col(int type, size_t len);
 //t_csv_str_col   *dast_csv_new_str_col(int type, size_t len);

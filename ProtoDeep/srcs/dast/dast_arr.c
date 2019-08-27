@@ -64,7 +64,7 @@ t_arr   dast_new_s_arr(type type, size_t len, void* val)
         }
         else if (type == T_CHAR)
         {
-            new_arr.len = str_len((char*)val);
+            new_arr.len = str_clen((char*)val);
             char *new_val = malloc(sizeof(char) * (new_arr.len + 1));
             if (new_val)
             {
@@ -92,7 +92,7 @@ t_arr   dast_new_arr(type type, size_t len, void* val)
     }
     else
     {
-        new_arr.len = type == T_CHAR ? str_len((char*)val) : len;
+        new_arr.len = type == T_CHAR ? str_clen((char*)val) : len;
         new_arr.val = val;
     }
     return new_arr;
