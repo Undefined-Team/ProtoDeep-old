@@ -20,6 +20,8 @@ t_arr       dast_init_arr(type type, size_t len)
         if (!new_arr.val)
             new_arr.len = 0;
     }
+    if (type == T_CHAR && len == 0)
+        ((char *)new_arr.val)[0] = 0;
     return new_arr;
 }
 
