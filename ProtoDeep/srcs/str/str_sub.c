@@ -1,15 +1,19 @@
 #include "pd_main.h"
 
-t_carr  str_sub(t_carr str, size_t start, size_t length)
+t_arr  str_sub(t_arr str, size_t start, size_t length)
 {
-    t_carr  sub;
+    t_arr  sub;
+    size_t i;
 
     if (start > str.len)
         return (str);
-    sub = dast_new_carr(&str.arr[start], str.len - start - 1);
+    sub = arrInit(T_CHAR, str.len - start - 1);
+    for (i = start; i < start + length; i++)
+        ((char *)sub.val)[i] = ((char *)str.val)[i];
+    ((char *)sub.val)[i] = 0;
     if (length > str.len)
         return (sub);
-    sub.arr[length] = 0;
-    sub.len = length;
+    ((char *)sub.val)[length] = 0;
+    sub.len = str_len(sub);
     return (sub);
 }

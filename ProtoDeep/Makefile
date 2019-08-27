@@ -30,7 +30,7 @@ PREP		=	prep_minmax_scal.c	\
 				prep_ohe.c			\
 
 CSV_FLD		=	csv/
-#CSV			=	csv_read.c		\
+CSV			=	csv_read.c		\
 
 STR_FLD		=	str/
 STR			=	str_len.c			\
@@ -68,7 +68,7 @@ SRC_FLDS	=	math/				\
 
 SRC 		+=	$(addprefix $(MATH_FLD), $(MATH))
 SRC 		+=	$(addprefix $(PREP_FLD), $(PREP))
-#SRC 		+=	$(addprefix $(CSV_FLD), $(CSV))
+SRC 		+=	$(addprefix $(CSV_FLD), $(CSV))
 SRC 		+=	$(addprefix $(STR_FLD), $(STR))
 SRC 		+=	$(addprefix $(DAST_FLD), $(DAST))
 SRC 		+=	$(addprefix $(DBUG_FLD), $(DBUG))

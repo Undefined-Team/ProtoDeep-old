@@ -1,14 +1,11 @@
 #include "pd_main.h"
 
-t_carr  str_fill(char c, size_t len)
+t_arr  str_fill(char c, size_t len)
 {
-    t_carr  str;
+    t_arr  str;
 
-    str.len = c == 0 ? 0 : len;
-    str.arr = (char *)malloc(len + 1);
+    str = arrInit(T_CHAR, c == 0 ? 0 : len);
     for (size_t i = 0; i <= len; i++)
-    {
-        str.arr[i] = c;
-    }
+        ((char *)str.val)[i] = c;
     return (str);
 }

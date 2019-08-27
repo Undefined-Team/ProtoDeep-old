@@ -1,13 +1,13 @@
 #include "pd_main.h"
 
-int     str_chr(t_carr str, char c)
+int     str_chr(t_arr str, char c)
 {
     size_t  i;
 
     i = 0;
-    while (str.arr[i])
+    while (((char *)str.val)[i])
     {
-        if (str.arr[i] == c)
+        if (((char *)str.val)[i] == c)
             return (1);
         i++;
     }
