@@ -53,6 +53,9 @@ t_csv   get_test_csv(void)
 
 int main(void)
 {
-    csv_read("./test.csv", 0);
+    t_csv   *csv;
+    
+    csv = csv_read("./test.csv", 1);
+    dbug_print_csv(*csv);
     return (0);
 }

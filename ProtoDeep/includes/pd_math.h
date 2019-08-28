@@ -14,6 +14,7 @@ float       math_min(float x, float y);
 float       math_max_a(t_float_a x);
 float       math_min_a(t_float_a x);
 float       math_atof(const char* s);
+t_char_a    math_itoa(int n);
 void        math_si_sort(t_arr arr);
 
 float       math_sigmoid(float x);
