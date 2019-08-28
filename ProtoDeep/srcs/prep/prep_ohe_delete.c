@@ -133,10 +133,10 @@ void    prep_ohe(t_csv *csv, t_size_t_a col_indexs)
         {
             tmp = cols_generator(&col); //col = last new, tmp = first new
             if (before)
-                before->next = tmp->next;
+                before->next = tmp;
             else
-                csv->begin = tmp->next;
-            dast_csv_free_col(tmp);
+                csv->begin = tmp;
+            //dast_csv_free_col(tmp);
         }
     }
     i = 0;
@@ -211,10 +211,10 @@ void    prep_ohe_delete(t_csv *csv, t_size_t_a ohe_indexs, t_size_t_a del_indexs
             {
                 tmp = cols_generator(&col); //col = last new, tmp = first new
                 if (before)
-                    before->next = tmp->next;
+                    before->next = tmp;
                 else
-                    csv->begin = tmp->next;
-                dast_csv_free_col(tmp);
+                    csv->begin = tmp;
+                //dast_csv_free_col(tmp);
                 i++;
             }
     	    j_ohe++;
@@ -233,3 +233,11 @@ void    prep_ohe_delete(t_csv *csv, t_size_t_a ohe_indexs, t_size_t_a del_indexs
         i++;
     csv->width = i;
 }
+
+/*
+
+- Faire que *col = last_col pour mieux utiliser les i et economiser des lignes
+- Sauvegarder l arbre binaire dans conf
+- Faire une fonction d utilisation de l arbre binaire (Si un mot n est pas trouve alors 0 dans chaque ligne)
+
+*/

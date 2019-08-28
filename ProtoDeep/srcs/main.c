@@ -23,30 +23,9 @@ t_csv   get_test_csv(void)
     tmp->next = dast_csv_new_col(arrSNew(T_STR, 4, col2), strSNew("Name"));
     tmp = tmp->next;
 
-    t_char_a col4[4] = {strSNew("Ca va"), strSNew("Musclee"), strSNew("Musclee"), strSNew("Musclee")};
+    t_char_a col4[4] = {strSNew("Ca va"), strSNew("Musclée"), strSNew("Musclée"), strSNew("Musclée")};
     tmp->next = dast_csv_new_col(arrSNew(T_STR, 4, col4), strSNew("Main droite"));
     tmp = tmp->next;
-    
-    /*t_str col4[2] = {
-                        strSNew("Pas bridé"),
-                        strSNew("bridé")
-                    };
-    tmp->next = dast_csv_new_col(arrSNew(T_STR, 2, col4), strSNew("Yeux"));
-    tmp = tmp->next;
-
-    t_str col5[2] = {
-                        strSNew("Adidas blanche"),
-                        strSNew("Adidas noir")
-                    };
-    tmp->next = dast_csv_new_col(arrSNew(T_STR, 2, col5), strSNew("Casquette"));
-    tmp = tmp->next;
-
-    t_str col6[2] = {
-                        strSNew("Pas cassé"),
-                        strSNew("Cassé")
-                    };
-    tmp->next = dast_csv_new_col(arrSNew(T_STR, 2, col6), strSNew("Ordinateur"));
-    tmp = tmp->next;*/
 
     return csv_test;
 }
