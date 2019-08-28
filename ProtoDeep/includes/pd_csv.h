@@ -15,6 +15,6 @@ typedef struct              s_tokens_list
 }                           t_tokens_list;
 
 // Prototypes
-t_csv_col   *csv_read(char *file_name, int header);
+t_csv      *csv_read(char *file_name, int header);
 
 #endif
