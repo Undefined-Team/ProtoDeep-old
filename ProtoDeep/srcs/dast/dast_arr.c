@@ -108,7 +108,7 @@ void    dast_free_arr(t_arr arr)
     if (arr.type == T_ARR)
     {
         for (size_t i = 0; i < arr.len; i++)
-            dast_free_arr(*((t_arr*)arr.val));
+            dast_free_arr(((t_arr*)arr.val)[i]);
     }
     dast_free((void**)&arr.val);
 }
