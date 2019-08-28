@@ -5,6 +5,8 @@
 
 // Macro
 #define EXPO_E 2.718281801
+#define white_space(c) ((c) == ' ' || (c) == '\t')
+#define valid_digit(c) ((c) >= '0' && (c) <= '9')
 
 // Structures
 
@@ -13,7 +15,7 @@ float       math_max(float x, float y);
 float       math_min(float x, float y);
 float       math_max_a(t_float_a x);
 float       math_min_a(t_float_a x);
-float       math_atof(const char* s);
+float       math_atof(const char *p);
 void        math_si_sort(t_arr arr);
 
 float       math_sigmoid(float x);

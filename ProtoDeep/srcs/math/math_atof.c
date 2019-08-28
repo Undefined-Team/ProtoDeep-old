@@ -1,28 +1,52 @@
 #include "pd_main.h"
 
-float   math_atof(const char* s){
-  float rez = 0;
-  float fact = 1;
-  int   d;
+float math_atof(const char *p)
+{
+    int frac;
+    float sign, value, scale;
 
-  if (*s == '-')
-  {
-    s++;
-    fact = -1;
-  }
-  for (int point_seen = 0; *s; s++)
-  {
-    if (*s == '.')
+    while (white_space(*p) )
+        p += 1;
+    sign = 1.0;
+    if (*p == '-')
     {
-      point_seen = 1; 
-      continue;
+        sign = -1.0;
+        p += 1;
     }
-    d = *s - '0';
-    if (d >= 0 && d <= 9)
+    else if (*p == '+')
+        p += 1;
+    for (value = 0.0; valid_digit(*p); p += 1)
+        value = value * 10.0 + (*p - '0');
+    if (*p == '.')
     {
-      if (point_seen) fact /= 10.0f;
-      rez = rez * 10.0f + (float)d;
+        float pow10 = 10.0;
+        p += 1;
+        while (valid_digit(*p))
+        {
+            value += (*p - '0') / pow10;
+            pow10 *= 10.0;
+            p += 1;
+        }
     }
-  }
-  return rez * fact;
+    frac = 0;
+    scale = 1.0;
+    if ((*p == 'e') || (*p == 'E'))
+    {
+        unsigned int expon;
+        p += 1;
+        if (*p == '-')
+        {
+            frac = 1;
+            p += 1;
+        }
+        else if (*p == '+')
+            p += 1;
+        for (expon = 0; valid_digit(*p); p += 1)
+            expon = expon * 10 + (*p - '0');
+        if (expon > 308) expon = 308;
+        while (expon >= 50) { scale *= 1E50; expon -= 50; }
+        while (expon >=  8) { scale *= 1E8;  expon -=  8; }
+        while (expon >   0) { scale *= 10.0; expon -=  1; }
+    }
+    return sign * (frac ? (value / scale) : (value * scale));
 }

@@ -4,6 +4,7 @@
 // Lib
 
 // Macro
+# define DBUG_PREC 3
 
 // Structures
 # define COLOR_N    "\x1b[0m"

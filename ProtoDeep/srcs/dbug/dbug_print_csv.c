@@ -1,5 +1,15 @@
 #include "pd_main.h"
 
+size_t  math_nbr_len(float nbr)
+{
+    size_t i = 0;
+
+    nbr *= nbr < 0 ? -1 : 1;
+    while (nbr >= 1 && ++i)
+        nbr /= 10;
+    return i < 1 ? 1 : i;
+}
+
 size_t utf8len(char *s)
 {
     size_t len = 0;
@@ -26,6 +36,23 @@ size_t  get_str_max_len(t_arr arr)
     return max;
 }
 
+size_t  get_float_max_len(t_arr arr)
+{
+    if (arr.type != T_FLOAT)
+        return 0;
+    
+    size_t tmp;
+    size_t max = 0;
+    float *carr = (float*)arr.val;
+    for (size_t i = 0; i < arr.len; i++)
+    {
+        tmp = math_nbr_len(carr[i]);
+        if (tmp > max)
+            max = tmp;
+    }
+    return max;
+}
+
 void    dbug_print_csv(t_csv csv)
 {
     size_t      col = 0;
@@ -37,7 +64,7 @@ void    dbug_print_csv(t_csv csv)
         if (tmp->columns.type == T_STR)
             str_max_len[col] = get_str_max_len(tmp->columns);
         else
-            str_max_len[col] = 8;
+            str_max_len[col] = get_float_max_len(tmp->columns) + (2 + DBUG_PREC);
         str_max_len[col] = utf8len((char*)tmp->name.val) > str_max_len[col] ? utf8len((char*)tmp->name.val) : str_max_len[col];
         col++;
     }
@@ -63,10 +90,16 @@ void    dbug_print_csv(t_csv csv)
                     printf(" ");
             }
             else if (tmp->columns.type == T_FLOAT)
-                printf("% *g", (int)str_max_len[col], ((float*)tmp->columns.val)[line]);
+            {
+                printf("% .*f", DBUG_PREC, ((float*)tmp->columns.val)[line]);
+                size_t pad = str_max_len[col] - math_nbr_len(((float*)tmp->columns.val)[line]) - (2 + DBUG_PREC); 
+                for (size_t i = 0; i < pad; i++)
+                    printf(" ");
+            }
             printf("%s | ", COLOR_N);
             col++;
         }
         printf("\n");
     }
+    printf("\n");
 }

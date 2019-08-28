@@ -15,7 +15,7 @@ t_csv   get_test_csv(void)
     tmp = dast_csv_new_col(arrSNew(T_STR, 4, col3), strSNew("Zizi"));
     csv_test.begin = tmp;
 
-    float col1[4] = {200, 1, -1, -200};
+    float col1[4] = {200.77777, 1, -1, -200};
     tmp->next = dast_csv_new_col(arrSNew(T_FLOAT, 4, col1), strSNew("Qi"));
     tmp = tmp->next;
 
@@ -51,13 +51,24 @@ t_csv   get_test_csv(void)
     return csv_test;
 }
 
-int main(void)
+void    tim_main(void)
 {
     t_csv test_csv = get_test_csv();
     dbug_print_csv(test_csv);
-    size_t ci[2] = {0, 3};
+    /*size_t ci[2] = {0, 3};
     prep_ohe(&test_csv, arrSNew(T_SIZE_T, 2, ci));
-    //test_csv.width += 3;
+    dbug_print_csv(test_csv);*/
+    size_t del_i[1] = {2};
+    size_t ohe_i[2] = {0, 3};
+    t_csv_conf conf = prep_init_conf(arrSNew(T_SIZE_T, 1, del_i), arrSNew(T_SIZE_T, 2, ohe_i));
+    (void)conf;
+    prep_prepare(&test_csv, &conf);
+    //prep_ohe(&test_csv, arrSNew(T_SIZE_T, 2, ohe_i));
     dbug_print_csv(test_csv);
+}
+
+int main(void)
+{
+    tim_main();
     return (0);
 }

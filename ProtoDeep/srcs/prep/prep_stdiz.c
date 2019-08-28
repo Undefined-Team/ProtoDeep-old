@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-t_float_a   prep_minmax_scal_stdiz(t_float_a x, t_prep_data pdata)
+t_float_a   prep_minmax_scal_stdiz(t_float_a x, t_stdiz_data pdata)
 {
     t_float_a y;
     float som;
@@ -16,7 +16,7 @@ t_float_a   prep_minmax_scal_stdiz(t_float_a x, t_prep_data pdata)
     return y;
 }
 
-t_float_a   prep_minmax_scal_stdiz_init(t_float_a x, t_prep_data *pdata)
+t_float_a   prep_minmax_scal_stdiz_init(t_float_a x, t_stdiz_data *pdata)
 {
     t_float_a y;
     float som;
@@ -35,7 +35,7 @@ t_float_a   prep_minmax_scal_stdiz_init(t_float_a x, t_prep_data *pdata)
     return y;
 }
 
-t_float_a   prep_stdiz(t_float_a x, t_prep_data pdata)
+t_float_a   prep_stdiz(t_float_a x, t_stdiz_data pdata)
 {
     t_float_a y;
 
@@ -43,10 +43,11 @@ t_float_a   prep_stdiz(t_float_a x, t_prep_data pdata)
     y = prep_minmax_scal_stdiz(x, pdata);
     for (size_t i = 0; i < y.len; i++)
         ((float*)y.val)[i] = (((float*)y.val)[i] - pdata.mean) / pdata.std_dev;
+    arrFree(x);
     return y;
 }
 
-t_float_a   prep_stdiz_init(t_float_a x, t_prep_data *pdata)
+t_float_a   prep_stdiz_init(t_float_a x, t_stdiz_data *pdata)
 {
     t_float_a y;
 
@@ -55,5 +56,31 @@ t_float_a   prep_stdiz_init(t_float_a x, t_prep_data *pdata)
     pdata->std_dev = math_stdev(y, pdata->mean);
     for (size_t i = 0; i < y.len; i++)
         ((float*)y.val)[i] = (((float*)y.val)[i] - pdata->mean) / pdata->std_dev;
+    arrFree(x);
     return y;
+}
+
+void        prep_standardize(t_csv *csv, t_csv_conf *conf)
+{
+    size_t i = 0;
+
+    if (conf->std_data.len == 0)
+    {
+        t_stdiz_a new_std_data = arrInit(T_STDIZ, csv->width);
+        for (t_csv_col *col = csv->begin; col; col = col->next)
+        {
+            if (col->columns.type == T_FLOAT)
+                col->columns = prep_stdiz_init(col->columns, &(((t_stdiz_data*)new_std_data.val)[i]));
+            arrFree(conf->std_data);
+            conf->std_data = new_std_data;
+        }
+    }
+    else
+    {
+        for (t_csv_col *col = csv->begin; col; col = col->next)
+        {
+            if (col->columns.type == T_FLOAT)
+                col->columns = prep_stdiz(col->columns, ((t_stdiz_data*)conf->std_data.val)[i]);
+        }     
+    }
 }

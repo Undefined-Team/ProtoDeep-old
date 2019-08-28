@@ -27,7 +27,10 @@ MATH		=	math_log.c			\
 PREP_FLD	=	prep/
 PREP		=	prep_minmax_scal.c	\
 				prep_stdiz.c		\
-				prep_ohe.c			\
+				prep_ohe_delete.c	\
+				prep_init_conf.c 	\
+				prep_prepare.c		\
+				prep_all_to_float.c	\
 
 CSV_FLD		=	csv/
 CSV			=	csv_read.c		\
