@@ -9,7 +9,7 @@ t_arr       dast_init_arr(type type, size_t len)
     new_arr.val = NULL;
     if (len > 0)
     {
-        if (type == T_STR)
+        if (type == T_ARR)
             new_arr.val = malloc(sizeof(t_arr) * len);
         else if (type == T_FLOAT)
             new_arr.val = malloc(sizeof(float) * len);
@@ -21,7 +21,10 @@ t_arr       dast_init_arr(type type, size_t len)
             new_arr.len = 0;
     }
     if (type == T_CHAR && len == 0)
+    {
+        new_arr.val = malloc(sizeof(char));
         ((char *)new_arr.val)[0] = 0;
+    }
     return new_arr;
 }
 
@@ -34,7 +37,7 @@ t_arr   dast_new_s_arr(type type, size_t len, void* val)
     new_arr.val = NULL;
     if (len > 0)
     {
-        if (type == T_STR)
+        if (type == T_ARR)
         {
             t_arr *new_val = malloc(sizeof(t_arr) * len);
             if (new_val)
@@ -98,4 +101,14 @@ t_arr   dast_new_arr(type type, size_t len, void* val)
         new_arr.val = val;
     }
     return new_arr;
+}
+
+void    dast_free_arr(t_arr arr)
+{
+    if (arr.type == T_ARR)
+    {
+        for (size_t i = 0; i < arr.len; i++)
+            dast_free_arr(*((t_arr*)arr.val));
+    }
+    dast_free((void**)&arr.val);
 }

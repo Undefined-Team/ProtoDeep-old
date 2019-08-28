@@ -46,13 +46,9 @@ STR			=	str_len.c			\
 				str_chr.c			\
 
 DAST_FLD	=	dast/
-DAST		=	dast_new_farr.c				\
-				dast_new_tbnode.c 			\
-				dast_new_carr.c				\
-				dast_new_static_carr.c		\
+DAST		=	dast_tbnode.c 				\
 				dast_free.c					\
-				dast_csv_new_col.c			\
-				dast_init_varr.c			\
+				dast_csv_col.c				\
 				dast_arr.c					\
 
 DBUG_FLD	=	dbug/

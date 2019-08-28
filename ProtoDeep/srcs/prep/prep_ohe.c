@@ -11,7 +11,7 @@ void        add_line(t_csv_col *begin_col, size_t col_index, size_t line_index)
     }
 }
 
-t_csv_col   *add_col(t_csv_col *last_col, size_t nbr_line, size_t max_line, t_str name)
+t_csv_col   *add_col(t_csv_col *last_col, size_t nbr_line, size_t max_line, t_char_a name)
 {
     if (!last_col)
         last_col = dast_csv_new_col(dast_init_arr(T_FLOAT, nbr_line), name);
@@ -25,20 +25,25 @@ t_csv_col   *add_col(t_csv_col *last_col, size_t nbr_line, size_t max_line, t_st
     return last_col;
 }
 
-t_str      found_word(t_tbnode *f_begin, int *new_index, int *total_index)
+t_char_a      found_word(t_tbnode *f_begin, int *new_index, int *total_index)
 {
     *total_index = *total_index + 1;
     f_begin->word_index = *total_index;
     *new_index = *total_index;
-    return (str_char_to_str(f_begin->c));
+    // ----------
+    t_arr testest = str_char_to_str(f_begin->c);
+    printf("=== FIRST CHAR = %s %zd\n", (char*)testest.val, testest.len);
+    // ----------
+    return testest;
 }
 
-t_str      update_bin_tree(t_tbnode *node, char *str, int *new_index, int *total_index)
+t_char_a      update_bin_tree(t_tbnode *node, char *str, int *new_index, int *total_index)
 {
-    t_tbnode *f_begin = node->f_begin;
-    t_tbnode *tmp = NULL;
-    t_str    result;
+    t_tbnode    *f_begin = node->f_begin;
+    t_tbnode    *tmp = NULL;
+    t_char_a    result;
 
+    printf("COUCOU nest = |%c|\n", *(str + 1));
     while (f_begin)
     {
         if (f_begin->c == *str)
@@ -59,6 +64,7 @@ t_str      update_bin_tree(t_tbnode *node, char *str, int *new_index, int *total
         tmp = f_begin;
         f_begin = f_begin->next;
     }
+    // Add new node to binary tree
     if (!node->f_begin) // Child list empty
     {
         node->f_begin = dast_new_tbnode(*str, -1); // Create first child
@@ -72,7 +78,12 @@ t_str      update_bin_tree(t_tbnode *node, char *str, int *new_index, int *total
     if (*(str + 1) == '\0') // If it's the last char
         return (found_word(f_begin, new_index, total_index));
     result = update_bin_tree(f_begin, ++str, new_index, total_index);
-    return result.len == 0 ? result : str_fjoin(str_char_to_str(f_begin->c), result);  // Go deeper
+    //--------------
+    printf("OHOHOH |%c| + |%s|(%zd)\n", f_begin->c, (char*)result.val, result.len);
+    t_arr testest = str_fjoin(str_char_to_str(f_begin->c), result);
+
+    //--------------
+    return result.len == 0 ? result : testest;  // Go deeper
 }
 
 
@@ -83,15 +94,19 @@ t_csv_col *cols_generator(t_csv_col **col)
     t_csv_col       *begin_col = NULL;
     t_csv_col       *last_col = NULL;
     t_csv_col       *f_tmp;
-    t_str           name;
+    t_char_a        name;
     int             new_index;
     int             total_index = -1;
 
+    printf("-- >TARGET = %s\n", (char*)(*col)->name.val);
     f_tmp = *col;
     *col = (*col)->next;
     for (size_t i = 0; i < str_arr.len; i++)
     {
-        name = update_bin_tree(tbegin, (char*)(((t_str*)str_arr.val)[i].val), &new_index, &total_index);
+        printf("test6 -- %s\n", (char*)(((t_char_a*)str_arr.val)[i].val));
+
+        name = update_bin_tree(tbegin, (char*)(((t_char_a*)str_arr.val)[i].val), &new_index, &total_index);
+        printf("test7\n");
         if (name.len == 0)
             add_line(begin_col, new_index, i);
         else
@@ -104,7 +119,12 @@ t_csv_col *cols_generator(t_csv_col **col)
     }
     last_col->next = *col;
     (void)f_tmp;
-    //free_col(f_tmp); ATTENTION FAUT FAIRE CETTE FONCTION QUI PEUT CLEAN UN PEUT TOUT
+    printf("AHAHA 1\n");
+    printf("-- > JE DOIS FREE CA = %s\n", (char*)f_tmp->name.val);
+    //dast_csv_free_col(f_tmp);
+    printf("AHAHA 2\n");
+    dast_free_tbnode(tbegin);
+    printf("AHAHA 3\n");
     return begin_col;
 }
 
@@ -127,12 +147,16 @@ void    prep_ohe(t_csv *csv, t_arr col_indexs)
         }
         if (col->columns.type == T_STR)
         {
-            tmp = cols_generator(&col);
+            printf("test0\n");
+
+            tmp = cols_generator(&col); //col = last new, tmp = first new
             if (before)
                 before->next = tmp->next;
             else
                 csv->begin = tmp->next;
-            //free_col(tmp);
+            printf("-- > ET MAINTENANT CA = %s %d\n", (char*)tmp->name.val, tmp->columns.type);
+            dast_csv_free_col(tmp);
+            printf("test5\n");
         }
     }
     i = 0;
@@ -149,5 +173,6 @@ Taches :
 -  | sbedene dst_new_col faut la regarder
 -  | Gerer erreur de type
 - Gerer erreur de index dans col
-- Faire la fonction de free
+- Faire la fonction de free col
+- Faire la fonction de free tbtnode
 */

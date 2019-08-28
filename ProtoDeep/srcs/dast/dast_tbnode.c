@@ -12,3 +12,17 @@ t_tbnode  *dast_new_tbnode(char c, int word_index)
     new_node->word_index = word_index;
     return new_node;
 }
+
+void    dast_free_tbnode(t_tbnode *begin)
+{
+    t_tbnode *lst = begin->f_begin;
+    t_tbnode *tmp;
+
+    while (lst)
+    {
+        tmp = lst;
+        lst = lst->next;
+        dast_free_tbnode(tmp);
+    }
+    dast_free((void**)&begin);
+}

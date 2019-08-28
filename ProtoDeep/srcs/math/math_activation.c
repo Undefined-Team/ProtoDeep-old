@@ -20,18 +20,19 @@ float   math_tanh(float x)
     return 1 - (2 / (math_exp(2 * x) + 1));
 }
 
-t_farr   math_softmax(t_farr x)
+t_float_a   math_softmax(t_float_a x)
 {
     float sum = 0;
-    t_farr y;
+    t_float_a y;
 
-    y = dast_new_farr(x.len);
+    PROT_ARR_TYPE(x.type, T_FLOAT);
+    y = arrInit(T_FLOAT, x.len);
     for (size_t i = 0; i < y.len; i++)
     {
-        y.arr[i] = math_exp(x.arr[i]);
-        sum += y.arr[i];
+        ((float*)y.val)[i] = math_exp(((float*)x.val)[i]);
+        sum += ((float*)y.val)[i];
     }
     for (size_t i = 0; i < y.len; i++)
-        y.arr[i] /= sum;
+        ((float*)y.val)[i] /= sum;
     return y;
 }
