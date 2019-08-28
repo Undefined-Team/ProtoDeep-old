@@ -93,7 +93,4 @@ t_arr           dast_init_arr(type type, size_t len);
 t_arr           dast_new_s_arr(type type, size_t len, void* val);
 t_arr           dast_new_arr(type type, size_t len, void* val);
 
-//t_csv_float_col *dast_csv_new_float_col(int type, size_t len);
-//t_csv_str_col   *dast_csv_new_str_col(int type, size_t len);
-
 #endif

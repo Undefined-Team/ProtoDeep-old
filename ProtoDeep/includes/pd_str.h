@@ -17,8 +17,6 @@ t_arr  str_sub(t_arr str, size_t start, size_t length);
 t_arr str_split(t_arr str, char sep);
 t_arr  str_whitespace(t_arr str);
 t_arr  str_fill(char c, size_t len);
-//t_carr  str_add_char(t_carr str, char c);
-//t_carr  str_char_to_str(char c);
 t_str   str_char_to_str(char c);
 int     str_chr(t_arr str, char c);
 

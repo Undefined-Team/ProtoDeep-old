@@ -79,7 +79,6 @@ t_str      update_bin_tree(t_tbnode *node, char *str, int *new_index, int *total
 t_csv_col *cols_generator(t_csv_col **col)
 {
     t_tbnode        *tbegin = dast_new_tbnode('\0', -2);
-    //t_starr         *str_arr = *col->columns->arr;
     t_arr           str_arr = (*col)->columns;
     t_csv_col       *begin_col = NULL;
     t_csv_col       *last_col = NULL;
@@ -113,28 +112,27 @@ void    prep_ohe(t_csv *csv, t_arr col_indexs)
 {
     // Error if col is not of type t_carr
     // Error if indexs in col_indexs is out of range
-    t_csv_col *col = csv->begin;
-    size_t i = 0;
-    t_csv_col *before = NULL;
+    t_csv_col   *col = csv->begin;
+    size_t      i = 0;
+    t_csv_col   *before = NULL;
+    t_csv_col   *tmp = NULL;
 
     math_si_sort(col_indexs);
     for (size_t j = 0; j < col_indexs.len; j++)
     {
-        while (i++ < ((size_t*)col_indexs.val)[j])
+        while (i++ < ((size_t*)col_indexs.val)[j] && col)
         {
             before = col;
             col = col->next;
         }
         if (col->columns.type == T_STR)
         {
-            printf("tamere\n");
+            tmp = cols_generator(&col);
             if (before)
-                before->next = cols_generator(&col);
+                before->next = tmp->next;
             else
-            {
-                col = cols_generator(&col);
-                //col = before;
-            }
+                csv->begin = tmp->next;
+            //free_col(tmp);
         }
     }
     i = 0;
@@ -147,8 +145,9 @@ void    prep_ohe(t_csv *csv, t_arr col_indexs)
 Taches :
 -  | str_add_char
 -  | str_char_to_str
-- math_sort_siarr
-- sbedene dst_new_col faut la regarder
-- Gerer erreur de type
+-  | math_sort_siarr
+-  | sbedene dst_new_col faut la regarder
+-  | Gerer erreur de type
 - Gerer erreur de index dans col
+- Faire la fonction de free
 */
