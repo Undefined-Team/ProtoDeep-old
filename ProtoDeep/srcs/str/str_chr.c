@@ -2,14 +2,8 @@
 
 int     str_chr(t_arr str, char c)
 {
-    size_t  i;
-
-    i = 0;
-    while (((char *)str.val)[i])
-    {
+    for (size_t i = 0; ((char *)str.val)[i]; i++)
         if (((char *)str.val)[i] == c)
-            return (1);
-        i++;
-    }
+            return (i + 1);
     return (0);
 }

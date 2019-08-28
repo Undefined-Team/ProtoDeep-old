@@ -65,7 +65,10 @@ t_arr     str_split(t_arr str, char sep)
     while (curr)
     {
         ((t_arr *)tokens.val)[count++] = str_dup(curr->word, curr->word.len);
+        // printf("%s\n", ((char *)curr->word.val));
+        // printf("%s\n", ((char *)((t_arr *)tokens.val)[count - 1].val) );
         curr = curr->next;
     }
+    tokens.len = count;
     return (tokens);
 }

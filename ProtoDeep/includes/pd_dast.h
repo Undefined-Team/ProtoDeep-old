@@ -12,7 +12,10 @@
 
 # define strNew(x)              arrNew(T_CHAR, 1, x)
 # define strSNew(x)             arrSNew(T_CHAR, 1, x)
-# define t_str                  t_arr
+# define t_str                  t_arr // A CHANGER EN CHAR_A
+# define t_float_a              t_arr
+# define t_size_t_a             t_arr
+# define t_str_a                t_arr
 
 // Structures
 typedef enum {false,true} bool;

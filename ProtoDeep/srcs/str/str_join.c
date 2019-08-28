@@ -17,6 +17,7 @@ t_arr  str_join(t_arr head, t_arr tail)
     j = -1;
     while (++j < tail.len && ((char *)tail.val)[j])
         ((char *)joined.val)[i + j] = ((char *)tail.val)[j];
+    ((char *)joined.val)[i + j] = '\0';
     joined.len = str_len(joined);
     return (joined);
 }
