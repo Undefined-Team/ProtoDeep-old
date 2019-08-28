@@ -30,11 +30,7 @@ t_char_a      found_word(t_tbnode *f_begin, int *new_index, int *total_index)
     *total_index = *total_index + 1;
     f_begin->word_index = *total_index;
     *new_index = *total_index;
-    // ----------
-    t_arr testest = str_char_to_str(f_begin->c);
-    printf("=== FIRST CHAR = %s %zd\n", (char*)testest.val, testest.len);
-    // ----------
-    return testest;
+    return str_char_to_str(f_begin->c);
 }
 
 t_char_a      update_bin_tree(t_tbnode *node, char *str, int *new_index, int *total_index)
@@ -43,7 +39,6 @@ t_char_a      update_bin_tree(t_tbnode *node, char *str, int *new_index, int *to
     t_tbnode    *tmp = NULL;
     t_char_a    result;
 
-    printf("COUCOU nest = |%c|\n", *(str + 1));
     while (f_begin)
     {
         if (f_begin->c == *str)
@@ -76,14 +71,9 @@ t_char_a      update_bin_tree(t_tbnode *node, char *str, int *new_index, int *to
         f_begin = tmp->next;
     }
     if (*(str + 1) == '\0') // If it's the last char
-        return (found_word(f_begin, new_index, total_index));
+        return (found_word(f_begin, new_index, total_index)); // Ex found new world francais by franc ?
     result = update_bin_tree(f_begin, ++str, new_index, total_index);
-    //--------------
-    printf("OHOHOH |%c| + |%s|(%zd)\n", f_begin->c, (char*)result.val, result.len);
-    t_arr testest = str_fjoin(str_char_to_str(f_begin->c), result);
-
-    //--------------
-    return result.len == 0 ? result : testest;  // Go deeper
+    return result.len == 0 ? result : str_fjoin(str_char_to_str(f_begin->c), result);  // Go deeper
 }
 
 
@@ -98,15 +88,11 @@ t_csv_col *cols_generator(t_csv_col **col)
     int             new_index;
     int             total_index = -1;
 
-    printf("-- >TARGET = %s\n", (char*)(*col)->name.val);
     f_tmp = *col;
     *col = (*col)->next;
     for (size_t i = 0; i < str_arr.len; i++)
     {
-        printf("test6 -- %s\n", (char*)(((t_char_a*)str_arr.val)[i].val));
-
         name = update_bin_tree(tbegin, (char*)(((t_char_a*)str_arr.val)[i].val), &new_index, &total_index);
-        printf("test7\n");
         if (name.len == 0)
             add_line(begin_col, new_index, i);
         else
@@ -118,13 +104,8 @@ t_csv_col *cols_generator(t_csv_col **col)
         }
     }
     last_col->next = *col;
-    (void)f_tmp;
-    printf("AHAHA 1\n");
-    printf("-- > JE DOIS FREE CA = %s\n", (char*)f_tmp->name.val);
-    //dast_csv_free_col(f_tmp);
-    printf("AHAHA 2\n");
+    dast_csv_free_col(f_tmp);
     dast_free_tbnode(tbegin);
-    printf("AHAHA 3\n");
     return begin_col;
 }
 
@@ -147,16 +128,12 @@ void    prep_ohe(t_csv *csv, t_arr col_indexs)
         }
         if (col->columns.type == T_STR)
         {
-            printf("test0\n");
-
             tmp = cols_generator(&col); //col = last new, tmp = first new
             if (before)
                 before->next = tmp->next;
             else
                 csv->begin = tmp->next;
-            printf("-- > ET MAINTENANT CA = %s %d\n", (char*)tmp->name.val, tmp->columns.type);
             dast_csv_free_col(tmp);
-            printf("test5\n");
         }
     }
     i = 0;

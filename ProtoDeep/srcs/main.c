@@ -53,6 +53,11 @@ t_csv   get_test_csv(void)
 
 int main(void)
 {
-    csv_read("./test.csv", 0);
+    t_csv test_csv = get_test_csv();
+    dbug_print_csv(test_csv);
+    size_t ci[2] = {0, 3};
+    prep_ohe(&test_csv, arrSNew(T_SIZE_T, 2, ci));
+    //test_csv.width += 3;
+    dbug_print_csv(test_csv);
     return (0);
 }
