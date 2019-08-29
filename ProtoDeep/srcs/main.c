@@ -43,14 +43,14 @@ void    tim_main(void)
 
     printf("-----------------\n\n");
 
-    /*t_csv csv_2 = get_test_csv();
+    t_csv csv_2 = get_test_csv();
     dbug_print_csv(csv_2);
-    size_t del_i_2[1] = {2};
-    prep_delete(&csv_2, arrSNew(T_SIZE_T, 1, del_i_2));
-    dbug_print_csv(csv_2);
-    size_t ohe_i_2[2] = {0, 2};
-    prep_ohe(&csv_2, arrSNew(T_SIZE_T, 2, ohe_i_2));
-    dbug_print_csv(csv_2);*/
+    //size_t del_i_2[1] = {2};
+    //prep_delete(&csv_2, arrSNew(T_SIZE_T, 1, del_i_2));
+    //dbug_print_csv(csv_2);
+    //size_t ohe_i_2[2] = {0, 2};
+    //prep_ohe(&csv_2, arrSNew(T_SIZE_T, 2, ohe_i_2));
+    //dbug_print_csv(csv_2);
 }
 
 int main(void)

@@ -22,7 +22,6 @@ size_t  get_str_max_len(t_arr arr)
     printf("test7\n");
     if (arr.type != T_STR)
         return 0;
-    
     size_t tmp;
     size_t max = 0;
     t_arr *carr = (t_arr*)arr.val;
@@ -63,9 +62,10 @@ void    dbug_print_csv(t_csv csv)
     size_t      str_max_len[csv.width];
     char        *colors[5] = COLOR_T;
 
-    printf("testest %zd\n", csv.begin->columns.len);
-    printf("testest %zd\n", ((t_arr*)csv.begin->columns.val)[0].len);
-    printf("testest %s\n", (char*)(((t_arr*)csv.begin->columns.val)[0].val));
+    //printf("testest %zd\n", csv.begin->columns.len);
+    //printf("testest %zd\n", ((t_arr*)csv.begin->columns.val)[0]);
+    //printf("testest %s\n", (char*)(((t_arr*)csv.begin->columns.val)[0].val));
+    //printf("testest %f\n", (((float*)csv.begin->columns.val)[0]));
     for (t_csv_col *tmp = csv.begin; tmp; tmp = tmp->next)
     {
         if (tmp->columns.type == T_STR)
