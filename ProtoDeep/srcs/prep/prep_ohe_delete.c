@@ -109,12 +109,12 @@ t_csv_col *cols_generator(t_csv_col **col)
     return begin_col;
 }
 
-void    prep_ohe(t_csv *csv, t_arr col_indexs)
+void    prep_ohe(t_csv *csv, t_size_t_a col_indexs)
 {
     // Error if col is not of type t_carr
     // Error if indexs in col_indexs is out of range
     t_csv_col   *col = csv->begin;
-    size_t      i = 0;
+    size_t       i = 0;
     t_csv_col   *before = NULL;
     t_csv_col   *tmp = NULL;
 
@@ -126,14 +126,113 @@ void    prep_ohe(t_csv *csv, t_arr col_indexs)
             before = col;
             col = col->next;
         }
+        if (!col)
+            break;
+        printf("col %zd %s\n", i, (char*)col->name.val);
         if (col->columns.type == T_STR)
         {
             tmp = cols_generator(&col); //col = last new, tmp = first new
             if (before)
-                before->next = tmp->next;
+                before->next = tmp;
             else
-                csv->begin = tmp->next;
+                csv->begin = tmp;
+            //dast_csv_free_col(tmp);
+        }
+    }
+    i = 0;
+    for (col = csv->begin; col; col = col->next)
+        i++;
+    csv->width = i;
+}
+
+void    prep_delete(t_csv *csv, t_size_t_a col_indexs)
+{
+    // Error if col is not of type t_carr
+    // Error if indexs in col_indexs is out of range
+    t_csv_col   *col = csv->begin;
+    size_t      i = 0;
+    t_csv_col   *before = NULL;
+    t_csv_col   *tmp = NULL;
+
+    math_si_sort(col_indexs);
+    for (size_t j = 0; j < col_indexs.len; j++)
+    {
+        printf("test1\n");
+        while (i++ < ((size_t*)col_indexs.val)[j] && col)
+        {
+            before = col;
+            col = col->next;
+        }
+        printf("test\n");
+        if (!col)
+            break;
+        tmp = col;
+        col = col->next;
+        if (before)
+            before->next = col;
+        else
+            csv->begin = col;
+        printf("test2\n");
+        (void)tmp;
+        //dast_csv_free_col(tmp);
+        printf("test3\n");
+    }
+    printf("test4\n");
+    i = 0;
+    for (col = csv->begin; col; col = col->next)
+        i++;
+    printf("test5\n");
+    csv->width = i;
+}
+
+void    prep_ohe_delete(t_csv *csv, t_size_t_a ohe_indexs, t_size_t_a del_indexs)
+{
+    // Error if col is not of type t_carr
+    // Error if indexs in ohe_indexs is out of range
+    t_csv_col   *col = csv->begin;
+    size_t         i = 0;
+    size_t      j_ohe = 0;
+    size_t      j_del = 0;
+    t_csv_col   *before = NULL;
+    t_csv_col   *tmp = NULL;
+
+    math_si_sort(ohe_indexs);
+    math_si_sort(del_indexs);
+    while (col && (j_ohe < ohe_indexs.len || j_del < del_indexs.len))
+    {
+        if (j_del < del_indexs.len && ((size_t*)del_indexs.val)[j_del] == i)
+        {
+            tmp = col;
+            col = col->next;
+            if (before)
+                before->next = col;
+            else
+                csv->begin = col;
             dast_csv_free_col(tmp);
+            j_del++;
+            i++;
+        }
+        else if (j_ohe < ohe_indexs.len && ((size_t*)ohe_indexs.val)[j_ohe] == i)
+        {
+            if (col->columns.type == T_STR)
+            {
+                tmp = cols_generator(&col); //col = last new, tmp = first new
+                if (before)
+                    before->next = tmp;
+                else
+                    csv->begin = tmp;
+                //dast_csv_free_col(tmp);
+                i++;
+            }
+    	    j_ohe++;
+        }
+        else
+        {
+            if (!col)
+                break;
+            before = col;
+            col = col->next;
+            i++;
         }
     }
     i = 0;
@@ -143,13 +242,9 @@ void    prep_ohe(t_csv *csv, t_arr col_indexs)
 }
 
 /*
-Taches :
--  | str_add_char
--  | str_char_to_str
--  | math_sort_siarr
--  | sbedene dst_new_col faut la regarder
--  | Gerer erreur de type
-- Gerer erreur de index dans col
-- Faire la fonction de free col
-- Faire la fonction de free tbtnode
+
+- Faire que *col = last_col pour mieux utiliser les i et economiser des lignes
+- Sauvegarder l arbre binaire dans conf
+- Faire une fonction d utilisation de l arbre binaire (Si un mot n est pas trouve alors 0 dans chaque ligne)
+
 */

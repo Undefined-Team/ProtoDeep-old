@@ -7,7 +7,7 @@ t_csv   get_test_csv(void)
     t_csv_col *tmp;
 
     csv_test.height = 4;
-    csv_test.width = 3;
+    csv_test.width = 4;
 
 
     t_char_a col3[4] = {strSNew("Gros"), strSNew("Pitit"), strSNew("Moyen"), strSNew("Moyen")};
@@ -15,7 +15,7 @@ t_csv   get_test_csv(void)
     tmp = dast_csv_new_col(arrSNew(T_STR, 4, col3), strSNew("Zizi"));
     csv_test.begin = tmp;
 
-    float col1[4] = {200, 1, -1, -200};
+    float col1[4] = {200.77777, 1, -1, -200};
     tmp->next = dast_csv_new_col(arrSNew(T_FLOAT, 4, col1), strSNew("Qi"));
     tmp = tmp->next;
 
@@ -23,41 +23,37 @@ t_csv   get_test_csv(void)
     tmp->next = dast_csv_new_col(arrSNew(T_STR, 4, col2), strSNew("Name"));
     tmp = tmp->next;
 
-    t_char_a col4[4] = {strSNew("Ca va"), strSNew("Musclee"), strSNew("Musclee"), strSNew("Musclee")};
+    t_char_a col4[4] = {strSNew("Ca va"), strSNew("Musclée"), strSNew("Musclée"), strSNew("Musclée")};
     tmp->next = dast_csv_new_col(arrSNew(T_STR, 4, col4), strSNew("Main droite"));
     tmp = tmp->next;
-    
-    /*t_str col4[2] = {
-                        strSNew("Pas bridé"),
-                        strSNew("bridé")
-                    };
-    tmp->next = dast_csv_new_col(arrSNew(T_STR, 2, col4), strSNew("Yeux"));
-    tmp = tmp->next;
-
-    t_str col5[2] = {
-                        strSNew("Adidas blanche"),
-                        strSNew("Adidas noir")
-                    };
-    tmp->next = dast_csv_new_col(arrSNew(T_STR, 2, col5), strSNew("Casquette"));
-    tmp = tmp->next;
-
-    t_str col6[2] = {
-                        strSNew("Pas cassé"),
-                        strSNew("Cassé")
-                    };
-    tmp->next = dast_csv_new_col(arrSNew(T_STR, 2, col6), strSNew("Ordinateur"));
-    tmp = tmp->next;*/
 
     return csv_test;
 }
 
+void    tim_main(void)
+{
+    t_csv csv_1 = get_test_csv();
+    dbug_print_csv(csv_1);
+    size_t del_i_1[1] = {2};
+    size_t ohe_i_1[2] = {0, 3};
+    t_csv_conf conf = prep_init_conf(arrSNew(T_SIZE_T, 1, del_i_1), arrSNew(T_SIZE_T, 2, ohe_i_1));
+    prep_prepare(&csv_1, &conf);
+    dbug_print_csv(csv_1);
+
+    printf("-----------------\n\n");
+
+    t_csv csv_2 = get_test_csv();
+    dbug_print_csv(csv_2);
+    size_t del_i_2[1] = {2};
+    prep_delete(&csv_2, arrSNew(T_SIZE_T, 1, del_i_2));
+    dbug_print_csv(csv_2);
+    //size_t ohe_i_2[2] = {0, 2};
+    //prep_ohe(&csv_2, arrSNew(T_SIZE_T, 2, ohe_i_2));
+    //dbug_print_csv(csv_2);
+}
+
 int main(void)
 {
-    t_csv *csv = csv_read("./test.csv", 1);
-    dbug_print_csv(*csv);
-    // size_t ci[2] = {0, 2};
-    // prep_ohe(csv, arrSNew(T_SIZE_T, 2, ci));
-    // //csv.width += 3;
-    // dbug_print_csv(*csv);
+    tim_main();
     return (0);
 }

@@ -15,6 +15,8 @@ t_arr       dast_init_arr(type type, size_t len)
             new_arr.val = malloc(sizeof(float) * len);
         else if (type == T_SIZE_T)
             new_arr.val = malloc(sizeof(size_t) * len);
+        else if (type == T_STDIZ)
+            new_arr.val = malloc(sizeof(t_stdiz_data) * len);
         else if (type == T_CHAR)
             new_arr.val = malloc(sizeof(char) * (len + 1));
         if (!new_arr.val)
@@ -64,6 +66,16 @@ t_arr   dast_new_s_arr(type type, size_t len, void* val)
             {
                 for (size_t i = 0; i < len; i++)
                     new_val[i] = ((size_t*)val)[i];
+                new_arr.val = (void*)new_val;
+            }
+        }
+        else if (type == T_STDIZ)
+        {
+            t_stdiz_data *new_val = malloc(sizeof(t_stdiz_data) * len);
+            if (new_val)
+            {
+                for (size_t i = 0; i < len; i++)
+                    new_val[i] = ((t_stdiz_data*)val)[i];
                 new_arr.val = (void*)new_val;
             }
         }

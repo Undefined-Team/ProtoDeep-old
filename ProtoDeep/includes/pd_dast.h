@@ -19,6 +19,7 @@
 # define t_float_a              t_arr
 # define t_size_t_a             t_arr
 # define t_str_a                t_arr
+# define t_stdiz_a              t_arr
 
 # define PROT_MALLOC(x)         if (!(x)) {return NULL;}
 # define PROT_ARR_TYPE(x, y)    if (x != y) {return arrNew(y, 0, NULL);}
@@ -27,7 +28,7 @@
 
 // Structures
 typedef enum {false,true} bool;
-typedef enum {T_ARR, T_FLOAT, T_SIZE_T, T_CHAR} type;
+typedef enum {T_ARR, T_FLOAT, T_SIZE_T, T_CHAR, T_STDIZ} type;
 
 typedef struct      s_arr {
     void            *val;
@@ -39,7 +40,7 @@ typedef struct      s_arr {
 
 typedef struct          s_csv_col
 {
-    t_arr                name;
+    t_arr               name;
     struct s_csv_col    *next;
     t_arr               columns;
 }                       t_csv_col;

@@ -5,6 +5,8 @@
 
 // Macro
 #define EXPO_E 2.718281801
+#define white_space(c) ((c) == ' ' || (c) == '\t')
+#define valid_digit(c) ((c) >= '0' && (c) <= '9')
 
 // Structures
 
