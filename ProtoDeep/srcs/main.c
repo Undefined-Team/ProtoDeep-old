@@ -31,28 +31,42 @@ t_csv   get_test_csv(void)
 
 void    tim_main(void)
 {
+    t_csv csv = csv_read("./test.csv", 1);
+    dbug_print_csv(csv);
+
     t_csv csv_1 = get_test_csv();
     dbug_print_csv(csv_1);
     size_t del_i_1[1] = {2};
     size_t ohe_i_1[2] = {0, 3};
+    //t_char_a del_n_1[1] = {strNew("Name")};
+    //t_char_a ohe_n_1[2] = {strNew("Zizi"), strNew("Main droite")};
     t_csv_conf conf = prep_init_conf(arrSNew(T_SIZE_T, 1, del_i_1), arrSNew(T_SIZE_T, 2, ohe_i_1));
     prep_prepare(&csv_1, &conf);
     dbug_print_csv(csv_1);
+
     csv_free(csv_1);
+    csv_conf_free(conf);
 
     printf("-----------------\n\n");
 
     t_csv csv_2 = get_test_csv();
     dbug_print_csv(csv_2);
+
     size_t del_i_2[1] = {2};
     prep_delete(&csv_2, arrSNew(T_SIZE_T, 1, del_i_2));
     dbug_print_csv(csv_2);
+
     size_t ohe_i_2[2] = {0, 2};
     prep_ohe(&csv_2, arrSNew(T_SIZE_T, 2, ohe_i_2));
     dbug_print_csv(csv_2);
 
+    prep_all_to_float(csv_2);
+    t_stdiz_a stdiz_data = prep_strandardize_init(csv_2);
+    (void)stdiz_data;
+    dbug_print_csv(csv_2);
+
+    arrFree(stdiz_data);
     csv_free(csv_2);
-    csv_conf_free(conf);
 }
 
 int main(void)

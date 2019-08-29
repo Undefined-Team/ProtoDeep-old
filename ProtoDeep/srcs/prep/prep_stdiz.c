@@ -60,27 +60,28 @@ t_float_a   prep_stdiz_init(t_float_a x, t_stdiz_data *pdata)
     return y;
 }
 
-void        prep_standardize(t_csv *csv, t_csv_conf *conf)
+void        prep_standardize(t_csv csv, t_stdiz_a std_data)
 {
     size_t i = 0;
 
-    if (conf->std_data.len == 0)
+    for (t_csv_col *col = csv.begin; col; col = col->next)
     {
-        t_stdiz_a new_std_data = arrInit(T_STDIZ, csv->width);
-        for (t_csv_col *col = csv->begin; col; col = col->next)
-        {
-            if (col->columns.type == T_FLOAT)
-                col->columns = prep_stdiz_init(col->columns, &(((t_stdiz_data*)new_std_data.val)[i]));
-        }
-        arrFree(conf->std_data);
-        conf->std_data = new_std_data;
+        if (col->columns.type == T_FLOAT)
+            col->columns = prep_stdiz(col->columns, ((t_stdiz_data*)std_data.val)[i]);
+        i++;
     }
-    else
+}
+
+t_stdiz_a    prep_strandardize_init(t_csv csv)
+{
+    size_t i = 0;
+
+    t_stdiz_a new_std_data = arrInit(T_STDIZ, csv.width);
+    for (t_csv_col *col = csv.begin; col; col = col->next)
     {
-        for (t_csv_col *col = csv->begin; col; col = col->next)
-        {
-            if (col->columns.type == T_FLOAT)
-                col->columns = prep_stdiz(col->columns, ((t_stdiz_data*)conf->std_data.val)[i]);
-        }     
+        if (col->columns.type == T_FLOAT)
+            col->columns = prep_stdiz_init(col->columns, &(((t_stdiz_data*)new_std_data.val)[i]));
+        i++;
     }
+    return new_std_data;
 }
