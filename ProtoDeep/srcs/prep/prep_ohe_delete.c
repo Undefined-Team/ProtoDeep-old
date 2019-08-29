@@ -94,7 +94,10 @@ t_csv_col *cols_generator(t_csv_col **col)
     {
         name = update_bin_tree(tbegin, (char*)(((t_char_a*)str_arr.val)[i].val), &new_index, &total_index);
         if (name.len == 0)
+        {
             add_line(begin_col, new_index, i);
+            arrFree(name);
+        }
         else
         {
             last_col = add_col(last_col, str_arr.len, i, name);
@@ -128,7 +131,6 @@ void    prep_ohe(t_csv *csv, t_size_t_a col_indexs)
         }
         if (!col)
             break;
-        printf("col %zd %s\n", i, (char*)col->name.val);
         if (col->columns.type == T_STR)
         {
             tmp = cols_generator(&col); //col = last new, tmp = first new

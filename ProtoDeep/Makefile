@@ -37,6 +37,7 @@ CSV_FLD		=	csv/
 CSV			=	csv_read.c			\
 				csv_tokens.c		\
 				csv_cols.c			\
+				csv_free.c 			\
 
 STR_FLD		=	str/
 STR			=	str_len.c			\

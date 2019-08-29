@@ -20,7 +20,6 @@ size_t utf8len(char *s)
 
 size_t  get_str_max_len(t_arr arr)
 {
-    printf("test7\n");
     if (arr.type != T_STR)
         return 0;
     size_t tmp;
@@ -30,9 +29,7 @@ size_t  get_str_max_len(t_arr arr)
     {
         if (carr[i].type != T_CHAR)
             return 0;
-        printf("test9 %s\n", (char*)carr[i].val);
         tmp = utf8len((char*)carr[i].val);
-        printf("test10\n");
         if (tmp > max)
             max = tmp;
     }
@@ -41,7 +38,6 @@ size_t  get_str_max_len(t_arr arr)
 
 size_t  get_float_max_len(t_arr arr)
 {
-    printf("test8\n");
     if (arr.type != T_FLOAT)
         return 0;
     
@@ -63,17 +59,12 @@ void    dbug_print_csv(t_csv csv)
     size_t      str_max_len[csv.width];
     char        *colors[5] = COLOR_T;
 
-    //printf("testest %zd\n", csv.begin->columns.len);
-    //printf("testest %zd\n", ((t_arr*)csv.begin->columns.val)[0]);
-    //printf("testest %s\n", (char*)(((t_arr*)csv.begin->columns.val)[0].val));
-    //printf("testest %f\n", (((float*)csv.begin->columns.val)[0]));
     for (t_csv_col *tmp = csv.begin; tmp; tmp = tmp->next)
     {
         if (tmp->columns.type == T_STR)
             str_max_len[col] = get_str_max_len(tmp->columns);
         else
             str_max_len[col] = get_float_max_len(tmp->columns) + (2 + DBUG_PREC);
-        printf("test6\n");
         str_max_len[col] = utf8len((char*)tmp->name.val) > str_max_len[col] ? utf8len((char*)tmp->name.val) : str_max_len[col];
         col++;
     }
