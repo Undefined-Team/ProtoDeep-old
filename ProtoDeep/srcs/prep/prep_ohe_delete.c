@@ -121,6 +121,7 @@ void    prep_ohe(t_csv *csv, t_size_t_a col_indexs)
     t_csv_col   *before = NULL;
     t_csv_col   *tmp = NULL;
 
+    //col_indexs = dast_name_sort(csv, col_indexs);
     math_si_sort(col_indexs);
     for (size_t j = 0; j < col_indexs.len; j++)
     {
@@ -156,6 +157,7 @@ void    prep_delete(t_csv *csv, t_size_t_a col_indexs)
     t_csv_col   *before = NULL;
     t_csv_col   *tmp = NULL;
 
+    //col_indexs = dast_name_sort(csv, col_indexs);
     math_si_sort(col_indexs);
     for (size_t j = 0; j < col_indexs.len; j++)
     {
