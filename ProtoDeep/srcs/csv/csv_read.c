@@ -4,7 +4,6 @@ t_csv       csv_init(t_csv_col *cols, int header, size_t width, size_t height)
 {
     t_csv   csv;
 
-    // csv = (t_csv *)malloc(sizeof(t_csv));
     csv.begin = cols;
     csv.width = width;
     csv.height = height - header;

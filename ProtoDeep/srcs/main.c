@@ -29,11 +29,10 @@ t_csv   get_test_csv(void)
     return csv_test;
 }
 
-void    tim_main(t_csv csv)
+void    tim_main(void)
 {
-    if (csv_1.begin)
-        csv_1 = csv_1;
-    dbug_print_csv(csv);
+    t_csv csv_1 = get_test_csv();
+    dbug_print_csv(csv_1);
     size_t ohe_i_1[2] = {0, 3};
     //t_char_a del_n_1[1] = {strNew("Name")};
     //t_char_a ohe_n_1[2] = {strNew("Zizi"), strNew("Main droite")};
@@ -69,6 +68,7 @@ void    tim_main(t_csv csv)
 int main(void)
 {
     t_csv   csv = csv_read("./test.csv", 1);
-    tim_main(csv);
+    dbug_print_csv(csv);
+    tim_main();
     return (0);
 }

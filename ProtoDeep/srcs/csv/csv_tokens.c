@@ -26,9 +26,7 @@ t_char_a csv_retrieve_line(t_char_a *content)
 
     if ((len = str_chr(*content, '\n')))
     {
-        line = str_dup(*content, len);
-        printf("%d\n", (int)((char *)line.val)[line.len - 1]);
-        ((char *)line.val)[line.len] = 0;
+        line = str_dup(*content, len - 2);
         *content = str_sub(*content, len, content->len);
     }
     else
@@ -65,7 +63,6 @@ int     csv_get_line(int fd, t_char_a *line)
         return (0);
     }
     *line = csv_retrieve_line(&(content));
-    // printf("[%s]\n", (char *)line->val);
     if (!line->val)
         return (-1);
     return (1);

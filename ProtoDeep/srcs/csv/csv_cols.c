@@ -22,7 +22,6 @@ t_csv_col   *csv_init_cols(t_tokens_list *line, int header, size_t width, size_t
     {
         for (size_t i = 0; i < width; i++)
         {
-            printf("[%s]\n", (char *)(((t_char_a)((t_str_a *)line->tokens.val)[i])).val);
             t_char_a name = (t_char_a)((t_str_a *)line->tokens.val)[i];
             if ((!col_list && !(col_list = csv_add_col(name, height)))
                 || (col && !(col->next = csv_add_col(name, height))))
@@ -56,7 +55,6 @@ t_csv_col   *create_cols(t_tokens_list *tokens, int header, size_t width, size_t
         col = col_list;
         for (size_t j = 0; j < width; j++)
         {
-            printf("[%s]\n", (char *)((t_str_a *)line->tokens.val)[j].val);
             if (line->tokens.len)
                 ((t_str_a *)col->columns.val)[i] = (t_char_a)((t_str_a *)line->tokens.val)[j];
             else
@@ -65,7 +63,7 @@ t_csv_col   *create_cols(t_tokens_list *tokens, int header, size_t width, size_t
         }
         line = line->next;
     }
-    // if (tokens)
-    //     csv_free_tokens_list(tokens);
+    if (tokens)
+        csv_free_tokens_list(tokens);
     return (col_list);
 }
