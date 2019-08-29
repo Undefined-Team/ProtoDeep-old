@@ -30,9 +30,13 @@ t_csv   get_test_csv(void)
     return csv_test;
 }
 
-void    tim_main(void)
+void    tim_main(t_csv csv)
 {
+    if (csv.begin)
+        csv = csv;
     t_csv csv_1 = get_test_csv();
+    if (csv_1.begin)
+        csv_1 = csv_1;
     dbug_print_csv(csv_1);
     size_t del_i_1[1] = {2};
     size_t ohe_i_1[2] = {0, 3};
@@ -45,16 +49,17 @@ void    tim_main(void)
 
     t_csv csv_2 = get_test_csv();
     dbug_print_csv(csv_2);
-    //size_t del_i_2[1] = {2};
-    //prep_delete(&csv_2, arrSNew(T_SIZE_T, 1, del_i_2));
-    //dbug_print_csv(csv_2);
-    //size_t ohe_i_2[2] = {0, 2};
-    //prep_ohe(&csv_2, arrSNew(T_SIZE_T, 2, ohe_i_2));
-    //dbug_print_csv(csv_2);
+    size_t del_i_2[1] = {2};
+    prep_delete(&csv_2, arrSNew(T_SIZE_T, 1, del_i_2));
+    dbug_print_csv(csv_2);
+    size_t ohe_i_2[2] = {0, 2};
+    prep_ohe(&csv_2, arrSNew(T_SIZE_T, 2, ohe_i_2));
+    dbug_print_csv(csv_2);
 }
 
 int main(void)
 {
-    tim_main();
+    t_csv   csv = csv_read("./test.csv", 1);
+    tim_main(csv);
     return (0);
 }

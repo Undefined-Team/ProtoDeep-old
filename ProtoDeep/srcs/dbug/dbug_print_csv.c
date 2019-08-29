@@ -1,4 +1,5 @@
 #include "pd_main.h"
+#include <string.h>
 
 size_t  math_nbr_len(float nbr)
 {
@@ -79,7 +80,8 @@ void    dbug_print_csv(t_csv csv)
     col = 0;
     for (t_csv_col *tmp = csv.begin; tmp; tmp = tmp->next)
     {
-        printf("%s%s%*s %s| ", colors[col % 5], COLOR_U, (int)str_max_len[col], (char*)tmp->name.val, COLOR_N);
+        printf("%s | ", ((char *)tmp->name.val));
+        // printf("%s | ", ((char *)((t_arr)tmp->name).val));
         col++;
     }
     printf("\n");

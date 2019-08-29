@@ -3,9 +3,11 @@
 t_arr  str_fill(char c, size_t len)
 {
     t_arr  str;
+    size_t  i;
 
     str = arrInit(T_CHAR, len);
-    for (size_t i = 0; i <= len; i++)
+    for (i = 0; i < len; i++)
         ((char *)str.val)[i] = c;
+    ((char *)str.val)[i] = '\0';
     return (str);
 }
