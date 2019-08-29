@@ -71,8 +71,7 @@ void    dbug_print_csv(t_csv csv)
     col = 0;
     for (t_csv_col *tmp = csv.begin; tmp; tmp = tmp->next)
     {
-        printf("%s | ", ((char *)tmp->name.val));
-        // printf("%s | ", ((char *)((t_arr)tmp->name).val));
+        printf("%s%s%*s %s| ", colors[col % 5], COLOR_U, (int)str_max_len[col], (char*)tmp->name.val, COLOR_N);
         col++;
     }
     printf("\n");

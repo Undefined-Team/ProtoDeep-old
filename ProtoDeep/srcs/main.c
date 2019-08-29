@@ -36,7 +36,7 @@ void    tim_main(t_csv csv)
     t_csv csv_1 = get_test_csv();
     if (csv_1.begin)
         csv_1 = csv_1;
-    dbug_print_csv(csv_1);
+    dbug_print_csv(csv);
     size_t del_i_1[1] = {2};
     size_t ohe_i_1[2] = {0, 3};
     t_csv_conf conf = prep_init_conf(arrSNew(T_SIZE_T, 1, del_i_1), arrSNew(T_SIZE_T, 2, ohe_i_1));

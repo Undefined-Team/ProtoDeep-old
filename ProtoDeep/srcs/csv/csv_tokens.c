@@ -26,18 +26,16 @@ t_char_a csv_retrieve_line(t_char_a *content)
 
     if ((len = str_chr(*content, '\n')))
     {
-        if (line.val)
-            free(line.val);
         line = str_dup(*content, len);
-        *content = str_fsub(*content, len, content->len);
+        printf("%d\n", (int)((char *)line.val)[line.len - 1]);
+        ((char *)line.val)[line.len] = 0;
+        *content = str_sub(*content, len, content->len);
     }
     else
     {
         len = str_len(*content);
-        if (line.val)
-            free(line.val);
         line = str_dup(*content, len);
-        *content = str_fsub(*content, len, content->len);
+        *content = str_sub(*content, len, content->len);
     }
     return (line);
 }
@@ -56,7 +54,7 @@ int     csv_get_line(int fd, t_char_a *line)
     while ((ret = read(fd, buf.val, 64)))
     {
         ((char *)buf.val)[ret] = '\0';
-        content = str_fjoin(content, buf);
+        content = str_join(content, buf);
         if (!content.val)
             return (-1);
         if (str_chr(content, '\n'))
@@ -64,11 +62,10 @@ int     csv_get_line(int fd, t_char_a *line)
     }
     if (ret < 64 && !str_len(content))
     {
-        if (buf.val)
-            free(buf.val);
         return (0);
     }
     *line = csv_retrieve_line(&(content));
+    // printf("[%s]\n", (char *)line->val);
     if (!line->val)
         return (-1);
     return (1);
@@ -105,5 +102,6 @@ t_tokens_list   *csv_create_tokens_list(int fd, size_t *height, size_t *width)
     }
     *width = tokens.len;
     close(fd);
+    curr = list;
     return (list);
 }
