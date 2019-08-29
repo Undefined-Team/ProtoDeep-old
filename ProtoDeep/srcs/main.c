@@ -7,7 +7,7 @@ t_csv   get_test_csv(void)
     t_csv_col *tmp;
 
     csv_test.height = 4;
-    csv_test.width = 3;
+    csv_test.width = 4;
 
 
     t_char_a col3[4] = {strSNew("Gros"), strSNew("Pitit"), strSNew("Moyen"), strSNew("Moyen")};
@@ -32,18 +32,24 @@ t_csv   get_test_csv(void)
 
 void    tim_main(void)
 {
-    t_csv test_csv = get_test_csv();
-    dbug_print_csv(test_csv);
-    /*size_t ci[2] = {0, 3};
-    prep_ohe(&test_csv, arrSNew(T_SIZE_T, 2, ci));
-    dbug_print_csv(test_csv);*/
-    size_t del_i[1] = {2};
-    size_t ohe_i[2] = {0, 3};
-    t_csv_conf conf = prep_init_conf(arrSNew(T_SIZE_T, 1, del_i), arrSNew(T_SIZE_T, 2, ohe_i));
-    (void)conf;
-    prep_prepare(&test_csv, &conf);
-    //prep_ohe(&test_csv, arrSNew(T_SIZE_T, 2, ohe_i));
-    dbug_print_csv(test_csv);
+    t_csv csv_1 = get_test_csv();
+    dbug_print_csv(csv_1);
+    size_t del_i_1[1] = {2};
+    size_t ohe_i_1[2] = {0, 3};
+    t_csv_conf conf = prep_init_conf(arrSNew(T_SIZE_T, 1, del_i_1), arrSNew(T_SIZE_T, 2, ohe_i_1));
+    prep_prepare(&csv_1, &conf);
+    dbug_print_csv(csv_1);
+
+    printf("-----------------\n\n");
+
+    t_csv csv_2 = get_test_csv();
+    dbug_print_csv(csv_2);
+    size_t del_i_2[1] = {2};
+    prep_delete(&csv_2, arrSNew(T_SIZE_T, 1, del_i_2));
+    dbug_print_csv(csv_2);
+    //size_t ohe_i_2[2] = {0, 2};
+    //prep_ohe(&csv_2, arrSNew(T_SIZE_T, 2, ohe_i_2));
+    //dbug_print_csv(csv_2);
 }
 
 int main(void)
