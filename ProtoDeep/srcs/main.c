@@ -71,13 +71,8 @@ void    tim_main()
 
 int main(void)
 {
-<<<<<<< HEAD
     //t_csv   csv = csv_read("./test.csv", 1);
     //dbug_print_csv(csv);
-=======
-    t_csv   csv = csv_read("./test.csv", 1);
-    dbug_print_csv(csv);
->>>>>>> b63cc5f7fa3824cb4e42706e16d8a07f869860c3
     tim_main();
     return (0);
 }
