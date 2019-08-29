@@ -174,7 +174,7 @@ void    prep_delete(t_csv *csv, t_size_t_a col_indexs)
             csv->begin = col;
         printf("test2\n");
         (void)tmp;
-        //dast_csv_free_col(tmp);
+        dast_csv_free_col(tmp);
         printf("test3\n");
     }
     printf("test4\n");
