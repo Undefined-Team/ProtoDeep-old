@@ -28,9 +28,10 @@ static t_split_list    *count_sep(t_arr str, char sep)
 
     token_sizes = NULL;
     curr = NULL;
-    while (((char *)str.val)[++i])
+    str = str_whitespace(str);
+    while (++i >= 0)
     {
-        if (((char *)str.val)[i] == sep && ((char *)str.val)[i + 1] != 0)
+        if (((char *)str.val)[i] == sep || ((char *)str.val)[i] == '\0')
         {
             if ((!token_sizes && !(token_sizes = add_elem(str_sub(str, j, i - j))))
                 || (curr && !(curr->next = add_elem(str_sub(str, j, i - j)))))
@@ -38,6 +39,8 @@ static t_split_list    *count_sep(t_arr str, char sep)
             curr = curr ? curr->next : token_sizes;
             count++;
             j = i + 1;
+            if (((char *)str.val)[i] == '\0')
+                break;
         }
     }
     return (token_sizes);
@@ -60,6 +63,7 @@ t_arr     str_split(t_arr str, char sep)
     if (!count)
         return (tokens);
     tokens = arrInit(T_STR, count);
+    tokens.len = count;
     count = 0;
     curr = words;
     while (curr)
@@ -69,6 +73,5 @@ t_arr     str_split(t_arr str, char sep)
         // printf("%s\n", ((char *)((t_arr *)tokens.val)[count - 1].val) );
         curr = curr->next;
     }
-    tokens.len = count;
     return (tokens);
 }

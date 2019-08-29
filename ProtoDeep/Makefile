@@ -31,7 +31,9 @@ PREP		=	prep_minmax_scal.c	\
 				prep_ohe.c			\
 
 CSV_FLD		=	csv/
-CSV			=	csv_read.c		\
+CSV			=	csv_read.c			\
+				csv_tokens.c		\
+				csv_cols.c			\
 
 STR_FLD		=	str/
 STR			=	str_len.c			\
@@ -40,6 +42,7 @@ STR			=	str_len.c			\
 				str_fjoin.c			\
 				str_dup.c			\
 				str_sub.c			\
+				str_fsub.c			\
 				str_split.c			\
 				str_whitespace.c	\
 				str_fill.c			\
