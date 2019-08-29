@@ -71,9 +71,9 @@ void        prep_standardize(t_csv *csv, t_csv_conf *conf)
         {
             if (col->columns.type == T_FLOAT)
                 col->columns = prep_stdiz_init(col->columns, &(((t_stdiz_data*)new_std_data.val)[i]));
-            arrFree(conf->std_data);
-            conf->std_data = new_std_data;
         }
+        arrFree(conf->std_data);
+        conf->std_data = new_std_data;
     }
     else
     {

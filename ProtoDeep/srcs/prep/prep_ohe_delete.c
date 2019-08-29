@@ -94,7 +94,10 @@ t_csv_col *cols_generator(t_csv_col **col)
     {
         name = update_bin_tree(tbegin, (char*)(((t_char_a*)str_arr.val)[i].val), &new_index, &total_index);
         if (name.len == 0)
+        {
             add_line(begin_col, new_index, i);
+            arrFree(name);
+        }
         else
         {
             last_col = add_col(last_col, str_arr.len, i, name);
@@ -128,7 +131,6 @@ void    prep_ohe(t_csv *csv, t_size_t_a col_indexs)
         }
         if (!col)
             break;
-        printf("col %zd %s\n", i, (char*)col->name.val);
         if (col->columns.type == T_STR)
         {
             tmp = cols_generator(&col); //col = last new, tmp = first new
@@ -157,13 +159,11 @@ void    prep_delete(t_csv *csv, t_size_t_a col_indexs)
     math_si_sort(col_indexs);
     for (size_t j = 0; j < col_indexs.len; j++)
     {
-        printf("test1\n");
         while (i++ < ((size_t*)col_indexs.val)[j] && col)
         {
             before = col;
             col = col->next;
         }
-        printf("test\n");
         if (!col)
             break;
         tmp = col;
@@ -172,16 +172,12 @@ void    prep_delete(t_csv *csv, t_size_t_a col_indexs)
             before->next = col;
         else
             csv->begin = col;
-        printf("test2\n");
         (void)tmp;
         dast_csv_free_col(tmp);
-        printf("test3\n");
     }
-    printf("test4\n");
     i = 0;
     for (col = csv->begin; col; col = col->next)
         i++;
-    printf("test5\n");
     csv->width = i;
 }
 
