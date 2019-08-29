@@ -29,14 +29,17 @@ t_csv   get_test_csv(void)
     return csv_test;
 }
 
-void    tim_main(t_csv csv)
+void    tim_main()
 {
-    if (csv_1.begin)
-        csv_1 = csv_1;
-    dbug_print_csv(csv);
+    t_csv csv_1 = get_test_csv();
+    dbug_print_csv(csv_1);
+    size_t del_i_1[2] = {2};
     size_t ohe_i_1[2] = {0, 3};
-    //t_char_a del_n_1[1] = {strNew("Name")};
-    //t_char_a ohe_n_1[2] = {strNew("Zizi"), strNew("Main droite")};
+    //t_char_a del_n_1[1] = {strSNew("Name")};
+    t_char_a ohe_n_1[4] = {strSNew("Name"), strSNew("Main droite"), strSNew("Zizi"), strSNew("Qi")};
+    t_str_a order = arrSNew(T_STR, 4, ohe_n_1);
+    order = dast_name_sort(csv_1, order);
+
     t_csv_conf conf = prep_init_conf(arrSNew(T_SIZE_T, 1, del_i_1), arrSNew(T_SIZE_T, 2, ohe_i_1));
     prep_prepare(&csv_1, &conf);
     dbug_print_csv(csv_1);
@@ -68,7 +71,8 @@ void    tim_main(t_csv csv)
 
 int main(void)
 {
-    t_csv   csv = csv_read("./test.csv", 1);
-    tim_main(csv);
+    //t_csv   csv = csv_read("./test.csv", 1);
+    //dbug_print_csv(csv);
+    tim_main();
     return (0);
 }

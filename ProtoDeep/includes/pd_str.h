@@ -20,5 +20,6 @@ t_arr       str_whitespace(t_arr str);
 t_arr       str_fill(char c, size_t len);
 t_char_a    str_char_to_str(char c);
 int         str_chr(t_arr str, char c);
+int		    str_cmp(const char *s1, const char *s2);
 
 #endif

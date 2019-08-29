@@ -68,13 +68,16 @@ typedef struct      s_save_tbnode {
 }                   t_save_tbnode;
 
 typedef struct      s_name_index {
-    t_char_a        name;
-    size_t          index;
+    t_char_a            name;
+    size_t              index;
+    struct s_name_index *next;
 }                   t_name_index;
+
 
 // Prototypes
 t_tbnode        *dast_new_tbnode(char c, int word_index);
 void            dast_free_tbnode(t_tbnode *begin);
+t_str_a         dast_name_sort(t_csv csv, t_str_a col_ni);
 
 t_csv_col       *dast_csv_new_col(t_arr columns, t_char_a name);
 void            dast_csv_free_col(t_csv_col *elem);

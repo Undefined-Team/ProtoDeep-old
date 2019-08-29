@@ -52,12 +52,14 @@ STR			=	str_len.c			\
 				str_fill.c			\
 				str_char_to_str.c	\
 				str_chr.c			\
+				str_cmp.c 			\
 
 DAST_FLD	=	dast/
 DAST		=	dast_tbnode.c 				\
 				dast_free.c					\
 				dast_csv_col.c				\
 				dast_arr.c					\
+				dast_name_sort.c 			\
 
 DBUG_FLD	=	dbug/
 DBUG		=	dbug_print_csv.c			\
