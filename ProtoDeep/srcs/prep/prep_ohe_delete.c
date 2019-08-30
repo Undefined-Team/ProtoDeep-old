@@ -112,131 +112,51 @@ t_csv_col *cols_generator(t_csv_col **col)
     return begin_col;
 }
 
-void    prep_ohe(t_csv *csv, t_size_t_a col_indexs)
+void    prep_ohe_delete(t_csv *csv, t_str_a col_names, bool del_ohe)
 {
     // Error if col is not of type t_carr
-    // Error if indexs in col_indexs is out of range
-    t_csv_col   *col = csv->begin;
-    size_t       i = 0;
-    t_csv_col   *before = NULL;
-    t_csv_col   *tmp = NULL;
-
-    //col_indexs = dast_name_sort(csv, col_indexs);
-    math_si_sort(col_indexs);
-    for (size_t j = 0; j < col_indexs.len; j++)
-    {
-        while (i++ < ((size_t*)col_indexs.val)[j] && col)
-        {
-            before = col;
-            col = col->next;
-        }
-        if (!col)
-            break;
-        if (col->columns.type == T_STR)
-        {
-            tmp = cols_generator(&col); //col = last new, tmp = first new
-            if (before)
-                before->next = tmp;
-            else
-                csv->begin = tmp;
-            //dast_csv_free_col(tmp);
-        }
-    }
-    i = 0;
-    for (col = csv->begin; col; col = col->next)
-        i++;
-    csv->width = i;
-}
-
-void    prep_delete(t_csv *csv, t_size_t_a col_indexs)
-{
-    // Error if col is not of type t_carr
-    // Error if indexs in col_indexs is out of range
+    // Error if indexs in ohe_indexs is out of range
     t_csv_col   *col = csv->begin;
     size_t      i = 0;
     t_csv_col   *before = NULL;
     t_csv_col   *tmp = NULL;
 
-    //col_indexs = dast_name_sort(csv, col_indexs);
-    math_si_sort(col_indexs);
-    for (size_t j = 0; j < col_indexs.len; j++)
+    col_names = dast_name_sort(*csv, col_names);
+    while (col && i < col_names.len)
     {
-        while (i++ < ((size_t*)col_indexs.val)[j] && col)
+        if (str_cmp((char*)col->name.val, (char*)(((t_str_a*)col_names.val)[i].val) ) == 0)
         {
-            before = col;
-            col = col->next;
-        }
-        if (!col)
-            break;
-        tmp = col;
-        col = col->next;
-        if (before)
-            before->next = col;
-        else
-            csv->begin = col;
-        (void)tmp;
-        dast_csv_free_col(tmp);
-    }
-    i = 0;
-    for (col = csv->begin; col; col = col->next)
-        i++;
-    csv->width = i;
-}
-
-void    prep_ohe_delete(t_csv *csv, t_size_t_a ohe_indexs, t_size_t_a del_indexs)
-{
-    // Error if col is not of type t_carr
-    // Error if indexs in ohe_indexs is out of range
-    t_csv_col   *col = csv->begin;
-    size_t         i = 0;
-    size_t      j_ohe = 0;
-    size_t      j_del = 0;
-    t_csv_col   *before = NULL;
-    t_csv_col   *tmp = NULL;
-
-    math_si_sort(ohe_indexs);
-    math_si_sort(del_indexs);
-    while (col && (j_ohe < ohe_indexs.len || j_del < del_indexs.len))
-    {
-        if (j_del < del_indexs.len && ((size_t*)del_indexs.val)[j_del] == i)
-        {
-            tmp = col;
-            col = col->next;
-            if (before)
-                before->next = col;
-            else
-                csv->begin = col;
-            dast_csv_free_col(tmp);
-            j_del++;
-            i++;
-        }
-        else if (j_ohe < ohe_indexs.len && ((size_t*)ohe_indexs.val)[j_ohe] == i)
-        {
-            if (col->columns.type == T_STR)
+            if (del_ohe)
+            {
+                tmp = col;
+                col = col->next;
+                if (before)
+                    before->next = col;
+                else
+                    csv->begin = col;
+                dast_csv_free_col(tmp);
+            }
+            else if (col->columns.type == T_STR)
             {
                 tmp = cols_generator(&col); //col = last new, tmp = first new
                 if (before)
                     before->next = tmp;
                 else
                     csv->begin = tmp;
-                //dast_csv_free_col(tmp);
-                i++;
             }
-    	    j_ohe++;
-        }
-        else
-        {
-            if (!col)
-                break;
-            before = col;
-            col = col->next;
             i++;
         }
+        if (!col)
+            break;
+        before = col;
+        col = col->next;
     }
     i = 0;
     for (col = csv->begin; col; col = col->next)
         i++;
     csv->width = i;
+    //dast_free((void**)&col_names.val);
+    arrFree(col_names);
 }
 
 /*

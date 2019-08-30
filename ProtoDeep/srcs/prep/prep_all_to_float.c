@@ -7,7 +7,7 @@ t_float_a   prep_col_to_float(t_str_a strarr)
     newarr = arrInit(T_FLOAT, strarr.len);
     for (size_t i = 0; i < strarr.len; i++)
         ((float*)newarr.val)[i] = math_atof((char*)(((t_char_a*)strarr.val)[i].val));
-    arrFree(strarr);
+    strFree(strarr);
     return newarr;
 }
 

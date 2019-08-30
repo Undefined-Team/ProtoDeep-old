@@ -67,12 +67,6 @@ t_str_a  dast_name_sort(t_csv csv, t_str_a col_ni)
         begin = begin->next;
         dast_free((void**)&tmp);
     }
-    //-----
-    for (size_t i = 0; i < real_size; i++)
-    {
-        printf("END == %s\n", (char*)(((t_str_a*)new_col_ni.val)[i].val));
-    }
-    //-----
-    arrFree(col_ni);
+    arrFree(index_a);
     return new_col_ni;
 }

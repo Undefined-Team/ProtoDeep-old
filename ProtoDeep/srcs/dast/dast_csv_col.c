@@ -13,6 +13,7 @@ t_csv_col   *dast_csv_new_col(t_arr columns, t_char_a name)
 
 void    dast_csv_free_col(t_csv_col *elem)
 {
-    arrFree(elem->columns);
+    arrRFree(elem->columns, -1);
+    strFree(elem->name);
     dast_free((void**)&elem);
 }

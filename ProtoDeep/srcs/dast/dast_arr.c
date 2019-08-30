@@ -115,12 +115,12 @@ t_arr   dast_new_arr(type type, size_t len, void* val)
     return new_arr;
 }
 
-void    dast_free_arr(t_arr arr)
+void    dast_free_arr(t_arr arr, int depth)
 {
-    if (arr.type == T_ARR)
+    if (arr.type == T_ARR && (depth > 0 || depth == -1))
     {
         for (size_t i = 0; i < arr.len; i++)
-            dast_free_arr(((t_arr*)arr.val)[i]);
+            dast_free_arr(((t_arr*)arr.val)[i], depth == -1 ? -1 : depth -1);
     }
     dast_free((void**)&arr.val);
 }

@@ -119,3 +119,6 @@ ex: all
 
 rex: re
 	./$(NAME)
+
+vex: all
+	valgrind --leak-check=full ./protodeep

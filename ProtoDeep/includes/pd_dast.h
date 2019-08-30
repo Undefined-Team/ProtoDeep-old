@@ -5,15 +5,16 @@
 
 // Macro
 
-// w = arr, x = type, y = len, z = val
+// v = depth, w = arr, x = type, y = len, z = val
 # define arrInit(x, y)          dast_init_arr(x, y)
 # define arrNew(x, y, z)        dast_new_arr(x, y, z)
 # define arrSNew(x, y, z)       dast_new_s_arr(x, y, z)
-# define arrFree(w)             dast_free_arr(w)
+# define arrFree(w)             dast_free_arr(w, 0)
+# define arrRFree(w, v)         dast_free_arr(w, v)
 
 # define strNew(z)              arrNew(T_CHAR, 1, z)
 # define strSNew(z)             arrSNew(T_CHAR, 1, z)
-# define strFree(w)             arrFree(w)
+# define strFree(w)             arrRFree(w, 1)
 
 # define t_char_a               t_arr
 # define t_float_a              t_arr
@@ -85,7 +86,7 @@ void            dast_csv_free_col(t_csv_col *elem);
 t_arr           dast_init_arr(type type, size_t len);
 t_arr           dast_new_s_arr(type type, size_t len, void* val);
 t_arr           dast_new_arr(type type, size_t len, void* val);
-void            dast_free_arr(t_arr arr);
+void            dast_free_arr(t_arr arr, int depth);
 
 void	        dast_free(void **ap);
 
