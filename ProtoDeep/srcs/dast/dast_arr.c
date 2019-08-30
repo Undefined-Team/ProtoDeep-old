@@ -71,11 +71,11 @@ t_arr   dast_new_s_arr(type type, size_t len, void* val)
         }
         else if (type == T_STDIZ)
         {
-            t_stdiz_data *new_val = malloc(sizeof(t_stdiz_data) * len);
+            t_ohe_trees *new_val = malloc(sizeof(t_ohe_trees) * len);
             if (new_val)
             {
                 for (size_t i = 0; i < len; i++)
-                    new_val[i] = ((t_stdiz_data*)val)[i];
+                    new_val[i] = ((t_ohe_trees*)val)[i];
                 new_arr.val = (void*)new_val;
             }
         }

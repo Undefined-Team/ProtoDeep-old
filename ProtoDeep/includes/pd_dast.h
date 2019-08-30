@@ -11,10 +11,13 @@
 # define arrSNew(x, y, z)       dast_new_s_arr(x, y, z)
 # define arrFree(w)             dast_free_arr(w, 0)
 # define arrRFree(w, v)         dast_free_arr(w, v)
+//# define arrSFree(w)            dast_free_arr(w, 0, true)
+//# define arrSRFree(w, v)        dast_free_arr(w, v, true)
 
 # define strNew(z)              arrNew(T_CHAR, 1, z)
 # define strSNew(z)             arrSNew(T_CHAR, 1, z)
 # define strFree(w)             arrRFree(w, 1)
+//# define strSFree(w)            arrSRFree(w, 1)
 
 # define t_char_a               t_arr
 # define t_float_a              t_arr
@@ -55,6 +58,12 @@ typedef struct          s_csv
 
 // -----------------
 
+typedef struct      s_name_index {
+    t_char_a            name;
+    size_t              index;
+    struct s_name_index *next;
+}                   t_name_index;
+
 typedef struct      s_tbnode {
     char            c;
     int             word_index;
@@ -63,17 +72,12 @@ typedef struct      s_tbnode {
     struct s_tbnode *f_last;
 }                   t_tbnode;
 
-typedef struct      s_save_tbnode {
-    t_tbnode        *begin;
-    t_str_a         names;    
-}                   t_save_tbnode;
-
-typedef struct      s_name_index {
-    t_char_a            name;
-    size_t              index;
-    struct s_name_index *next;
-}                   t_name_index;
-
+typedef struct      s_ohe_trees {
+    t_char_a            base_name;
+    t_str_a             new_names; 
+    t_tbnode            *begin;
+    struct s_ohe_trees  *next;
+}                   t_ohe_trees;
 
 // Prototypes
 t_tbnode        *dast_new_tbnode(char c, int word_index);

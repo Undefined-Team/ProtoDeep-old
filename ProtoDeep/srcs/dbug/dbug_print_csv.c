@@ -69,14 +69,18 @@ void    dbug_print_csv(t_csv csv)
         col++;
     }
     col = 0;
+    if (csv.begin)
+        printf("| ");
     for (t_csv_col *tmp = csv.begin; tmp; tmp = tmp->next)
     {
-        printf("%s%s%*s %s| ", colors[col % 5], COLOR_U, (int)str_max_len[col], (char*)tmp->name.val, COLOR_N);
+        printf("%s%s%*s%s | ", colors[col % 5], COLOR_U, (int)str_max_len[col], (char*)tmp->name.val, COLOR_N);
         col++;
     }
     printf("\n");
     for (size_t line = 0; line < csv.height; line++)
     {
+        if (csv.begin)
+            printf("| ");
         col = 0;
         for (t_csv_col *tmp = csv.begin; tmp; tmp = tmp->next)
         {
