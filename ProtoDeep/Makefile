@@ -1,7 +1,7 @@
 NAME 		=	protodeep
 
 CC 			= 	gcc
-FLAGS 		= 	-Wall -Wextra -Werror -g -O3
+FLAGS 		=  -g -O3
 INCLUDES	=	./includes/
 
 SRC_PATH	=	./srcs/
@@ -32,6 +32,7 @@ PREP		=	prep_minmax_scal.c	\
 				prep_init_conf.c 	\
 				prep_prepare.c		\
 				prep_all_to_float.c	\
+				prep_csv_split.c	\
 
 CSV_FLD		=	csv/
 CSV			=	csv_read.c			\
@@ -48,6 +49,7 @@ STR			=	str_len.c			\
 				str_sub.c			\
 				str_fsub.c			\
 				str_split.c			\
+				str_escape.c		\
 				str_whitespace.c	\
 				str_fill.c			\
 				str_char_to_str.c	\

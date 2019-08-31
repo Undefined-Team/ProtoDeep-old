@@ -2,6 +2,6 @@
 
 void	dast_free(void **ap)
 {
-	free(*ap);
+	// free(*ap);
 	*ap = NULL;
 }

@@ -1,6 +1,5 @@
 #include "pd_main.h"
 #include <string.h>
-
 t_csv   get_test_csv(void)
 {
     t_csv csv_test;
@@ -33,6 +32,7 @@ void    tim_main(void)
 {
     t_csv csv_1 = get_test_csv();
     dbug_print_csv(csv_1);
+    size_t del_i_1[1] = {2};
     size_t ohe_i_1[2] = {0, 3};
     //t_char_a del_n_1[1] = {strNew("Name")};
     //t_char_a ohe_n_1[2] = {strNew("Zizi"), strNew("Main droite")};
@@ -67,8 +67,21 @@ void    tim_main(void)
 
 int main(void)
 {
-    t_csv   csv = csv_read("./test.csv", 1);
+    t_csv   csv = csv_read("./test.csv", ',', 1);
+    if (csv.width > 0)
+        dbug_print_csv(csv);
+    size_t del_i_1[2] = {2};
+    size_t ohe_i_1[2] = {0, 3};
+    t_csv_conf conf = prep_init_conf(arrSNew(T_SIZE_T, 1, del_i_1), arrSNew(T_SIZE_T, 2, ohe_i_1));
+    prep_prepare(&csv, &conf);
     dbug_print_csv(csv);
-    tim_main();
+    t_csv   train;
+    t_csv   test;
+    prep_csv_split(csv, &train, &test, 0.8);
+    printf(">> TRAIN:\n");
+    dbug_print_csv(train);
+    printf(">> TEST:\n");
+    dbug_print_csv(test);
+    // tim_main();
     return (0);
 }

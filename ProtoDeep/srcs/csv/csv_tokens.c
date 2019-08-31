@@ -78,27 +78,46 @@ t_tokens_list   *csv_add_tokens(t_arr tokens)
     return (elem);
 }
 
-t_tokens_list   *csv_create_tokens_list(int fd, size_t *height, size_t *width)
+t_tokens_list   *csv_wrong_width(size_t i, size_t first_width, size_t width)
+{
+    write(2, "read_csv error: ", 16);
+    if (first_width > width)
+        write(2, "Not enough values on line ", 26);
+    else if (first_width < width)
+        write(2, "Too much values on line ", 24);
+    t_arr line = math_itoa(i + 1);
+    write(2, (char *)line.val, line.len);
+    write(2, ".\n", 2);
+    return (NULL);
+}
+
+t_tokens_list   *csv_create_tokens_list(int fd, char separator, size_t *height, size_t *width)
 {
     t_arr           *line = NULL;
     t_tokens_list   *list = NULL;
     t_tokens_list   *curr = NULL;
     t_arr           tokens;
+    size_t          first_width = 0;
 
     line = (t_arr *)malloc(sizeof(t_arr));
     *line = arrInit(T_CHAR, 0);
     ((char *)line->val)[0] = 0;
     while (csv_get_line(fd, line))
     {
-        tokens = str_split(*line, ',');
+        if (!line || line->len == 0)
+            continue;
+        tokens = str_split(*line, separator, 1);
+        if (tokens.len == 0)
+            continue;
+        if ((!first_width && !(first_width = tokens.len)) || (first_width != tokens.len))
+            return (csv_wrong_width(*height, first_width, tokens.len));
         if ((!list && !(list = csv_add_tokens(tokens)))
             || (curr && !(curr->next = csv_add_tokens(tokens))))
             return (NULL);
         curr = curr ? curr->next : list;
         *height = *height + 1;
     }
-    *width = tokens.len;
+    *width = first_width;
     close(fd);
-    curr = list;
     return (list);
 }

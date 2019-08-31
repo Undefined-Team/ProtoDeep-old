@@ -31,5 +31,6 @@ void        prep_ohe_delete(t_csv *csv, t_size_t_a ohe_indexs, t_size_t_a del_in
 t_csv_conf  prep_init_conf(t_size_t_a delete_indexs, t_size_t_a ohe_indexs);
 void        prep_prepare(t_csv *csv, t_csv_conf *conf);
 void        prep_all_to_float(t_csv csv);
+int         prep_csv_split(t_csv csv, t_csv *train, t_csv *test, float f_split);
 
 #endif

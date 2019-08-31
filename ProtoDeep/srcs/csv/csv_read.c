@@ -10,7 +10,7 @@ t_csv       csv_init(t_csv_col *cols, int header, size_t width, size_t height)
     return (csv);
 }
 
-t_csv   csv_read(char *file_name, int header)
+t_csv   csv_read(char *file_name, char separator, int header)
 {
     int             fd;
     t_csv           csv;
@@ -20,11 +20,10 @@ t_csv   csv_read(char *file_name, int header)
     size_t          width = 0;
 
     if (!file_name || ((fd = open(file_name, O_RDONLY)) < 0))
-        return (csv);
-    if (!(tokens_list = csv_create_tokens_list(fd, &height, &width)))
-        return (csv);
-    if (!(cols = create_cols(tokens_list, header, width, height)))
-        return (csv);
+        return (csv_init(NULL, 0, 0, 0));
+    if (!(tokens_list = csv_create_tokens_list(fd, separator, &height, &width)))
+        return (csv_init(NULL, 0, 0, 0));
+    cols = create_cols(tokens_list, header, width, height);
     csv = csv_init(cols, header, width, height);
     return (csv);
 }

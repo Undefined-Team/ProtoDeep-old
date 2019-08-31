@@ -1,5 +1,13 @@
-Zizi,Qi,Name,Main droite
-Gros,200,Timothee,Cava
-Pitit,1,Sylvain,Musclee
-Moyen,1,Paco,Musclee
-Moyen,200,Tony,Musclee
+"Name", "Team", "Position", "Height(inches)", "Weight(lbs)", "Age"
+"Adam Donachie", "BAL", "Catcher", 74, 180, 22.99
+"Paul Bako", "BAL", "Catcher", 74, 215, 34.69
+"Ramon Hernandez", "BAL", "Catcher", 72, 210, 30.78
+"Kevin Millar", "BAL", "First Baseman", 72, 210, 35.43
+"Chris Gomez", "BAL", "First Baseman", 73, 188, 35.71
+"Brian Roberts", "BAL", "Second Baseman", 69, 176, 29.39
+"Miguel Tejada", "BAL", "Shortstop", 69, 209, 30.77
+"Melvin Mora", "BAL", "Third Baseman", 71, 200, 35.07
+"Aubrey Huff", "BAL", "Third Baseman", 76, 231, 30.19
+"Adam Stern", "BAL", "Outfielder", 71, 180, 27.05
+"Jeff Fiorentino", "BAL", "Outfielder", 73, 188, 23.88
+"Freddie Bynum", "BAL", "Outfielder", 73, 180, 26.96
