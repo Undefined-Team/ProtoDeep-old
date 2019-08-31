@@ -1,6 +1,6 @@
 #include "pd_main.h"
 #include <string.h>
-t_csv   get_test_csv(void)
+t_csv   get_test_csv_1(void)
 {
     t_csv csv_test;
     t_csv_col *tmp;
@@ -28,9 +28,38 @@ t_csv   get_test_csv(void)
     return csv_test;
 }
 
+t_csv   get_test_csv_2(void)
+{
+    t_csv csv_test;
+    t_csv_col *tmp;
+
+    csv_test.height = 4;
+    csv_test.width = 4;
+
+
+    t_char_a col3[4] = {strSNew("Gros"), strSNew("Pitit"), strSNew("JSP"), strSNew("Moyen")};
+    tmp = dast_csv_new_col(arrSNew(T_STR, 4, col3), strSNew("Zizi"));
+    csv_test.begin = tmp;
+
+    float col1[4] = {200.77777, 1, -1, -200};
+    tmp->next = dast_csv_new_col(arrSNew(T_FLOAT, 4, col1), strSNew("Qi"));
+    tmp = tmp->next;
+
+    t_char_a col2[4] = {strSNew("Timothée"), strSNew("Sylvain"), strSNew("Paco"), strSNew("Tony")};
+    tmp->next = dast_csv_new_col(arrSNew(T_STR, 4, col2), strSNew("Name"));
+    tmp = tmp->next;
+
+    t_char_a col4[4] = {strSNew("Ca va"), strSNew("Musclée"), strSNew("Musclée"), strSNew("JSP")};
+    tmp->next = dast_csv_new_col(arrSNew(T_STR, 4, col4), strSNew("Main droite"));
+    tmp = tmp->next;
+
+    return csv_test;
+}
+
 void    csv_with_conf()
 {
-    t_csv csv_1 = csv_read("res/tim_test1.csv", ',', 1);
+    //t_csv csv_1 = csv_read("res/tim_test1.csv", ',', 1);
+    t_csv csv_1 = get_test_csv_1();
     dbug_print_csv(csv_1);
 
     t_char_a del_1[1] = {strSNew("Name")};
@@ -43,7 +72,8 @@ void    csv_with_conf()
 
     printf("Try use other file with this conf -----------------\n\n");
 
-    t_csv csv_2 = csv_read("res/tim_test2.csv", ',', 1);
+    //t_csv csv_2 = csv_read("res/tim_test2.csv", ',', 1);
+    t_csv csv_2 = get_test_csv_2(); 
     dbug_print_csv(csv_2);
     prep_prepare(&csv_2, &conf);
     dbug_print_csv(csv_2);
@@ -55,7 +85,8 @@ void    csv_with_conf()
 
 void    csv_manual()
 {
-    t_csv csv_1 = csv_read("res/tim_test1.csv", ',', 1);
+    //t_csv csv_1 = csv_read("res/tim_test1.csv", ',', 1);
+    t_csv csv_1 = get_test_csv_1();
     dbug_print_csv(csv_1);
 
     t_char_a del_1[1] = {strSNew("Name")};
@@ -70,8 +101,12 @@ void    csv_manual()
     t_stdiz_a stdiz_data = prep_strandardize_init(csv_1);
     dbug_print_csv(csv_1);
 
+    csv_free(csv_1);
+
     printf("Try use other file with this conf -----------------\n\n");
-    t_csv csv_2 = csv_read("res/tim_test2.csv", ',', 1);
+
+    //t_csv csv_2 = csv_read("res/tim_test2.csv", ',', 1);
+    t_csv csv_2 = get_test_csv_2();
     dbug_print_csv(csv_2);
 
     prep_delete(&csv_2, del_str);
@@ -84,7 +119,7 @@ void    csv_manual()
     arrRFree(del_str, -1);
     arrRFree(ohe_str, -1);
     arrFree(stdiz_data);
-    csv_free(csv_1);
+    csv_free(csv_2);
 }
 
 int main(void)

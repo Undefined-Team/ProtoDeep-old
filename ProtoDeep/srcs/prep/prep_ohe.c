@@ -38,8 +38,7 @@ static t_csv_col *cols_generator(t_csv_col **col, t_ohe_trees *tbegin)
         prep_add_line(begin_col, index == -1 ? tbegin->new_names.len : (size_t)index, i);
     }
     last_col->next = *col;
-    arrRFree(f_tmp->columns, -1);
-    dast_free((void**)&f_tmp);
+    dast_csv_free_col(f_tmp);
     return begin_col;
 }
 
