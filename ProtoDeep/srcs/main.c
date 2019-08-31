@@ -28,32 +28,36 @@ t_csv   get_test_csv(void)
     return csv_test;
 }
 
-void    tim_main(void)
+void    tim_main()
 {
     t_csv csv_1 = get_test_csv();
     dbug_print_csv(csv_1);
-    size_t del_i_1[1] = {2};
-    size_t ohe_i_1[2] = {0, 3};
-    //t_char_a del_n_1[1] = {strNew("Name")};
-    //t_char_a ohe_n_1[2] = {strNew("Zizi"), strNew("Main droite")};
-    t_csv_conf conf = prep_init_conf(arrSNew(T_SIZE_T, 1, del_i_1), arrSNew(T_SIZE_T, 2, ohe_i_1));
+
+    t_char_a del_1[1] = {strSNew("Name")};
+    t_char_a ohe_1[2] = {strSNew("Main droite"), strSNew("Zizi")};
+    t_csv_conf conf = prep_init_conf(arrSNew(T_STR, 1, del_1), arrSNew(T_STR, 2, ohe_1));
     prep_prepare(&csv_1, &conf);
     dbug_print_csv(csv_1);
 
+    for (t_ohe_trees *test = conf.saved_trees; test; test = test->next)
+        printf("%s\n", (char*)test->base_name.val);
+
+    prep_free_conf(conf);
     csv_free(csv_1);
-    csv_conf_free(conf);
 
     printf("-----------------\n\n");
 
-    t_csv csv_2 = get_test_csv();
+   /* t_csv csv_2 = get_test_csv();
     dbug_print_csv(csv_2);
 
-    size_t del_i_2[1] = {2};
-    prep_delete(&csv_2, arrSNew(T_SIZE_T, 1, del_i_2));
+    t_char_a del_2[1] = {strSNew("Name")};
+    t_str_a  del_str = arrSNew(T_STR, 1, del_2);
+    prep_delete(&csv_2, del_str);
     dbug_print_csv(csv_2);
 
-    size_t ohe_i_2[2] = {0, 2};
-    prep_ohe(&csv_2, arrSNew(T_SIZE_T, 2, ohe_i_2));
+    t_char_a ohe_2[2] = {strSNew("Main droite"), strSNew("Zizi")};
+    t_str_a  ohe_str = arrSNew(T_STR, 2, ohe_2);
+    prep_ohe(&csv_2, ohe_str);
     dbug_print_csv(csv_2);
 
     prep_all_to_float(csv_2);
@@ -61,27 +65,21 @@ void    tim_main(void)
     (void)stdiz_data;
     dbug_print_csv(csv_2);
 
+    arrRFree(del_str, -1);
+    arrRFree(ohe_str, -1);
     arrFree(stdiz_data);
-    csv_free(csv_2);
+    csv_free(csv_2);*/
+
 }
 
 int main(void)
 {
-    t_csv   csv = csv_read("./test.csv", ',', 1);
-    if (csv.width > 0)
-        dbug_print_csv(csv);
-    size_t del_i_1[2] = {2};
-    size_t ohe_i_1[2] = {0, 3};
-    t_csv_conf conf = prep_init_conf(arrSNew(T_SIZE_T, 1, del_i_1), arrSNew(T_SIZE_T, 2, ohe_i_1));
-    prep_prepare(&csv, &conf);
-    dbug_print_csv(csv);
-    t_csv   train;
-    t_csv   test;
-    prep_csv_split(csv, &train, &test, 0.8);
-    printf(">> TRAIN:\n");
-    dbug_print_csv(train);
-    printf(">> TEST:\n");
-    dbug_print_csv(test);
-    // tim_main();
+    //t_csv   csv = csv_read("./test.csv", 1);
+    //dbug_print_csv(csv);
+    tim_main();
+    
+    //t_arr test = strSNew("Zizi");
+    //void *test = pdmalloc(1);
+    //(void)test;
     return (0);
 }

@@ -28,7 +28,9 @@ MATH		=	math_log.c			\
 PREP_FLD	=	prep/
 PREP		=	prep_minmax_scal.c	\
 				prep_stdiz.c		\
-				prep_ohe_delete.c	\
+				prep_ohe_init.c		\
+				prep_ohe.c		\
+				prep_delete.c		\
 				prep_init_conf.c 	\
 				prep_prepare.c		\
 				prep_all_to_float.c	\
@@ -54,16 +56,17 @@ STR			=	str_len.c			\
 				str_fill.c			\
 				str_char_to_str.c	\
 				str_chr.c			\
+				str_cmp.c 			\
 
 DAST_FLD	=	dast/
 DAST		=	dast_tbnode.c 				\
 				dast_free.c					\
 				dast_csv_col.c				\
 				dast_arr.c					\
+				dast_name_sort.c 			\
 
 DBUG_FLD	=	dbug/
 DBUG		=	dbug_print_csv.c			\
-				
 
 SRC_FLDS	=	math/				\
 				prep/				\
@@ -119,3 +122,6 @@ ex: all
 
 rex: re
 	./$(NAME)
+
+vex: all
+	valgrind --leak-check=full ./protodeep

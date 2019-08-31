@@ -20,6 +20,5 @@ t_csv_col       *create_cols(t_tokens_list *tokens, int header, size_t width, si
 t_tokens_list   *csv_create_tokens_list(int fd, char separator, size_t *height, size_t *width);
 void            csv_free_tokens_list(t_tokens_list *tokens);
 void            csv_free(t_csv csv);
-void            csv_conf_free(t_csv_conf conf);
 
 #endif
