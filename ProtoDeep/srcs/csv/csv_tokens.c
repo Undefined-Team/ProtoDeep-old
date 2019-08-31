@@ -67,6 +67,8 @@ int     csv_get_line(int fd, t_char_a *line)
 	free(buf.val);
     if (ret < 64 && !str_len(content))
     {
+		free(content.val);
+		content.val = NULL;
         return (0);
     }
 	free(line->val);
