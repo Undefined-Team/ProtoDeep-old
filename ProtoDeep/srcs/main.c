@@ -80,6 +80,7 @@ void    csv_manual()
     prep_standardize(csv_2, stdiz_data);
     dbug_print_csv(csv_2);
 
+    prep_free_ohe_tree(ohe_trees);
     arrRFree(del_str, -1);
     arrRFree(ohe_str, -1);
     arrFree(stdiz_data);
