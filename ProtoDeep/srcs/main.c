@@ -58,8 +58,8 @@ t_csv   get_test_csv_2(void)
 
 void    csv_with_conf()
 {
-    //t_csv csv_1 = csv_read("res/tim_test1.csv", ',', 1);
-    t_csv csv_1 = get_test_csv_1();
+    t_csv csv_1 = csv_read("res/tim_test1.csv", ',', 1);
+    //t_csv csv_1 = get_test_csv_1();
     dbug_print_csv(csv_1);
 
     t_char_a del_1[1] = {strSNew("Name")};
@@ -72,8 +72,8 @@ void    csv_with_conf()
 
     printf("Try use other file with this conf -----------------\n\n");
 
-    //t_csv csv_2 = csv_read("res/tim_test2.csv", ',', 1);
-    t_csv csv_2 = get_test_csv_2(); 
+    t_csv csv_2 = csv_read("res/tim_test2.csv", ',', 1);
+    //t_csv csv_2 = get_test_csv_2(); 
     dbug_print_csv(csv_2);
     prep_prepare(&csv_2, &conf);
     dbug_print_csv(csv_2);
@@ -85,8 +85,8 @@ void    csv_with_conf()
 
 void    csv_manual()
 {
-    //t_csv csv_1 = csv_read("res/tim_test1.csv", ',', 1);
-    t_csv csv_1 = get_test_csv_1();
+    t_csv csv_1 = csv_read("res/tim_test1.csv", ',', 1);
+    //t_csv csv_1 = get_test_csv_1();
     dbug_print_csv(csv_1);
 
     t_char_a del_1[1] = {strSNew("Name")};
@@ -105,8 +105,8 @@ void    csv_manual()
 
     printf("Try use other file with this conf -----------------\n\n");
 
-    //t_csv csv_2 = csv_read("res/tim_test2.csv", ',', 1);
-    t_csv csv_2 = get_test_csv_2();
+    t_csv csv_2 = csv_read("res/tim_test2.csv", ',', 1);
+    //t_csv csv_2 = get_test_csv_2();
     dbug_print_csv(csv_2);
 
     prep_delete(&csv_2, del_str);
