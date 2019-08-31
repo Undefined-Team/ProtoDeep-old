@@ -6,14 +6,27 @@ typedef struct  s_split_list
     struct s_split_list *next;
 }               t_split_list;
 
+static void				free_word(t_arr new_word, t_arr word, t_arr escape, t_arr white_space)
+{
+	if (word.val != new_word.val)
+		free(word.val);
+	if (white_space.val != new_word.val)
+		free(white_space.val);
+	if (escape.val != new_word.val)
+		free(escape.val);
+}
+
 static t_split_list    *add_elem(t_arr word)
 {
     t_split_list    *new;
+	t_arr			white_space;
+	t_arr			escape;
 
+	white_space = str_whitespace(word);
+	escape = str_escape(white_space);
     new = (t_split_list *)malloc(sizeof(t_split_list));
-    new->word = arrInit(T_CHAR, 0);
-    new->word = str_whitespace(word);
-    new->word = str_escape(new->word);
+    new->word = escape;
+	free_word(new->word, word, escape, white_space);
     new->word.len = str_len(new->word);
     new->next = NULL;
     return (new);
@@ -62,6 +75,7 @@ static t_split_list    *count_sep(t_arr str, char sep, int escape)
         }
         i++;
     }
+	free(str.val);
     return (token_sizes);
 }
 
@@ -89,7 +103,10 @@ t_arr     str_split(t_arr str, char sep, int escape)
     while (curr)
     {
         ((t_arr *)tokens.val)[count++] = str_dup(curr->word, curr->word.len);
-        curr = curr->next;
+		free(curr->word.val);
+        t_split_list	*tmp = curr;
+		curr = curr->next;
+		free(tmp);
     }
     return (tokens);
 }

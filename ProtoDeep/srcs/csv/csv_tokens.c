@@ -5,12 +5,16 @@ void        csv_free_tokens_list(t_tokens_list *tokens)
     t_tokens_list   *curr;
 
     if (!tokens->next)
+	{
+		free(tokens->tokens.val);
         free(tokens);
-    else
+    }
+	else
     {
         curr = tokens->next;
         while (tokens)
         {
+			free(tokens->tokens.val);
             free(tokens);
             tokens = curr;
             if (curr)
@@ -24,16 +28,18 @@ t_char_a csv_retrieve_line(t_char_a *content)
     t_char_a     line;
     size_t      len;
 
+	if (line.val)
+		free(line.val);
     if ((len = str_chr(*content, '\n')))
     {
-        line = str_dup(*content, len - 2);
-        *content = str_sub(*content, len, content->len);
+       line = str_dup(*content, len - 2);
+        *content = str_fsub(*content, len, content->len);
     }
     else
     {
         len = str_len(*content);
         line = str_dup(*content, len);
-        *content = str_sub(*content, len, content->len);
+        *content = str_fsub(*content, len, content->len);
     }
     return (line);
 }
@@ -52,20 +58,23 @@ int     csv_get_line(int fd, t_char_a *line)
     while ((ret = read(fd, buf.val, 64)))
     {
         ((char *)buf.val)[ret] = '\0';
-        content = str_join(content, buf);
+        content = str_fjoin(content, str_dup(buf, buf.len));
         if (!content.val)
             return (-1);
         if (str_chr(content, '\n'))
             break;
     }
+	free(buf.val);
     if (ret < 64 && !str_len(content))
     {
         return (0);
     }
+	free(line->val);
+	line->val = NULL;
     *line = csv_retrieve_line(&(content));
     if (!line->val)
         return (-1);
-    return (1);
+	return (1);
 }
 
 t_tokens_list   *csv_add_tokens(t_arr tokens)
@@ -118,6 +127,8 @@ t_tokens_list   *csv_create_tokens_list(int fd, char separator, size_t *height, 
         *height = *height + 1;
     }
     *width = first_width;
+	free(line->val);
+	free(line);
     close(fd);
     return (list);
 }
