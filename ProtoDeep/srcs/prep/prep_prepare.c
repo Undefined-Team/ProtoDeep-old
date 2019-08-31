@@ -9,7 +9,6 @@ void    prep_prepare(t_csv *csv, t_csv_conf *conf)
     else
         prep_ohe(csv, conf->saved_trees);
     dbug_print_csv(*csv);
-    //prep_ohe(csv, conf->ohe_indexs);
     prep_all_to_float(*csv);
     if (conf->std_data.len == 0)
     {

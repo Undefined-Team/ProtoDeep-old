@@ -1,6 +1,23 @@
 #include "pd_main.h"
 
-t_csv_col *cols_generator(t_csv_col **col, t_ohe_trees *tbegin)
+int        use_bin_tree(t_tbnode *node, char *str)
+{
+    
+
+    for (t_tbnode *f_begin = node->f_begin; f_begin; f_begin = f_begin->next)
+    {
+        if (f_begin->c == *str)
+        {
+            if (*(str + 1) == '\0') // If it's the last char
+                return f_begin->word_index;
+            else
+                return use_bin_tree(f_begin, ++str);
+        }
+    }
+    return -1;
+}
+
+static t_csv_col *cols_generator(t_csv_col **col, t_ohe_trees *tbegin)
 {
     t_arr           str_arr = (*col)->columns;
     t_csv_col       *begin_col = NULL;
@@ -17,7 +34,7 @@ t_csv_col *cols_generator(t_csv_col **col, t_ohe_trees *tbegin)
     }
     for (size_t i = 0; i < str_arr.len; i++)
     {
-        index = use_bin_tree(tbegin, (char*)(((t_char_a*)str_arr.val)[i].val));
+        index = use_bin_tree(tbegin->begin, (char*)(((t_char_a*)str_arr.val)[i].val));
         prep_add_line(begin_col, index == -1 ? tbegin->new_names.len : (size_t)index, i);
     }
     last_col->next = *col;
@@ -39,7 +56,6 @@ void    prep_ohe(t_csv *csv, t_ohe_trees *tbegin)
     {
         if (col->columns.type == T_STR && str_cmp((char*)col->name.val, ((char*)tbegin->base_name.val) ) == 0)
         {
-
             tmp = cols_generator(&col, tbegin); //col = last new, tmp = first new
             if (before)
                 before->next = tmp;

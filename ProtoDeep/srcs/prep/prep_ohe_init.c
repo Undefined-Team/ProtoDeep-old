@@ -91,7 +91,7 @@ t_ohe_trees *dast_new_ohe_tree(t_char_a base_name, t_csv_col *begin, int len, t_
     return new;
 }
 
-t_csv_col *cols_generator(t_csv_col **col, t_ohe_trees **t_tmp)
+static t_csv_col *cols_generator(t_csv_col **col, t_ohe_trees **t_tmp)
 {
     t_tbnode        *tbegin = dast_new_tbnode('\0', -2);
     t_arr           str_arr = (*col)->columns;
