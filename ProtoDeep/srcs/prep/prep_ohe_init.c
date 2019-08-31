@@ -124,10 +124,8 @@ static t_csv_col *cols_generator(t_csv_col **col, t_ohe_trees **t_tmp)
     else
         (*t_tmp)->next = dast_new_ohe_tree(f_tmp->name, begin_col, total_index + 1, tbegin);
     last_col->next = *col;
-    //dast_csv_free_col(f_tmp);
     arrRFree(f_tmp->columns, -1);
     dast_free((void**)&f_tmp);
-    //dast_free_tbnode(tbegin);
     return begin_col;
 }
 

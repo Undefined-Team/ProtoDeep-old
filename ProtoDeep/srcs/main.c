@@ -28,9 +28,9 @@ t_csv   get_test_csv(void)
     return csv_test;
 }
 
-void    tim_main()
+void    csv_with_conf()
 {
-    t_csv csv_1 = get_test_csv();
+    t_csv csv_1 = csv_read("res/tim_test1.csv", ',', 1);
     dbug_print_csv(csv_1);
 
     t_char_a del_1[1] = {strSNew("Name")};
@@ -39,45 +39,61 @@ void    tim_main()
     prep_prepare(&csv_1, &conf);
     dbug_print_csv(csv_1);
 
-    for (t_ohe_trees *test = conf.saved_trees; test; test = test->next)
-        printf("%s\n", (char*)test->base_name.val);
-
-    prep_free_conf(conf);
     csv_free(csv_1);
 
-    printf("-----------------\n\n");
+    printf("Try use other file with this conf -----------------\n\n");
 
-   /* t_csv csv_2 = get_test_csv();
+    t_csv csv_2 = csv_read("res/tim_test2.csv", ',', 1);
+    dbug_print_csv(csv_2);
+    prep_prepare(&csv_2, &conf);
     dbug_print_csv(csv_2);
 
-    t_char_a del_2[1] = {strSNew("Name")};
-    t_str_a  del_str = arrSNew(T_STR, 1, del_2);
+    csv_free(csv_2);
+
+    prep_free_conf(conf);
+}
+
+void    csv_manual()
+{
+    t_csv csv_1 = csv_read("res/tim_test1.csv", ',', 1);
+    dbug_print_csv(csv_1);
+
+    t_char_a del_1[1] = {strSNew("Name")};
+    t_str_a  del_str = arrSNew(T_STR, 1, del_1);
+    prep_delete(&csv_1, del_str);
+
+    t_char_a ohe_1[2] = {strSNew("Main droite"), strSNew("Zizi")};
+    t_str_a  ohe_str = arrSNew(T_STR, 2, ohe_1);
+    t_ohe_trees *ohe_trees = prep_ohe_init(&csv_1, ohe_str);
+
+    prep_all_to_float(csv_1);
+    t_stdiz_a stdiz_data = prep_strandardize_init(csv_1);
+    dbug_print_csv(csv_1);
+
+    printf("Try use other file with this conf -----------------\n\n");
+    t_csv csv_2 = csv_read("res/tim_test2.csv", ',', 1);
+    dbug_print_csv(csv_2);
+
     prep_delete(&csv_2, del_str);
-    dbug_print_csv(csv_2);
-
-    t_char_a ohe_2[2] = {strSNew("Main droite"), strSNew("Zizi")};
-    t_str_a  ohe_str = arrSNew(T_STR, 2, ohe_2);
-    prep_ohe(&csv_2, ohe_str);
-    dbug_print_csv(csv_2);
-
+    prep_ohe(&csv_2, ohe_trees);
     prep_all_to_float(csv_2);
-    t_stdiz_a stdiz_data = prep_strandardize_init(csv_2);
-    (void)stdiz_data;
+    prep_standardize(csv_2, stdiz_data);
     dbug_print_csv(csv_2);
 
     arrRFree(del_str, -1);
     arrRFree(ohe_str, -1);
     arrFree(stdiz_data);
-    csv_free(csv_2);*/
-
+    csv_free(csv_1);
 }
 
 int main(void)
 {
     //t_csv   csv = csv_read("./test.csv", 1);
     //dbug_print_csv(csv);
-    tim_main();
-    
+    printf("\n-------------- MODE CONF --------------\n");
+    csv_with_conf();
+    printf("\n-------------- MODE MANUAL --------------\n");
+    csv_manual();
     //t_arr test = strSNew("Zizi");
     //void *test = pdmalloc(1);
     //(void)test;
