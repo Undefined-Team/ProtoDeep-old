@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-static float fpow(float p)
+static float pd_fpow(float p)
 {
     union { float f; uint32_t i; } vp = { p };
     int sign = (vp.i >> 31);
@@ -10,7 +10,7 @@ static float fpow(float p)
     return v.f;
 }
 
-float math_exp(float x)
+float pd_math_exp(float x)
 {
-    return fpow(1.442695040f * x);
+    return pd_fpow(1.442695040f * x);
 }

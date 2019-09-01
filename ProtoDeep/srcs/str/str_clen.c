@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-size_t  str_clen(char* str)
+size_t  pd_str_clen(char* str)
 {
     if (!str)
         return 0;

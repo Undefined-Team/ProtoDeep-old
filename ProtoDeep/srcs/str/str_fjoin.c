@@ -1,13 +1,13 @@
 #include "pd_main.h"
 
-t_arr  str_fjoin(t_arr head, t_arr tail)
+pd_arr  pd_str_fjoin(pd_arr head, pd_arr tail)
 {
-    t_arr new_str;
+    pd_arr new_str;
     
     new_str = str_join(head, tail);
     if (head.val)
-        dast_free((void**)&head.val);
+        pd_dast_free((void**)&head.val);
     if (tail.val)
-        dast_free((void**)&tail.val);
+        pd_dast_free((void**)&tail.val);
     return (new_str);
 }

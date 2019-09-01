@@ -1,11 +1,11 @@
 #include "pd_main.h"
 
-float math_pow(float x, float e)
+float pd_math_pow(float x, float e)
 {
     float result = 1;
 
     if (e < 0 || e < 1 || e - (unsigned long)e != 0)
-        return (math_exp(e * math_log(x)));
+        return (pd_math_exp(e * pd_math_log(x)));
     unsigned long exp = e;
     while (1)
     {

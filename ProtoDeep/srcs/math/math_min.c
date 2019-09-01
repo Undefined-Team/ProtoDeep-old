@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-float   math_min(float x, float y)
+float   pd_math_min(float x, float y)
 {
     return x < y ? x : y;
 }

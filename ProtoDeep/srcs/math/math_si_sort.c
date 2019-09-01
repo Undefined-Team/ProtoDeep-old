@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-void merge(size_t *arr, size_t l, size_t m, size_t r) 
+void pd_merge(size_t *arr, size_t l, size_t m, size_t r) 
 { 
     size_t i, j, k; 
     size_t n1 = m - l + 1; 
@@ -34,20 +34,20 @@ void merge(size_t *arr, size_t l, size_t m, size_t r)
     } 
 } 
   
-void mergeSort(size_t *arr, size_t l, size_t r) 
+void pd_merge_sort(size_t *arr, size_t l, size_t r) 
 { 
     if (l < r) 
     {
         size_t m = l+(r-l)/2; 
-        mergeSort(arr, l, m); 
-        mergeSort(arr, m+1, r); 
-        merge(arr, l, m, r); 
+        pd_merge_sort(arr, l, m); 
+        pd_merge_sort(arr, m+1, r); 
+        pd_merge_(arr, l, m, r); 
     } 
 } 
 
-void  math_si_sort(t_arr arr) 
+void  pd_math_si_sort(pd_arr arr) 
 {
-    if (arr.type != T_SIZE_T)
+    if (arr.type != PD_T_SIZE_T)
         return ;
-    mergeSort((size_t*)arr.val, 0, arr.len - 1); 
+    pd_merge_sort((size_t*)arr.val, 0, arr.len - 1); 
 }

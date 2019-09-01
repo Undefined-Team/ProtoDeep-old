@@ -6,6 +6,11 @@
 // Macro
 
 // Structures
+typedef struct  pds_split_list
+{
+    pd_arr              word;
+    struct pds_split_list *next;
+}               pd_split_list;
 
 // Prototypes
 t_arr       str_join(t_arr head, t_arr tail);

@@ -1,7 +1,6 @@
 #include "pd_main.h"
 
-
-int		str_cmp(const char *s1, const char *s2)
+int		pd_str_cmp(const char *s1, const char *s2)
 {
 	unsigned int i;
 

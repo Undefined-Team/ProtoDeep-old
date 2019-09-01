@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-float   math_max(float x, float y)
+float   pd_math_max(float x, float y)
 {
     return x > y ? x : y;
 }
