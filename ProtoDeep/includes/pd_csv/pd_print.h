@@ -1,5 +1,5 @@
-#ifndef PD_DBUG_H
-# define PD_DBUG_H
+#ifndef PD_CSV_PRINT_H
+# define PD_CSV_PRINT_H
 
 // Lib
 
@@ -17,6 +17,6 @@
 # define COLOR_T     {COLOR_1, COLOR_2, COLOR_3, COLOR_4, COLOR_5}
 
 // Prototypes
-void    dbug_print_csv(t_csv csv);
+void    print_csv(t_csv csv);
 
 #endif

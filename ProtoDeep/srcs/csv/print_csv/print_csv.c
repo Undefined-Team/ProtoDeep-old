@@ -53,7 +53,7 @@ size_t  get_float_max_len(t_arr arr)
     return max;
 }
 
-void    dbug_print_csv(t_csv csv)
+void    print_csv(t_csv csv)
 {
     size_t      col = 0;
     size_t      str_max_len[csv.width];
