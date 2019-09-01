@@ -4,19 +4,19 @@
 // Lib
 
 // Macro
-# define PD_CSV_STR            0
-# define PD_CSV_FLOAT          1
+# define PD_CSV_STR          0
+# define PD_CSV_FLOAT        1
 
-# define PD_DBUG_PREC          3
+# define PD_DBUG_PREC        3
 
-# define PD_COLOR_N            "\x1b[0m"
-# define PD_COLOR_U            "\x1b[4m"
-# define PD_COLOR_1            "\x1b[38;2;68;175;105m"
-# define PD_COLOR_2            "\x1b[38;2;248;51;60m"
-# define PD_COLOR_3            "\x1b[38;2;43;158;179m"
-# define PD_COLOR_4            "\x1b[38;2;255;127;17m"
-# define PD_COLOR_5            "\x1b[38;2;255;1;251m"
-# define PD_COLOR_T            {PD_COLOR_1, PD_COLOR_2, PD_COLOR_3, PD_COLOR_4, PD_COLOR_5}
+# define PD_COLOR_N          "\x1b[0m"
+# define PD_COLOR_U          "\x1b[4m"
+# define PD_COLOR_1          "\x1b[38;2;68;175;105m"
+# define PD_COLOR_2          "\x1b[38;2;248;51;60m"
+# define PD_COLOR_3          "\x1b[38;2;43;158;179m"
+# define PD_COLOR_4          "\x1b[38;2;255;127;17m"
+# define PD_COLOR_5          "\x1b[38;2;255;1;251m"
+# define PD_COLOR_T          {PD_COLOR_1, PD_COLOR_2, PD_COLOR_3, PD_COLOR_4, PD_COLOR_5}
 
 // Structures
 typedef struct              pds_tokens_list {
