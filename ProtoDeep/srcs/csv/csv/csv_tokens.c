@@ -18,8 +18,6 @@ t_char_a csv_retrieve_line(t_char_a *content)
     t_char_a     line;
     size_t      len;
 
-	if (line.val)
-		dast_free((void**)&line.val);
     if ((len = str_chr(*content, '\n')))
     {
        line = str_dup(*content, len - 2);
