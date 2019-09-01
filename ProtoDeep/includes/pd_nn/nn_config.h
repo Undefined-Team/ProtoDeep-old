@@ -1,10 +1,11 @@
-#ifndef NN_MASTER_H
-# define NN_MASTER_H
+#ifndef NN_CONFIG_H
+# define NN_CONFIG_H
 
 // Macro
 
 // Structures
 typedef enum {PD_L_DENSE, PD_L_CONVOLUTION, PD_L_MAXPOOL} pd_layer_type;
+typedef enum {PD_A_RELU, PD_A_LRELU, PD_A_SOFTMAX, PD_A_SIGMOID, PD_A_TANH} pd_activation;
 
 typedef struct				pds_tensor {
 	void					*values;
@@ -30,7 +31,6 @@ typedef struct				pds_network {
 }							pd_network;
 
 // Prototypes
-void						pd_nn_master(void *input);
 pd_tensor					pd_get_output_dense(pd_tensor output, pd_tensor layer);
 
 #endif

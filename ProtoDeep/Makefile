@@ -66,7 +66,8 @@ CSV				=	csv_read.c			\
 					csv_print.c 		\
 
 NN_FLD			=	nn/					\
-NN				=	nn_master.c			\
+NN				=	nn_config.c			\
+					nn_forward.c		\
 					nn_dense.c			\
 
 SRC_FLDS		=	math/				\
