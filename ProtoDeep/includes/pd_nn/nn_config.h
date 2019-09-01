@@ -1,10 +1,11 @@
-#ifndef NN_MASTER_H
-# define NN_MASTER_H
+#ifndef NN_CONFIG_H
+# define NN_CONFIG_H
 
 // Macro
 
 // Structures
 typedef enum {L_DENSE, L_CONVOLUTION, L_MAXPOOL} layer_type;
+typedef enum {A_RELU, A_LRELU, A_SOFTMAX, A_SIGMOID, A_TANH} activation;
 
 typedef struct		s_tensor
 {
@@ -26,7 +27,6 @@ typedef struct		s_network
 }					t_network;
 
 // Prototypes
-void				nn_master(void *input);
 t_tensor			get_output_dense(t_tensor output, t_tensor layer);
 
 #endif
