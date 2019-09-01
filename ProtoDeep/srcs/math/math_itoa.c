@@ -2,13 +2,13 @@
 
 static pd_char_a pd_get_number(int n, int div, int neg, int size)
 {
-	t_char_a    nb;
+	pd_char_a    nb;
 	int		    i;
 
 	i = 0;
 	if (neg == -1)
 		size++;
-    nb = pd_arrInit(T_CHAR, size + 2);
+    nb = pd_arrInit(PD_T_CHAR, size + 2);
 	if (neg == -1)
 		((char *)nb.val)[i++] = '-';
 	while (div > 0)

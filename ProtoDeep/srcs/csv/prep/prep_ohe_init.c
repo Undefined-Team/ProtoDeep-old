@@ -83,7 +83,7 @@ pd_ohe_trees *pd_dast_new_ohe_tree(pd_char_a base_name, pd_csv_col *begin, int l
     PD_PROT_MALLOC(new = malloc(sizeof(pd_ohe_trees)));
     new->base_name = base_name;
     new->begin = tbegin;
-    new->new_names = pd_arrInit(T_STR, len);
+    new->new_names = pd_arrInit(PD_T_STR, len);
     new->next = NULL;
     size_t i = 0;
     for (; begin; begin = begin->next)
@@ -143,7 +143,7 @@ pd_ohe_trees    *pd_prep_ohe_init(pd_csv *csv, pd_str_a col_names)
     col_names = pd_prep_name_sort(*csv, col_names);
     while (col && i < col_names.len)
     {
-        if (col->columns.type == T_STR && pd_str_cmp((char*)col->name.val, (char*)(((t_str_a*)col_names.val)[i].val) ) == 0)
+        if (col->columns.type == PD_T_STR && pd_str_cmp((char*)col->name.val, (char*)(((pd_str_a*)col_names.val)[i].val) ) == 0)
         {
             if (!begin)
             {

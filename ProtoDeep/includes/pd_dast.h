@@ -5,7 +5,7 @@
 
 // Macro
 // v = depth, w = arr, x = type, y = len, z = val
-# define pd_arrInit(x, y)           pd_dast_inipd_arr(x, y)
+# define pd_arrInit(x, y)           pd_dast_init_arr(x, y)
 # define pd_arrNew(x, y, z)         pd_dast_new_arr(x, y, z)
 # define pd_arrSNew(x, y, z)        pd_dast_new_s_arr(x, y, z)
 # define pd_arrFree(w)              pd_dast_free_arr(w, 0)
@@ -21,10 +21,10 @@
 # define pd_str_a                   pd_arr
 # define pd_stdiz_a                 pd_arr
 
-# define pd_PROT_MALLOC(x)          if (!(x)) {return NULL;}
-# define pd_PROT_ARR_TYPE(x, y)     if (x != y) {return pd_arrNew(y, 0, NULL);}
+# define PD_PROT_MALLOC(x)          if (!(x)) {return NULL;}
+# define PD_PROT_ARR_TYPE(x, y)     if (x != y) {return pd_arrNew(y, 0, NULL);}
 
-# define PD_T_STR                   T_ARR // T_STR is an array of array
+# define PD_T_STR                   PD_T_ARR // T_STR is an array of array
 
 // Structures
 typedef enum {false,true} bool;

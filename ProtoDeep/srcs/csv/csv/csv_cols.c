@@ -72,7 +72,7 @@ pd_csv_col   *pd_csv_new_col(pd_arr columns, pd_char_a name)
 {
     pd_csv_col   *elem = NULL;
 
-    PD_PROT_T_MALLOC(elem = malloc(sizeof(pd_csv_col)));
+    PD_PROT_MALLOC(elem = malloc(sizeof(pd_csv_col)));
     elem->name = name;
     elem->next = NULL;
     elem->columns = columns;

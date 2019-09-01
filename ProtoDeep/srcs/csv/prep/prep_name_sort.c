@@ -4,14 +4,14 @@ pd_name_index *pd_dast_new_ni(pd_char_a name, size_t index)
 {
     pd_name_index *elem = NULL;
 
-    pd_PROT_MALLOC(elem = malloc(sizeof(pd_name_index)));
+    PD_PROT_MALLOC(elem = malloc(sizeof(pd_name_index)));
     elem->name = name;
     elem->index = index;
     elem->next = NULL;
     return elem;
 }
 
-pd_str_a  pd_prep_name_sort(t_csv csv, pd_str_a col_ni)
+pd_str_a  pd_prep_name_sort(pd_csv csv, pd_str_a col_ni)
 {
     size_t real_size = 0;
     pd_name_index *begin = NULL;
@@ -42,7 +42,7 @@ pd_str_a  pd_prep_name_sort(t_csv csv, pd_str_a col_ni)
     }
 
     tmp = begin;
-    t_size_t_a index_a = pd_arrInit(PD_T_SIZE_T, real_size);
+    pd_size_t_a index_a = pd_arrInit(PD_T_SIZE_T, real_size);
     for (size_t i = 0; i < real_size; i++)
     {
         ((size_t*)index_a.val)[i] = tmp->index;
