@@ -20,7 +20,7 @@ void            prep_free_ohe_tree(t_ohe_trees *ohe_trees)
         tmp = tmp->next;
         arrRFree(ohe_trees->base_name, -1);
         arrRFree(ohe_trees->new_names, -1);
-        dast_free_tbnode(ohe_trees->begin);
+        prep_free_tbnode(ohe_trees->begin);
         dast_free((void**)&ohe_trees);
     }   
 }

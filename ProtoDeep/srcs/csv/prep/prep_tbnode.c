@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-t_tbnode  *dast_new_tbnode(char c, int word_index)
+t_tbnode  *prep_new_tbnode(char c, int word_index)
 {
     t_tbnode *new_node;
 
@@ -13,7 +13,7 @@ t_tbnode  *dast_new_tbnode(char c, int word_index)
     return new_node;
 }
 
-void    dast_free_tbnode(t_tbnode *begin)
+void    prep_free_tbnode(t_tbnode *begin)
 {
     t_tbnode *lst = begin->f_begin;
     t_tbnode *tmp;
@@ -22,7 +22,7 @@ void    dast_free_tbnode(t_tbnode *begin)
     {
         tmp = lst;
         lst = lst->next;
-        dast_free_tbnode(tmp);
+        prep_free_tbnode(tmp);
     }
     dast_free((void**)&begin);
 }

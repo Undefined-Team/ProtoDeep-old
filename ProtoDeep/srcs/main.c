@@ -10,19 +10,19 @@ t_csv   get_test_csv_1(void)
 
 
     t_char_a col3[4] = {strSNew("Gros"), strSNew("Pitit"), strSNew("Moyen"), strSNew("Moyen")};
-    tmp = dast_csv_new_col(arrSNew(T_STR, 4, col3), strSNew("Zizi"));
+    tmp = csv_new_col(arrSNew(T_STR, 4, col3), strSNew("Zizi"));
     csv_test.begin = tmp;
 
     float col1[4] = {200.77777, 1, -1, -200};
-    tmp->next = dast_csv_new_col(arrSNew(T_FLOAT, 4, col1), strSNew("Qi"));
+    tmp->next = csv_new_col(arrSNew(T_FLOAT, 4, col1), strSNew("Qi"));
     tmp = tmp->next;
 
     t_char_a col2[4] = {strSNew("Timothée"), strSNew("Sylvain"), strSNew("Paco"), strSNew("Tony")};
-    tmp->next = dast_csv_new_col(arrSNew(T_STR, 4, col2), strSNew("Name"));
+    tmp->next = csv_new_col(arrSNew(T_STR, 4, col2), strSNew("Name"));
     tmp = tmp->next;
 
     t_char_a col4[4] = {strSNew("Ca va"), strSNew("Musclée"), strSNew("Musclée"), strSNew("Musclée")};
-    tmp->next = dast_csv_new_col(arrSNew(T_STR, 4, col4), strSNew("Main droite"));
+    tmp->next = csv_new_col(arrSNew(T_STR, 4, col4), strSNew("Main droite"));
     tmp = tmp->next;
 
     return csv_test;
@@ -38,19 +38,19 @@ t_csv   get_test_csv_2(void)
 
 
     t_char_a col3[4] = {strSNew("Gros"), strSNew("Pitit"), strSNew("JSP"), strSNew("Moyen")};
-    tmp = dast_csv_new_col(arrSNew(T_STR, 4, col3), strSNew("Zizi"));
+    tmp = csv_new_col(arrSNew(T_STR, 4, col3), strSNew("Zizi"));
     csv_test.begin = tmp;
 
     float col1[4] = {200.77777, 1, -1, -200};
-    tmp->next = dast_csv_new_col(arrSNew(T_FLOAT, 4, col1), strSNew("Qi"));
+    tmp->next = csv_new_col(arrSNew(T_FLOAT, 4, col1), strSNew("Qi"));
     tmp = tmp->next;
 
     t_char_a col2[4] = {strSNew("Timothée"), strSNew("Sylvain"), strSNew("Paco"), strSNew("Tony")};
-    tmp->next = dast_csv_new_col(arrSNew(T_STR, 4, col2), strSNew("Name"));
+    tmp->next = csv_new_col(arrSNew(T_STR, 4, col2), strSNew("Name"));
     tmp = tmp->next;
 
     t_char_a col4[4] = {strSNew("Ca va"), strSNew("Musclée"), strSNew("Musclée"), strSNew("JSP")};
-    tmp->next = dast_csv_new_col(arrSNew(T_STR, 4, col4), strSNew("Main droite"));
+    tmp->next = csv_new_col(arrSNew(T_STR, 4, col4), strSNew("Main droite"));
     tmp = tmp->next;
 
     return csv_test;

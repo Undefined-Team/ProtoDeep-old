@@ -11,7 +11,7 @@ t_name_index *dast_new_ni(t_char_a name, size_t index)
     return elem;
 }
 
-t_str_a  dast_name_sort(t_csv csv, t_str_a col_ni)
+t_str_a  prep_name_sort(t_csv csv, t_str_a col_ni)
 {
     size_t real_size = 0;
     t_name_index *begin = NULL;
