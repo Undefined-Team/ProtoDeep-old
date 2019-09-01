@@ -56,14 +56,14 @@ pd_csv   pd_get_test_csv_2(void)
     return csv_test;
 }
 
-void    csv_with_conf()
+void    pd_csv_with_conf()
 {
     pd_csv csv_1 = pd_csv_read("res/tim_test1.csv", ',', 1);
     //pd_csv csv_1 = get_test_csv_1();
     pd_csv_print(csv_1);
 
-    pd_char_a del_1[1] = {pd_pd_strSNew("Name")};
-    pd_char_a ohe_1[2] = {pd_pd_strSNew("Main droite"), pd_strSNew("Zizi")};
+    pd_char_a del_1[1] = {pd_strSNew("Name")};
+    pd_char_a ohe_1[2] = {pd_strSNew("Main droite"), pd_strSNew("Zizi")};
     pd_csv_conf conf = pd_prep_init_conf(pd_arrSNew(PD_T_STR, 1, del_1), pd_arrSNew(PD_T_STR, 2, ohe_1));
     pd_prep_prepare(&csv_1, &conf);
     pd_csv_print(csv_1);

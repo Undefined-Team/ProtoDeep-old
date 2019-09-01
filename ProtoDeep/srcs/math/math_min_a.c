@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-float   pd_math_min_a(t_float_a x)
+float   pd_math_min_a(pd_float_a x)
 {
     float min;
     bool ftime = false;

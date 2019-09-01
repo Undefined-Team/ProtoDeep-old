@@ -55,7 +55,7 @@ pd_ohe_trees                 *pd_prep_ohe_init(pd_csv *csv, pd_str_a col_names);
 void                        pd_prep_ohe(pd_csv *csv, pd_ohe_trees *tbegin);
 void                        pd_prep_delete(pd_csv *csv, pd_str_a col_names);
 
-pd_csv_conf                  pd_prep_inipd_conf(pd_str_a delete_indexs, pd_str_a ohe_indexs);
+pd_csv_conf                  pd_prep_init_conf(pd_str_a delete_indexs, pd_str_a ohe_indexs);
 void                        pd_prep_free_conf(pd_csv_conf conf);
 void                        pd_prep_prepare(pd_csv *csv, pd_csv_conf *conf);
 void                        pd_prep_all_to_float(pd_csv csv);

@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-float pd_math_mean(t_float_a x)
+float pd_math_mean(pd_float_a x)
 {
     float sum = 0;
 
