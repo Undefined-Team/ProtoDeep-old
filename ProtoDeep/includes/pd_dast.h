@@ -4,74 +4,43 @@
 // Lib
 
 // Macro
+// v = depth, w = arr, x = type, y = len, z = val
+# define pd_arrInit(x, y)          pd_dast_inipd_arr(x, y)
+# define pd_arrNew(x, y, z)        pd_dast_new_arr(x, y, z)
+# define pd_arrSNew(x, y, z)       pd_dast_new_s_arr(x, y, z)
+# define pd_arrFree(w)             pd_dast_free_arr(w, 0)
+# define pd_arrRFree(w, v)         pd_dast_free_arr(w, v)
 
-// w = arr, x = type, y = len, z = val
-# define arrInit(x, y)          dast_init_arr(x, y)
-# define arrNew(x, y, z)        dast_new_arr(x, y, z)
-# define arrSNew(x, y, z)       dast_new_s_arr(x, y, z)
-# define arrFree(w)             dast_free_arr(w)
+# define pd_strNew(z)              pd_arrNew(T_CHAR, 1, z)
+# define pd_strSNew(z)             pd_arrSNew(T_CHAR, 1, z)
+# define pd_strFree(w)             pd_arrRFree(w, 1)
 
-# define strNew(z)              arrNew(T_CHAR, 1, z)
-# define strSNew(z)             arrSNew(T_CHAR, 1, z)
-# define strFree(w)             arrFree(w)
+# define pd_t_char_a               pd_pd_arr
+# define pd_t_float_a              pd_t_arr
+# define pd_t_size_t_a             pd_t_arr
+# define pd_t_str_a                pd_t_arr
+# define pd_t_stdiz_a              pd_t_arr
 
-# define t_char_a               t_arr
-# define t_float_a              t_arr
-# define t_size_t_a             t_arr
-# define t_str_a                t_arr
+# define pd_PROT_MALLOC(x)         if (!(x)) {return NULL;}
+# define pd_PROT_ARR_TYPE(x, y)    if (x != y) {return arrNew(y, 0, NULL);}
 
-# define PROT_MALLOC(x)         if (!(x)) {return NULL;}
-# define PROT_ARR_TYPE(x, y)    if (x != y) {return pd_arrNew(y, 0, NULL);}
-
-# define T_STR                  T_ARR // T_STR is an array of array
+# define pd_T_STR                  T_ARR // T_STR is an array of array
 
 // Structures
 typedef enum {false,true} bool;
-typedef enum {PD_T_ARR, PD_T_FLOAT, PD_T_SIZE_T, PD_T_CHAR} type;
+typedef enum {PD_T_ARR, PD_T_FLOAT, PD_T_SIZE_T, PD_T_CHAR, PD_T_STDIZ} pd_type;
 
-typedef struct      pds_arr {
-    void            *val;
-    size_t          len;
-    type            type;
-}                   pd_arr;
-
-// -----------------
-
-typedef struct          pds_csv_col
-{
-    pd_arr               name;
-    struct pds_csv_col    *next;
-    pd_arr               columns;
-}                       pd_csv_col;
-
-typedef struct          pds_csv
-{
-    pd_csv_col           *begin;
-    size_t              width;
-    size_t              height;
-}                       pd_csv;
-
-// -----------------
-
-typedef struct      pds_tbnode {
-    char            c;
-    int             word_index;
-    struct pds_tbnode *next;
-    struct pds_tbnode *f_begin;
-    struct pds_tbnode *f_last;
-}                   pd_tbnode;
+typedef struct                  pds_arr {
+    void                        *val;
+    size_t                      len;
+    pd_type                     type;
+}                               pd_arr;
 
 // Prototypes
-pd_tbnode        *pd_dast_new_tbnode(char c, int word_index);
-void            pd_dast_free_tbnode(pd_tbnode *begin);
-
-pd_csv_col       *pd_dast_csv_new_col(pd_arr columns, t_char_a name);
-void            pd_dast_csv_free_col(t_csv_col *elem);
-
-pd_arr           pd_dast_init_arr(pd_type type, size_t len);
-pd_arr           pd_dast_new_s_arr(pd_type type, size_t len, void* val);
-pd_arr           pd_dast_new_arr(pd_type type, size_t len, void* val);
-void            pd_dast_free_arr(pd_arr arr);
+pd_arr                           dast_init_arr(pd_type type, size_t len);
+pd_arr                           dast_new_s_arr(pd_type type, size_t len, void* val);
+pd_arr                           dast_new_arr(pd_type type, size_t len, void* val);
+void                            dast_free_arr(pd_arr arr, int depth);
 
 void	        pd_dast_free(void **ap);
 
