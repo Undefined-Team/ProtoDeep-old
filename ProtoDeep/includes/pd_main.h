@@ -9,10 +9,10 @@
 #include <unistd.h> // For read
 #include "pd_dast.h"
 #include "pd_math.h"
-#include "pd_prep.h"
 #include "pd_str.h"
-#include "pd_csv.h"
-#include "pd_dbug.h"
+#include "pd_csv/pd_prep.h"
+#include "pd_csv/pd_csv.h"
+#include "pd_csv/pd_print.h"
 
 //#include "pd_memory.h"
 
