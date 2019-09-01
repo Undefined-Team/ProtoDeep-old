@@ -25,7 +25,7 @@ pd_float_a   pd_math_softmax(pd_float_a x)
     float sum = 0;
     pd_float_a y;
 
-    pd_PROT_ARR_TYPE(x.type, PD_T_FLOAT);
+    PD_PROT_ARR_TYPE(x.type, PD_T_FLOAT);
     y = pd_arrInit(PD_T_FLOAT, x.len);
     for (size_t i = 0; i < y.len; i++)
     {
