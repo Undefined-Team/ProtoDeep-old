@@ -1,11 +1,11 @@
 #include "pd_main.h"
 
-float math_atof(const char *p)
+float pd_math_atof(const char *p)
 {
     int frac;
     float sign, value, scale;
 
-    while (white_space(*p) )
+    while (pd_white_space(*p) )
         p += 1;
     sign = 1.0;
     if (*p == '-')
@@ -15,13 +15,13 @@ float math_atof(const char *p)
     }
     else if (*p == '+')
         p += 1;
-    for (value = 0.0; valid_digit(*p); p += 1)
+    for (value = 0.0; pd_valid_digit(*p); p += 1)
         value = value * 10.0 + (*p - '0');
     if (*p == '.')
     {
         float pow10 = 10.0;
         p += 1;
-        while (valid_digit(*p))
+        while (pd_valid_digit(*p))
         {
             value += (*p - '0') / pow10;
             pow10 *= 10.0;
@@ -41,7 +41,7 @@ float math_atof(const char *p)
         }
         else if (*p == '+')
             p += 1;
-        for (expon = 0; valid_digit(*p); p += 1)
+        for (expon = 0; pd_valid_digit(*p); p += 1)
             expon = expon * 10 + (*p - '0');
         if (expon > 308) expon = 308;
         while (expon >= 50) { scale *= 1E50; expon -= 50; }

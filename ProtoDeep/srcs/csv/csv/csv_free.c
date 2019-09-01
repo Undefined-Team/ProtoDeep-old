@@ -1,13 +1,13 @@
 #include "pd_main.h"
 
-void    csv_free(t_csv csv)
+void    pd_csv_free(pd_csv csv)
 {
-    t_csv_col *before;
+    pd_csv_col *before;
 
     while (csv.begin)
     {
         before = csv.begin;
         csv.begin = csv.begin->next;
-        csv_free_col(before);
+        pd_csv_free_col(before);
     }
 }

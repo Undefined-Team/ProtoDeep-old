@@ -1,15 +1,20 @@
 #include "pd_main.h"
 
-void		nn_forward(t_tensor output)
+void		pd_nn_forward(pd_tensor output) 
 {
-	t_network	network;
+	pd_network	network;
 
-	for (size_t i = 1; i < network.len; i++)
+	if (!pd_nn_is_valid_input(output.rank - 1, network.layer[0].layer_type)) // une dimension en moins pour le batch size
+	{
+		printf("erreur ma gueule\n");
+		exit(0);
+	}
+	for (size_t i = 0; i < network.len; i++)
 	{
 		if (network.layer[i].rank == 2)
 		{
 			if (network.layer[i - 1].rank == 2)
-				output = get_output_dense(output, network.layer[i]);
+				output = pd_get_output_dense(output, network.layer[i]);
 		}
 	}
 }

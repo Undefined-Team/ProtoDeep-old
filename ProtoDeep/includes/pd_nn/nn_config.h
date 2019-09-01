@@ -4,29 +4,33 @@
 // Macro
 
 // Structures
-typedef enum {L_DENSE, L_CONVOLUTION, L_MAXPOOL} layer_type;
-typedef enum {A_RELU, A_LRELU, A_SOFTMAX, A_SIGMOID, A_TANH} activation;
+typedef enum {PD_L_DENSE, PD_L_CONVOLUTION, PD_L_MAXPOOL} pd_layer_type;
+typedef enum {PD_A_RELU, PD_A_LRELU, PD_A_SOFTMAX, PD_A_SIGMOID, PD_A_TANH} pd_activation;
 
-typedef struct		s_tensor
-{
-	void			*values;
-	size_t			rank;
-	size_t			len;
-}					t_tensor;
+typedef struct				pds_tensor {
+	void					*values;
+	size_t					rank;
+	size_t					len;
+}							pd_tensor;
 
-typedef struct		s_layer
-{
-	layer_type		layer_type;
-	t_tensor		tensor;
-}					t_layer;
+typedef struct				pds_layer {
+	pd_layer_type			layer_type;
+	pd_tensor				tensor;
+	void					*param;
+}							pd_layer;
 
-typedef struct		s_network
-{
-	t_tensor		*layers;
-	size_t			len;
-}					t_network;
+typedef struct				pds_layer_lst {
+	pd_tensor				layer;
+	struct pds_layer_list 	*next;
+}							pd_layer_lst;
+
+typedef struct				pds_network {
+	pd_layer_lst			*init_layers;
+	pd_tensor				*layers;
+	size_t					len;
+}							pd_network;
 
 // Prototypes
-t_tensor			get_output_dense(t_tensor output, t_tensor layer);
+pd_tensor					pd_get_output_dense(pd_tensor output, pd_tensor layer);
 
 #endif

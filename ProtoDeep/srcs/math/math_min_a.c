@@ -1,11 +1,11 @@
 #include "pd_main.h"
 
-float   math_min_a(t_float_a x)
+float   pd_math_min_a(pd_float_a x)
 {
     float min;
     bool ftime = false;
 
-    if (x.type != T_FLOAT)
+    if (x.type != PD_T_FLOAT)
         return (0);
     for (size_t i = 0; i < x.len; i++)
     {

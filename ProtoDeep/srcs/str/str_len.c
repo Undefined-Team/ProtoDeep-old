@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-size_t  str_len(t_arr str)
+size_t  pd_str_len(pd_arr str)
 {
     size_t  i = 0;
 

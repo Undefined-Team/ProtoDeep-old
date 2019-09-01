@@ -1,13 +1,13 @@
 #include "pd_main.h"
 
-t_float_a   prep_minmax_scal_stdiz(t_float_a x, t_stdiz_data pdata)
+pd_float_a   pd_prep_minmax_scal_stdiz(pd_float_a x, pd_stdiz_data pdata)
 {
-    t_float_a y;
+    pd_float_a y;
     float som;
 
-    PROT_ARR_TYPE(x.type, T_FLOAT);
+    PD_PROT_ARR_TYPE(x.type, PD_T_FLOAT);
     som = 0;
-    y = arrInit(T_FLOAT, x.len);
+    y = pd_arrInit(PD_T_FLOAT, x.len);
     for (size_t i = 0; i < y.len; i++)
     {
         ((float*)y.val)[i] = (((float*)x.val)[i] - pdata.min) / pdata.maxsmin;
@@ -16,16 +16,16 @@ t_float_a   prep_minmax_scal_stdiz(t_float_a x, t_stdiz_data pdata)
     return y;
 }
 
-t_float_a   prep_minmax_scal_stdiz_init(t_float_a x, t_stdiz_data *pdata)
+pd_float_a   pd_prep_minmax_scal_stdiz_init(pd_float_a x, pd_stdiz_data *pdata)
 {
-    t_float_a y;
+    pd_float_a y;
     float som;
 
-    PROT_ARR_TYPE(x.type, T_FLOAT);
+    PD_PROT_ARR_TYPE(x.type, PD_T_FLOAT);
     som = 0;
-    pdata->min = math_min_a(x);
-    pdata->maxsmin = math_max_a(x) - pdata->min;
-    y = arrInit(T_FLOAT, x.len);
+    pdata->min = pd_math_min_a(x);
+    pdata->maxsmin = pd_math_max_a(x) - pdata->min;
+    y = pd_arrInit(PD_T_FLOAT, x.len);
     for (size_t i = 0; i < y.len; i++)
     {
         ((float*)y.val)[i] = (((float*)x.val)[i] - pdata->min) / pdata->maxsmin;
@@ -35,52 +35,52 @@ t_float_a   prep_minmax_scal_stdiz_init(t_float_a x, t_stdiz_data *pdata)
     return y;
 }
 
-t_float_a   prep_stdiz(t_float_a x, t_stdiz_data pdata)
+pd_float_a   pd_prep_stdiz(pd_float_a x, pd_stdiz_data pdata)
 {
-    t_float_a y;
+    pd_float_a y;
 
-    PROT_ARR_TYPE(x.type, T_FLOAT);
-    y = prep_minmax_scal_stdiz(x, pdata);
+    PD_PROT_ARR_TYPE(x.type, PD_T_FLOAT);
+    y = pd_prep_minmax_scal_stdiz(x, pdata);
     for (size_t i = 0; i < y.len; i++)
         ((float*)y.val)[i] = (((float*)y.val)[i] - pdata.mean) / pdata.std_dev;
-    arrFree(x);
+    pd_arrFree(x);
     return y;
 }
 
-t_float_a   prep_stdiz_init(t_float_a x, t_stdiz_data *pdata)
+pd_float_a   pd_prep_stdiz_init(pd_float_a x, pd_stdiz_data *pdata)
 {
-    t_float_a y;
+    pd_float_a y;
 
-    PROT_ARR_TYPE(x.type, T_FLOAT);
-    y = prep_minmax_scal_stdiz_init(x, pdata);
-    pdata->std_dev = math_stdev(y, pdata->mean);
+    PD_PROT_ARR_TYPE(x.type, PD_T_FLOAT);
+    y = pd_prep_minmax_scal_stdiz_init(x, pdata);
+    pdata->std_dev = pd_math_stdev(y, pdata->mean);
     for (size_t i = 0; i < y.len; i++)
         ((float*)y.val)[i] = (((float*)y.val)[i] - pdata->mean) / pdata->std_dev;
-    arrFree(x);
+    pd_arrFree(x);
     return y;
 }
 
-void        prep_standardize(t_csv csv, t_stdiz_a std_data)
+void        pd_prep_standardize(pd_csv csv, pd_stdiz_a std_data)
 {
     size_t i = 0;
 
-    for (t_csv_col *col = csv.begin; col; col = col->next)
+    for (pd_csv_col *col = csv.begin; col; col = col->next)
     {
-        if (col->columns.type == T_FLOAT)
-            col->columns = prep_stdiz(col->columns, ((t_stdiz_data*)std_data.val)[i]);
+        if (col->columns.type == PD_T_FLOAT)
+            col->columns = pd_prep_stdiz(col->columns, ((pd_stdiz_data*)std_data.val)[i]);
         i++;
     }
 }
 
-t_stdiz_a    prep_strandardize_init(t_csv csv)
+pd_stdiz_a    pd_prep_strandardize_init(pd_csv csv)
 {
     size_t i = 0;
 
-    t_stdiz_a new_std_data = arrInit(T_STDIZ, csv.width);
-    for (t_csv_col *col = csv.begin; col; col = col->next)
+    pd_stdiz_a new_std_data = pd_arrInit(PD_T_STDIZ, csv.width);
+    for (pd_csv_col *col = csv.begin; col; col = col->next)
     {
-        if (col->columns.type == T_FLOAT)
-            col->columns = prep_stdiz_init(col->columns, &(((t_stdiz_data*)new_std_data.val)[i]));
+        if (col->columns.type == PD_T_FLOAT)
+            col->columns = pd_prep_stdiz_init(col->columns, &(((pd_stdiz_data*)new_std_data.val)[i]));
         i++;
     }
     return new_std_data;

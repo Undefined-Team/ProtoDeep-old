@@ -1,13 +1,13 @@
 #include "pd_main.h"
 
-t_arr  str_dup(t_arr str, size_t len)
+pd_arr  pd_str_dup(pd_arr str, size_t len)
 {
-    t_arr  dup;
+    pd_arr  dup;
     size_t i;
 
     if (!str.val)
         return (str);
-    dup = arrInit(T_CHAR, len);
+    dup = pd_arrInit(PD_T_CHAR, len);
     for (i = 0; i < len && ((char *)str.val)[i]; i++)
         ((char *)dup.val)[i] = ((char *)str.val)[i];
     ((char *)dup.val)[i] = 0;

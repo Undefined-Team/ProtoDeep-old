@@ -1,9 +1,9 @@
 #include "pd_main.h"
 
-int     prep_csv_split(t_csv csv, t_csv *train, t_csv *test, float f_split)
+int     pd_prep_csv_split(pd_csv csv, pd_csv *train, pd_csv *test, float f_split)
 {
     unsigned int    split;
-    t_csv_col       *curr;
+    pd_csv_col       *curr;
 
     if (f_split > 1)
         f_split = 1;
@@ -15,16 +15,14 @@ int     prep_csv_split(t_csv csv, t_csv *train, t_csv *test, float f_split)
     train->begin = csv.begin;
     test->width = csv.width;
     test->height = csv.height - split;
-    test->begin = (t_csv_col *)malloc(sizeof(t_csv_col));
+    test->begin = (pd_csv_col *)malloc(sizeof(pd_csv_col));
     curr = test->begin;
-    for (t_csv_col *col = csv.begin; col; col = col->next)
+    for (pd_csv_col *col = csv.begin; col; col = col->next)
     {
-        curr->name = str_dup(col->name, col->name.len);
-        curr->columns = arrInit(T_FLOAT, test->height);
+        curr->name = pd_str_dup(col->name, col->name.len);
+        curr->columns = pd_arrInit(PD_T_FLOAT, test->height);
         curr->columns.val = &((float *)col->columns.val)[split];
-        // for (size_t i = 0; i <= csv.height - split; i++)
-        //     ((float*)curr->columns.val)[i] = ((float*)col->columns.val)[i + split - 1];
-        curr->next = col->next ? (t_csv_col *)malloc(sizeof(t_csv_col)) : NULL;
+        curr->next = col->next ? (pd_csv_col *)malloc(sizeof(pd_csv_col)) : NULL;
         curr = curr->next;
     }
     return (1);

@@ -1,11 +1,11 @@
 #include "pd_main.h"
 
-t_arr  str_fsub(t_arr str, size_t start, size_t length)
+pd_arr  pd_str_fsub(pd_arr str, size_t start, size_t length)
 {
-    t_arr new_str;
+    pd_arr new_str;
     
-    new_str = str_sub(str, start, length);
+    new_str = pd_str_sub(str, start, length);
     if (str.val)
-        dast_free((void**)&str.val);
+        pd_dast_free((void**)&str.val);
     return (new_str);
 }

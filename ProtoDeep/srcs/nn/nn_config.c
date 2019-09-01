@@ -1,41 +1,50 @@
 #include "pd_main.h"
 
-t_tensor	input_to_tensor(void *input)
+pd_tensor	pd_input_to_tensor(void *input)
 {
-	t_tensor	tensor;
+	pd_tensor	tensor;
 
 	return (tensor);
 }
 
-size_t		layer_rank(layer_type type)
+bool		pd_nn_is_valid_input(size_t rank, pd_layer_type layer_type)
 {
-	if (type == L_DENSE)
+	if ((layer_type == PD_L_DENSE && rank != 1)
+	||	(layer_type == PD_L_CONVOLUTION && !(rank == 2 || rank == 3))
+	||	(layer_type == PD_L_POOLING && rank != 2))
+		return false;
+	return true;
+}
+
+size_t		pd_layer_rank(pd_layer_type type)
+{
+	if (type == PD_L_DENSE)
 		return (1);
-	else if (type == L_CONVOLUTION || type = L_MAXPOOL)
+	else if (type == PD_L_CONVOLUTION || type = PD_L_MAXPOOL)
 		return (2);
 	return (0);
 }
 
-t_layer		*new_layer(layer_type layer_type)
+t_layer		*pd_new_layer(pd_layer_type layer_type)
 {
-	t_layer		*layer;
+	pd_layer		*layer;
 
-	layer = (t_layer *)malloc(sizeof(t_layer));
-	layer.tensor.rank = layer_rank(layer_type);
+	layer = (pd_layer *)malloc(sizeof(pd_layer));
+	layer.tensor.rank = pd_layer_rank(pd_layer_type);
 	layer.tensor.len = 0;
 }
 
-t_network	*create_network(layer_type)
+pd_network	*pd_create_network(pd_layer_type layer_type)
 {
-	t_network	network;
+	pd_network	network;
 
 	network.len = 1;
-	network.layers = new_layer(layer_type);
+	network.layers = pd_new_layer(layer_type);
 	return (network);
 }
 
-t_network	nn_add(t_network *network, layer_type layer_type)
+pd_network	pd_nn_add(pd_network *network, pd_layer_type layer_type)
 {
 	if (!network)
-		network = *create_network(layer_type);
+		network = *pd_create_network(layer_type);
 }

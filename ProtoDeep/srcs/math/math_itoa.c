@@ -1,14 +1,14 @@
 #include "pd_main.h"
 
-static t_char_a ft_getnumber(int n, int div, int neg, int size)
+static pd_char_a pd_get_number(int n, int div, int neg, int size)
 {
-	t_char_a    nb;
+	pd_char_a    nb;
 	int		    i;
 
 	i = 0;
 	if (neg == -1)
 		size++;
-    nb = arrInit(T_CHAR, size + 2);
+    nb = pd_arrInit(PD_T_CHAR, size + 2);
 	if (neg == -1)
 		((char *)nb.val)[i++] = '-';
 	while (div > 0)
@@ -21,15 +21,15 @@ static t_char_a ft_getnumber(int n, int div, int neg, int size)
 	return (nb);
 }
 
-static t_char_a ft_returnintmin(void)
+static pd_char_a pd_return_int_min(void)
 {
-	t_char_a    min;
+	pd_char_a    min;
 
-	min = strSNew("-2147483648");
+	min = pd_strSNew("-2147483648");
 	return (min);
 }
 
-t_char_a    math_itoa(int n)
+pd_char_a    pd_math_itoa(int n)
 {
 	int		neg;
 	int		div;
@@ -39,7 +39,7 @@ t_char_a    math_itoa(int n)
 	div = 1;
 	neg = 1;
 	if (n == -2147483648)
-		return (ft_returnintmin());
+		return (pd_return_int_min());
 	if (n < 0)
 	{
 		neg = -1;
@@ -50,5 +50,5 @@ t_char_a    math_itoa(int n)
 		size++;
 		div *= 10;
 	}
-	return (ft_getnumber(n, div, neg, size));
+	return (pd_get_number(n, div, neg, size));
 }

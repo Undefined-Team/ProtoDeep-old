@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-float   math_sqrt(const float x)
+float   pd_math_sqrt(const float x)
 {
   union
   {

@@ -6,63 +6,63 @@
 // Macro
 
 // Structures
-typedef struct              s_tbnode {
+typedef struct              pds_tbnode {
     char                    c;
     int                     word_index;
-    struct s_tbnode         *next;
-    struct s_tbnode         *f_begin;
-    struct s_tbnode         *f_last;
-}                           t_tbnode;
+    struct pds_tbnode       *next;
+    struct pds_tbnode       *f_begin;
+    struct pds_tbnode       *f_last;
+}                           pd_tbnode;
 
-typedef struct              s_ohe_trees {
-    t_char_a                base_name;
-    t_str_a                 new_names; 
-    t_tbnode                *begin;
-    struct s_ohe_trees      *next;
-}                           t_ohe_trees;
+typedef struct              pds_ohe_trees {
+    pd_char_a               base_name;
+    pd_str_a                new_names; 
+    pd_tbnode               *begin;
+    struct pds_ohe_trees    *next;
+}                           pd_ohe_trees;
 
-typedef struct              s_csv_conf {
-    t_str_a                 delete_indexs;
-    t_str_a                 ohe_indexs;
-    t_stdiz_a               std_data;
-    t_ohe_trees             *saved_trees;
-}                           t_csv_conf;
+typedef struct              pds_csv_conf {
+    pd_str_a                delete_indexs;
+    pd_str_a                ohe_indexs;
+    pd_stdiz_a              std_data;
+    pd_ohe_trees            *saved_trees;
+}                           pd_csv_conf;
 
-typedef struct              s_stdiz_data {
+typedef struct              pds_stdiz_data {
     float                   mean;
     float                   std_dev;
     float                   min;
     float                   maxsmin;
-}                           t_stdiz_data;
+}                           pd_stdiz_data;
 
-typedef struct              s_name_index {
-    t_char_a                name;
+typedef struct              pds_name_index {
+    pd_char_a               name;
     size_t                  index;
-    struct s_name_index     *next;
-}                           t_name_index;
+    struct pds_name_index   *next;
+}                           pd_name_index;
 
 // Prototypes
-t_float_a                   prep_minmax_scal(t_float_a x);
-t_float_a                   prep_stdiz(t_float_a x, t_stdiz_data pdata);
-t_float_a                   prep_stdiz_init(t_float_a x, t_stdiz_data *pdata);
-t_stdiz_a                   prep_strandardize_init(t_csv csv);
-void                        prep_standardize(t_csv csv, t_stdiz_a std_data);
+pd_float_a                  pd_prep_minmax_scal(pd_float_a x);
+pd_float_a                  pd_prep_stdiz(pd_float_a x, pd_stdiz_data pdata);
+pd_float_a                  pd_prep_stdiz_init(pd_float_a x, pd_stdiz_data *pdata);
+pd_stdiz_a                  pd_prep_strandardize_init(pd_csv csv);
+void                        pd_prep_standardize(pd_csv csv, pd_stdiz_a std_data);
 
-void                        prep_free_ohe_tree(t_ohe_trees *ohe_trees);
-void                        prep_add_line(t_csv_col *begin_col, size_t col_index, size_t line_index);
-t_csv_col                   *prep_add_col(t_csv_col *last_col, size_t nbr_line, size_t max_line, t_char_a name);
-t_ohe_trees                 *prep_ohe_init(t_csv *csv, t_str_a col_names);
-void                        prep_ohe(t_csv *csv, t_ohe_trees *tbegin);
-void                        prep_delete(t_csv *csv, t_str_a col_names);
+void                        pd_prep_free_ohe_tree(pd_ohe_trees *ohe_trees);
+void                        pd_prep_add_line(pd_csv_col *begin_col, size_t col_index, size_t line_index);
+pd_csv_col                  *pd_prep_add_col(pd_csv_col *laspd_col, size_t nbr_line, size_t max_line, pd_char_a name);
+pd_ohe_trees                *pd_prep_ohe_init(pd_csv *csv, pd_str_a col_names);
+void                        pd_prep_ohe(pd_csv *csv, pd_ohe_trees *tbegin);
+void                        pd_prep_delete(pd_csv *csv, pd_str_a col_names);
 
-t_csv_conf                  prep_init_conf(t_str_a delete_indexs, t_str_a ohe_indexs);
-void                        prep_free_conf(t_csv_conf conf);
-void                        prep_prepare(t_csv *csv, t_csv_conf *conf);
-void                        prep_all_to_float(t_csv csv);
-int                         prep_csv_split(t_csv csv, t_csv *train, t_csv *test, float f_split);
+pd_csv_conf                 pd_prep_init_conf(pd_str_a delete_indexs, pd_str_a ohe_indexs);
+void                        pd_prep_free_conf(pd_csv_conf conf);
+void                        pd_prep_prepare(pd_csv *csv, pd_csv_conf *conf);
+void                        pd_prep_all_to_float(pd_csv csv);
+int                         pd_prep_csv_split(pd_csv csv, pd_csv *train, pd_csv *test, float f_split);
 
-t_tbnode                    *prep_new_tbnode(char c, int word_index);
-void                        prep_free_tbnode(t_tbnode *begin);
-t_str_a                     prep_name_sort(t_csv csv, t_str_a col_ni);
+pd_tbnode                   *pd_prep_new_tbnode(char c, int word_index);
+void                        pd_prep_free_tbnode(pd_tbnode *begin);
+pd_str_a                    pd_prep_name_sort(pd_csv csv, pd_str_a col_ni);
 
 #endif
