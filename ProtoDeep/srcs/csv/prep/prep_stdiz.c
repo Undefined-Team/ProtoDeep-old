@@ -40,7 +40,7 @@ pd_float_a   pd_prep_stdiz(pd_float_a x, pd_stdiz_data pdata)
     pd_float_a y;
 
     PD_PROT_ARR_TYPE(x.type, PD_T_FLOAT);
-    y = prep_minmax_scal_stdiz(x, pdata);
+    y = pd_prep_minmax_scal_stdiz(x, pdata);
     for (size_t i = 0; i < y.len; i++)
         ((float*)y.val)[i] = (((float*)y.val)[i] - pdata.mean) / pdata.std_dev;
     pd_arrFree(x);

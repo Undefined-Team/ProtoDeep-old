@@ -41,7 +41,7 @@ void pd_merge_sort(size_t *arr, size_t l, size_t r)
         size_t m = l+(r-l)/2; 
         pd_merge_sort(arr, l, m); 
         pd_merge_sort(arr, m+1, r); 
-        pd_merge_(arr, l, m, r); 
+        pd_merge(arr, l, m, r); 
     } 
 } 
 
