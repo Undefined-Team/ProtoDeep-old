@@ -18,7 +18,7 @@ size_t pd_utf8len(char *s)
     return len;
 }
 
-size_t  pd_get_str_max_len(t_arr arr)
+size_t  pd_get_str_max_len(pd_arr arr)
 {
     if (arr.type != PD_T_STR)
         return 0;
@@ -57,15 +57,15 @@ void    pd_csv_print(pd_csv csv)
 {
     size_t      col = 0;
     size_t      str_max_len[csv.width];
-    char        *colors[5] = PD_T_COLOR_T;
+    char        *colors[5] = PD_COLOR_T;
 
     for (pd_csv_col *tmp = csv.begin; tmp; tmp = tmp->next)
     {
-        if (tmp->columns.type == T_STR)
+        if (tmp->columns.type == PD_T_STR)
             str_max_len[col] = pd_get_str_max_len(tmp->columns);
         else
-            str_max_len[col] = pd_get_float_max_len(tmp->columns) + (2 + PD_T_DBUG_PREC);
-        str_max_len[col] = pd_utf8len((char*)tmp->name.val) > str_max_len[col] ? pd_utf8len((char*)tmp->name.val) : str_max_leno[cl];
+            str_max_len[col] = pd_get_float_max_len(tmp->columns) + (2 + PD_DBUG_PREC);
+        str_max_len[col] = pd_utf8len((char*)tmp->name.val) > str_max_len[col] ? pd_utf8len((char*)tmp->name.val) : str_max_len[col];
         col++;
     }
     col = 0;
@@ -73,7 +73,7 @@ void    pd_csv_print(pd_csv csv)
         printf("| ");
     for (pd_csv_col *tmp = csv.begin; tmp; tmp = tmp->next)
     {
-        printf("%s%s%*s%s | ", colors[col % 5], COLOR_U, (int)str_max_len[col], (char*)tmp->name.val, COLOR_N);
+        printf("%s%s%*s%s | ", colors[col % 5], PD_COLOR_U, (int)str_max_len[col], (char*)tmp->name.val, PD_COLOR_N);
         col++;
     }
     printf("\n");
@@ -95,12 +95,12 @@ void    pd_csv_print(pd_csv csv)
             }
             else if (tmp->columns.type == PD_T_FLOAT)
             {
-                printf("% .*f", PD_T_DBUG_PREC, ((float*)tmp->columns.val)[line]);
-                size_t pad = str_max_len[col] - pd_math_nbr_len(((float*)tmp->columns.val)[line]) - (2 + PD_T_DBUG_PREC); 
+                printf("% .*f", PD_DBUG_PREC, ((float*)tmp->columns.val)[line]);
+                size_t pad = str_max_len[col] - pd_math_nbr_len(((float*)tmp->columns.val)[line]) - (2 + PD_DBUG_PREC); 
                 for (size_t i = 0; i < pad; i++)
                     printf(" ");
             }
-            printf("%s | ", PD_T_COLOR_N);
+            printf("%s | ", PD_COLOR_N);
             col++;
         }
         printf("\n");

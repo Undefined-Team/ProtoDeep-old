@@ -10,7 +10,7 @@ static void				pd_free_word(pd_arr new_word, pd_arr word, pd_arr escape, pd_arr 
 		free(escape.val);
 }
 
-static t_split_list    *pd_add_elem(pd_arr word)
+static pd_split_list    *pd_add_elem(pd_arr word)
 {
     pd_split_list    *new;
 	pd_arr			white_space;
@@ -26,7 +26,7 @@ static t_split_list    *pd_add_elem(pd_arr word)
     return (new);
 }
 
-static pd_split_list    *count_sep(pd_arr str, char sep, int escape)
+static pd_split_list    *pd_count_sep(pd_arr str, char sep, int escape)
 {
     size_t          i = 0;
     size_t          j = 0;
@@ -81,7 +81,7 @@ pd_arr     pd_str_split(pd_arr str, char sep, int escape)
     pd_arr         tokens;
 
     if (!(words = pd_count_sep(str, sep, escape)))
-        return (pd_arrInit(T_STR, 0));
+        return (pd_arrInit(PD_T_STR, 0));
     curr = words;
     while (curr)
     {
@@ -90,7 +90,7 @@ pd_arr     pd_str_split(pd_arr str, char sep, int escape)
     }
     if (!count)
         return (tokens);
-    tokens = pd_arrInit(T_STR, count);
+    tokens = pd_arrInit(PD_T_STR, count);
     tokens.len = count;
     count = 0;
     curr = words;

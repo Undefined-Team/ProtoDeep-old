@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-pd_arr  str_fsub(pd_arr str, size_t start, size_t length)
+pd_arr  pd_str_fsub(pd_arr str, size_t start, size_t length)
 {
     pd_arr new_str;
     

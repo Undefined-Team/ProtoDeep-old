@@ -53,7 +53,7 @@ int     pd_csv_get_line(int fd, pd_char_a *line)
             break;
     }
 	pd_dast_free((void**)&buf.val);
-    if (ret < 64 && !str_len(content))
+    if (ret < 64 && !pd_str_len(content))
     {
 		free(content.val);
 		content.val = NULL;
