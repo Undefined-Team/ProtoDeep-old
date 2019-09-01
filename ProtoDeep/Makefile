@@ -66,18 +66,24 @@ CSV				=	csv_read.c			\
 					csv_free.c 			\
 					csv_print.c 		\
 
+NN_FLD			=	nn/					\
+NN				=	nn_master.c			\
+					nn_dense.c			\
+
 SRC_FLDS		=	math/				\
 					str/				\
 					dast/				\
 					csv/				\
 					csv/csv/			\
 					csv/prep/			\
+					nn/					\
 
 SRC				+=	$(addprefix $(MATH_FLD), $(MATH))
 SRC				+=	$(addprefix $(PREP_FLD), $(PREP))
 SRC				+=	$(addprefix $(CSV_FLD), $(CSV))
 SRC				+=	$(addprefix $(STR_FLD), $(STR))
 SRC				+=	$(addprefix $(DAST_FLD), $(DAST))
+SRC				+=	$(addprefix $(NN_FLD), $(NN))
 
 BIN				=	$(SRC:.c=.o)
 BIN_FLDS		=	$(addprefix $(BIN_PATH), $(SRC_FLDS))
