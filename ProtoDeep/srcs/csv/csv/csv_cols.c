@@ -42,7 +42,7 @@ t_csv_col   *csv_init_cols(t_tokens_list *line, int header, size_t width, size_t
     return (col_list);
 }
 
-t_csv_col   *create_cols(t_tokens_list *tokens, int header, size_t width, size_t height)
+t_csv_col   *csv_create_cols(t_tokens_list *tokens, int header, size_t width, size_t height)
 {
     t_tokens_list   *line = tokens;
     t_csv_col       *col_list = NULL;
@@ -66,4 +66,22 @@ t_csv_col   *create_cols(t_tokens_list *tokens, int header, size_t width, size_t
     if (tokens)
         csv_free_tokens_list(tokens);
     return (col_list);
+}
+
+t_csv_col   *csv_new_col(t_arr columns, t_char_a name)
+{
+    t_csv_col   *elem = NULL;
+
+    PROT_MALLOC(elem = malloc(sizeof(t_csv_col)));
+    elem->name = name;
+    elem->next = NULL;
+    elem->columns = columns;
+    return (elem);
+}
+
+void    csv_free_col(t_csv_col *elem)
+{
+    arrRFree(elem->columns, -1);
+    strFree(elem->name);
+    dast_free((void**)&elem);
 }

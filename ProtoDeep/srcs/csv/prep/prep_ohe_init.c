@@ -14,10 +14,10 @@ void        prep_add_line(t_csv_col *begin_col, size_t col_index, size_t line_in
 t_csv_col   *prep_add_col(t_csv_col *last_col, size_t nbr_line, size_t max_line, t_char_a name)
 {
     if (!last_col)
-        last_col = dast_csv_new_col(dast_init_arr(T_FLOAT, nbr_line), name);
+        last_col = csv_new_col(dast_init_arr(T_FLOAT, nbr_line), name);
     else
     {
-        last_col->next = dast_csv_new_col(dast_init_arr(T_FLOAT, nbr_line), name);
+        last_col->next = csv_new_col(dast_init_arr(T_FLOAT, nbr_line), name);
         last_col = last_col->next;
     }
     for (size_t i = 0; i < max_line; i++)
@@ -62,12 +62,12 @@ t_char_a      update_bin_tree(t_tbnode *node, char *str, int *new_index, int *to
     // Add new node to binary tree
     if (!node->f_begin) // Child list empty
     {
-        node->f_begin = dast_new_tbnode(*str, -1); // Create first child
+        node->f_begin = prep_new_tbnode(*str, -1); // Create first child
         f_begin = node->f_begin;
     }
     else
     {
-        tmp->next = dast_new_tbnode(*str, -1); // Add child
+        tmp->next = prep_new_tbnode(*str, -1); // Add child
         f_begin = tmp->next;
     }
     if (*(str + 1) == '\0') // If it's the last char
@@ -93,7 +93,7 @@ t_ohe_trees *dast_new_ohe_tree(t_char_a base_name, t_csv_col *begin, int len, t_
 
 static t_csv_col *cols_generator(t_csv_col **col, t_ohe_trees **t_tmp)
 {
-    t_tbnode        *tbegin = dast_new_tbnode('\0', -2);
+    t_tbnode        *tbegin = prep_new_tbnode('\0', -2);
     t_arr           str_arr = (*col)->columns;
     t_csv_col       *begin_col = NULL;
     t_csv_col       *last_col = NULL;
@@ -140,7 +140,7 @@ t_ohe_trees    *prep_ohe_init(t_csv *csv, t_str_a col_names)
     t_ohe_trees *begin = NULL;
     t_ohe_trees *t_tmp = NULL;
 
-    col_names = dast_name_sort(*csv, col_names);
+    col_names = prep_name_sort(*csv, col_names);
     while (col && i < col_names.len)
     {
         if (col->columns.type == T_STR && str_cmp((char*)col->name.val, (char*)(((t_str_a*)col_names.val)[i].val) ) == 0)

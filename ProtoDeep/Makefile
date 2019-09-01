@@ -42,11 +42,8 @@ STR				=	str_len.c			\
 					str_cmp.c 			\
 
 DAST_FLD		=	dast/
-DAST			=	dast_tbnode.c 		\
-					dast_free.c			\
-					dast_csv_col.c		\
+DAST			=	dast_free.c 		\
 					dast_arr.c			\
-					dast_name_sort.c 	\
 
 PREP_FLD		=	csv/prep/
 PREP			=	prep_minmax_scal.c	\
@@ -58,6 +55,8 @@ PREP			=	prep_minmax_scal.c	\
 					prep_prepare.c		\
 					prep_all_to_float.c	\
 					prep_csv_split.c	\
+					prep_tbnode.c		\
+					prep_name_sort.c	\
 
 CSV_FLD			=	csv/csv/
 CSV				=	csv_read.c			\

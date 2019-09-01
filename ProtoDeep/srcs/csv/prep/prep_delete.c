@@ -9,7 +9,7 @@ void    prep_delete(t_csv *csv, t_str_a col_names)
     t_csv_col   *before = NULL;
     t_csv_col   *tmp = NULL;
 
-    col_names = dast_name_sort(*csv, col_names);
+    col_names = prep_name_sort(*csv, col_names);
     while (col && i < col_names.len)
     {
         if (str_cmp((char*)col->name.val, (char*)(((t_str_a*)col_names.val)[i].val) ) == 0)
@@ -20,7 +20,7 @@ void    prep_delete(t_csv *csv, t_str_a col_names)
                 before->next = col;
             else
                 csv->begin = col;
-            dast_csv_free_col(tmp);
+            csv_free_col(tmp);
             i++;
         }
         if (!col)
@@ -34,11 +34,3 @@ void    prep_delete(t_csv *csv, t_str_a col_names)
     csv->width = i;
     arrFree(col_names);
 }
-
-/*
-
-- Faire que *col = last_col pour mieux utiliser les i et economiser des lignes
-- Sauvegarder l arbre binaire dans conf
-- Faire une fonction d utilisation de l arbre binaire (Si un mot n est pas trouve alors 0 dans chaque ligne)
-
-*/

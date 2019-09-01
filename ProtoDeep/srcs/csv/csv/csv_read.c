@@ -23,7 +23,7 @@ t_csv   csv_read(char *file_name, char separator, int header)
         return (csv_init(NULL, 0, 0, 0));
     if (!(tokens_list = csv_create_tokens_list(fd, separator, &height, &width)))
         return (csv_init(NULL, 0, 0, 0));
-    cols = create_cols(tokens_list, header, width, height);
+    cols = csv_create_cols(tokens_list, header, width, height);
     csv = csv_init(cols, header, width, height);
     return (csv);
 }
