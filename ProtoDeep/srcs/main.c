@@ -60,13 +60,13 @@ void    csv_with_conf()
 {
     t_csv csv_1 = csv_read("res/tim_test1.csv", ',', 1);
     //t_csv csv_1 = get_test_csv_1();
-    print_csv(csv_1);
+    csv_print(csv_1);
 
     t_char_a del_1[1] = {strSNew("Name")};
     t_char_a ohe_1[2] = {strSNew("Main droite"), strSNew("Zizi")};
     t_csv_conf conf = prep_init_conf(arrSNew(T_STR, 1, del_1), arrSNew(T_STR, 2, ohe_1));
     prep_prepare(&csv_1, &conf);
-    print_csv(csv_1);
+    csv_print(csv_1);
 
     csv_free(csv_1);
 
@@ -74,9 +74,9 @@ void    csv_with_conf()
 
     t_csv csv_2 = csv_read("res/tim_test2.csv", ',', 1);
     //t_csv csv_2 = get_test_csv_2(); 
-    print_csv(csv_2);
+    csv_print(csv_2);
     prep_prepare(&csv_2, &conf);
-	print_csv(csv_2);
+	csv_print(csv_2);
 
     csv_free(csv_2);
 
@@ -87,7 +87,7 @@ void    csv_manual()
 {
     t_csv csv_1 = csv_read("res/tim_test1.csv", ',', 1);
     //t_csv csv_1 = get_test_csv_1();
-    print_csv(csv_1);
+    csv_print(csv_1);
 
     t_char_a del_1[1] = {strSNew("Name")};
     t_str_a  del_str = arrSNew(T_STR, 1, del_1);
@@ -99,7 +99,7 @@ void    csv_manual()
 
     prep_all_to_float(csv_1);
     t_stdiz_a stdiz_data = prep_strandardize_init(csv_1);
-    print_csv(csv_1);
+    csv_print(csv_1);
 
     csv_free(csv_1);
 
@@ -107,13 +107,13 @@ void    csv_manual()
 
     t_csv csv_2 = csv_read("res/tim_test2.csv", ',', 1);
     //t_csv csv_2 = get_test_csv_2();
-    print_csv(csv_2);
+    csv_print(csv_2);
 
     prep_delete(&csv_2, del_str);
     prep_ohe(&csv_2, ohe_trees);
     prep_all_to_float(csv_2);
     prep_standardize(csv_2, stdiz_data);
-    print_csv(csv_2);
+    csv_print(csv_2);
 
     prep_free_ohe_tree(ohe_trees);
     arrRFree(del_str, -1);
@@ -125,7 +125,7 @@ void    csv_manual()
 int main(void)
 {
     //t_csv   csv = csv_read("./test.csv", 1);
-    //dbug_print_csv(csv);
+    //dbug_csv_print(csv);
     printf("\n-------------- MODE CONF --------------\n");
     csv_with_conf();
     printf("\n-------------- MODE MANUAL --------------\n");

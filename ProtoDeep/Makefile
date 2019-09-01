@@ -64,9 +64,7 @@ CSV				=	csv_read.c			\
 					csv_tokens.c		\
 					csv_cols.c			\
 					csv_free.c 			\
-
-PRINT_CSV_FLD	=	csv/print_csv/
-PRINT_CSV		=	print_csv.c			\
+					csv_print.c 		\
 
 SRC_FLDS		=	math/				\
 					str/				\
@@ -74,14 +72,12 @@ SRC_FLDS		=	math/				\
 					csv/				\
 					csv/csv/			\
 					csv/prep/			\
-					csv/print_csv/		\
 
 SRC				+=	$(addprefix $(MATH_FLD), $(MATH))
 SRC				+=	$(addprefix $(PREP_FLD), $(PREP))
 SRC				+=	$(addprefix $(CSV_FLD), $(CSV))
 SRC				+=	$(addprefix $(STR_FLD), $(STR))
 SRC				+=	$(addprefix $(DAST_FLD), $(DAST))
-SRC				+=	$(addprefix $(PRINT_CSV_FLD), $(PRINT_CSV))
 
 BIN				=	$(SRC:.c=.o)
 BIN_FLDS		=	$(addprefix $(BIN_PATH), $(SRC_FLDS))
