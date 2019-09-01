@@ -1,8 +1,8 @@
 #include "pd_main.h"
 
-t_csv_conf      prep_init_conf(t_str_a delete_indexs, t_str_a ohe_indexs)
+pd_csv_conf      pd_prep_init_conf(pd_str_a delete_indexs, pd_str_a ohe_indexs)
 {
-    t_csv_conf new_conf;
+    pd_csv_conf new_conf;
 
     new_conf.delete_indexs = delete_indexs;
     new_conf.ohe_indexs = ohe_indexs;
@@ -11,24 +11,24 @@ t_csv_conf      prep_init_conf(t_str_a delete_indexs, t_str_a ohe_indexs)
     return new_conf;
 }
 
-void            prep_free_ohe_tree(t_ohe_trees *ohe_trees)
+void            pd_prep_free_ohe_tree(pd_ohe_trees *ohe_trees)
 {
-    t_ohe_trees *tmp = ohe_trees;
+    pd_ohe_trees *tmp = ohe_trees;
     while (tmp)
     {
         ohe_trees = tmp;
         tmp = tmp->next;
-        arrRFree(ohe_trees->base_name, -1);
-        arrRFree(ohe_trees->new_names, -1);
-        prep_free_tbnode(ohe_trees->begin);
-        dast_free((void**)&ohe_trees);
+        pd_arrRFree(ohe_trees->base_name, -1);
+        pd_arrRFree(ohe_trees->new_names, -1);
+        pd_prep_free_tbnode(ohe_trees->begin);
+        pd_dast_free((void**)&ohe_trees);
     }   
 }
 
-void            prep_free_conf(t_csv_conf conf)
+void            pd_prep_free_conf(pd_csv_conf conf)
 {
-    strFree(conf.delete_indexs);
-    strFree(conf.ohe_indexs);
-    arrFree(conf.std_data);
-    prep_free_ohe_tree(conf.saved_trees);
+    pd_strFree(conf.delete_indexs);
+    pd_strFree(conf.ohe_indexs);
+    pd_arrFree(conf.std_data);
+    pd_prep_free_ohe_tree(conf.saved_trees);
 }

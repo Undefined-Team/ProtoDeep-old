@@ -8,19 +8,19 @@
 // Structures
 
 // Prototypes
-t_arr       str_join(t_arr head, t_arr tail);
-t_arr       str_fjoin(t_arr head, t_arr tail);
-size_t      str_clen(char* str);
-size_t      str_len(t_arr str);
-t_arr       str_dup(t_arr str, size_t len);
-t_arr       str_sub(t_arr str, size_t start, size_t length);
-t_arr       str_fsub(t_arr str, size_t start, size_t length);
-t_arr       str_split(t_arr str, char sep, int escape);
-t_arr       str_escape(t_arr str);
-t_arr       str_whitespace(t_arr str);
-t_arr       str_fill(char c, size_t len);
-t_char_a    str_char_to_str(char c);
-int         str_chr(t_arr str, char c);
-int		    str_cmp(const char *s1, const char *s2);
+pd_arr       pd_str_join(pd_arr head, pd_arr tail);
+pd_arr       pd_str_fjoin(pd_arr head, pd_arr tail);
+size_t      pd_str_clen(char* str);
+size_t      pd_str_len(pd_arr str);
+pd_arr       pd_str_dup(pd_arr str, size_t len);
+pd_arr       pd_str_sub(pd_arr str, size_t start, size_t length);
+pd_arr       pd_str_fsub(pd_arr str, size_t start, size_t length);
+pd_arr       pd_str_split(pd_arr str, char sep, int escape);
+pd_arr       pd_str_escape(pd_arr str);
+pd_arr       pd_str_whitespace(pd_arr str);
+pd_arr       pd_str_fill(char c, size_t len);
+pd_char_a    pd_str_char_to_str(char c);
+int         pd_str_chr(pd_arr str, char c);
+int		    pd_str_cmp(const char *s1, const char *s2);
 
 #endif

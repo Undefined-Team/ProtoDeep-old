@@ -5,42 +5,42 @@
 
 // Macro
 // v = depth, w = arr, x = type, y = len, z = val
-# define arrInit(x, y)          dast_init_arr(x, y)
-# define arrNew(x, y, z)        dast_new_arr(x, y, z)
-# define arrSNew(x, y, z)       dast_new_s_arr(x, y, z)
-# define arrFree(w)             dast_free_arr(w, 0)
-# define arrRFree(w, v)         dast_free_arr(w, v)
+# define pd_arrInit(x, y)          pd_dast_inipd_arr(x, y)
+# define pd_arrNew(x, y, z)        pd_dast_new_arr(x, y, z)
+# define pd_arrSNew(x, y, z)       pd_dast_new_s_arr(x, y, z)
+# define pd_arrFree(w)             pd_dast_free_arr(w, 0)
+# define pd_arrRFree(w, v)         pd_dast_free_arr(w, v)
 
-# define strNew(z)              arrNew(T_CHAR, 1, z)
-# define strSNew(z)             arrSNew(T_CHAR, 1, z)
-# define strFree(w)             arrRFree(w, 1)
+# define pd_strNew(z)              pd_arrNew(T_CHAR, 1, z)
+# define pd_strSNew(z)             pd_arrSNew(T_CHAR, 1, z)
+# define pd_strFree(w)             pd_arrRFree(w, 1)
 
-# define t_char_a               t_arr
-# define t_float_a              t_arr
-# define t_size_t_a             t_arr
-# define t_str_a                t_arr
-# define t_stdiz_a              t_arr
+# define pd_t_char_a               pd_pd_arr
+# define pd_t_float_a              pd_t_arr
+# define pd_t_size_t_a             pd_t_arr
+# define pd_t_str_a                pd_t_arr
+# define pd_t_stdiz_a              pd_t_arr
 
-# define PROT_MALLOC(x)         if (!(x)) {return NULL;}
-# define PROT_ARR_TYPE(x, y)    if (x != y) {return arrNew(y, 0, NULL);}
+# define pd_PROT_MALLOC(x)         if (!(x)) {return NULL;}
+# define pd_PROT_ARR_TYPE(x, y)    if (x != y) {return arrNew(y, 0, NULL);}
 
-# define T_STR                  T_ARR // T_STR is an array of array
+# define pd_T_STR                  T_ARR // T_STR is an array of array
 
 // Structures
 typedef enum {false,true} bool;
-typedef enum {T_ARR, T_FLOAT, T_SIZE_T, T_CHAR, T_STDIZ} type;
+typedef enum {PD_T_ARR, PD_T_FLOAT, PD_T_SIZE_T, PD_T_CHAR, PD_T_STDIZ} pd_type;
 
-typedef struct                  s_arr {
+typedef struct                  pds_arr {
     void                        *val;
     size_t                      len;
-    type                        type;
-}                               t_arr;
+    pd_type                     type;
+}                               pd_arr;
 
 // Prototypes
-t_arr                           dast_init_arr(type type, size_t len);
-t_arr                           dast_new_s_arr(type type, size_t len, void* val);
-t_arr                           dast_new_arr(type type, size_t len, void* val);
-void                            dast_free_arr(t_arr arr, int depth);
+pd_arr                           dast_init_arr(pd_type type, size_t len);
+pd_arr                           dast_new_s_arr(pd_type type, size_t len, void* val);
+pd_arr                           dast_new_arr(pd_type type, size_t len, void* val);
+void                            dast_free_arr(pd_arr arr, int depth);
 
 void	                        dast_free(void **ap);
 

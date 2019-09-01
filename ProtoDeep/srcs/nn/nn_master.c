@@ -15,12 +15,24 @@ t_network	nn_init_network(layer_type input_type)
 	return (network);
 }
 
-void		nn_master(void *input)
+bool		nn_is_valid_input(size_t rank, layer_type layer_type)
 {
-	t_tensor	output;
+	if ((layer_type == L_DENSE && rank != 1)
+	||	(layer_type == L_CONVOLUTION && !(rank == 2 || rank == 3))
+	||	(layer_type == L_POOLING && rank != 2))
+		return false;
+	return true;
+}
+
+void		nn_master(t_tensor output) 
+{
 	t_network	network;
 
-	output = input_to_tensor(input);
+	if (!nn_is_valid_input(output.rank - 1, network.layer[0].layer_type)) // Une dimension en moins pour le batch size
+	{
+		printf("Erreur ma gueule\n");
+		exit(0);
+	}
 	for (size_t i = 0; i < network.len; i++)
 	{
 		if (network.layer[i].rank == 2)
