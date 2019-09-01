@@ -1,2 +1,2 @@
 # ProtoDeep
-![alt text](https://raw.githubusercontent.com/tdautreme/ProtoDeep/master/background.png)
+![alt text](https://raw.githubusercontent.com/tdautreme/ProtoDeep/master/Docs/Res/background.png)
