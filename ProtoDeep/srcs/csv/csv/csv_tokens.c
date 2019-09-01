@@ -8,8 +8,8 @@ void        pd_csv_free_tokens_list(pd_tokens_list *tokens)
     {
             tmp = tokens;
             tokens = tokens->next;
-            dast_free((void**)&(tmp->tokens.val));
-            dast_free((void**)&tmp);
+            pd_dast_free((void**)&(tmp->tokens.val));
+            pd_dast_free((void**)&tmp);
     }
 }
 
@@ -18,16 +18,16 @@ pd_char_a pd_csv_retrieve_line(pd_char_a *content)
     pd_char_a     line;
     size_t      len;
 
-    if ((len = str_chr(*content, '\n')))
+    if ((len = pd_str_chr(*content, '\n')))
     {
-       line = str_dup(*content, len - 2);
-        *content = str_fsub(*content, len, content->len);
+       line = pd_str_dup(*content, len - 2);
+        *content = pd_str_fsub(*content, len, content->len);
     }
     else
     {
-        len = str_len(*content);
-        line = str_dup(*content, len);
-        *content = str_fsub(*content, len, content->len);
+        len = pd_str_len(*content);
+        line = pd_str_dup(*content, len);
+        *content = pd_str_fsub(*content, len, content->len);
     }
     return (line);
 }
