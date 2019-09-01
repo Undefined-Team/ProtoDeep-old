@@ -72,7 +72,7 @@ void    csv_with_conf()
 
     printf("Try use other file with this conf -----------------\n\n");
 
-    t_csv csv_2 = pd_csv_read("res/tim_test2.csv", ',', 1);
+    pd_csv csv_2 = pd_csv_read("res/tim_test2.csv", ',', 1);
     //t_csv csv_2 = get_test_csv_2(); 
     pd_csv_print(csv_2);
     pd_prep_prepare(&csv_2, &conf);
@@ -91,12 +91,11 @@ void    pd_csv_manual()
 
     pd_char_a del_1[1] = {pd_strSNew("Name")};
     pd_str_a  del_str = pd_arrSNew(PD_T_STR, 1, del_1);
-    prep_delete(&csv_1, del_str);
+    pd_prep_delete(&csv_1, del_str);
 
     pd_char_a ohe_1[2] = {pd_strSNew("Main droite"), pd_strSNew("Zizi")};
     pd_str_a  ohe_str = pd_arrSNew(PD_T_STR, 2, ohe_1);
     pd_ohe_trees *ohe_trees = pd_prep_ohe_init(&csv_1, ohe_str);
-
     pd_prep_all_to_float(csv_1);
     pd_stdiz_a stdiz_data = pd_prep_strandardize_init(csv_1);
     pd_csv_print(csv_1);
