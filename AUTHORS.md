@@ -1,7 +1,7 @@
-Name								: e-mail										 : 42 Login
+Name : E-mail : Linkedin : 42 Login
 
-Timothée DAUTRÊME   : tim.dautreme.pro@gmail.com : tdautrem
+Timothée DAUTRÊME   : tim.dautreme.pro@gmail.com : https://www.linkedin.com/in/timothee-dautreme/             : tdautrem
 
-Sylvain BÉDÈNE      : sylvainbedene@gmail.com    : sbedene
+Paco DUHARD-JOURDAN : pacoloco@gmail.com         : https://www.linkedin.com/in/paco-duhard-jourdan-80136a176/ : pduhard-
 
-Paco DUHARD-JOURDAN : pacoloco@gmail.com         : pduhard-
+Sylvain BÉDÈNE      : sylvainbedene@gmail.com    : Undefined                                                  : sbedene
