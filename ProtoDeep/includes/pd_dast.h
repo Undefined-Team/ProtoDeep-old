@@ -24,7 +24,7 @@
 # define PD_PROT_MALLOC(x)          if (!(x)) {return NULL;}
 # define PD_PROT_ARR_TYPE(x, y)     if (x != y) {return pd_arrNew(y, 0, NULL);}
 
-# define PD_T_STR                   PD_T_ARR // T_STR is an array of array
+# define PD_T_STR                   PD_T_ARR
 
 // Structures
 typedef enum {false,true} bool;
