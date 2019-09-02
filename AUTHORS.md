@@ -1,4 +1,5 @@
-Name								: e-mail										 : 42 Login                  
+Name								: e-mail										 : 42 Login
+
 Timothée DAUTRÊME   : tim.dautreme.pro@gmail.com : tdautrem
 
 Sylvain BÉDÈNE      : sylvainbedene@gmail.com    : sbedene
