@@ -125,12 +125,22 @@ int main(void)
 {
     //t_csv   csv = csv_read("./test.csv", 1);
     //dbug_csv_print(csv);
-    printf("\n-------------- MODE CONF --------------\n");
-    pd_csv_with_conf();
-    printf("\n-------------- MODE MANUAL --------------\n");
-    pd_csv_manual();
+    // printf("\n-------------- MODE CONF --------------\n");
+    // pd_csv_with_conf();
+    // printf("\n-------------- MODE MANUAL --------------\n");
+    // pd_csv_manual();
     //t_arr test = pd_strSNew("Zizi");
     //void *test = pdmalloc(1);
     //(void)test;
+    pd_network network;
+
+    pd_nn_init_network(&network);
+    pd_nn_add(&network, pd_nn_convolution(16, 3, 2, PD_A_RELU));
+    size_t pool_size[2] = {2, 2};
+    pd_nn_add(&network, pd_nn_maxpool(pool_size, 2));
+    pd_nn_add(&network, pd_nn_dense(16, PD_A_RELU));
+    pd_nn_add(&network, pd_nn_dense(16, PD_A_RELU));
+    pd_nn_validate(&network);
+    pd_nn_print(network);
     return (0);
 }

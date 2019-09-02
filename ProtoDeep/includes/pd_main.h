@@ -12,8 +12,8 @@
 #include "pd_str.h"
 #include "pd_csv/pd_csv.h"
 #include "pd_csv/pd_prep.h"
-#include "pd_nn/nn_config.h"
-#include "pd_nn/nn_forward.h"
+#include "pd_nn/pd_config.h"
+#include "pd_nn/pd_forward.h"
 
 //#include "pd_memory.h"
 

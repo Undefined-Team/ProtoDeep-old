@@ -65,10 +65,11 @@ CSV				=	csv_read.c			\
 					csv_free.c 			\
 					csv_print.c 		\
 
-NN_FLD			=	nn/					\
+NN_FLD			=	nn/
 NN				=	nn_config.c			\
 					nn_forward.c		\
 					nn_dense.c			\
+					nn_print.c			\
 
 SRC_FLDS		=	math/				\
 					str/				\
