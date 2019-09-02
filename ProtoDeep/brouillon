@@ -1,0 +1,37 @@
+
+
+pd_tensor pd_nn_get_output(input, layer, before_layer_type)
+{
+    if (layer.layer_type = PD_L_DENSE)
+    {
+        if (input.rank == 2) // If before == dense
+            return pd_nn_get_output_dense(input, network.layer[i]);
+        //else if (input.rank > 2) // If before can be flatten
+        //    return pd_nn_get_output_dense(pd_nn_get_output_flatten(input), network.layer[i]);
+    }
+    // CONVOLUTION POOLING LSTM
+}
+
+float pd_nn_forward(pd_network network, pd_tensor input, pd_tensor output)
+{
+    if (!pd_nn_is_valid_input(output.rank, network.layer[0].layer_type))
+	{
+		printf("erreur ma gueule\n");
+		exit(0);
+	}
+    for (i = 1 < network.len)
+        input = pd_nn_get_output(input, network.layers[i], network.layers[i - 1].layer_type);    
+    cost = get_compare_io(input, output);
+    return cost;
+}
+
+pd_nn_train_batch(pd_network network, pd_tensor input_batch, t_tensor output_batch)
+{
+    cost = 0;
+    for (i = 0 < input_batch.len)
+    {
+        cost += pd_nn_forward(network, input_batch[i].val, output_batch[i].val);
+    }
+    first_gradient = pd_nn_get_first_gradient(cost);
+    pd_nn_backward(network, first_gradient);
+}

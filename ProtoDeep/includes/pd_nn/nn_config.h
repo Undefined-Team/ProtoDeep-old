@@ -8,7 +8,7 @@ typedef enum {PD_L_DENSE, PD_L_CONVOLUTION, PD_L_MAXPOOL} pd_layer_type;
 typedef enum {PD_A_RELU, PD_A_LRELU, PD_A_SOFTMAX, PD_A_SIGMOID, PD_A_TANH} pd_activation;
 
 typedef struct				pds_tensor {
-	void					*values;
+	void					*val;
 	size_t					rank;
 	size_t					len;
 }							pd_tensor;

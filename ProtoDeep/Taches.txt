@@ -1,0 +1,2 @@
+- Lib tensor
+- Refaire le one hot encoding pour juste des t_char_a et adapter le one hot du csv
