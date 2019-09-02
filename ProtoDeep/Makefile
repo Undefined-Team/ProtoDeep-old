@@ -65,10 +65,14 @@ CSV				=	csv_read.c			\
 					csv_free.c 			\
 					csv_print.c 		\
 
+TENS_FLD		=	tens/
+TENS			=	tens_init.c			\
+
 NN_FLD			=	nn/
 NN				=	nn_config.c			\
-					nn_forward.c		\
 					nn_dense.c			\
+					nn_print.c			\
+					#nn_forward.c
 
 SRC_FLDS		=	math/				\
 					str/				\
@@ -76,6 +80,7 @@ SRC_FLDS		=	math/				\
 					csv/				\
 					csv/csv/			\
 					csv/prep/			\
+					tens/				\
 					nn/					\
 
 SRC				+=	$(addprefix $(MATH_FLD), $(MATH))
@@ -83,6 +88,7 @@ SRC				+=	$(addprefix $(PREP_FLD), $(PREP))
 SRC				+=	$(addprefix $(CSV_FLD), $(CSV))
 SRC				+=	$(addprefix $(STR_FLD), $(STR))
 SRC				+=	$(addprefix $(DAST_FLD), $(DAST))
+SRC				+=	$(addprefix $(TENS_FLD), $(TENS))
 SRC				+=	$(addprefix $(NN_FLD), $(NN))
 
 BIN				=	$(SRC:.c=.o)

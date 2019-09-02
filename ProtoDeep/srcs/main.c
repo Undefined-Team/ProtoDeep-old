@@ -121,16 +121,38 @@ void    pd_csv_manual()
     pd_csv_free(csv_2);
 }
 
+void        tens_test(void)
+{
+    size_t new_shape[5] = {5, 4, 0, 2, 1};
+    pd_tensor test = pd_tens_init(new_shape, 5);
+    pd_size_t_a shape = pd_tens_get_shape(test);
+    for (size_t i = 0; i < shape.len; i++)
+    {
+        printf("%zd\n", ((size_t*)shape.val)[i]);
+    }
+}
+
 int main(void)
 {
     //t_csv   csv = csv_read("./test.csv", 1);
     //dbug_csv_print(csv);
-    printf("\n-------------- MODE CONF --------------\n");
-    pd_csv_with_conf();
-    printf("\n-------------- MODE MANUAL --------------\n");
-    pd_csv_manual();
+    // printf("\n-------------- MODE CONF --------------\n");
+    // pd_csv_with_conf();
+    // printf("\n-------------- MODE MANUAL --------------\n");
+    // pd_csv_manual();
     //t_arr test = pd_strSNew("Zizi");
     //void *test = pdmalloc(1);
     //(void)test;
+    pd_network network;
+
+    pd_nn_init_network(&network);
+    pd_nn_add(&network, pd_nn_convolution(16, 3, 2, PD_A_RELU));
+    size_t pool_size[2] = {2, 2};
+    pd_nn_add(&network, pd_nn_maxpool(pool_size, 2));
+    pd_nn_add(&network, pd_nn_dense(16, PD_A_RELU));
+    pd_nn_add(&network, pd_nn_dense(16, PD_A_RELU));
+    pd_nn_validate(&network);
+    pd_nn_print(network);
+    tens_test();
     return (0);
 }
