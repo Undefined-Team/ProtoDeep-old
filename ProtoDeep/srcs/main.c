@@ -121,6 +121,17 @@ void    pd_csv_manual()
     pd_csv_free(csv_2);
 }
 
+void        tens_test(void)
+{
+    size_t new_shape[5] = {5, 4, 0, 2, 1};
+    pd_tensor test = pd_tens_init(new_shape, 5);
+    pd_size_t_a shape = pd_tens_get_shape(test);
+    for (size_t i = 0; i < shape.len; i++)
+    {
+        printf("%zd\n", ((size_t*)shape.val)[i]);
+    }
+}
+
 int main(void)
 {
     //t_csv   csv = csv_read("./test.csv", 1);
@@ -142,5 +153,6 @@ int main(void)
     pd_nn_add(&network, pd_nn_dense(16, PD_A_RELU));
     pd_nn_validate(&network);
     pd_nn_print(network);
+    tens_test();
     return (0);
 }
