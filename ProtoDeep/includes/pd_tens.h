@@ -8,6 +8,7 @@ typedef struct				pds_tensor {
 	void					*val;
 	size_t					rank;
 	size_t					len;
+	pd_size_t_a             shape;
 }							pd_tensor;
 
 // Prototypes

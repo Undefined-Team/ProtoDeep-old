@@ -67,6 +67,7 @@ CSV				=	csv_read.c			\
 
 TENS_FLD		=	tens/
 TENS			=	tens_init.c			\
+					tens_get_shape.c	\
 
 NN_FLD			=	nn/
 NN				=	nn_config.c			\
