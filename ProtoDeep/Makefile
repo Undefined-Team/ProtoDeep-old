@@ -44,6 +44,7 @@ STR				=	str_len.c			\
 DAST_FLD		=	dast/
 DAST			=	dast_free.c 		\
 					dast_arr.c			\
+					dast_time.c			\
 
 PREP_FLD		=	csv/prep/
 PREP			=	prep_minmax_scal.c	\
@@ -68,6 +69,10 @@ CSV				=	csv_read.c			\
 TENS_FLD		=	tens/
 TENS			=	tens_init.c			\
 					tens_get_shape.c	\
+					tens_concat.c 		\
+					tens_print.c 		\
+					tens_copy.c 		\
+					tens_free.c 		\
 
 NN_FLD			=	nn/
 NN				=	nn_config.c			\

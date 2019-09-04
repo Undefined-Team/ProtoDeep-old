@@ -2,6 +2,8 @@
     "files.associations": {
         "pd_math.h": "c",
         "pd_main.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "pd_dast.h": "c",
+        "string.h": "c"
     }
 }

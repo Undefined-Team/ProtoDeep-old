@@ -7,6 +7,7 @@
 #define PD_EXPO_E           2.718281801
 #define pd_white_space(c)   ((c) == ' ' || (c) == '\t')
 #define pd_valid_digit(c)   ((c) >= '0' && (c) <= '9')
+#define pd_math_abs(x)      (x < 0 ? x * -1 : x)   
 
 // Structures
 

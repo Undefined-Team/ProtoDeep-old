@@ -1,5 +1,6 @@
 #include "pd_main.h"
 
+/*
 pd_tensor	pd_nn_get_output_dense(pd_tensor input, pd_tensor layer)
 {
 	pd_tensor output;
@@ -22,3 +23,4 @@ pd_tensor	pd_nn_get_output_dense(pd_tensor input, pd_tensor layer)
 	}
 	return (output);
 }
+*/
