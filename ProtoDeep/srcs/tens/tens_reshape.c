@@ -14,5 +14,5 @@ int         pd_tens_check_size(pd_tensor tensor, pd_size_t_a shape)
 
 pd_tensor   pd_tens_reshape(pd_tensor tensor, pd_size_t_a shape)
 {
-    pd_tensor   tensor;
+    pd_tensor   reshape;
 }

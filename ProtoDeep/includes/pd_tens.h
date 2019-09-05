@@ -20,5 +20,8 @@ pd_size_t_a                 pd_tens_get_shape(pd_tensor tensor);
 pd_tensor 					pd_tens_copy(pd_tensor tensor);
 pd_tensor 					pd_tens_concat(pd_tensor tensor_a, pd_tensor tensor_b, int axis);
 void        				pd_tens_free(pd_tensor tensor);
+pd_tensor   				pd_tens_flatten(pd_tensor tensor);
+pd_tensor   				pd_tens_reshape(pd_tensor tensor, pd_size_t_a shape);
+pd_tensor    				pd_tens_dot(pd_tensor a, pd_tensor b, size_t *axis[2]);
 
 #endif

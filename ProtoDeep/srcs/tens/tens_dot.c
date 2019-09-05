@@ -70,4 +70,6 @@ pd_tensor    pd_tens_dot(pd_tensor a, pd_tensor b, size_t *axis[2])
     for (size_t i = 0; i < result.shape.len; i++)
         pos[i] = 0;
     g_debug_len = result.shape.len;
+    // for (size_t i = 0; i < ((size_t *)result.shape.val)[0]; i++)
+    //     result = pd_tens_dot_product(a, b);
 }
