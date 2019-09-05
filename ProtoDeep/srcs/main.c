@@ -152,6 +152,34 @@ void        tens_test(void)
     }*/
 }
 
+void        tens_dot_test(void)
+{
+    size_t shapea[5] = {5, 4, 2, 4, 5};
+    size_t shapeb[5] = {5, 6, 3, 2, 1};
+    size_t *new_shapea = malloc(5 * sizeof(size_t));
+    new_shapea[0] = 3;
+    new_shapea[1] = 4;
+    new_shapea[2] = 5;
+    new_shapea[3] = 6;
+    new_shapea[4] = 7;
+    size_t *new_shapeb = malloc(5 * sizeof(size_t));
+    new_shapeb[0] = 3;
+    new_shapeb[1] = 4;
+    new_shapeb[2] = 5;
+    new_shapeb[3] = 6;
+    new_shapeb[4] = 7;
+    pd_tensor a = pd_tens_init(new_shapea, 5);
+    pd_tensor b = pd_tens_init(new_shapeb, 5);
+    size_t **axis = malloc(2 * sizeof(float *));
+    axis[0] = malloc(2 * sizeof(float));
+    axis[0][0] = 0;
+    axis[0][1] = 1;
+    axis[1] = malloc(2 * sizeof(float));
+    axis[1][0] = 3;
+    axis[1][1] = 4;
+    pd_tens_dot(a, b, axis);
+}
+
 int main(void)
 {
     pd_time("start program");
@@ -167,6 +195,11 @@ int main(void)
     //(void)test;
     /*pd_network network;
 
+<<<<<<< HEAD
+    // tens_test();
+    tens_dot_test();
+    return (0);
+=======
     pd_nn_init_network(&network);
     pd_nn_add(&network, pd_nn_convolution(16, 3, 2, PD_A_RELU));
     size_t pool_size[2] = {2, 2};
@@ -177,4 +210,5 @@ int main(void)
     pd_nn_print(network);*/
     pd_time("end program");
     pd_error("It's the end of program but I want to show the error function %s", ":)");
+>>>>>>> d4088958cf1fc20314ef26d65f0685e5fbef947b
 }

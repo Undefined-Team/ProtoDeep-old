@@ -3,7 +3,7 @@
 /*
 pd_tensor	pd_nn_get_output_dense(pd_tensor input, pd_tensor layer)
 {
-	pd_tensor output;
+	// pd_tensor output;
 
 	output.len = input.tensor.len;
 	output.val = pd_malloc(output.len * sizeof(float));
