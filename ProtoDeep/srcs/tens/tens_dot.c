@@ -138,11 +138,11 @@ pd_tensor    pd_tens_dot(pd_tensor a, pd_tensor b, pd_arr axis)
     pd_arr_print(new_a);
     pd_arr_print(new_b);
     printf("n_a: %zd, n_b: %zd\n", n_a, n_b);
-    pd_tensor t_a = pd_tens_transpose(a, new_axes_a;
-    pd_tensor t_b = pd_tens_transpose(b, new_axes_b);
-    t_a = pd_tens_reshape(t_a, new_a);
-    t_b = pd_tens_reshape(t_b, new_b);
-    pd_tensor res = pd_matrix_dot(t_a, t_b);
-    res = pd_tens_reshape(old_a, old_b);
+    // pd_tensor t_a = pd_tens_transpose(a, new_axes_a;
+    // pd_tensor t_b = pd_tens_transpose(b, new_axes_b);
+    // t_a = pd_tens_reshape(t_a, new_a);
+    // t_b = pd_tens_reshape(t_b, new_b);
+    // pd_tensor res = pd_matrix_dot(t_a, t_b);
+    // res = pd_tens_reshape(old_a, old_b);
     return (res);
 }
