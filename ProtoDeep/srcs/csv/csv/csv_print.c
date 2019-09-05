@@ -1,5 +1,5 @@
 #include "pd_main.h"
-#include <string.h>
+char *pd_color_t[PD_COLOR_NBR] = {PD_COLOR_1, PD_COLOR_2, PD_COLOR_3, PD_COLOR_4, PD_COLOR_5};
 
 size_t  pd_math_nbr_len(float nbr)
 {
@@ -57,7 +57,6 @@ void    pd_csv_print(pd_csv csv)
 {
     size_t      col = 0;
     size_t      str_max_len[csv.width];
-    char        *colors[5] = PD_COLOR_T;
 
     for (pd_csv_col *tmp = csv.begin; tmp; tmp = tmp->next)
     {
@@ -73,7 +72,7 @@ void    pd_csv_print(pd_csv csv)
         printf("| ");
     for (pd_csv_col *tmp = csv.begin; tmp; tmp = tmp->next)
     {
-        printf("%s%s%*s%s | ", colors[col % 5], PD_COLOR_U, (int)str_max_len[col], (char*)tmp->name.val, PD_COLOR_N);
+        printf("%s%s%*s%s | ", pd_color_t[col % PD_COLOR_NBR], PD_COLOR_U, (int)str_max_len[col], (char*)tmp->name.val, PD_COLOR_N);
         col++;
     }
     printf("\n");
@@ -84,7 +83,7 @@ void    pd_csv_print(pd_csv csv)
         col = 0;
         for (pd_csv_col *tmp = csv.begin; tmp; tmp = tmp->next)
         {
-            printf("%s", colors[col % 5]);
+            printf("%s", pd_color_t[col % PD_COLOR_NBR]);
             if (tmp->columns.type == PD_T_STR)
             {
                 char *strtmp = (char*)(((pd_arr*)tmp->columns.val)[line].val);

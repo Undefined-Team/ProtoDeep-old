@@ -43,7 +43,7 @@ typedef struct				pds_maxpool_params {
 }							pd_maxpool_params;
 
 // Prototypes
-pd_tensor					pd_nn_get_output_dense(pd_tensor output, pd_tensor layer);
+//pd_tensor					pd_nn_get_output_dense(pd_tensor output, pd_tensor layer);
 pd_network					pd_nn_add(pd_network *network, pd_layer *layer);
 pd_layer					*pd_nn_dense(size_t nb_neurons, pd_activation activation);
 pd_layer					*pd_nn_convolution(size_t filters, size_t kernels, size_t strides, pd_activation activation);

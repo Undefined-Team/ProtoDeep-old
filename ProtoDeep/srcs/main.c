@@ -1,5 +1,15 @@
 #include "pd_main.h"
+//size_t jsp = 0;
 #include <string.h>
+
+/*void     pd_error(...)
+{
+    fprintf(stderr, PD_COLOR_3);
+    fprintf(stderr, __VA_ARGS__);
+    fprintf(stderr, "%s\n", PD_COLOR_N);
+    exit(1);
+}*/
+
 pd_csv   pd_get_test_csv_1(void)
 {
     pd_csv csv_test;
@@ -123,18 +133,32 @@ void    pd_csv_manual()
 
 void        tens_test(void)
 {
-    size_t *new_shape = malloc(5 * sizeof(size_t));
-    new_shape[0] = 4;
-    new_shape[1] = 4;
-    new_shape[2] = 4;
-    new_shape[3] = 4;
-    new_shape[4] = 4;
-    pd_tensor test = pd_tens_init(new_shape, 5);
-    pd_size_t_a shape = test.shape;
+    size_t new_shape[3] = {2, 2, 2};
+    pd_tensor test = pd_tens_init(new_shape, 3);
+    pd_tensor test2 = pd_tens_copy(test);
+    //pd_size_t_a shape = test2.shape;
+    /*for (size_t i = 0; i < shape.len; i++)
+    {
+        printf("%zd\n", ((size_t*)shape.val)[i]);
+    }*/
+    pd_tens_print(test);
+    printf ("\n+\n\n");
+    pd_tens_print(test2);
+    printf ("\n=\n\n");
+    pd_tensor test3 = pd_tens_concat(test, test2, 0);
+    pd_tens_print(test3);
+    test3 = pd_tens_concat(test, test2, 1);
+    pd_tens_print(test3);
+    test3 = pd_tens_concat(test, test2, 2);
+    pd_tens_print(test3);
+    pd_tens_free(test);
+    pd_tens_free(test2);
+    pd_tens_free(test3);
+    /*shape = test3.shape;
     for (size_t i = 0; i < shape.len; i++)
     {
-        printf("%zd,\n", ((size_t *)shape.val)[i]);
-    }
+        printf("%zd\n", ((size_t*)shape.val)[i]);
+    }*/
 }
 
 void        tens_dot_test(void)
@@ -167,18 +191,33 @@ void        tens_dot_test(void)
 
 int main(void)
 {
+    pd_time("start program");
     //t_csv   csv = csv_read("./test.csv", 1);
     //dbug_csv_print(csv);
-    // printf("\n-------------- MODE CONF --------------\n");
-    // pd_csv_with_conf();
-    // printf("\n-------------- MODE MANUAL --------------\n");
-    // pd_csv_manual();
+    printf("\n-------------- MODE CONF --------------\n");
+    pd_csv_with_conf();
+    printf("\n-------------- MODE MANUAL --------------\n");
+    pd_csv_manual();
+    tens_test();
     //t_arr test = pd_strSNew("Zizi");
     //void *test = pdmalloc(1);
     //(void)test;
-    pd_network network;
+    /*pd_network network;
 
+<<<<<<< HEAD
     // tens_test();
     tens_dot_test();
     return (0);
+=======
+    pd_nn_init_network(&network);
+    pd_nn_add(&network, pd_nn_convolution(16, 3, 2, PD_A_RELU));
+    size_t pool_size[2] = {2, 2};
+    pd_nn_add(&network, pd_nn_maxpool(pool_size, 2));
+    pd_nn_add(&network, pd_nn_dense(16, PD_A_RELU));
+    pd_nn_add(&network, pd_nn_dense(16, PD_A_RELU));
+    pd_nn_validate(&network);
+    pd_nn_print(network);*/
+    pd_time("end program");
+    pd_error("It's the end of program but I want to show the error function %s", ":)");
+>>>>>>> d4088958cf1fc20314ef26d65f0685e5fbef947b
 }
