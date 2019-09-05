@@ -4,6 +4,7 @@
         "pd_main.h": "c",
         "stdio.h": "c",
         "pd_dast.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "pd_arr.h": "c"
     }
 }

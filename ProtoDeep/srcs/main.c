@@ -1,16 +1,7 @@
 #include "pd_main.h"
-//size_t jsp = 0;
 #include <string.h>
 
-/*void     pd_error(...)
-{
-    fprintf(stderr, PD_COLOR_3);
-    fprintf(stderr, __VA_ARGS__);
-    fprintf(stderr, "%s\n", PD_COLOR_N);
-    exit(1);
-}*/
-
-pd_csv   pd_get_test_csv_1(void)
+pd_csv   get_test_csv_1(void)
 {
     pd_csv csv_test;
     pd_csv_col *tmp;
@@ -19,26 +10,26 @@ pd_csv   pd_get_test_csv_1(void)
     csv_test.width = 4;
 
 
-    pd_char_a col3[4] = {pd_strSNew("Gros"), pd_strSNew("Pitit"), pd_strSNew("Moyen"), pd_strSNew("Moyen")};
-    tmp = pd_csv_new_col(pd_arrSNew(PD_T_STR, 4, col3), pd_strSNew("Zizi"));
+    pd_str_a col3[4] = {pd_str_new_s("Gros"), pd_str_new_s("Pitit"), pd_str_new_s("Moyen"), pd_str_new_s("Moyen")};
+    tmp = pd_csv_new_col(pd_arr_new_s(PD_T_STR, 4, col3), pd_str_new_s("Zizi"));
     csv_test.begin = tmp;
-
+    
     float col1[4] = {200.77777, 1, -1, -200};
-    tmp->next = pd_csv_new_col(pd_arrSNew(PD_T_FLOAT, 4, col1), pd_strSNew("Qi"));
+    tmp->next = pd_csv_new_col(pd_arr_new_s(PD_T_FLOAT, 4, col1), pd_str_new_s("Qi"));
     tmp = tmp->next;
 
-    pd_char_a col2[4] = {pd_strSNew("Timothée"), pd_strSNew("Sylvain"), pd_strSNew("Paco"), pd_strSNew("Tony")};
-    tmp->next = pd_csv_new_col(pd_arrSNew(PD_T_STR, 4, col2), pd_strSNew("Name"));
+    pd_str_a col2[4] = {pd_str_new_s("Timothée"), pd_str_new_s("Sylvain"), pd_str_new_s("Paco"), pd_str_new_s("Tony")};
+    tmp->next = pd_csv_new_col(pd_arr_new_s(PD_T_STR, 4, col2), pd_str_new_s("Name"));
     tmp = tmp->next;
 
-    pd_char_a col4[4] = {pd_strSNew("Ca va"), pd_strSNew("Musclée"), pd_strSNew("Musclée"), pd_strSNew("Musclée")};
-    tmp->next = pd_csv_new_col(pd_arrSNew(PD_T_STR, 4, col4), pd_strSNew("Main droite"));
+    pd_str_a col4[4] = {pd_str_new_s("Ca va"), pd_str_new_s("Musclée"), pd_str_new_s("Musclée"), pd_str_new_s("Musclée")};
+    tmp->next = pd_csv_new_col(pd_arr_new_s(PD_T_STR, 4, col4), pd_str_new_s("Main droite"));
     tmp = tmp->next;
 
     return csv_test;
 }
 
-pd_csv   pd_get_test_csv_2(void)
+pd_csv   get_test_csv_2(void)
 {
     pd_csv csv_test;
     pd_csv_col *tmp;
@@ -47,20 +38,20 @@ pd_csv   pd_get_test_csv_2(void)
     csv_test.width = 4;
 
 
-    pd_char_a col3[4] = {pd_strSNew("Gros"), pd_strSNew("Pitit"), pd_strSNew("JSP"), pd_strSNew("Moyen")};
-    tmp = pd_csv_new_col(pd_arrSNew(PD_T_STR, 4, col3), pd_strSNew("Zizi"));
+    pd_char_a col3[4] = {pd_str_new_s("Gros"), pd_str_new_s("Pitit"), pd_str_new_s("JSP"), pd_str_new_s("Moyen")};
+    tmp = pd_csv_new_col(pd_arr_new_s(PD_T_STR, 4, col3), pd_str_new_s("Zizi"));
     csv_test.begin = tmp;
 
     float col1[4] = {200.77777, 1, -1, -200};
-    tmp->next = pd_csv_new_col(pd_arrSNew(PD_T_FLOAT, 4, col1), pd_strSNew("Qi"));
+    tmp->next = pd_csv_new_col(pd_arr_new_s(PD_T_FLOAT, 4, col1), pd_str_new_s("Qi"));
     tmp = tmp->next;
 
-    pd_char_a col2[4] = {pd_strSNew("Timothée"), pd_strSNew("Sylvain"), pd_strSNew("Paco"), pd_strSNew("Tony")};
-    tmp->next = pd_csv_new_col(pd_arrSNew(PD_T_STR, 4, col2), pd_strSNew("Name"));
+    pd_char_a col2[4] = {pd_str_new_s("Timothée"), pd_str_new_s("Sylvain"), pd_str_new_s("Paco"), pd_str_new_s("Tony")};
+    tmp->next = pd_csv_new_col(pd_arr_new_s(PD_T_STR, 4, col2), pd_str_new_s("Name"));
     tmp = tmp->next;
 
-    pd_char_a col4[4] = {pd_strSNew("Ca va"), pd_strSNew("Musclée"), pd_strSNew("Musclée"), pd_strSNew("JSP")};
-    tmp->next = pd_csv_new_col(pd_arrSNew(PD_T_STR, 4, col4), pd_strSNew("Main droite"));
+    pd_char_a col4[4] = {pd_str_new_s("Ca va"), pd_str_new_s("Musclée"), pd_str_new_s("Musclée"), pd_str_new_s("JSP")};
+    tmp->next = pd_csv_new_col(pd_arr_new_s(PD_T_STR, 4, col4), pd_str_new_s("Main droite"));
     tmp = tmp->next;
 
     return csv_test;
@@ -68,13 +59,13 @@ pd_csv   pd_get_test_csv_2(void)
 
 void    pd_csv_with_conf()
 {
-    pd_csv csv_1 = pd_csv_read("res/tim_test1.csv", ',', 1);
-    //pd_csv csv_1 = get_test_csv_1();
+    //pd_csv csv_1 = pd_csv_read("res/tim_test1.csv", ',', 1);
+    pd_csv csv_1 = get_test_csv_1();
     pd_csv_print(csv_1);
 
-    pd_char_a del_1[1] = {pd_strSNew("Name")};
-    pd_char_a ohe_1[2] = {pd_strSNew("Main droite"), pd_strSNew("Zizi")};
-    pd_csv_conf conf = pd_prep_init_conf(pd_arrSNew(PD_T_STR, 1, del_1), pd_arrSNew(PD_T_STR, 2, ohe_1));
+    pd_char_a del_1[1] = {pd_str_new_s("Name")};
+    pd_char_a ohe_1[2] = {pd_str_new_s("Main droite"), pd_str_new_s("Zizi")};
+    pd_csv_conf conf = pd_prep_init_conf(pd_arr_new_s(PD_T_STR, 1, del_1), pd_arr_new_s(PD_T_STR, 2, ohe_1));
     pd_prep_prepare(&csv_1, &conf);
     pd_csv_print(csv_1);
 
@@ -99,12 +90,12 @@ void    pd_csv_manual()
     //t_csv csv_1 = get_test_csv_1();
     pd_csv_print(csv_1);
 
-    pd_char_a del_1[1] = {pd_strSNew("Name")};
-    pd_str_a  del_str = pd_arrSNew(PD_T_STR, 1, del_1);
+    pd_char_a del_1[1] = {pd_str_new_s("Name")};
+    pd_str_a  del_str = pd_arr_new_s(PD_T_STR, 1, del_1);
     pd_prep_delete(&csv_1, del_str);
 
-    pd_char_a ohe_1[2] = {pd_strSNew("Main droite"), pd_strSNew("Zizi")};
-    pd_str_a  ohe_str = pd_arrSNew(PD_T_STR, 2, ohe_1);
+    pd_char_a ohe_1[2] = {pd_str_new_s("Main droite"), pd_str_new_s("Zizi")};
+    pd_str_a  ohe_str = pd_arr_new_s(PD_T_STR, 2, ohe_1);
     pd_ohe_trees *ohe_trees = pd_prep_ohe_init(&csv_1, ohe_str);
     pd_prep_all_to_float(csv_1);
     pd_stdiz_a stdiz_data = pd_prep_strandardize_init(csv_1);
@@ -125,9 +116,9 @@ void    pd_csv_manual()
     pd_csv_print(csv_2);
 
     pd_prep_free_ohe_tree(ohe_trees);
-    pd_arrRFree(del_str, -1);
-    pd_arrRFree(ohe_str, -1);
-    pd_arrFree(stdiz_data);
+    pd_arr_free_r(del_str, -1);
+    pd_arr_free_r(ohe_str, -1);
+    pd_arr_free(stdiz_data);
     pd_csv_free(csv_2);
 }
 
@@ -171,7 +162,7 @@ int main(void)
     printf("\n-------------- MODE MANUAL --------------\n");
     pd_csv_manual();
     tens_test();
-    //t_arr test = pd_strSNew("Zizi");
+    //t_arr test = pd_str_new_s("Zizi");
     //void *test = pdmalloc(1);
     //(void)test;
     /*pd_network network;

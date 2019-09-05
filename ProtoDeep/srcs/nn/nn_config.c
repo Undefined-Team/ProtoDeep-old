@@ -29,7 +29,7 @@ pd_layer_lst	*pd_nn_add_layer(pd_layer *layer)
 {
 	pd_layer_lst	*elem;
 
-	elem = (pd_layer_lst *)malloc(sizeof(pd_layer_lst));
+	elem = (pd_layer_lst *)pd_malloc(sizeof(pd_layer_lst));
 	elem->layer = layer;
 	elem->next = NULL;
 	return (elem);
@@ -40,8 +40,8 @@ pd_layer	*pd_nn_dense(size_t nb_neurons, pd_activation activation)
 	pd_layer		*layer;
 	pd_dense_params	*params;
 
-	layer = (pd_layer *)malloc(sizeof(pd_layer));
-	params = (pd_dense_params *)malloc(sizeof(pd_dense_params));
+	layer = (pd_layer *)pd_malloc(sizeof(pd_layer));
+	params = (pd_dense_params *)pd_malloc(sizeof(pd_dense_params));
 	layer->layer_type = PD_L_DENSE;
 	params->neurons = nb_neurons;
 	params->activation = activation;
@@ -54,8 +54,8 @@ pd_layer	*pd_nn_convolution(size_t filters, size_t kernels, size_t strides, pd_a
 	pd_layer		*layer;
 	pd_conv_params	*params;
 
-	layer = (pd_layer *)malloc(sizeof(pd_layer));
-	params = (pd_conv_params *)malloc(sizeof(pd_conv_params));
+	layer = (pd_layer *)pd_malloc(sizeof(pd_layer));
+	params = (pd_conv_params *)pd_malloc(sizeof(pd_conv_params));
 	layer->layer_type = PD_L_CONVOLUTION;
 	params->filters = filters;
 	params->kernel_size = kernels;
@@ -70,8 +70,8 @@ pd_layer	*pd_nn_maxpool(size_t pool_size[2], size_t strides)
 	pd_layer			*layer;
 	pd_maxpool_params	*params;
 
-	layer = (pd_layer *)malloc(sizeof(pd_layer));
-	params = (pd_maxpool_params *)malloc(sizeof(pd_maxpool_params));
+	layer = (pd_layer *)pd_malloc(sizeof(pd_layer));
+	params = (pd_maxpool_params *)pd_malloc(sizeof(pd_maxpool_params));
 	layer->layer_type = PD_L_MAXPOOL;
 	params->pool_size[0] = pool_size[0];
 	params->pool_size[1] = pool_size[1];
@@ -106,7 +106,7 @@ pd_network	pd_nn_init_network(pd_network *network)
 
 pd_network	pd_nn_validate(pd_network *network)
 {
-	network->layers = (pd_layer **)malloc(network->len * sizeof(pd_layer *));
+	network->layers = (pd_layer **)pd_malloc(network->len * sizeof(pd_layer *));
 	network->lst_end = network->init_layers;
 	for (size_t i = 0; i < network->len; i++)
 	{

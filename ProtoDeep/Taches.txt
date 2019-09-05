@@ -1,2 +1,16 @@
 - Lib tensor
 - Refaire le one hot encoding pour juste des t_char_a et adapter le one hot du csv
+- Faire la gestion d'erreur
+- Include juste les dependences de chaque fichier pour reduire le poid et l execution
+
+DEMAIN
+---- faire la lib arr 
+---- Modifier le T_STR_A
+---- malloc = pd_malloc
+---- pd_dast_free -> pd_free
+
+- Fuite chelou
+---- printArr
+- tens_sum
+
+SILVAIN REMPLACER GESTION D ERREUR PAR FONCTION ERREUR

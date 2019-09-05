@@ -4,10 +4,10 @@ pd_csv_col   *pd_csv_add_col(pd_char_a name, size_t height)
 {
     pd_csv_col   *col;
 
-    col = (pd_csv_col *)malloc(sizeof(pd_csv_col));
+    col = (pd_csv_col *)pd_malloc(sizeof(pd_csv_col));
     col->name = name;
     col->next = NULL;
-    col->columns = pd_arrInit(PD_T_ARR, height);
+    col->columns = pd_arr_init(PD_T_ARR, height);
     return (col);
 }
 
@@ -33,8 +33,8 @@ pd_csv_col   *pd_csv_init_cols(pd_tokens_list *line, int header, size_t width, s
     {
         for (size_t i = 0; i < width; i++)
         {
-            if ((!col_list && !(col_list = pd_csv_add_col(pd_str_join(pd_strSNew("c"),pd_math_itoa(i)), height)))
-                || (col && !(col->next = pd_csv_add_col(pd_str_join(pd_strSNew("c"), pd_math_itoa(i)), height))))
+            if ((!col_list && !(col_list = pd_csv_add_col(pd_str_join(pd_str_new_s("c"),pd_math_itoa(i)), height)))
+                || (col && !(col->next = pd_csv_add_col(pd_str_join(pd_str_new_s("c"), pd_math_itoa(i)), height))))
                 return (NULL);
             col = col ? col->next : col_list;
         }
@@ -58,7 +58,7 @@ pd_csv_col   *pd_csv_create_cols(pd_tokens_list *tokens, int header, size_t widt
             if (line->tokens.len)
                 ((pd_str_a *)col->columns.val)[i] = (pd_char_a)((pd_str_a *)line->tokens.val)[j];
             else
-                ((pd_str_a *)col->columns.val)[i] = pd_arrInit(PD_T_CHAR, 0);
+                ((pd_str_a *)col->columns.val)[i] = pd_arr_init(PD_T_CHAR, 0);
             col = col->next;
         }
         line = line->next;
@@ -72,7 +72,7 @@ pd_csv_col   *pd_csv_new_col(pd_arr columns, pd_char_a name)
 {
     pd_csv_col   *elem = NULL;
 
-    PD_PROT_MALLOC(elem = malloc(sizeof(pd_csv_col)));
+    PD_PROT_MALLOC(elem = pd_malloc(sizeof(pd_csv_col)));
     elem->name = name;
     elem->next = NULL;
     elem->columns = columns;
@@ -81,7 +81,7 @@ pd_csv_col   *pd_csv_new_col(pd_arr columns, pd_char_a name)
 
 void    pd_csv_free_col(pd_csv_col *elem)
 {
-    pd_arrRFree(elem->columns, -1);
-    pd_strFree(elem->name);
-    pd_dast_free((void**)&elem);
+    pd_arr_free_r(elem->columns, -1);
+    pd_str_free(elem->name);
+    pd_free(elem);
 }

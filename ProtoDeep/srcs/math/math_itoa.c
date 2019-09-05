@@ -8,7 +8,7 @@ static pd_char_a pd_get_number(int n, int div, int neg, int size)
 	i = 0;
 	if (neg == -1)
 		size++;
-    nb = pd_arrInit(PD_T_CHAR, size + 2);
+    nb = pd_arr_init(PD_T_CHAR, size + 2);
 	if (neg == -1)
 		((char *)nb.val)[i++] = '-';
 	while (div > 0)
@@ -25,7 +25,7 @@ static pd_char_a pd_return_int_min(void)
 {
 	pd_char_a    min;
 
-	min = pd_strSNew("-2147483648");
+	min = pd_str_new_s("-2147483648");
 	return (min);
 }
 

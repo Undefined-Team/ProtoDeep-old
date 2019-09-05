@@ -12,7 +12,7 @@ void    pd_prep_prepare(pd_csv *csv, pd_csv_conf *conf)
     {
         pd_stdiz_a tmp = conf->std_data;
         conf->std_data = pd_prep_strandardize_init(*csv);
-        pd_arrFree(tmp);
+        pd_arr_free(tmp);
     }
     else
         pd_prep_standardize(*csv, conf->std_data);

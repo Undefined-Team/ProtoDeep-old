@@ -4,7 +4,7 @@ pd_tbnode  *pd_prep_new_tbnode(char c, int word_index)
 {
     pd_tbnode *new_node;
 
-    PD_PROT_MALLOC(new_node = malloc(sizeof(pd_tbnode)))
+    PD_PROT_MALLOC(new_node = pd_malloc(sizeof(pd_tbnode)))
     new_node->next = NULL;
     new_node->f_begin = NULL;
     new_node->f_last = NULL;
@@ -24,5 +24,5 @@ void    pd_prep_free_tbnode(pd_tbnode *begin)
         lst = lst->next;
         pd_prep_free_tbnode(tmp);
     }
-    pd_dast_free((void**)&begin);
+    pd_free(begin);
 }

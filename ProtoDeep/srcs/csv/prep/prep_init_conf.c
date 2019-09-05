@@ -18,17 +18,17 @@ void            pd_prep_free_ohe_tree(pd_ohe_trees *ohe_trees)
     {
         ohe_trees = tmp;
         tmp = tmp->next;
-        pd_arrRFree(ohe_trees->base_name, -1);
-        pd_arrRFree(ohe_trees->new_names, -1);
+        pd_arr_free_r(ohe_trees->base_name, -1);
+        pd_arr_free_r(ohe_trees->new_names, -1);
         pd_prep_free_tbnode(ohe_trees->begin);
-        pd_dast_free((void**)&ohe_trees);
+        pd_free(ohe_trees);
     }   
 }
 
 void            pd_prep_free_conf(pd_csv_conf conf)
 {
-    pd_strFree(conf.delete_indexs);
-    pd_strFree(conf.ohe_indexs);
-    pd_arrFree(conf.std_data);
+    pd_str_free(conf.delete_indexs);
+    pd_str_free(conf.ohe_indexs);
+    pd_arr_free(conf.std_data);
     pd_prep_free_ohe_tree(conf.saved_trees);
 }
