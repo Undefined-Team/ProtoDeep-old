@@ -32,5 +32,5 @@ void    pd_prep_delete(pd_csv *csv, pd_str_a col_names)
     for (col = csv->begin; col; col = col->next)
         i++;
     csv->width = i;
-    pd_arrFree(col_names);
+    pd_arr_free(col_names);
 }

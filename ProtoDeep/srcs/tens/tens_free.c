@@ -9,6 +9,6 @@ void        pd_tens_free(pd_tensor tensor)
         for (size_t i = 0; i < tensor.len; i++)
             pd_tens_free(((pd_tensor*)tensor.val)[i]);
     }
-    pd_dast_free((void**)&tensor.val);
-    pd_arrFree(tensor.shape);
+    pd_free(tensor.val);
+    pd_arr_free(tensor.shape);
 }

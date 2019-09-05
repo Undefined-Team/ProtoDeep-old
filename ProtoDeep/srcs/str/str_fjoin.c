@@ -6,8 +6,8 @@ pd_arr  pd_str_fjoin(pd_arr head, pd_arr tail)
     
     new_str = pd_str_join(head, tail);
     if (head.val)
-        pd_dast_free((void**)&head.val);
+        pd_free(head.val);
     if (tail.val)
-        pd_dast_free((void**)&tail.val);
+        pd_free(tail.val);
     return (new_str);
 }

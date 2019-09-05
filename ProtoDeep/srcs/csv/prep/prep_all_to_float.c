@@ -4,10 +4,10 @@ pd_float_a   pd_prep_col_to_float(pd_str_a strarr)
 {
     pd_float_a newarr;
 
-    newarr = pd_arrInit(PD_T_FLOAT, strarr.len);
+    newarr = pd_arr_init(PD_T_FLOAT, strarr.len);
     for (size_t i = 0; i < strarr.len; i++)
         ((float*)newarr.val)[i] = pd_math_atof((char*)(((pd_char_a*)strarr.val)[i].val));
-    pd_strFree(strarr);
+    pd_str_free(strarr);
     return newarr;
 }
 

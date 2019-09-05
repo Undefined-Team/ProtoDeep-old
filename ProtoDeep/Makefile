@@ -43,8 +43,13 @@ STR				=	str_len.c			\
 
 DAST_FLD		=	dast/
 DAST			=	dast_free.c 		\
-					dast_arr.c			\
 					dast_time.c			\
+
+ARR_FLD			=	arr/
+ARR				=	arr_free.c 			\
+					arr_init.c			\
+					arr_new.c			\
+					arr_print.c			\
 
 PREP_FLD		=	csv/prep/
 PREP			=	prep_minmax_scal.c	\
@@ -86,6 +91,7 @@ NN				=	nn_config.c			\
 SRC_FLDS		=	math/				\
 					str/				\
 					dast/				\
+					arr/				\
 					csv/				\
 					csv/csv/			\
 					csv/prep/			\
@@ -97,6 +103,7 @@ SRC				+=	$(addprefix $(PREP_FLD), $(PREP))
 SRC				+=	$(addprefix $(CSV_FLD), $(CSV))
 SRC				+=	$(addprefix $(STR_FLD), $(STR))
 SRC				+=	$(addprefix $(DAST_FLD), $(DAST))
+SRC				+=	$(addprefix $(ARR_FLD), $(ARR))
 SRC				+=	$(addprefix $(TENS_FLD), $(TENS))
 SRC				+=	$(addprefix $(NN_FLD), $(NN))
 

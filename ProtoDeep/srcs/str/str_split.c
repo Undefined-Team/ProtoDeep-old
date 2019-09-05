@@ -3,11 +3,11 @@
 static void				pd_free_word(pd_arr new_word, pd_arr word, pd_arr escape, pd_arr white_space)
 {
 	if (word.val != new_word.val)
-		free(word.val);
+		pd_free(word.val);
 	if (white_space.val != new_word.val)
-		free(white_space.val);
+		pd_free(white_space.val);
 	if (escape.val != new_word.val)
-		free(escape.val);
+		pd_free(escape.val);
 }
 
 static pd_split_list    *pd_add_elem(pd_arr word)
@@ -18,7 +18,7 @@ static pd_split_list    *pd_add_elem(pd_arr word)
 
 	white_space = pd_str_whitespace(word);
 	escape = pd_str_escape(white_space);
-    new = (pd_split_list *)malloc(sizeof(pd_split_list));
+    new = (pd_split_list *)pd_malloc(sizeof(pd_split_list));
     new->word = escape;
 	pd_free_word(new->word, word, escape, white_space);
     new->word.len = pd_str_len(new->word);
@@ -57,7 +57,7 @@ static pd_split_list    *pd_count_sep(pd_arr str, char sep, int escape)
         }
         if (((char *)str.val)[i] == sep || ((char *)str.val)[i] == '\0')
         {
-            pd_arr sub = i - j > 0 ? pd_str_sub(str, j, i - j) : pd_arrInit(PD_T_CHAR, 0);
+            pd_arr sub = i - j > 0 ? pd_str_sub(str, j, i - j) : pd_arr_init(PD_T_CHAR, 0);
             if ((!token_sizes && !(token_sizes = pd_add_elem(sub)))
                 || (curr && !(curr->next = pd_add_elem(sub))))
                 return (NULL);
@@ -81,7 +81,7 @@ pd_arr     pd_str_split(pd_arr str, char sep, int escape)
     pd_arr         tokens;
 
     if (!(words = pd_count_sep(str, sep, escape)))
-        return (pd_arrInit(PD_T_STR, 0));
+        return (pd_arr_init(PD_T_STR, 0));
     curr = words;
     while (curr)
     {
@@ -90,17 +90,17 @@ pd_arr     pd_str_split(pd_arr str, char sep, int escape)
     }
     if (!count)
         return (tokens);
-    tokens = pd_arrInit(PD_T_STR, count);
+    tokens = pd_arr_init(PD_T_STR, count);
     tokens.len = count;
     count = 0;
     curr = words;
     while (curr)
     {
         ((pd_arr *)tokens.val)[count++] = pd_str_dup(curr->word, curr->word.len);
-		free(curr->word.val);
+		pd_free(curr->word.val);
         pd_split_list	*tmp = curr;
 		curr = curr->next;
-		free(tmp);
+		pd_free(tmp);
     }
     return (tokens);
 }

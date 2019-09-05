@@ -1,10 +1,10 @@
 #include "pd_main.h"
 
-pd_name_index *pd_dast_new_ni(pd_char_a name, size_t index)
+pd_name_index *pd_prep_new_ni(pd_char_a name, size_t index)
 {
     pd_name_index *elem = NULL;
 
-    PD_PROT_MALLOC(elem = malloc(sizeof(pd_name_index)));
+    PD_PROT_MALLOC(elem = pd_malloc(sizeof(pd_name_index)));
     elem->name = name;
     elem->index = index;
     elem->next = NULL;
@@ -26,12 +26,12 @@ pd_str_a  pd_prep_name_sort(pd_csv csv, pd_str_a col_ni)
             {
                 if (!begin)
                 {
-                    begin = pd_dast_new_ni(((pd_char_a*)col_ni.val)[i], j);
+                    begin = pd_prep_new_ni(((pd_char_a*)col_ni.val)[i], j);
                     tmp = begin;
                 }
                 else
                 {
-                    tmp->next =  pd_dast_new_ni(((pd_char_a*)col_ni.val)[i], j);
+                    tmp->next =  pd_prep_new_ni(((pd_char_a*)col_ni.val)[i], j);
                     tmp = tmp->next;
                 }
                 real_size++;
@@ -42,14 +42,14 @@ pd_str_a  pd_prep_name_sort(pd_csv csv, pd_str_a col_ni)
     }
 
     tmp = begin;
-    pd_size_t_a index_a = pd_arrInit(PD_T_SIZE_T, real_size);
+    pd_size_t_a index_a = pd_arr_init(PD_T_SIZE_T, real_size);
     for (size_t i = 0; i < real_size; i++)
     {
         ((size_t*)index_a.val)[i] = tmp->index;
         tmp = tmp->next; 
     }
     pd_math_si_sort(index_a);
-    pd_str_a new_col_ni = pd_arrInit(PD_T_STR, real_size);
+    pd_str_a new_col_ni = pd_arr_init(PD_T_STR, real_size);
     for (size_t i = 0; i < real_size; i++)
     {
         for (tmp = begin; tmp; tmp = tmp->next)
@@ -65,8 +65,8 @@ pd_str_a  pd_prep_name_sort(pd_csv csv, pd_str_a col_ni)
     {
         tmp = begin;
         begin = begin->next;
-        pd_dast_free((void**)&tmp);
+        pd_free(tmp);
     }
-    pd_arrFree(index_a);
+    pd_arr_free(index_a);
     return new_col_ni;
 }

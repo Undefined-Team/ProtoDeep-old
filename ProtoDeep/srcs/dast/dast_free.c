@@ -1,7 +1,10 @@
 #include "pd_main.h"
 
-void	pd_dast_free(void **ap)
+void	pd_free_ctr(void **ap)
 {
-	free(*ap);
-	*ap = NULL;
+	if (ap)
+	{
+		free(*ap);
+		*ap = NULL;
+	}
 }

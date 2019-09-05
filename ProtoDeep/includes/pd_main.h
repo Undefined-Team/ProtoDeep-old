@@ -9,6 +9,7 @@
 #include <unistd.h> // For read
 #include <sys/time.h> // For timestamp
 #include "pd_dast.h"
+#include "pd_arr.h"
 #include "pd_math.h"
 #include "pd_str.h"
 #include "pd_csv/pd_csv.h"

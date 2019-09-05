@@ -26,7 +26,7 @@ static pd_csv_col *pd_cols_generator(pd_csv_col **col, pd_ohe_trees *tbegin)
     *col = (*col)->next;
     for (size_t i = 0; i < tbegin->new_names.len; i++)
     {
-        last_col = pd_prep_add_col(last_col, str_arr.len, 0, pd_strSNew((char*)(((pd_char_a*)tbegin->new_names.val)[i].val)));
+        last_col = pd_prep_add_col(last_col, str_arr.len, 0, pd_str_new_s((char*)(((pd_char_a*)tbegin->new_names.val)[i].val)));
         if (!begin_col)
             begin_col = last_col;
     }
