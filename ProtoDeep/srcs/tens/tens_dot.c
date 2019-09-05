@@ -59,17 +59,22 @@ pd_tensor   pd_tens_init_dot_result(pd_arr a_shape, pd_arr b_shape, size_t *axis
     return (result);
 }
 
-pd_tensor    pd_tens_dot(pd_tensor a, pd_tensor b, size_t *axis[2])
-{
-    pd_tensor   result;
-    size_t      *shape;
-    size_t      *pos;
+// pd_tensor    pd_tens_dot(pd_tensor a, pd_tensor b, size_t *axis[2])
+// {
+//     pd_tensor   result;
+//     size_t      *shape;
+//     size_t      *pos;
 
-    result = pd_tens_init_dot_result(pd_tens_get_shape(a), pd_tens_get_shape(b), axis);
-    pos = (size_t *)malloc(result.shape.len * sizeof(float));
-    for (size_t i = 0; i < result.shape.len; i++)
-        pos[i] = 0;
-    g_debug_len = result.shape.len;
-    // for (size_t i = 0; i < ((size_t *)result.shape.val)[0]; i++)
-    //     result = pd_tens_dot_product(a, b);
+//     result = pd_tens_init_dot_result(pd_tens_get_shape(a), pd_tens_get_shape(b), axis);
+//     pos = (size_t *)malloc(result.shape.len * sizeof(float));
+//     for (size_t i = 0; i < result.shape.len; i++)
+//         pos[i] = 0;
+//     g_debug_len = result.shape.len;
+//     // for (size_t i = 0; i < ((size_t *)result.shape.val)[0]; i++)
+//     //     result = pd_tens_dot_product(a, b);
+// }
+
+pd_tensor    pd_tens_dot(pd_tensor a, pd_tensor b, pd_size_t_a axis)
+{
+    pd_arr_print(axis);
 }

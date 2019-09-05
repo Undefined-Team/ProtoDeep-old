@@ -16,7 +16,7 @@ void    pd_tens_get_values(pd_tensor tensor, size_t *index, pd_tensor *flat)
             pd_tens_get_values(((pd_tensor *)tensor.val)[i], index, flat);
     else
         for (size_t i = 0; i < tensor.len; i++)
-            ((size_t *)flat->val)[(*index)++] = ((size_t *)tensor.val)[i];
+            ((float *)flat->val)[(*index)++] = ((float *)tensor.val)[i];
 }
 
 pd_tensor   pd_tens_flatten(pd_tensor tensor)
@@ -25,7 +25,7 @@ pd_tensor   pd_tens_flatten(pd_tensor tensor)
     size_t      *len;
     size_t      index = 0;
 
-    len = (size_t *)malloc(1 * sizeof(size_t));
+    len = pd_malloc(1 * sizeof(size_t));
     len[0] = pd_tens_flatten_len(tensor);
     flat = pd_tens_init(len, 1);
     pd_tens_get_values(tensor, &index, &flat);
