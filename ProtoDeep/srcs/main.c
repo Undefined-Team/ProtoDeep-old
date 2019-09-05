@@ -123,13 +123,46 @@ void    pd_csv_manual()
 
 void        tens_test(void)
 {
-    size_t new_shape[5] = {5, 4, 0, 2, 1};
+    size_t *new_shape = malloc(5 * sizeof(size_t));
+    new_shape[0] = 4;
+    new_shape[1] = 4;
+    new_shape[2] = 4;
+    new_shape[3] = 4;
+    new_shape[4] = 4;
     pd_tensor test = pd_tens_init(new_shape, 5);
-    pd_size_t_a shape = pd_tens_get_shape(test);
+    pd_size_t_a shape = test.shape;
     for (size_t i = 0; i < shape.len; i++)
     {
-        printf("%zd\n", ((size_t*)shape.val)[i]);
+        printf("%zd,\n", ((size_t *)shape.val)[i]);
     }
+}
+
+void        tens_dot_test(void)
+{
+    size_t shapea[5] = {5, 4, 2, 4, 5};
+    size_t shapeb[5] = {5, 6, 3, 2, 1};
+    size_t *new_shapea = malloc(5 * sizeof(size_t));
+    new_shapea[0] = 3;
+    new_shapea[1] = 4;
+    new_shapea[2] = 5;
+    new_shapea[3] = 6;
+    new_shapea[4] = 7;
+    size_t *new_shapeb = malloc(5 * sizeof(size_t));
+    new_shapeb[0] = 3;
+    new_shapeb[1] = 4;
+    new_shapeb[2] = 5;
+    new_shapeb[3] = 6;
+    new_shapeb[4] = 7;
+    pd_tensor a = pd_tens_init(new_shapea, 5);
+    pd_tensor b = pd_tens_init(new_shapeb, 5);
+    size_t **axis = malloc(2 * sizeof(float *));
+    axis[0] = malloc(2 * sizeof(float));
+    axis[0][0] = 0;
+    axis[0][1] = 1;
+    axis[1] = malloc(2 * sizeof(float));
+    axis[1][0] = 3;
+    axis[1][1] = 4;
+    pd_tens_dot(a, b, axis);
 }
 
 int main(void)
@@ -145,14 +178,7 @@ int main(void)
     //(void)test;
     pd_network network;
 
-    pd_nn_init_network(&network);
-    pd_nn_add(&network, pd_nn_convolution(16, 3, 2, PD_A_RELU));
-    size_t pool_size[2] = {2, 2};
-    pd_nn_add(&network, pd_nn_maxpool(pool_size, 2));
-    pd_nn_add(&network, pd_nn_dense(16, PD_A_RELU));
-    pd_nn_add(&network, pd_nn_dense(16, PD_A_RELU));
-    pd_nn_validate(&network);
-    pd_nn_print(network);
-    tens_test();
+    // tens_test();
+    tens_dot_test();
     return (0);
 }

@@ -14,5 +14,6 @@ typedef struct				pds_tensor {
 // Prototypes
 pd_tensor                   pd_tens_init(size_t *shape, size_t len);
 pd_size_t_a                 pd_tens_get_shape(pd_tensor tensor);
+pd_tensor    				pd_tens_dot(pd_tensor a, pd_tensor b, size_t *axis[2]);
 
 #endif
