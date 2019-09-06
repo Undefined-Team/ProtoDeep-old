@@ -144,12 +144,12 @@ void        tens_test(void)
     pd_tens_print(test3);
     pd_tens_free(test3);
 
-    size_t new_shape2[2] = {3, 3};
-    test3 = pd_tens_init_rand(pd_arr_shape(3, 2, 2, 2), 0, 10);
+    //size_t new_shape2[2] = {3, 3};
+    test3 = pd_tens_init_rand(pd_arr_shape(2, 3, 3), 0, 10);
     pd_tens_print(test3);
     pd_tens_free(test2);
     printf("transpose start\n");
-    test2 = pd_tens_transpose(test3, pd_arr_shape(3, 2, 0, 1));
+    test2 = pd_tens_transpose(test3, pd_arr_shape(2, 1, 0));
     printf("ALLO\n");
     pd_tens_print(test2);
     printf("ALLO2\n");
