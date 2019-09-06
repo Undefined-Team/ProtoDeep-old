@@ -1,5 +1,10 @@
 #include "pd_main.h"
 
+void            pd_mem_set(void *array, int c, size_t len)
+{
+	while (len-- > 0) *(char*)array++ = (unsigned char)c;
+}
+
 pd_size_t_a     pd_get_new_shape(pd_size_t_a shape, pd_size_t_a new_dim)
 {
     pd_size_t_a new_shape = pd_arr_init(PD_T_SIZE_T, shape.len);
@@ -40,6 +45,17 @@ pd_size_t_a     pd_get_coord(size_t reste, pd_size_t_a shape_mult)
 
 pd_tensor       pd_tens_transpose(pd_tensor tensor, pd_size_t_a new_dim)
 {
+    if (tensor.rank != new_dim.len) pd_error("there must be as many new dimensions as the rank of the tensor. (tensor.rank == new_dim.len)");
+    bool valid[new_dim.len];
+    pd_mem_set(valid, false, sizeof(bool) * new_dim.len);
+    for (size_t i = 0; i < new_dim.len; i++)
+    {
+        if (((size_t*)new_dim.val)[i] >= new_dim.len)
+            pd_error("a dimension can't be greater than the number of dimensions (new_dim.val[i] < new_dim.length)");
+        if (valid[((size_t*)new_dim.val)[i]] == true)
+            pd_error("2 dimensions can't have the same dimension");
+        valid[((size_t*)new_dim.val)[i]] = true;
+    }
     pd_size_t_a new_shape = pd_get_new_shape(tensor.shape, new_dim);
     pd_size_t_a shape_mult = pd_get_shape_mult(tensor.shape);
     pd_size_t_a new_shape_mult = pd_get_shape_mult(new_shape);
