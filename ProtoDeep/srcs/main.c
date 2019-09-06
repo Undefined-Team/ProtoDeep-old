@@ -203,6 +203,12 @@ void        tens_dot_test(void)
     pd_matrix_dot(matrix1, matrix2);
 }*/
 
+void    arr_create_test()
+{
+    pd_arr test = pd_arr_create(pd_arr_shape(3, 2, 2, 2), PD_T_FLOAT, 3.4, .32, .321, 432., 432.432, .643, .64355, 24.1232);
+    pd_arr_print(test);
+}
+
 int main(void)
 {
     // pd_time("start program");
