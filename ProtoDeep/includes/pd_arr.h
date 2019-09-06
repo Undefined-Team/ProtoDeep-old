@@ -34,5 +34,6 @@ pd_arr                              pd_arr_new(pd_type type, size_t len, void* v
 void                                pd_arr_free_r(pd_arr arr, int depth);
 void                                pd_arr_print_ctr(pd_arr array, size_t space);
 pd_size_t_a                         pd_arr_shape(size_t len, ...);
+pd_arr                              pd_arr_create(pd_size_t_a arr_shape, pd_type type, ...);
 
 #endif

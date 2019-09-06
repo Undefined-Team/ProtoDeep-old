@@ -199,6 +199,12 @@ void        tens_dot_test(void)
     pd_matrix_dot(matrix1, matrix2);
 }
 
+void    arr_create_test()
+{
+    pd_arr test = pd_arr_create(pd_arr_shape(3, 2, 2, 2), PD_T_FLOAT, 3.4, .32, .321, 432., 432.432, .643, .64355, 24.1232);
+    pd_arr_print(test);
+}
+
 int main(void)
 {
     // pd_time("start program");
@@ -209,7 +215,8 @@ int main(void)
     // printf("\n-------------- MODE MANUAL --------------\n");
     // pd_csv_manual();
     // tens_test();
-    tens_dot_test();
+    // tens_dot_test();
+    arr_create_test();
     //t_arr test = pd_str_new_s("Zizi");
     //void *test = pdmalloc(1);
     //(void)test;
