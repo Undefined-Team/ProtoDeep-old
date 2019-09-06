@@ -1,2 +1,2 @@
-./ProtoDeep/*.stackdump
+*.exe.stackdump
 ./ProtoDeep/.vscode/

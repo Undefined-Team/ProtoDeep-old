@@ -42,6 +42,9 @@ STR				=	str_len.c			\
 					str_chr.c			\
 					str_cmp.c 			\
 
+MEM_FLD			=	mem/
+MEM				=	mem_pack.c 		\
+
 DAST_FLD		=	dast/
 DAST			=	dast_free.c 		\
 					dast_time.c			\
@@ -54,6 +57,7 @@ ARR				=	arr_free.c 			\
 					arr_shape.c			\
 					arr_shape_concat.c	\
 					arr_create.c		\
+					arr_copy.c 			\
 
 PREP_FLD		=	csv/prep/
 PREP			=	prep_minmax_scal.c	\
@@ -99,6 +103,7 @@ NN				=	nn_config.c			\
 
 SRC_FLDS		=	math/				\
 					str/				\
+					mem/				\
 					dast/				\
 					arr/				\
 					csv/				\
@@ -112,6 +117,7 @@ SRC				+=	$(addprefix $(MATH_FLD), $(MATH))
 SRC				+=	$(addprefix $(PREP_FLD), $(PREP))
 SRC				+=	$(addprefix $(CSV_FLD), $(CSV))
 SRC				+=	$(addprefix $(STR_FLD), $(STR))
+SRC				+=	$(addprefix $(MEM_FLD), $(MEM))
 SRC				+=	$(addprefix $(DAST_FLD), $(DAST))
 SRC				+=	$(addprefix $(ARR_FLD), $(ARR))
 SRC				+=	$(addprefix $(TENS_FLD), $(TENS))

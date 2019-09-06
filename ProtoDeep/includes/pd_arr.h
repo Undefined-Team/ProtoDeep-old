@@ -36,5 +36,6 @@ void                                pd_arr_print_ctr(pd_arr array, size_t space)
 pd_size_t_a                         pd_arr_shape(size_t len, ...);
 pd_arr                              pd_arr_shape_concat(pd_arr a, pd_arr b);
 pd_arr                              pd_arr_create(pd_size_t_a arr_shape, pd_type type, ...);
+pd_arr                              pd_arr_copy(pd_arr array);
 
 #endif
