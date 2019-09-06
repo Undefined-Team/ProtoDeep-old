@@ -9,7 +9,7 @@ pd_tensor   pd_matrix_dot(pd_tensor a, pd_tensor b)
     else if (((size_t *)a.shape.val)[0] != ((size_t *)b.shape.val)[1])
         pd_error("Matrix [%zd, %zd] incompatible with matrix [%zd, %zd].\n", ((size_t *)a.shape.val)[0],
         ((size_t *)a.shape.val)[1], ((size_t *)b.shape.val)[0], ((size_t *)b.shape.val)[1]);
-    result = pd_tens_init(pd_tens_shape(2, ((size_t *)a.shape.val)[1], ((size_t *)b.shape.val)[0]), 2);
+    result = pd_tens_init(pd_arr_shape(2, ((size_t *)a.shape.val)[1], ((size_t *)b.shape.val)[0]));
     pd_tens_print(result);
     for (size_t i = 0; i < ((size_t *)a.shape.val)[1]; i++)
     {

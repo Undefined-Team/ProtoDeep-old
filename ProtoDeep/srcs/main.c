@@ -148,8 +148,12 @@ void        tens_test(void)
     test3 = pd_tens_init_rand(pd_arr_shape(3, 2, 2, 2), 0, 10);
     pd_tens_print(test3);
     pd_tens_free(test2);
-    test2 = pd_tens_transpose(test3, );
+    printf("transpose start\n");
+    test2 = pd_tens_transpose(test3, pd_arr_shape(3, 2, 0, 1));
+    printf("ALLO\n");
     pd_tens_print(test2);
+    printf("ALLO2\n");
+
     pd_tens_free(test3);
 
     pd_tens_free(test);
@@ -160,26 +164,26 @@ void        tens_dot_test(void)
 {
     size_t shapea[5] = {5, 4, 2, 4, 5};
     size_t shapeb[5] = {5, 6, 3, 2, 1};
-    size_t *new_shapea = pd_tens_shape(5, 3, 4, 5, 6, 7);
-    size_t *new_shapeb = pd_tens_shape(5, 3, 4, 5, 6, 7);
-    size_t *new_shapec = pd_tens_shape(2, 3, 4);
-    size_t *new_shaped = pd_tens_shape(3, 3, 4, 6);
-    size_t *new_shapet = pd_tens_shape(3, 3, 2, 3);
-    size_t *new_shapex = pd_tens_shape(5, 9, 2, 1, 1, 1);
-    size_t *new_shapea2 = pd_tens_shape(3, 3, 4, 5);
-    size_t *new_shapea3 = pd_tens_shape(3, 4, 3, 2);
-    size_t *matrix1_shape = pd_tens_shape(2, 3, 6);
-    size_t *matrix2_shape = pd_tens_shape(2, 10, 3);
-    pd_tensor a = pd_tens_init(new_shapea, 5);
-    pd_tensor b = pd_tens_init(new_shapeb, 5);
-    pd_tensor c = pd_tens_init(new_shapec, 2);
-    pd_tensor d = pd_tens_init(new_shaped, 3);
-    pd_tensor t = pd_tens_init(new_shapet, 3);
-    pd_tensor x = pd_tens_init(new_shapex, 5);
-    pd_tensor a2 = pd_tens_init(new_shapea2, 3);
-    pd_tensor a3 = pd_tens_init(new_shapea3, 3);
-    pd_tensor matrix1 = pd_tens_init(matrix1_shape, 2);
-    pd_tensor matrix2 = pd_tens_init(matrix2_shape, 2);
+    pd_size_t_a new_shapea = pd_arr_shape(5, 3, 4, 5, 6, 7);
+    pd_size_t_a new_shapeb = pd_arr_shape(5, 3, 4, 5, 6, 7);
+    pd_size_t_a new_shapec = pd_arr_shape(2, 3, 4);
+    pd_size_t_a new_shaped = pd_arr_shape(3, 3, 4, 6);
+    pd_size_t_a new_shapet = pd_arr_shape(3, 3, 2, 3);
+    pd_size_t_a new_shapex = pd_arr_shape(5, 9, 2, 1, 1, 1);
+    pd_size_t_a new_shapea2 = pd_arr_shape(3, 3, 4, 5);
+    pd_size_t_a new_shapea3 = pd_arr_shape(3, 4, 3, 2);
+    pd_size_t_a matrix1_shape = pd_arr_shape(2, 3, 6);
+    pd_size_t_a matrix2_shape = pd_arr_shape(2, 10, 3);
+    pd_tensor a = pd_tens_init(new_shapea);
+    pd_tensor b = pd_tens_init(new_shapeb);
+    pd_tensor c = pd_tens_init(new_shapec);
+    pd_tensor d = pd_tens_init(new_shaped);
+    pd_tensor t = pd_tens_init(new_shapet);
+    pd_tensor x = pd_tens_init(new_shapex);
+    pd_tensor a2 = pd_tens_init(new_shapea2);
+    pd_tensor a3 = pd_tens_init(new_shapea3);
+    pd_tensor matrix1 = pd_tens_init(matrix1_shape);
+    pd_tensor matrix2 = pd_tens_init(matrix2_shape);
     size_t *axis1 = pd_malloc(2 * sizeof(float));
     axis1[0] = 0;
     axis1[1] = 1;
@@ -197,8 +201,8 @@ void        tens_dot_test(void)
     pd_tens_print(matrix1);
     pd_tens_print(matrix2);
     pd_matrix_dot(matrix1, matrix2);
-}
-*/
+}*/
+
 int main(void)
 {
     // pd_time("start program");

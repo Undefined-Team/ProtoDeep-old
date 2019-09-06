@@ -51,6 +51,7 @@ ARR				=	arr_free.c 			\
 					arr_init.c			\
 					arr_new.c			\
 					arr_print.c			\
+					arr_shape.c			\
 
 PREP_FLD		=	csv/prep/
 PREP			=	prep_minmax_scal.c	\
@@ -87,7 +88,6 @@ TENS			=	tens_new.c			\
 					tens_reshape.c		\
 					tens_dot.c			\
 					tens_transpose.c	\
-					tens_shape.c		\
 
 NN_FLD			=	nn/
 NN				=	nn_config.c			\
