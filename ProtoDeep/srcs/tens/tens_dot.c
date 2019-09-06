@@ -1,100 +1,15 @@
 #include "pd_main.h"
 
-// size_t g_debug_len = 0;
-
-// void        print_pd_arr(pd_arr arr)
-// {
-//     for (size_t i = 0; i < arr.len; i++)
-//     {
-//         printf("%zd, ", ((size_t *)arr.val)[i]);
-//     }
-//     printf("\n");
-// }
-
-// void        print_size_t_arr(size_t *arr, size_t len)
-// {
-//     printf("[");
-//     for (size_t i = 0; i < (len ? len : g_debug_len); i++)
-//     {
-//         printf("%zd, ", arr[i]);
-//     }
-//     printf("]");
-//     printf("\n");
-// }
-
-// size_t      *pd_tens_get_dot_shape(pd_arr a_shape, pd_arr b_shape, size_t len)
-// {
-//     size_t      *result_shape;
-//     size_t      j = 0;
-
-//     result_shape = (size_t *)malloc(len * sizeof(size_t));
-//     for (size_t i = 0; i < a_shape.len; i++)
-//         if (((size_t *)a_shape.val)[i])
-//             result_shape[j++] = ((size_t *)a_shape.val)[i];
-//     for (size_t i = 0; i < b_shape.len; i++)
-//         if (((size_t *)b_shape.val)[i])
-//             result_shape[j++] = ((size_t *)b_shape.val)[i];
-//     return (result_shape);
-// }
-
-// pd_tensor   pd_tens_init_dot_result(pd_arr a_shape, pd_arr b_shape, size_t *axis[2])
-// {
-//     size_t      rank;
-//     size_t      count = 0;
-//     pd_size_t_a result_shape;
-//     size_t      len = 0;
-//     pd_tensor   result;
-
-//     //to do : The axis a_axes[i] of a must have the same dimension as axis b_axes[i] of b for all i in range(0, len(a_axes))
-//     rank = a_shape.len + b_shape.len - (2 * 2 /*axis len */);
-//     for (size_t i = 0; i < 2 /* axis len */; i++)
-//     {
-//         ((size_t *)a_shape.val)[axis[0][i]] = 0;
-//         ((size_t *)b_shape.val)[axis[1][i]] = 0;
-//         count += 2;
-//     }
-//     len = (a_shape.len + b_shape.len) - count;
-//     ((size_t *)result_shape.val) = pd_tens_get_dot_shape(a_shape, b_shape, len);
-//     result_shape.len = len;
-//     result = pd_tens_init(result_shape, len);
-//     return (result);
-// }
-
-// pd_tensor    pd_tens_dot(pd_tensor a, pd_tensor b, size_t *axis[2])
-// {
-//     pd_tensor   result;
-//     size_t      *shape;
-//     size_t      *pos;
-
-//     result = pd_tens_init_dot_result(pd_tens_get_shape(a), pd_tens_get_shape(b), axis);
-//     pos = (size_t *)malloc(result.shape.len * sizeof(float));
-//     for (size_t i = 0; i < result.shape.len; i++)
-//         pos[i] = 0;
-//     g_debug_len = result.shape.len;
-//     // for (size_t i = 0; i < ((size_t *)result.shape.val)[0]; i++)
-//     //     result = pd_tens_dot_product(a, b);
-// }
-
-pd_tensor    pd_tens_dot(pd_tensor a, pd_tensor b, pd_arr axis)
+pd_arr      pd_tens_get_counter_axis(size_t len, pd_arr axis)
 {
-    pd_size_t_a     shape_a;
-    pd_size_t_a     shape_b;
     size_t          j_a = 0;
     size_t          j_b = 0;
-    size_t          n_a = 1;
-    size_t          n_b = 1;
-    size_t          m_a = 1;
-    size_t          m_b = 1;
-    pd_size_t_a     old_a;
-    pd_size_t_a     old_b;
-    pd_size_t_a     new_a;
-    pd_size_t_a     new_b;
-    pd_size_t_a     new_axes_a;
-    pd_size_t_a     new_axes_b;
-
-    shape_a = pd_arr_init(PD_T_SIZE_T, a.shape.len - ((pd_arr *)axis.val)[0].len);
-    shape_b = pd_arr_init(PD_T_SIZE_T, b.shape.len - ((pd_arr *)axis.val)[1].len);
-    for (size_t i = 0; i < a.shape.len; i++)
+    pd_arr          counter_axis;
+    
+    counter_axis = pd_arr_init(PD_T_ARR, 2);
+    ((pd_arr *)counter_axis.val)[0] = pd_arr_init(PD_T_SIZE_T, len - ((pd_arr *)axis.val)[0].len);
+    ((pd_arr *)counter_axis.val)[1] = pd_arr_init(PD_T_SIZE_T, len - ((pd_arr *)axis.val)[0].len);
+    for (size_t i = 0; i < len; i++)
     {
         bool    in_axis_a = false;
         bool    in_axis_b = false;
@@ -106,66 +21,73 @@ pd_tensor    pd_tens_dot(pd_tensor a, pd_tensor b, pd_arr axis)
                 in_axis_b = true;
         }
         if (!in_axis_a)
-            ((size_t *)shape_a.val)[j_a++] = i;
+            ((size_t *)((pd_arr *)counter_axis.val)[0].val)[j_a++] = i;
         if (!in_axis_b)
-            ((size_t *)shape_b.val)[j_b++] = i;
+            ((size_t *)((pd_arr *)counter_axis.val)[1].val)[j_b++] = i;
     }
+    return (counter_axis);
+}
+
+pd_arr   pd_tens_get_new_axes(pd_size_t_a n, pd_size_t_a m, pd_arr counter_axis, pd_arr axis)
+{
+    pd_arr          new_axes = pd_arr_init(PD_T_ARR, 2);
+
+    ((pd_arr *)new_axes.val)[0] = pd_arr_init(PD_T_SIZE_T, ((pd_arr *)counter_axis.val)[0].len + ((pd_arr *)axis.val)[0].len);
+    ((pd_arr *)new_axes.val)[1] = pd_arr_init(PD_T_SIZE_T, ((pd_arr *)counter_axis.val)[1].len + ((pd_arr *)axis.val)[1].len);
+    for (size_t i = 0; i < ((pd_arr *)counter_axis.val)[0].len; i++)
+    {
+        ((size_t *)((pd_arr *)new_axes.val)[0].val)[i] = ((size_t *)((pd_arr *)counter_axis.val)[0].val)[i];
+        ((size_t *)((pd_arr *)new_axes.val)[1].val)[i] = ((size_t *)((pd_arr *)counter_axis.val)[1].val)[i];
+    }
+    for (size_t i = ((pd_arr *)counter_axis.val)[0].len; i < ((pd_arr *)counter_axis.val)[0].len + ((pd_arr *)axis.val)[0].len; i++)
+    {
+        ((size_t *)((pd_arr *)new_axes.val)[0].val)[i] = ((size_t *)((pd_arr *)axis.val)[0].val)[i - ((pd_arr *)counter_axis.val)[0].len];
+        ((size_t *)((pd_arr *)new_axes.val)[1].val)[i] = ((size_t *)((pd_arr *)axis.val)[1].val)[i - ((pd_arr *)counter_axis.val)[0].len];
+    }
+    return (new_axes);
+}
+
+pd_tensor   pd_tens_get_res(pd_tensor a, pd_tensor b, pd_arr new_axes, pd_size_t_a m, pd_size_t_a n, pd_arr old)
+{
+    pd_tensor t_a = pd_tens_transpose(a, ((pd_arr *)new_axes.val)[0]);
+    pd_tensor t_b = pd_tens_transpose(b, ((pd_arr *)new_axes.val)[1]);
+    pd_arr new = pd_arr_create(pd_arr_shape(2, 2, 2), PD_T_SIZE_T, ((size_t *)m.val)[0], ((size_t *)n.val)[0], ((size_t *)n.val)[1], ((size_t *)m.val)[1]);
+    pd_tensor res;
+    pd_arr old_concat;
+
+    t_a = pd_tens_reshape(t_a, ((pd_arr *)new.val)[0]);
+    t_b = pd_tens_reshape(t_b, ((pd_arr *)new.val)[1]);
+    res = pd_matrix_dot(t_a, t_b);
+    old_concat = pd_arr_shape_concat(((pd_arr *)old.val)[0], ((pd_arr *)old.val)[1]);
+    res = pd_tens_reshape(res, old_concat);
+    return (res);
+}
+
+pd_tensor    pd_tens_dot(pd_tensor a, pd_tensor b, pd_arr axis)
+{
+    pd_arr          counter_axis;
+    pd_size_t_a     n = pd_arr_create(pd_arr_shape(1, 2), PD_T_SIZE_T, 1, 1);
+    pd_size_t_a     m = pd_arr_create(pd_arr_shape(1, 2), PD_T_SIZE_T, 1, 1);
+    pd_arr          old = pd_arr_init(PD_T_ARR, 2);
+    pd_arr          new_axes;
+
+    counter_axis = pd_tens_get_counter_axis(a.shape.len, axis);
     for (size_t i = 0; i < ((pd_arr *)axis.val)[0].len; i++)
     {
-        n_a *= ((size_t *)a.shape.val)[((size_t *)((pd_arr *)axis.val)[0].val)[i]];
-        n_b *= ((size_t *)b.shape.val)[((size_t *)((pd_arr *)axis.val)[1].val)[i]];
+        ((size_t *)n.val)[0] *= ((size_t *)a.shape.val)[((size_t *)((pd_arr *)axis.val)[0].val)[i]];
+        ((size_t *)n.val)[1] *= ((size_t *)b.shape.val)[((size_t *)((pd_arr *)axis.val)[1].val)[i]];
     }
-    old_a = pd_arr_init(PD_T_SIZE_T, shape_a.len);
-    old_b = pd_arr_init(PD_T_SIZE_T, shape_b.len);
-    for (size_t i = 0; i < shape_a.len; i++)
+    ((pd_arr *)old.val)[0] = pd_arr_init(PD_T_SIZE_T, ((pd_arr *)counter_axis.val)[0].len);
+    ((pd_arr *)old.val)[1] = pd_arr_init(PD_T_SIZE_T, ((pd_arr *)counter_axis.val)[1].len);
+    for (size_t i = 0; i < ((pd_arr *)counter_axis.val)[0].len; i++)
     {
-        size_t val_a = ((size_t *)a.shape.val)[((size_t *)shape_a.val)[i]];
-        size_t val_b = ((size_t *)b.shape.val)[((size_t *)shape_b.val)[i]];
-        printf("%zd [%zd]\n%zd [%zd]\n\n", val_a, ((size_t *)shape_a.val)[i], val_b, ((size_t *)shape_b.val)[i]);
-        m_a *= val_a;
-        m_b *= val_b;
-        ((size_t *)old_a.val)[i] = val_a;
-        ((size_t *)old_b.val)[i] = val_b;
+        size_t val_a = ((size_t *)a.shape.val)[((size_t *)((pd_arr *)counter_axis.val)[0].val)[i]];
+        size_t val_b = ((size_t *)b.shape.val)[((size_t *)((pd_arr *)counter_axis.val)[1].val)[i]];
+        ((size_t *)m.val)[0] *= val_a;
+        ((size_t *)m.val)[1] *= val_b;
+        ((size_t *)((pd_arr *)old.val)[0].val)[i] = val_a;
+        ((size_t *)((pd_arr *)old.val)[1].val)[i] = val_b;
     }
-    new_a = pd_arr_init(PD_T_SIZE_T, 2);
-    new_b = pd_arr_init(PD_T_SIZE_T, 2);
-    ((size_t *)new_a.val)[0] = m_a;
-    ((size_t *)new_a.val)[1] = n_a;
-    ((size_t *)new_b.val)[0] = n_b;
-    ((size_t *)new_b.val)[1] = m_b;
-    new_axes_a = pd_arr_init(PD_T_SIZE_T, shape_a.len + ((pd_arr *)axis.val)[0].len);
-    new_axes_b = pd_arr_init(PD_T_SIZE_T, shape_b.len + ((pd_arr *)axis.val)[1].len);
-    for (size_t i = 0; i < shape_a.len; i++)
-    {
-        ((size_t *)new_axes_a.val)[i] = ((size_t *)shape_a.val)[i];
-        ((size_t *)new_axes_b.val)[i] = ((size_t *)shape_b.val)[i];
-    }
-    for (size_t i = shape_a.len; i < shape_a.len + ((pd_arr *)axis.val)[0].len; i++)
-    {
-        ((size_t *)new_axes_a.val)[i] = ((size_t *)((pd_arr *)axis.val)[0].val)[i - shape_a.len];
-        ((size_t *)new_axes_b.val)[i] = ((size_t *)((pd_arr *)axis.val)[1].val)[i - shape_a.len];
-    }
-    pd_arr_print(a.shape);
-    pd_arr_print(b.shape);
-    pd_arr_print(shape_a);
-    pd_arr_print(shape_b);
-    pd_arr_print(axis);
-    pd_arr_print(new_a);
-    pd_arr_print(new_b);
-    pd_arr_print(new_axes_a);
-    pd_arr_print(new_axes_b);
-    printf("n_a: %zd, n_b: %zd\n", n_a, n_b);
-    // pd_tens_print(a);
-    // pd_tens_print(b);
-    pd_tensor t_a = pd_tens_transpose(a, new_axes_a);
-    pd_tensor t_b = pd_tens_transpose(b, new_axes_b);
-    // pd_tens_print(t_a);
-    // pd_tens_print(t_b);
-    t_a = pd_tens_reshape(t_a, new_a);
-    t_b = pd_tens_reshape(t_b, new_b);
-    pd_tensor res = pd_matrix_dot(t_a, t_b);
-    pd_arr_print(old_a);
-    pd_arr_print(old_b);
-    // res = pd_tens_reshape(old_a, old_b);
-    return (res);
+    new_axes = pd_tens_get_new_axes(n, m, counter_axis, axis);
+    return (pd_tens_get_res(a, b, new_axes, m, n, old));
 }

@@ -77,19 +77,6 @@ pd_tokens_list   *pd_csv_add_tokens(pd_arr tokens)
     return (elem);
 }
 
-pd_tokens_list   *pd_csv_wrong_width(size_t i, size_t first_width, size_t width)
-{
-    write(2, "read_csv error: ", 16);
-    if (first_width > width)
-        write(2, "Not enough values on line ", 26);
-    else if (first_width < width)
-        write(2, "Too much values on line ", 24);
-    pd_arr line = pd_math_itoa(i + 1);
-    write(2, (char *)line.val, line.len);
-    write(2, ".\n", 2);
-    return (NULL);
-}
-
 pd_tokens_list   *pd_csv_create_tokens_list(int fd, char separator, size_t *height, size_t *width)
 {
     pd_arr           *line = NULL;
@@ -109,7 +96,7 @@ pd_tokens_list   *pd_csv_create_tokens_list(int fd, char separator, size_t *heig
         if (tokens.len == 0)
             continue;
         if ((!first_width && !(first_width = tokens.len)) || (first_width != tokens.len))
-            return (pd_csv_wrong_width(*height, first_width, tokens.len));
+            pd_error("%s values on line %zd.", first_width > tokens.len ? "Not enough" : "Too much", *height + 1);
         if ((!list && !(list = pd_csv_add_tokens(tokens)))
             || (curr && !(curr->next = pd_csv_add_tokens(tokens))))
             return (NULL);
