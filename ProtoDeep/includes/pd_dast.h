@@ -25,8 +25,12 @@
 
 # define pd_error(...)              (fprintf(stderr, "%s%s%s[ERROR]%s %s%s: ", PD_COLOR_B, PD_COLOR_U, PD_COLOR_ERR_1, PD_COLOR_N, PD_COLOR_ERR_2, __func__), \
                                     fprintf(stderr, __VA_ARGS__), \
-                                    fprintf(stderr, "%s\n", PD_COLOR_N), \
+                                    fprintf(stderr, "%s", PD_COLOR_N), \
                                     exit(1))
+
+# define pd_error_no_exit(...)      (fprintf(stderr, "%s%s%s[ERROR]%s %s%s: ", PD_COLOR_B, PD_COLOR_U, PD_COLOR_ERR_1, PD_COLOR_N, PD_COLOR_ERR_2, __func__), \
+                                    fprintf(stderr, __VA_ARGS__), \
+                                    fprintf(stderr, "%s", PD_COLOR_N))
 
 # define pd_time(...)               (printf("%s%s%s[TIME]%s %s%lf sec: ", PD_COLOR_B, PD_COLOR_U, PD_COLOR_TIME_1, PD_COLOR_N, PD_COLOR_TIME_2, pd_dast_update_time()), \
                                     printf(__VA_ARGS__), \
