@@ -4,6 +4,7 @@
 // Lib
 
 // Macro
+# define PD_PRINT_SPACE		        "    "
 # define PD_COLOR_N                 "\x1b[0m"
 # define PD_COLOR_U                 "\x1b[4m"
 # define PD_COLOR_B                 "\x1b[1m"

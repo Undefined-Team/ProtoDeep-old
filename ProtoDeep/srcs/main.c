@@ -144,9 +144,12 @@ void        tens_test(void)
     pd_tens_print(test3);
     pd_tens_free(test3);
 
-    size_t new_shape2[3] = {1, 30, 30};
-    test3 = pd_tens_init_rand(new_shape2, 3, -1, 1);
+    size_t new_shape2[2] = {3, 3};
+    test3 = pd_tens_init_rand(new_shape2, 3, 0, 10);
     pd_tens_print(test3);
+    pd_tens_free(test2);
+    test2 = pd_tens_transpose(test3, );
+    pd_tens_print(test2);
     pd_tens_free(test3);
 
     pd_tens_free(test);
@@ -223,12 +226,12 @@ int main(void)
     // pd_time("start program");
     //t_csv   csv = csv_read("./test.csv", 1);
     //dbug_csv_print(csv);
-    // printf("\n-------------- MODE CONF --------------\n");
-    // pd_csv_with_conf();
-    // printf("\n-------------- MODE MANUAL --------------\n");
-    // pd_csv_manual();
-    // tens_test();
-    tens_dot_test();
+    printf("\n-------------- MODE CONF --------------\n");
+    pd_csv_with_conf();
+    printf("\n-------------- MODE MANUAL --------------\n");
+    pd_csv_manual();
+    tens_test();
+    //tens_dot_test();
     //t_arr test = pd_str_new_s("Zizi");
     //void *test = pdmalloc(1);
     //(void)test;
