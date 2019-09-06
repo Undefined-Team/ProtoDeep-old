@@ -5,6 +5,11 @@ pd_tensor   pd_tens_init(pd_size_t_a shape)
     return pd_tens_init_ctr((size_t*)shape.val, shape.len);
 }
 
+pd_tensor   pd_tens_init_rand(pd_size_t_a shape, float bound_a, float bound_b)
+{
+    return pd_tens_init_rand_ctr((size_t*)shape.val, shape.len, bound_a, bound_b);
+}
+
 pd_tensor   pd_tens_init_ctr(size_t *shape, size_t rank)
 {
     pd_tensor new_tensor;
@@ -29,7 +34,7 @@ pd_tensor   pd_tens_init_ctr(size_t *shape, size_t rank)
     return new_tensor;
 }
 
-pd_tensor   pd_tens_init_rand(size_t *shape, size_t rank, float bound_a, float bound_b)
+pd_tensor   pd_tens_init_rand_ctr(size_t *shape, size_t rank, float bound_a, float bound_b)
 {
     pd_tensor new_tensor;
 
