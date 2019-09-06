@@ -1,10 +1,5 @@
 #include "pd_main.h"
 
-void        pd_memcpy(void* dst, void *src, size_t len)
-{
-	while (len-- > 0) *(char*)dst++ = *(char*)src++;
-}
-
 pd_arr      pd_arr_copy(pd_arr array)
 {
     pd_arr new_array;
@@ -16,11 +11,11 @@ pd_arr      pd_arr_copy(pd_arr array)
             ((pd_arr*)new_array.val)[i] = pd_arr_copy(((pd_arr*)array.val)[i]);
     }
     else if (array.type == PD_T_FLOAT)
-        pd_memcpy(new_array.val, array.val, sizeof(float) * array.len);
+        pd_mem_cpy(new_array.val, array.val, sizeof(float) * array.len);
     else if (array.type == PD_T_SIZE_T)
-        pd_memcpy(new_array.val, array.val, sizeof(size_t) * array.len);
+        pd_mem_cpy(new_array.val, array.val, sizeof(size_t) * array.len);
     else if (array.type == PD_T_CHAR)
-        pd_memcpy(new_array.val, array.val, sizeof(char) * array.len);
+        pd_mem_cpy(new_array.val, array.val, sizeof(char) * array.len);
     else
         pd_error("last type must be float, size_t or char");
     return new_array;

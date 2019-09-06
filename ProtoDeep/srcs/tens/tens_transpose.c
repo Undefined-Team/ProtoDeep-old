@@ -1,10 +1,5 @@
 #include "pd_main.h"
 
-void            pd_mem_set(void *array, int c, size_t len)
-{
-	while (len-- > 0) *(char*)array++ = (unsigned char)c;
-}
-
 pd_size_t_a     pd_get_new_shape(pd_size_t_a shape, pd_size_t_a new_dim)
 {
     pd_size_t_a new_shape = pd_arr_init(PD_T_SIZE_T, shape.len);
