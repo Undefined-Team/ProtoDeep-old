@@ -86,6 +86,7 @@ TENS			=	tens_new.c			\
 					tens_flatten.c		\
 					tens_reshape.c		\
 					tens_dot.c			\
+					tens_transpose.c	\
 					tens_shape.c		\
 
 NN_FLD			=	nn/
