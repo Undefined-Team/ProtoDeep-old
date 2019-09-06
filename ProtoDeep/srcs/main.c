@@ -145,11 +145,11 @@ void        tens_test(void)
     pd_tens_free(test3);
 
     //size_t new_shape2[2] = {3, 3};
-    test3 = pd_tens_init_rand(pd_arr_shape(2, 3, 3), 0, 10);
+    test3 = pd_tens_init_rand(pd_arr_shape(3, 2, 3, 2), 0, 10);
     pd_tens_print(test3);
     pd_tens_free(test2);
     printf("transpose start\n");
-    test2 = pd_tens_transpose(test3, pd_arr_shape(2, 1, 0));
+    test2 = pd_tens_transpose(test3, pd_arr_shape(3, 2, 1, 0));
     printf("ALLO\n");
     pd_tens_print(test2);
     printf("ALLO2\n");
@@ -204,8 +204,8 @@ int main(void)
     // pd_csv_with_conf();
     // printf("\n-------------- MODE MANUAL --------------\n");
     // pd_csv_manual();
-    // tens_test();
-    tens_dot_test();
+    tens_test();
+    //tens_dot_test();
     // arr_create_test();
     // printf("\n-------------- MODE CONF --------------\n");
     // pd_csv_with_conf();
