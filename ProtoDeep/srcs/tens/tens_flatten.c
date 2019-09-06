@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-int         pd_tens_flatten_len(pd_tensor tensor)
+size_t      pd_tens_flatten_len(pd_tensor tensor)
 {
     size_t      nb_values = 1;
 
@@ -22,11 +22,11 @@ void    pd_tens_get_values(pd_tensor tensor, size_t *index, pd_tensor *flat)
 pd_tensor   pd_tens_flatten(pd_tensor tensor)
 {
     pd_tensor   flat;
-    size_t      *len;
+    pd_size_t_a len;
     size_t      index = 0;
 
-    len = pd_malloc(1 * sizeof(size_t));
-    len[0] = pd_tens_flatten_len(tensor);
+    ((size_t *)len.val)[0] = pd_tens_flatten_len(tensor);
+    len.len = 1;
     flat = pd_tens_init(len, 1);
     pd_tens_get_values(tensor, &index, &flat);
     return (flat);

@@ -41,7 +41,7 @@ pd_tensor   pd_tens_init_dot_result(pd_arr a_shape, pd_arr b_shape, size_t *axis
 {
     size_t      rank;
     size_t      count = 0;
-    size_t      *result_shape;
+    pd_size_t_a result_shape;
     size_t      len = 0;
     pd_tensor   result;
 
@@ -54,7 +54,8 @@ pd_tensor   pd_tens_init_dot_result(pd_arr a_shape, pd_arr b_shape, size_t *axis
         count += 2;
     }
     len = (a_shape.len + b_shape.len) - count;
-    result_shape = pd_tens_get_dot_shape(a_shape, b_shape, len);
+    ((size_t *)result_shape.val) = pd_tens_get_dot_shape(a_shape, b_shape, len);
+    result_shape.len = len;
     result = pd_tens_init(result_shape, len);
     return (result);
 }
