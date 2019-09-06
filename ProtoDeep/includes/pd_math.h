@@ -19,6 +19,7 @@ float                       pd_math_min_a(pd_float_a x);
 float                       pd_math_atof(const char* s);
 pd_char_a                   pd_math_itoa(int n);
 void                        pd_math_si_sort(pd_arr arr);
+float                       pd_math_rand(float bound_a, float bound_b);
 
 float                       pd_math_sigmoid(float x);
 float                       pd_math_relu(float x);

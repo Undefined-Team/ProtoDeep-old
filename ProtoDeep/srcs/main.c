@@ -127,31 +127,32 @@ void        tens_test(void)
     size_t new_shape[3] = {2, 2, 2};
     pd_tensor test = pd_tens_init(new_shape, 3);
     pd_tensor test2 = pd_tens_copy(test);
-    //pd_size_t_a shape = test2.shape;
-    /*for (size_t i = 0; i < shape.len; i++)
-    {
-        printf("%zd\n", ((size_t*)shape.val)[i]);
-    }*/
     pd_tens_print(test);
     printf ("\n+\n\n");
     pd_tens_print(test2);
     printf ("\n=\n\n");
+    
     pd_tensor test3 = pd_tens_concat(test, test2, 0);
     pd_tens_print(test3);
+    pd_tens_free(test3);
+
     test3 = pd_tens_concat(test, test2, 1);
     pd_tens_print(test3);
+    pd_tens_free(test3);
+
     test3 = pd_tens_concat(test, test2, 2);
     pd_tens_print(test3);
+    pd_tens_free(test3);
+
+    size_t new_shape2[3] = {1, 30, 30};
+    test3 = pd_tens_init_rand(new_shape2, 3, -1, 1);
+    pd_tens_print(test3);
+    pd_tens_free(test3);
+
     pd_tens_free(test);
     pd_tens_free(test2);
-    pd_tens_free(test3);
-    /*shape = test3.shape;
-    for (size_t i = 0; i < shape.len; i++)
-    {
-        printf("%zd\n", ((size_t*)shape.val)[i]);
-    }*/
 }
-
+/*
 void        tens_dot_test(void)
 {
     size_t shapea[5] = {5, 4, 2, 4, 5};
@@ -194,7 +195,7 @@ void        tens_dot_test(void)
     pd_tens_print(matrix2);
     pd_matrix_dot(matrix1, matrix2);
 }
-
+*/
 int main(void)
 {
     // pd_time("start program");
@@ -219,6 +220,6 @@ int main(void)
     pd_nn_add(&network, pd_nn_dense(16, PD_A_RELU));
     pd_nn_validate(&network);
     pd_nn_print(network);*/
-    // pd_time("end program");
-    // pd_error("It's the end of program but I want to show the error function %s", ":)");
+    pd_time("end program");
+    pd_error("It's the end of program but I want to show the error function %s", ":)");
 }

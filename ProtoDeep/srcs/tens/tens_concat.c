@@ -5,8 +5,7 @@ pd_tensor pd_tens_rec_concat(pd_tensor tensor_a, pd_tensor tensor_b, size_t dim,
     size_t j = 0;
     pd_tensor new_tensor;
 
-    new_tensor.shape.val = NULL;
-    new_tensor.rank = tensor_a.rank;
+    new_tensor = pd_tens_new(tensor_a.rank, 0, NULL, pd_arr_new(PD_T_SIZE_T, 0, NULL));
     if (dim == target_dim)
     {
         new_tensor.len = tensor_a.len + tensor_b.len;

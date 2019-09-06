@@ -4,9 +4,7 @@ pd_tensor pd_tens_copy(pd_tensor tensor)
 {
     pd_tensor new_tensor;
 
-    new_tensor.rank = tensor.rank;
-    new_tensor.len = tensor.len;
-    new_tensor.shape.val = NULL;
+    new_tensor = pd_tens_new(tensor.rank, tensor.len, NULL, pd_arr_new(PD_T_SIZE_T, 0, NULL));
     if (new_tensor.rank == 1)
     {
         new_tensor.val = pd_malloc(sizeof(float) * new_tensor.len);
