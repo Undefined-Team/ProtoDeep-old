@@ -46,7 +46,7 @@ pd_tensor       pd_tens_transpose(pd_tensor tensor, pd_size_t_a new_dim)
     pd_size_t_a new_shape = pd_get_new_shape(tensor.shape, new_dim);
     pd_size_t_a shape_mult = pd_get_shape_mult(new_shape);
     pd_tensor flatten = pd_tens_flatten(tensor);
-    pd_tensor new_flatten = pd_tens_init((size_t*)flatten.shape.val, 1);
+    pd_tensor new_flatten = pd_tens_init(flatten.shape);
     for (size_t i = 0; i < flatten.len; i++)
         ((size_t*)new_flatten.val)[pd_get_index(pd_get_coord(i, tensor.shape), new_dim, shape_mult)] = ((size_t*)flatten.val)[i];
     pd_tensor transpose_tensor = pd_tens_reshape(new_flatten, new_shape);

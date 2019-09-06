@@ -49,7 +49,7 @@ pd_tensor pd_tens_concat(pd_tensor tensor_a, pd_tensor tensor_b, int axis)
     {
         if (i != axis)
         {
-            if (((size_t*)tensor_a.shape.val)[i] != ((size_t*)tensor_b.shape.val)[i]) return pd_tens_init(NULL, 0);
+            if (((size_t*)tensor_a.shape.val)[i] != ((size_t*)tensor_b.shape.val)[i]) return pd_tens_init(pd_arr_shape(0));
             new_shape[i] = ((size_t*)tensor_a.shape.val)[i];
         }
         else new_shape[i] = ((size_t*)tensor_a.shape.val)[i] + ((size_t*)tensor_b.shape.val)[i];

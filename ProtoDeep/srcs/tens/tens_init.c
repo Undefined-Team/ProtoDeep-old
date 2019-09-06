@@ -1,10 +1,5 @@
 #include "pd_main.h"
 
-pd_tensor   pd_tens_init(pd_size_t_a shape)
-{
-    return pd_tens_init_ctr((size_t*)shape.val, shape.len);
-}
-
 pd_tensor   pd_tens_init_ctr(size_t *shape, size_t rank)
 {
     pd_tensor new_tensor;
@@ -24,9 +19,14 @@ pd_tensor   pd_tens_init_ctr(size_t *shape, size_t rank)
     }
     new_tensor.val = pd_malloc(sizeof(pd_tensor) * new_tensor.len);
     for (size_t i = 0; i < new_tensor.len; i++)
-        ((pd_tensor*)new_tensor.val)[i] = pd_tens_init(&shape[1], rank - 1);
+        ((pd_tensor*)new_tensor.val)[i] = pd_tens_init_ctr(&shape[1], rank - 1);
     new_tensor.shape = pd_tens_get_shape(new_tensor);
     return new_tensor;
+}
+
+pd_tensor   pd_tens_init(pd_size_t_a shape)
+{
+    return pd_tens_init_ctr((size_t*)shape.val, shape.len);
 }
 
 pd_tensor   pd_tens_init_rand(size_t *shape, size_t rank, float bound_a, float bound_b)

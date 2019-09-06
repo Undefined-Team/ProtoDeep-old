@@ -27,7 +27,7 @@ pd_tensor   pd_tens_flatten(pd_tensor tensor)
 
     ((size_t *)len.val)[0] = pd_tens_flatten_len(tensor);
     len.len = 1;
-    flat = pd_tens_init(len, 1);
+    flat = pd_tens_init(len);
     pd_tens_get_values(tensor, &index, &flat);
     return (flat);
 }
