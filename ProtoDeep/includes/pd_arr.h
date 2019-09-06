@@ -28,6 +28,7 @@ typedef struct                      pds_arr {
 
 // Prototypes
 pd_arr                              pd_arr_init(pd_type type, size_t len);
+pd_arr                              pd_arr_init_z(pd_type type, size_t len);
 pd_arr                              pd_arr_new_s(pd_type type, size_t len, void* val);
 pd_arr                              pd_arr_new(pd_type type, size_t len, void* val);
 void                                pd_arr_free_r(pd_arr arr, int depth);

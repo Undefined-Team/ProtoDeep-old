@@ -24,6 +24,7 @@ MATH			=	math_log.c			\
 					math_stdev.c 		\
 					math_si_sort.c 		\
 					math_itoa.c			\
+					math_rand.c			\
 
 STR_FLD			=	str/
 STR				=	str_len.c			\
@@ -72,7 +73,8 @@ CSV				=	csv_read.c			\
 					csv_print.c 		\
 
 TENS_FLD		=	tens/
-TENS			=	tens_init.c			\
+TENS			=	tens_new.c			\
+					tens_init.c			\
 					tens_get_shape.c	\
 					tens_concat.c 		\
 					tens_print.c 		\
