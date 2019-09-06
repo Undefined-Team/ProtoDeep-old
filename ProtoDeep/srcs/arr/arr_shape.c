@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-pd_size_t_a pd_arr_shape(size_t len, ...)
+pd_size_t_a     pd_arr_shape(size_t len, ...)
 {
     va_list     va;
     pd_size_t_a shape;

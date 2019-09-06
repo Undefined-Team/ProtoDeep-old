@@ -179,6 +179,7 @@ void        tens_dot_test(void)
     // pd_tens_flatten(b);
     // pd_tens_flatten(c);
     // pd_tens_flatten(d);
+    // pd_tensor c = pd_tens_transpose(a, pd_arr_shape(5, 2, 3, 4, 1, 0));
     pd_tens_dot(a, b, axis);
     // pd_tens_print(matrix1);
     // pd_tens_print(matrix2);
