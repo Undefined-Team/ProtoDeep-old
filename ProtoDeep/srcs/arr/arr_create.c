@@ -20,8 +20,17 @@ pd_arr      pd_arr_create_ctr(size_t *arr_shape, size_t rank, pd_type type, va_l
             for (size_t i = 0; i < values.len; i++) ((size_t *)values.val)[i] = (size_t)va_arg(*va, unsigned int);
         else if (type == PD_T_CHAR)
             for (size_t i = 0; i < values.len; i++) ((char *)values.val)[i] = (char)va_arg(*va, int);
-        // else if (type == PD_T_STR)
-        //     for (size_t i = 0; i < values.len; i++) ((size_t *)values.val)[i] = (char *)va_arg(*va, char *);
+        else if (type == PD_T_STR)
+        {
+            for (size_t i = 0; i < values.len; i++)
+            {
+                char *buffer = va_arg(*va, char *);
+                size_t len = pd_str_clen(buffer);
+                pd_str_a str = pd_arr_init(PD_T_CHAR, len);
+                str.val = buffer;
+                ((pd_arr *)values.val)[i] = str;
+            }
+        }
         return (values);
     }
 }

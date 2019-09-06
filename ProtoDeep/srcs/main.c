@@ -159,53 +159,39 @@ void        tens_test(void)
     pd_tens_free(test);
     pd_tens_free(test2);
 }
-/*
+
 void        tens_dot_test(void)
 {
-    size_t shapea[5] = {5, 4, 2, 4, 5};
-    size_t shapeb[5] = {5, 6, 3, 2, 1};
-    pd_size_t_a new_shapea = pd_arr_shape(5, 3, 4, 5, 6, 7);
-    pd_size_t_a new_shapeb = pd_arr_shape(5, 3, 4, 5, 6, 7);
-    pd_size_t_a new_shapec = pd_arr_shape(2, 3, 4);
-    pd_size_t_a new_shaped = pd_arr_shape(3, 3, 4, 6);
-    pd_size_t_a new_shapet = pd_arr_shape(3, 3, 2, 3);
-    pd_size_t_a new_shapex = pd_arr_shape(5, 9, 2, 1, 1, 1);
-    pd_size_t_a new_shapea2 = pd_arr_shape(3, 3, 4, 5);
-    pd_size_t_a new_shapea3 = pd_arr_shape(3, 4, 3, 2);
-    pd_size_t_a matrix1_shape = pd_arr_shape(2, 3, 6);
-    pd_size_t_a matrix2_shape = pd_arr_shape(2, 10, 3);
-    pd_tensor a = pd_tens_init(new_shapea);
-    pd_tensor b = pd_tens_init(new_shapeb);
-    pd_tensor c = pd_tens_init(new_shapec);
-    pd_tensor d = pd_tens_init(new_shaped);
-    pd_tensor t = pd_tens_init(new_shapet);
-    pd_tensor x = pd_tens_init(new_shapex);
-    pd_tensor a2 = pd_tens_init(new_shapea2);
-    pd_tensor a3 = pd_tens_init(new_shapea3);
-    pd_tensor matrix1 = pd_tens_init(matrix1_shape);
-    pd_tensor matrix2 = pd_tens_init(matrix2_shape);
-    size_t *axis1 = pd_malloc(2 * sizeof(float));
-    axis1[0] = 0;
-    axis1[1] = 1;
-    size_t *axis2 = pd_malloc(2 * sizeof(float));
-    axis2[0] = 3;
-    axis2[1] = 4;
-    // pd_tens_reshape(t, pd_arr_new_s(PD_T_SIZE_T, 5, new_shapex));
-    pd_arr axis = pd_arr_init(PD_T_ARR, 2);
-    ((pd_arr *)axis.val)[0] = pd_arr_new_s(PD_T_SIZE_T, 2, axis1);
-    ((pd_arr *)axis.val)[1] = pd_arr_new_s(PD_T_SIZE_T, 2, axis2);
+    pd_tensor a = pd_tens_init(pd_arr_shape(5, 3, 4, 5, 6, 7));
+    pd_tensor b = pd_tens_init(pd_arr_shape(5, 3, 4, 5, 6, 7));
+    // pd_tensor c = pd_tens_init(pd_arr_shape(2, 3, 4));
+    // pd_tensor d = pd_tens_init(pd_arr_shape(3, 3, 4, 6));
+    // pd_tensor t = pd_tens_init(pd_arr_shape(3, 3, 2, 3));
+    // pd_tensor x = pd_tens_init(pd_arr_shape(5, 9, 2, 1, 1, 1));
+    // pd_tensor a2 = pd_tens_init(pd_arr_shape(3, 3, 4, 5));
+    // pd_tensor a3 = pd_tens_init(pd_arr_shape(3, 4, 3, 2));
+    // pd_tensor matrix1 = pd_tens_init(pd_arr_shape(2, 3, 6));
+    // pd_tensor matrix2 = pd_tens_init(pd_arr_shape(2, 10, 3));
+    pd_arr axis = pd_arr_create(pd_arr_shape(2, 2, 2), PD_T_SIZE_T, 0, 1, 3, 4);
+    // pd_arr ton_dar_le_hibou = pd_arr_create(pd_arr_shape(2, 2, 2), PD_T_STR, "ton", "dar", "le", "hibou");
+    // pd_arr_print(ton_dar_le_hibou);
+    // pd_tens_reshape(t, pd_arr_shape(5, 9, 2, 1, 1, 1));
     // pd_tens_flatten(b);
     // pd_tens_flatten(c);
     // pd_tens_flatten(d);
+    pd_tens_dot(a, b, axis);
+    // pd_tens_print(matrix1);
+    // pd_tens_print(matrix2);
+    // pd_matrix_dot(matrix1, matrix2);
     // pd_tens_dot(a, b, axis);
-    pd_tens_print(matrix1);
-    pd_tens_print(matrix2);
-    pd_matrix_dot(matrix1, matrix2);
-}*/
+    // pd_tens_print(matrix1);
+    // pd_tens_print(matrix2);
+    // pd_matrix_dot(matrix1, matrix2);
+}
 
 void    arr_create_test()
 {
-    pd_arr test = pd_arr_create(pd_arr_shape(3, 2, 2, 2), PD_T_FLOAT, 3.4, .32, .321, 432., 432.432, .643, .64355, 24.1232);
+    pd_arr test = pd_arr_create(pd_arr_shape(2, 2, 1), PD_T_STR, "wsh", "alors");
     pd_arr_print(test);
 }
 
@@ -214,11 +200,18 @@ int main(void)
     // pd_time("start program");
     //t_csv   csv = csv_read("./test.csv", 1);
     //dbug_csv_print(csv);
-    printf("\n-------------- MODE CONF --------------\n");
-    pd_csv_with_conf();
-    printf("\n-------------- MODE MANUAL --------------\n");
-    pd_csv_manual();
-    tens_test();
+    // printf("\n-------------- MODE CONF --------------\n");
+    // pd_csv_with_conf();
+    // printf("\n-------------- MODE MANUAL --------------\n");
+    // pd_csv_manual();
+    // tens_test();
+    tens_dot_test();
+    // arr_create_test();
+    // printf("\n-------------- MODE CONF --------------\n");
+    // pd_csv_with_conf();
+    // printf("\n-------------- MODE MANUAL --------------\n");
+    // pd_csv_manual();
+    // tens_test();
     //tens_dot_test();
     //t_arr test = pd_str_new_s("Zizi");
     //void *test = pdmalloc(1);
@@ -233,6 +226,6 @@ int main(void)
     pd_nn_add(&network, pd_nn_dense(16, PD_A_RELU));
     pd_nn_validate(&network);
     pd_nn_print(network);*/
-    pd_time("end program");
-    pd_error("It's the end of program but I want to show the error function %s", ":)");
+    // pd_time("end program");
+    // pd_error("It's the end of program but I want to show the error function %s", ":)");
 }

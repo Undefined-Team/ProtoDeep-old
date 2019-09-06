@@ -89,6 +89,8 @@ pd_tensor    pd_tens_dot(pd_tensor a, pd_tensor b, pd_arr axis)
     pd_size_t_a     old_b;
     pd_size_t_a     new_a;
     pd_size_t_a     new_b;
+    pd_size_t_a     new_axes_a;
+    pd_size_t_a     new_axes_b;
 
     shape_a = pd_arr_init(PD_T_SIZE_T, a.shape.len - ((pd_arr *)axis.val)[0].len);
     shape_b = pd_arr_init(PD_T_SIZE_T, b.shape.len - ((pd_arr *)axis.val)[1].len);
@@ -131,6 +133,18 @@ pd_tensor    pd_tens_dot(pd_tensor a, pd_tensor b, pd_arr axis)
     ((size_t *)new_a.val)[1] = n_a;
     ((size_t *)new_b.val)[0] = n_b;
     ((size_t *)new_b.val)[1] = m_b;
+    new_axes_a = pd_arr_init(PD_T_SIZE_T, shape_a.len + ((pd_arr *)axis.val)[0].len);
+    new_axes_b = pd_arr_init(PD_T_SIZE_T, shape_b.len + ((pd_arr *)axis.val)[1].len);
+    for (size_t i = 0; i < shape_a.len; i++)
+    {
+        ((size_t *)new_axes_a.val)[i] = ((size_t *)shape_a.val)[i];
+        ((size_t *)new_axes_b.val)[i] = ((size_t *)shape_b.val)[i];
+    }
+    for (size_t i = shape_a.len; i < shape_a.len + ((pd_arr *)axis.val)[0].len; i++)
+    {
+        ((size_t *)new_axes_a.val)[i] = ((size_t *)((pd_arr *)axis.val)[0].val)[i - shape_a.len];
+        ((size_t *)new_axes_b.val)[i] = ((size_t *)((pd_arr *)axis.val)[1].val)[i - shape_a.len];
+    }
     pd_arr_print(a.shape);
     pd_arr_print(b.shape);
     pd_arr_print(shape_a);
@@ -138,9 +152,15 @@ pd_tensor    pd_tens_dot(pd_tensor a, pd_tensor b, pd_arr axis)
     pd_arr_print(axis);
     pd_arr_print(new_a);
     pd_arr_print(new_b);
+    pd_arr_print(new_axes_a);
+    pd_arr_print(new_axes_b);
     printf("n_a: %zd, n_b: %zd\n", n_a, n_b);
-    // pd_tensor t_a = pd_tens_transpose(a, new_axes_a;
-    // pd_tensor t_b = pd_tens_transpose(b, new_axes_b);
+    // pd_tens_print(a);
+    // pd_tens_print(b);
+    pd_tensor t_a = pd_tens_transpose(a, new_axes_a);
+    pd_tensor t_b = pd_tens_transpose(b, new_axes_b);
+    // pd_tens_print(t_a);
+    // pd_tens_print(t_b);
     // t_a = pd_tens_reshape(t_a, new_a);
     // t_b = pd_tens_reshape(t_b, new_b);
     // pd_tensor res = pd_matrix_dot(t_a, t_b);

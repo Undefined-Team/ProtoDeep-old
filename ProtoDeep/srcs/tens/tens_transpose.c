@@ -48,7 +48,10 @@ pd_tensor       pd_tens_transpose(pd_tensor tensor, pd_size_t_a new_dim)
     //printf("SALUT\n");
     //pd_tens_print(flatten);
     //pd_arr_print(flatten.shape);
+    pd_arr_print(flatten.shape);
     pd_tensor new_flatten = pd_tens_init(flatten.shape);
+    printf(">> premier passage\n");
+    pd_arr_print(new_flatten.shape);
     //pd_arr_print(new_flatten.shape);
     //pd_tens_print(new_flatten);
     for (size_t i = 0; i < flatten.len; i++)
@@ -56,9 +59,12 @@ pd_tensor       pd_tens_transpose(pd_tensor tensor, pd_size_t_a new_dim)
         //printf("----------\n%zd = ", i);
         //pd_arr_print(pd_get_coord(i, shape_mult));
         //printf("new i = %zd\n", pd_get_index(pd_get_coord(i, shape_mult), new_dim, shape_mult));
+        if (pd_get_index(pd_get_coord(i, shape_mult), new_dim, shape_mult) < new_flatten.len)
         ((float*)new_flatten.val)[pd_get_index(pd_get_coord(i, shape_mult), new_dim, shape_mult)] = ((float*)flatten.val)[i];
     }
     //pd_tens_print(new_flatten);
+    printf(">> deuxieme passage\n");
+    pd_arr_print(new_flatten.shape);
     pd_tensor transpose_tensor = pd_tens_reshape(new_flatten, new_shape);
     pd_tens_free(flatten);
     pd_tens_free(new_flatten);

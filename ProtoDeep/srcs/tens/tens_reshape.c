@@ -16,6 +16,7 @@ void    pd_tens_check_size(pd_tensor tensor, pd_size_t_a *shape)
         }
         else
             shape_values *= ((size_t *)shape->val)[i];
+    pd_arr_print(tensor.shape);
     for (size_t i = 0; i < tensor.shape.len; i++)
         tensor_values *= ((size_t *)tensor.shape.val)[i];
     if (neg && shape_values)
@@ -29,6 +30,7 @@ void    pd_tens_check_size(pd_tensor tensor, pd_size_t_a *shape)
         if (shape_values != tensor_values)
             pd_error("Can't find valid shape by replacing \'0\' value (%zd values in tensor, %zd values in shape).\n", tensor_values, shape_values);
     }
+    printf("%zd, %zd\n", shape_values, tensor_values);
     if (shape_values != tensor_values)
         pd_error("Can't reshape tensor with %zd values to shape with %zd values.\n", tensor_values, shape_values);
 }
@@ -49,6 +51,7 @@ pd_tensor   pd_tens_reshape(pd_tensor tensor, pd_size_t_a shape)
     pd_tensor   flat;
     size_t      index = 0;
 
+    pd_arr_print(tensor.shape);
     pd_tens_check_size(tensor, &shape);
     reshape = pd_tens_init(shape);
     flat = pd_tens_flatten(tensor);
