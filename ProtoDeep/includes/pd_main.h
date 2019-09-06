@@ -8,6 +8,7 @@
 #include <fcntl.h> // For open
 #include <unistd.h> // For read
 #include <sys/time.h> // For timestamp
+#include <stdarg.h> // For va_arg
 #include "pd_dast.h"
 #include "pd_arr.h"
 #include "pd_math.h"
@@ -15,6 +16,7 @@
 #include "pd_csv/pd_csv.h"
 #include "pd_csv/pd_prep.h"
 #include "pd_tens.h"
+#include "pd_matrix.h"
 #include "pd_nn/pd_config.h"
 #include "pd_nn/pd_forward.h"
 

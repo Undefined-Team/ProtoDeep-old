@@ -144,5 +144,5 @@ pd_tensor    pd_tens_dot(pd_tensor a, pd_tensor b, pd_arr axis)
     // t_b = pd_tens_reshape(t_b, new_b);
     // pd_tensor res = pd_matrix_dot(t_a, t_b);
     // res = pd_tens_reshape(old_a, old_b);
-    //return (a);
+    return (a);
 }
