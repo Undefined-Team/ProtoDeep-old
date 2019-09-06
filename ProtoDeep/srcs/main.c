@@ -159,7 +159,7 @@ void        tens_test(void)
     pd_tens_free(test);
     pd_tens_free(test2);
 }
-/*
+
 void        tens_dot_test(void)
 {
     pd_tensor a = pd_tens_init(pd_arr_shape(5, 3, 4, 5, 6, 7));
@@ -184,10 +184,10 @@ void        tens_dot_test(void)
     // pd_tens_print(matrix2);
     // pd_matrix_dot(matrix1, matrix2);
     // pd_tens_dot(a, b, axis);
-    pd_tens_print(matrix1);
-    pd_tens_print(matrix2);
-    pd_matrix_dot(matrix1, matrix2);
-}*/
+    // pd_tens_print(matrix1);
+    // pd_tens_print(matrix2);
+    // pd_matrix_dot(matrix1, matrix2);
+}
 
 void    arr_create_test()
 {
@@ -207,11 +207,11 @@ int main(void)
     // tens_test();
     tens_dot_test();
     // arr_create_test();
-    printf("\n-------------- MODE CONF --------------\n");
-    pd_csv_with_conf();
-    printf("\n-------------- MODE MANUAL --------------\n");
-    pd_csv_manual();
-    tens_test();
+    // printf("\n-------------- MODE CONF --------------\n");
+    // pd_csv_with_conf();
+    // printf("\n-------------- MODE MANUAL --------------\n");
+    // pd_csv_manual();
+    // tens_test();
     //tens_dot_test();
     //t_arr test = pd_str_new_s("Zizi");
     //void *test = pdmalloc(1);
@@ -226,6 +226,6 @@ int main(void)
     pd_nn_add(&network, pd_nn_dense(16, PD_A_RELU));
     pd_nn_validate(&network);
     pd_nn_print(network);*/
-    pd_time("end program");
-    pd_error("It's the end of program but I want to show the error function %s", ":)");
+    // pd_time("end program");
+    // pd_error("It's the end of program but I want to show the error function %s", ":)");
 }
