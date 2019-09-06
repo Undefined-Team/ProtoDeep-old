@@ -53,6 +53,7 @@ ARR				=	arr_free.c 			\
 					arr_print.c			\
 					arr_shape.c			\
 					arr_create.c		\
+					arr_copy.c 			\
 
 PREP_FLD		=	csv/prep/
 PREP			=	prep_minmax_scal.c	\
