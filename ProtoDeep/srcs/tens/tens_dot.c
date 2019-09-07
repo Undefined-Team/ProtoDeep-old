@@ -59,7 +59,7 @@ pd_tensor   pd_tens_get_res(pd_tensor a, pd_tensor b, pd_arr new_axes, pd_size_t
     pd_tensor reshape_t_b = pd_tens_reshape(t_b, ((pd_arr *)new.val)[1]);
 
     dot_res = pd_matrix_dot(reshape_t_a, reshape_t_b);
-    old_concat = pd_arr_shape_concat(PD_T_SIZE_T, ((pd_arr *)old.val)[0], ((pd_arr *)old.val)[1]);
+    old_concat = pd_arr_concat_shape(PD_T_SIZE_T, ((pd_arr *)old.val)[0], ((pd_arr *)old.val)[1]);
     res = pd_tens_reshape(dot_res, old_concat);
 	pd_tens_free(dot_res);
 	pd_tens_free(t_a);

@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-pd_arr      pd_arr_shape_concat(pd_type type, pd_arr a, pd_arr b)
+pd_arr      pd_arr_concat_shape(pd_type type, pd_arr a, pd_arr b)
 {
     pd_arr      c = pd_arr_init(type, a.len + b.len);
 
