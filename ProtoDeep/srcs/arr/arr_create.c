@@ -51,11 +51,13 @@ pd_arr      pd_arr_create(pd_size_t_a arr_shape, pd_type type, ...)
         new_arr = pd_arr_init(type, ((size_t *)arr_shape.val)[0]);
         pd_arr_get_values(&new_arr, type, &va);
         va_end(va);
+		pd_arr_free(arr_shape);
         return (new_arr);
     }
     new_arr = pd_arr_init(PD_T_ARR, ((size_t *)arr_shape.val)[0]);
     for (size_t i = 0; i < new_arr.len; i++)
         ((pd_arr *)new_arr.val)[i] = pd_arr_create_ctr(&((size_t *)arr_shape.val)[1], arr_shape.len - 1, type, &va);
     va_end(va);
+	pd_arr_free(arr_shape);
     return (new_arr);
 }

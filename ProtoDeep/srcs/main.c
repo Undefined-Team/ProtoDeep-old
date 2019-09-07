@@ -199,6 +199,7 @@ void    arr_create_test()
 {
     pd_arr test = pd_arr_create(pd_arr_shape(2, 2, 1), PD_T_STR, "wsh", "alors");
     pd_arr_print(test);
+	pd_arr_free(test);
 }
 
 int main(void)
@@ -210,9 +211,15 @@ int main(void)
     // pd_csv_with_conf();
     // printf("\n-------------- MODE MANUAL --------------\n");
     // pd_csv_manual();
+<<<<<<< HEAD
     // tens_test();
     tens_dot_test();
     // arr_create_test();
+=======
+    //tens_test();
+    tens_dot_test();
+    //arr_create_test();
+>>>>>>> ae64938e64b14ecee9d4e171e8a31e880c2e0276
     // printf("\n-------------- MODE CONF --------------\n");
     // pd_csv_with_conf();
     // printf("\n-------------- MODE MANUAL --------------\n");

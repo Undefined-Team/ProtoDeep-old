@@ -52,15 +52,28 @@ pd_tensor   pd_tens_get_res(pd_tensor a, pd_tensor b, pd_arr new_axes, pd_size_t
     pd_tensor t_a = pd_tens_transpose(a, ((pd_arr *)new_axes.val)[0]);
     pd_tensor t_b = pd_tens_transpose(b, ((pd_arr *)new_axes.val)[1]);
     pd_arr new = pd_arr_create(pd_arr_shape(2, 2, 2), PD_T_SIZE_T, ((size_t *)m.val)[0], ((size_t *)n.val)[0], ((size_t *)n.val)[1], ((size_t *)m.val)[1]);
-    pd_tensor res;
+    pd_tensor dot_res;
+	pd_tensor res;
     pd_arr old_concat;
+    pd_tensor reshape_t_a = pd_tens_reshape(t_a, ((pd_arr *)new.val)[0]);
+    pd_tensor reshape_t_b = pd_tens_reshape(t_b, ((pd_arr *)new.val)[1]);
 
-    t_a = pd_tens_reshape(t_a, ((pd_arr *)new.val)[0]);
-    t_b = pd_tens_reshape(t_b, ((pd_arr *)new.val)[1]);
-    res = pd_matrix_dot(t_a, t_b);
-    old_concat = pd_arr_shape_concat(((pd_arr *)old.val)[0], ((pd_arr *)old.val)[1]);
-    res = pd_tens_reshape(res, old_concat);
-    return (res);
+    dot_res = pd_matrix_dot(reshape_t_a, reshape_t_b);
+    old_concat = pd_arr_shape_concat(PD_T_SIZE_T, ((pd_arr *)old.val)[0], ((pd_arr *)old.val)[1]);
+    res = pd_tens_reshape(dot_res, old_concat);
+	pd_tens_free(dot_res);
+	pd_tens_free(t_a);
+	pd_tens_free(t_b);
+	pd_tens_free(reshape_t_a);
+	pd_tens_free(reshape_t_b);
+	pd_free(((pd_arr *)old.val)[0].val);
+	pd_free(((pd_arr *)old.val)[1].val);
+	pd_free(old.val);
+	pd_arr_free(new);
+	pd_arr_free(new_axes);
+	pd_arr_free(m);
+	pd_arr_free(n);
+	return (res);
 }
 
 pd_tensor    pd_tens_dot(pd_tensor a, pd_tensor b, pd_arr axis)
@@ -89,5 +102,11 @@ pd_tensor    pd_tens_dot(pd_tensor a, pd_tensor b, pd_arr axis)
         ((size_t *)((pd_arr *)old.val)[1].val)[i] = val_b;
     }
     new_axes = pd_tens_get_new_axes(n, m, counter_axis, axis);
+	pd_free(((pd_arr *)axis.val)[0].val);
+	pd_free(((pd_arr *)axis.val)[1].val);
+	pd_free(axis.val);
+	pd_free(((pd_arr *)counter_axis.val)[0].val);
+	pd_free(((pd_arr *)counter_axis.val)[1].val);
+	pd_free(counter_axis.val);
     return (pd_tens_get_res(a, b, new_axes, m, n, old));
 }
