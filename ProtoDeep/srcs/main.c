@@ -180,7 +180,12 @@ void        tens_dot_test(void)
     // pd_tens_flatten(d);
     // pd_tensor c = pd_tens_transpose(a, pd_arr_shape(5, 2, 3, 4, 1, 0));
     pd_tensor res = pd_tens_dot(a2, a3, axis);
-    pd_tens_print(res);
+    pd_tensor add1 = pd_tens_init_rand(pd_arr_shape(4, 2, 2, 2, 2), 1, 2);
+    pd_tensor add2 = pd_tens_init_rand(pd_arr_shape(3, 2, 2, 2), 2, 3);
+    pd_tensor addres = pd_tens_add(add1, add2);
+    pd_tens_print(add1);
+    pd_tens_print(add2);
+    pd_tens_print(addres);
     // pd_tens_print(matrix1);
     // pd_tens_print(matrix2);
     // pd_matrix_dot(matrix1, matrix2);
@@ -205,8 +210,8 @@ int main(void)
     // pd_csv_with_conf();
     // printf("\n-------------- MODE MANUAL --------------\n");
     // pd_csv_manual();
-    tens_test();
-    //tens_dot_test();
+    // tens_test();
+    tens_dot_test();
     // arr_create_test();
     // printf("\n-------------- MODE CONF --------------\n");
     // pd_csv_with_conf();
