@@ -58,7 +58,6 @@ pd_tensor   *pd_tens_reshape(pd_tensor *tensor, pd_size_t_a *shape)
     pd_tensor   *flat;
     size_t      index = 0;
 
-    pd_tens_print(tensor);
     pd_tens_check_size(tensor, shape);
     reshape = pd_tens_init(shape);
     flat = pd_tens_flatten(tensor);
