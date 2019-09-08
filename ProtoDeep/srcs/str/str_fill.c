@@ -6,8 +6,9 @@ pd_arr  str_fill(char c, size_t len)
     size_t  i;
 
     str = pd_arr_init(PD_T_CHAR, len);
+    char *a_str = (char*)str.val;
     for (i = 0; i < len; i++)
-        ((char *)str.val)[i] = c;
-    ((char *)str.val)[i] = '\0';
+        a_str[i] = c;
+    a_str[i] = '\0';
     return (str);
 }

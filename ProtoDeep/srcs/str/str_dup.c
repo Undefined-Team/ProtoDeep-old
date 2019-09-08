@@ -8,8 +8,10 @@ pd_arr  pd_str_dup(pd_arr str, size_t len)
     if (!str.val)
         return (str);
     dup = pd_arr_init(PD_T_CHAR, len);
-    for (i = 0; i < len && ((char *)str.val)[i]; i++)
-        ((char *)dup.val)[i] = ((char *)str.val)[i];
-    ((char *)dup.val)[i] = 0;
+    char *a_str = (char*)str.val;
+    char *a_dup = (char*)dup.val;
+    for (i = 0; i < len && a_str[i]; i++)
+        a_dup[i] = a_str[i];
+    a_dup[i] = 0;
     return (dup);
 }

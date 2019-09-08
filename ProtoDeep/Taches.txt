@@ -14,3 +14,11 @@ DEMAIN
 
 - OPTIMISATION
 Aplliquer consignes d'optimisation sur lib tensor, lib math, lib str
+- str split (optimisation et changer . = ->)
+
+
+- A la fin du projet
+1 - verifier les functions utilisé dans le projet
+2 - remplacer les free -> pd_free et malloc -> pd_malloc si il y a des oublis
+3 - Toutes fonctions non prototypé devient statique
+4 - Gestion d'erreur dans tout le projet

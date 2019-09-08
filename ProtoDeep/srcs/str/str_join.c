@@ -6,18 +6,23 @@ pd_arr  pd_str_join(pd_arr head, pd_arr tail)
     size_t  i;
     size_t  j;
 
-    if (!head.val || head.len == 0)
-        return (pd_str_dup(tail, tail.len));
-    else if (!tail.val || tail.len == 0)
-        return (pd_str_dup(head, head.len));
-    joined = pd_arr_init(PD_T_CHAR, head.len + tail.len);
+    char *a_head = (char*)head.val;
+    char *a_tail = (char*)tail.val;
+    size_t head_len = head.len;
+    size_t tail_len = tail.len;
+    if (!a_head || head_len == 0)
+        return (pd_str_dup(tail, tail_len));
+    else if (!a_tail || tail_len == 0)
+        return (pd_str_dup(head, head_len));
+    joined = pd_arr_init(PD_T_CHAR, head_len + tail_len);
+    char *a_joined = (char*)joined.val;
     i = -1;
-    while (++i < head.len && ((char *)head.val)[i])
-        ((char *)joined.val)[i] = ((char *)head.val)[i];
+    while (++i < head_len && a_head[i])
+        a_joined[i] = a_head[i];
     j = -1;
-    while (++j < tail.len && ((char *)tail.val)[j])
-        ((char *)joined.val)[i + j] = ((char *)tail.val)[j];
-    ((char *)joined.val)[i + j] = '\0';
+    while (++j < tail_len && a_tail[j])
+        a_joined[i + j] = a_tail[j];
+    a_joined[i + j] = '\0';
     joined.len = pd_str_len(joined);
     return (joined);
 }

@@ -27,12 +27,15 @@ pd_float_a   pd_math_softmax(pd_float_a x)
 
     PD_PROT_ARR_TYPE(x.type, PD_T_FLOAT);
     y = pd_arr_init(PD_T_FLOAT, x.len);
-    for (size_t i = 0; i < y.len; i++)
+    size_t y_len = y.len;
+    float *a_y = (float*)y.val;
+    float *a_x = (float*)x.val;
+    for (size_t i = 0; i < y_len; i++)
     {
-        ((float*)y.val)[i] = pd_math_exp(((float*)x.val)[i]);
-        sum += ((float*)y.val)[i];
+        a_y[i] = pd_math_exp(a_x[i]);
+        sum += a_y[i];
     }
-    for (size_t i = 0; i < y.len; i++)
-        ((float*)y.val)[i] /= sum;
+    for (size_t i = 0; i < y_len; i++)
+        a_y[i] /= sum;
     return y;
 }

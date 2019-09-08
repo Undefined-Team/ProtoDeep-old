@@ -7,7 +7,8 @@ void        pd_tens_free(pd_tensor *tensor)
     if (tensor->rank > 1)
     {
         pd_tensor **a_tensor = (pd_tensor**)tensor->val;
-        for (size_t i = 0; i < tensor->len; i++)
+        size_t tensor_len = tensor->len;
+        for (size_t i = 0; i < tensor_len; i++)
             pd_tens_free(a_tensor[i]);
     }
     pd_free(tensor->val);

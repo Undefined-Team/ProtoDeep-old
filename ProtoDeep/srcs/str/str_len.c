@@ -4,9 +4,10 @@ size_t  pd_str_len(pd_arr str)
 {
     size_t  i = 0;
 
-    if (!str.val)
+    char *a_str = (char*)str.val;
+    if (!a_str)
         return 0;
-    while (((char *)str.val)[i])
+    while (a_str[i])
         i++;
     return (i);
 }
