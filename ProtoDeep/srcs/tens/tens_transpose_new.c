@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-pd_size_t_a     pd_get_new_shape(pd_size_t_a shape, pd_size_t_a new_dim, size_t *flat_len)
+static pd_size_t_a     pd_get_new_shape(pd_size_t_a shape, pd_size_t_a new_dim, size_t *flat_len)
 {
     pd_size_t_a new_shape = pd_arr_init(PD_T_SIZE_T, shape.len);
     size_t *a_new_shape = (size_t*)new_shape.val;
@@ -18,7 +18,7 @@ pd_size_t_a     pd_get_new_shape(pd_size_t_a shape, pd_size_t_a new_dim, size_t 
     return new_shape;
 }
 
-size_t     *pd_get_shape_mult(pd_size_t_a new_shape)
+static size_t     *pd_get_shape_mult(pd_size_t_a new_shape)
 {
     size_t *a_new_shape = (size_t*)new_shape.val;
     size_t *a_shape_mult = malloc(sizeof(size_t) * new_shape.len);
@@ -28,7 +28,7 @@ size_t     *pd_get_shape_mult(pd_size_t_a new_shape)
     return a_shape_mult;
 }
 
-size_t          pd_get_index(size_t len, size_t *coord, size_t *new_dim, size_t *new_shape_mult)
+static size_t          pd_get_index(size_t len, size_t *coord, size_t *new_dim, size_t *new_shape_mult)
 {
     size_t index = 0;
     for (size_t i = 0; i < len; i++)
@@ -36,7 +36,7 @@ size_t          pd_get_index(size_t len, size_t *coord, size_t *new_dim, size_t 
     return index;
 }
 
-void            pd_update_value(pd_tensor *tensor, float *flatten, size_t coord_index, size_t *coord, size_t *new_dim, size_t *new_shape_mult)
+static void            pd_update_value(pd_tensor *tensor, float *flatten, size_t coord_index, size_t *coord, size_t *new_dim, size_t *new_shape_mult)
 {
     if (tensor->rank > 1)
     {

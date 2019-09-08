@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-pd_size_t_a     pd_get_new_shape(pd_size_t_a shape, pd_size_t_a new_dim)
+static pd_size_t_a     pd_get_new_shape(pd_size_t_a shape, pd_size_t_a new_dim)
 {
     pd_size_t_a new_shape = pd_arr_init(PD_T_SIZE_T, shape.len);
     for (size_t i = 0; i < shape.len; i++)
@@ -8,7 +8,7 @@ pd_size_t_a     pd_get_new_shape(pd_size_t_a shape, pd_size_t_a new_dim)
     return new_shape;
 }
 
-pd_size_t_a     pd_get_shape_mult(pd_size_t_a new_shape)
+static pd_size_t_a     pd_get_shape_mult(pd_size_t_a new_shape)
 {
     pd_size_t_a shape_mult = pd_arr_init(PD_T_SIZE_T, new_shape.len);
     ((size_t*)shape_mult.val)[shape_mult.len - 1] = 1;
@@ -17,7 +17,7 @@ pd_size_t_a     pd_get_shape_mult(pd_size_t_a new_shape)
     return shape_mult;
 }
 
-size_t          pd_get_index(pd_size_t_a coord, pd_size_t_a new_dim, pd_size_t_a shape_mult)
+static size_t          pd_get_index(pd_size_t_a coord, pd_size_t_a new_dim, pd_size_t_a shape_mult)
 {
     size_t index = 0;
     for (size_t i = 0; i < coord.len; i++)
@@ -26,7 +26,7 @@ size_t          pd_get_index(pd_size_t_a coord, pd_size_t_a new_dim, pd_size_t_a
     return index;
 }
 
-pd_size_t_a     pd_get_coord(size_t reste, pd_size_t_a shape_mult)
+static pd_size_t_a     pd_get_coord(size_t reste, pd_size_t_a shape_mult)
 {
     pd_size_t_a coord = pd_arr_init(PD_T_SIZE_T, shape_mult.len);
     // size_t quot;
