@@ -19,7 +19,7 @@ pd_tensor *pd_tens_copy(pd_tensor *tensor)
         new_tensor->val = a_new_tensor;
         pd_tensor **a_tensor = (pd_tensor**)tensor->val;
         for (size_t i = 0; i < new_tensor->len; i++)
-            a_new_tensor[i] = a_tensor[i];
+            a_new_tensor[i] = pd_tens_copy(a_tensor[i]);
     }
     new_tensor->shape = pd_tens_get_shape(new_tensor);
     return new_tensor;

@@ -235,13 +235,25 @@ int main(void)
     pd_tensor* test3 = pd_tens_copy(test2);
     pd_tens_print(test3);
     pd_tensor* test4 = pd_tens_concat(test2, test3, -1);
+
     pd_tens_print(test4);
     pd_tens_free(test2);
     pd_tens_free(test3);
     pd_tens_free(test4);
+
+    pd_tensor* test5 = pd_tens_init_rand(pd_arr_shape(10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), -1, 1);
+    pd_tensor* test6 = pd_tens_init_rand(pd_arr_shape(10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), -1, 1);
     pd_time("normal end");
+    pd_tensor* test7 = pd_tens_transpose(test5, pd_arr_shape(10, 0, 5, 3, 2, 6, 4, 9, 8, 7, 1));
+    pd_time("normal end");
+    pd_tensor* test8 = pd_tens_transpose_new(test6, pd_arr_shape(10, 0, 5, 3, 2, 6, 4, 9, 8, 7, 1));
+    pd_time("normal end");
+    pd_tens_free(test5);
+    pd_tens_free(test6);
+    pd_tens_free(test7);
+    pd_tens_free(test8);
     //printf("salut fdp\n");
-    //pd_tens_print(test);
+    // pd_tens_print(test);
     // arr_create_test();
     // printf("\n-------------- MODE CONF --------------\n");
     // pd_csv_with_conf();
