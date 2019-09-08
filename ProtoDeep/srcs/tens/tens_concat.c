@@ -45,9 +45,10 @@ pd_tensor pd_tens_concat(pd_tensor tensor_a, pd_tensor tensor_b, int axis)
         axis = tensor_a.rank - axis;
     axis = (axis + 1) % tensor_a.rank;
     size_t new_shape[tensor_a.rank];
+    if (new_shape[0]) {;}
     for (size_t i = 0; i < tensor_a.rank; i++)
     {
-        if (i != axis)
+        if ((int)i != axis)
         {
             if (((size_t*)tensor_a.shape.val)[i] != ((size_t*)tensor_b.shape.val)[i]) return pd_tens_init(pd_arr_shape(0));
             new_shape[i] = ((size_t*)tensor_a.shape.val)[i];

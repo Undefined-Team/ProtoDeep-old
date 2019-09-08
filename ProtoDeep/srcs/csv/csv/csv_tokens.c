@@ -62,9 +62,10 @@ int     pd_csv_get_line(int fd, pd_char_a *line)
 	pd_free(line->val);
 	line->val = NULL;
     *line = pd_csv_retrieve_line(&(content));
-    if (!line->val)
+    if (((char *)line->val) == NULL)
         return (-1);
-	return (1);
+    else
+    	return (1);
 }
 
 pd_tokens_list   *pd_csv_add_tokens(pd_arr tokens)

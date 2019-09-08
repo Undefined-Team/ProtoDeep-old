@@ -8,6 +8,6 @@
 // Structures
 
 // Prototypes
-pd_tensor       pd_matrix_dot(pd_tensor a, pd_tensor b);
+pd_tensor       *pd_matrix_dot(pd_tensor *a, pd_tensor *b);
 
 #endif
