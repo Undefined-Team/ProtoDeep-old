@@ -122,17 +122,17 @@
 //     pd_csv_free(csv_2);
 // }
 
-/*void        tens_test(void)
+void        tens_test(void)
 {
     // size_t new_shape[3] = {2, 2, 2};
-    pd_tensor test = pd_tens_init(pd_arr_shape(3, 2, 2, 2));
-    pd_tensor test2 = pd_tens_copy(test);
+    pd_tensor *test = pd_tens_init(pd_arr_shape(3, 2, 2, 2));
+    pd_tensor *test2 = pd_tens_copy(test);
     pd_tens_print(test);
     printf ("\n+\n\n");
     pd_tens_print(test2);
     printf ("\n=\n\n");
     
-    pd_tensor test3 = pd_tens_concat(test, test2, 0);
+    pd_tensor *test3 = pd_tens_concat(test, test2, 0);
     pd_tens_print(test3);
     pd_tens_free(test3);
 
@@ -158,7 +158,7 @@
     pd_tens_free(test2);
 }
 
-void        tens_dot_test(void)
+/*void        tens_dot_test(void)
 {
     // pd_tensor a = pd_tens_init(pd_arr_shape(5, 3, 4, 5, 6, 7));
     // pd_tensor b = pd_tens_init(pd_arr_shape(5, 3, 4, 5, 6, 7));
@@ -223,7 +223,7 @@ int main(void)
     // pd_csv_with_conf();
     // printf("\n-------------- MODE MANUAL --------------\n");
     // pd_csv_manual();
-    // tens_test();
+    tens_test();
     //tens_dot_test();
     // pd_time("normal start");
     // pd_tensor* test2 = pd_tens_init_rand(pd_arr_shape(2, 2, 2), -1, 1);

@@ -57,8 +57,8 @@ pd_tensor *pd_tens_concat(pd_tensor *tensor_a, pd_tensor *tensor_b, int axis)
     axis = (axis + 1) % tensor_a->rank;
     size_t new_shape[tensor_a->rank];
     (void)new_shape;
-    size_t *a_shape_a = (size_t*)tensor_a->shape.val;
-    size_t *a_shape_b = (size_t*)tensor_b->shape.val;
+    size_t *a_shape_a = (size_t*)tensor_a->shape->val;
+    size_t *a_shape_b = (size_t*)tensor_b->shape->val;
     size_t tensor_a_rank = tensor_a->rank;
     for (size_t i = 0; i < tensor_a_rank; i++)
     {

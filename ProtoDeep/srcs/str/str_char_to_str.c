@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-pd_char_a  pd_str_char_to_str(char c)
+pd_char_a  *pd_str_char_to_str(char c)
 {
     char *new_strc;
 

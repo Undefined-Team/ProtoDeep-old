@@ -13,7 +13,7 @@ void        pd_csv_free_tokens_list(pd_tokens_list *tokens)
     }
 }
 
-pd_char_a pd_csv_retrieve_line(pd_char_a *content)
+pd_char_a *pd_csv_retrieve_line(pd_char_a *content)
 {
     pd_char_a     *line;
     size_t      len;
@@ -27,7 +27,7 @@ pd_char_a pd_csv_retrieve_line(pd_char_a *content)
     {
         len = pd_str_len(content);
         line = pd_str_dup(content, len);
-        content = pd_str_fsub(*content, len, content->len);
+        content = pd_str_fsub(content, len, content->len);
     }
     return (line);
 }
@@ -63,7 +63,7 @@ int     pd_csv_get_line(int fd, pd_char_a *line)
     }
 	pd_free(line->val);
 	line->val = NULL;
-    *line = pd_csv_retrieve_line(content);
+    line = pd_csv_retrieve_line(content);
     if (((char *)line->val) == NULL)
         return (-1);
     else
@@ -90,7 +90,7 @@ pd_tokens_list   *pd_csv_create_tokens_list(int fd, char separator, size_t *heig
 
     line = (pd_arr *)pd_malloc(sizeof(pd_arr));
     line = pd_arr_init(PD_T_CHAR, 0);
-    ((char *)(*line)->val)[0] = 0;
+    ((char *)line->val)[0] = 0;
     while (pd_csv_get_line(fd, line))
     {
         if (!line || line->len == 0)

@@ -12,6 +12,6 @@ void        pd_tens_free(pd_tensor *tensor)
             pd_tens_free(a_tensor[i]);
     }
     pd_free(tensor->val);
-    pd_free(tensor->shape.val);
+    pd_free(tensor->shape->val);
     pd_free(tensor);
 }

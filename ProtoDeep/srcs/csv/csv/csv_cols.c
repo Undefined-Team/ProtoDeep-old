@@ -20,7 +20,7 @@ pd_csv_col   *pd_csv_init_cols(pd_tokens_list *line, int header, size_t width, s
         line = line;
     if (header)
     {
-        pd_str_a **t_line_tokens_val = (pd_str_a **)line->tokens.val;
+        pd_str_a **t_line_tokens_val = (pd_str_a **)line->tokens->val;
         for (size_t i = 0; i < width; i++)
         {
             pd_char_a *name = (pd_char_a *)t_line_tokens_val[i];
@@ -54,11 +54,11 @@ pd_csv_col   *pd_csv_create_cols(pd_tokens_list *tokens, int header, size_t widt
     for (size_t i = 0; i < height - header; i++)
     {
         col = col_list;
-        pd_str_a **t_col_columns_val = (pd_str_a **)col->columns.val;
-        pd_str_a **t_line_tokens_val = (pd_str_a **)line->tokens.val;
+        pd_str_a **t_col_columns_val = (pd_str_a **)col->columns->val;
+        pd_str_a **t_line_tokens_val = (pd_str_a **)line->tokens->val;
         for (size_t j = 0; j < width; j++)
         {
-            if (line->tokens.len)
+            if (line->tokens->len)
                 t_col_columns_val[i] = (pd_char_a *)t_line_tokens_val[j];
             else
                 t_col_columns_val[i] = pd_arr_init(PD_T_CHAR, 0);

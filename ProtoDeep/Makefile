@@ -59,7 +59,6 @@ ARR				=	arr_free.c 			\
 					arr_get_shape.c		\
 					arr_create.c		\
 					arr_copy.c 			\
-					arr_value.c			\
 
 PREP_FLD		=	csv/prep/
 PREP			=	prep_minmax_scal.c	\
@@ -92,7 +91,6 @@ TENS			=	tens_init.c 			\
 					tens_copy.c 			\
 					tens_concat.c 			\
 					tens_transpose.c 		\
-					tens_transpose_new.c 	\
 					tens_free.c 		 	\
 					tens_reshape.c 		 	\
 					tens_flatten.c 		 	\

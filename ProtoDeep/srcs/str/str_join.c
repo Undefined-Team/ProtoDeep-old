@@ -2,7 +2,7 @@
 
 pd_arr  *pd_str_join(pd_arr *head, pd_arr *tail)
 {
-    pd_arr  joined;
+    pd_arr  *joined;
     size_t  i;
     size_t  j;
 

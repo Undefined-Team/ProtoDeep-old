@@ -79,7 +79,7 @@ pd_arr     *pd_str_split(pd_arr *str, char sep, int escape)
     pd_split_list   *words;
     pd_split_list   *curr;
     size_t          count = 0;
-    pd_arr          *tokens;
+    pd_arr          *tokens = NULL;
 
     if (!(words = pd_count_sep(str, sep, escape)))
         return (pd_arr_init(PD_T_STR, 0));
@@ -95,7 +95,7 @@ pd_arr     *pd_str_split(pd_arr *str, char sep, int escape)
     tokens->len = count;
     count = 0;
     curr = words;
-    pd_arr **t_tokens_val = (pd_arr *)tokens->val;
+    pd_arr **t_tokens_val = (pd_arr **)tokens->val;
     while (curr)
     {
         t_tokens_val[count++] = pd_str_dup(curr->word, curr->word->len);

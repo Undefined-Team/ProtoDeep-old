@@ -22,7 +22,7 @@ void        pd_arr_print_ctr(pd_arr *array, size_t space)
     {
         for (size_t i = 0; i < space; i++) printf(PD_PRINT_SPACE);
         printf("%s[ %zd%s\n", pd_color_t[space % PD_COLOR_NBR], space, PD_COLOR_N);
-        for (size_t i = 0; i < array->len; i++) pd_arr_print_ctr((((pd_arr*)array->val))[i], space + 1);
+        for (size_t i = 0; i < array->len; i++) pd_arr_print_ctr((((pd_arr **)array->val))[i], space + 1);
         for (size_t i = 0; i < space; i++) printf(PD_PRINT_SPACE);
         printf("%s]%s\n", pd_color_t[space % PD_COLOR_NBR], PD_COLOR_N);
     }

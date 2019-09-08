@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-pd_tensor       *pd_tens_new(size_t rank, size_t len, void *val, pd_arr shape)
+pd_tensor       *pd_tens_new(size_t rank, size_t len, void *val, pd_arr *shape)
 {
     pd_tensor *new_tensor;
 
