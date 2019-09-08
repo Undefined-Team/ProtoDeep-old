@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-void    pd_prep_delete(pd_csv *csv, pd_str_a col_names)
+void    pd_prep_delete(pd_csv *csv, pd_str_a *col_names)
 {
     // Error if col is not of type t_carr
     // Error if indexs in ohe_indexs is out of range
@@ -10,9 +10,9 @@ void    pd_prep_delete(pd_csv *csv, pd_str_a col_names)
     pd_csv_col   *tmp = NULL;
 
     col_names = pd_prep_name_sort(*csv, col_names);
-    while (col && i < col_names.len)
+    while (col && i < col_names->len)
     {
-        if (pd_str_cmp((char*)col->name.val, (char*)(((pd_str_a*)col_names.val)[i].val) ) == 0)
+        if (pd_str_cmp((char*)col->name.val, (char*)(((pd_str_a**)col_names->val)[i].val) ) == 0)
         {
             tmp = col;
             col = col->next;

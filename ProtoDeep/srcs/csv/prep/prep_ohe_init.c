@@ -11,7 +11,7 @@ void        pd_prep_add_line(pd_csv_col *begin_col, size_t col_index, size_t lin
     }
 }
 
-pd_csv_col   *pd_prep_add_col(pd_csv_col *last_col, size_t nbr_line, size_t max_line, pd_char_a name)
+pd_csv_col   *pd_prep_add_col(pd_csv_col *last_col, size_t nbr_line, size_t max_line, pd_char_a *name)
 {
     if (!last_col)
         last_col = pd_csv_new_col(pd_arr_init(PD_T_FLOAT, nbr_line), name);
@@ -21,11 +21,11 @@ pd_csv_col   *pd_prep_add_col(pd_csv_col *last_col, size_t nbr_line, size_t max_
         last_col = last_col->next;
     }
     for (size_t i = 0; i < max_line; i++)
-        ((float*)last_col->columns.val)[i] = 0;
+        ((float*)last_col->columns->val)[i] = 0;
     return last_col;
 }
 
-pd_char_a      pd_found_word(pd_tbnode *f_begin, int *new_index, int *total_index)
+pd_char_a      *pd_found_word(pd_tbnode *f_begin, int *new_index, int *total_index)
 {
     *total_index = *total_index + 1;
     f_begin->word_index = *total_index;
@@ -33,11 +33,11 @@ pd_char_a      pd_found_word(pd_tbnode *f_begin, int *new_index, int *total_inde
     return pd_str_char_to_str(f_begin->c);
 }
 
-pd_char_a      pd_update_bin_tree(pd_tbnode *node, char *str, int *new_index, int *total_index)
+pd_char_a      *pd_update_bin_tree(pd_tbnode *node, char *str, int *new_index, int *total_index)
 {
     pd_tbnode    *f_begin = node->f_begin;
     pd_tbnode    *tmp = NULL;
-    pd_char_a    result;
+    pd_char_a    *result;
 
     while (f_begin)
     {
@@ -53,7 +53,7 @@ pd_char_a      pd_update_bin_tree(pd_tbnode *node, char *str, int *new_index, in
             else
             {
                 result = pd_update_bin_tree(f_begin, ++str, new_index, total_index);
-                return result.len == 0 ? result : pd_str_fjoin(pd_str_char_to_str(f_begin->c), result);  // Go deeper
+                return result->len == 0 ? result : pd_str_fjoin(pd_str_char_to_str(f_begin->c), result);  // Go deeper
             }
         }
         tmp = f_begin;
@@ -73,10 +73,10 @@ pd_char_a      pd_update_bin_tree(pd_tbnode *node, char *str, int *new_index, in
     if (*(str + 1) == '\0') // If it's the last char
         return (pd_found_word(f_begin, new_index, total_index)); // Ex found new world francais by franc ?
     result = pd_update_bin_tree(f_begin, ++str, new_index, total_index);
-    return result.len == 0 ? result : pd_str_fjoin(pd_str_char_to_str(f_begin->c), result);  // Go deeper
+    return result->len == 0 ? result : pd_str_fjoin(pd_str_char_to_str(f_begin->c), result);  // Go deeper
 }
 
-pd_ohe_trees *pd_new_ohe_tree(pd_char_a base_name, pd_csv_col *begin, int len, pd_tbnode *tbegin)
+pd_ohe_trees *pd_new_ohe_tree(pd_char_a *base_name, pd_csv_col *begin, int len, pd_tbnode *tbegin)
 {
     pd_ohe_trees *new;
 
@@ -87,25 +87,25 @@ pd_ohe_trees *pd_new_ohe_tree(pd_char_a base_name, pd_csv_col *begin, int len, p
     new->next = NULL;
     size_t i = 0;
     for (; begin; begin = begin->next)
-        ((pd_char_a*)new->new_names.val)[i++] = pd_str_new_s((char*)begin->name.val); // ATTENTION ON LE FREE
+        ((pd_char_a**)new->new_names->val)[i++] = pd_str_new_s((char*)begin->name->val); // ATTENTION ON LE FREE
     return new;
 }
 
 static pd_csv_col *pd_cols_generator(pd_csv_col **col, pd_ohe_trees **t_tmp)
 {
     pd_tbnode        *tbegin = pd_prep_new_tbnode('\0', -2);
-    pd_arr           str_arr = (*col)->columns;
+    pd_arr           *str_arr = (*col)->columns;
     pd_csv_col       *begin_col = NULL;
     pd_csv_col       *last_col = NULL;
     pd_csv_col       *f_tmp = *col;
-    pd_char_a        name;
+    pd_char_a        *name;
     int             new_index;
     int             total_index = -1;
 
     *col = (*col)->next;
-    for (size_t i = 0; i < str_arr.len; i++)
+    for (size_t i = 0; i < str_arr->len; i++)
     {
-        name = pd_update_bin_tree(tbegin, (char*)(((pd_char_a*)str_arr.val)[i].val), &new_index, &total_index);
+        name = pd_update_bin_tree(tbegin, (char*)(((pd_char_a**)str_arr->val)[i]->val), &new_index, &total_index);
         if (name.len == 0)
         {
             pd_prep_add_line(begin_col, new_index, i);
@@ -113,7 +113,7 @@ static pd_csv_col *pd_cols_generator(pd_csv_col **col, pd_ohe_trees **t_tmp)
         }
         else
         {
-            last_col = pd_prep_add_col(last_col, str_arr.len, i, name);
+            last_col = pd_prep_add_col(last_col, str_arr->len, i, name);
             if (!begin_col)
                 begin_col = last_col;
             pd_prep_add_line(begin_col, new_index, i);
@@ -129,7 +129,7 @@ static pd_csv_col *pd_cols_generator(pd_csv_col **col, pd_ohe_trees **t_tmp)
     return begin_col;
 }
 
-pd_ohe_trees    *pd_prep_ohe_init(pd_csv *csv, pd_str_a col_names)
+pd_ohe_trees    *pd_prep_ohe_init(pd_csv *csv, pd_str_a *col_names)
 {
     // Error if col is not of type t_carr
     // Error if indexs in ohe_indexs is out of range
@@ -143,7 +143,7 @@ pd_ohe_trees    *pd_prep_ohe_init(pd_csv *csv, pd_str_a col_names)
     col_names = pd_prep_name_sort(*csv, col_names);
     while (col && i < col_names.len)
     {
-        if (col->columns.type == PD_T_STR && pd_str_cmp((char*)col->name.val, (char*)(((pd_str_a*)col_names.val)[i].val) ) == 0)
+        if (col->columns.type == PD_T_STR && pd_str_cmp((char*)col->name->val, (char*)(((pd_str_a**)col_names.val)[i]->val) ) == 0)
         {
             if (!begin)
             {

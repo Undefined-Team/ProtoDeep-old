@@ -1,15 +1,15 @@
 #include "pd_main.h"
 
-static pd_char_a pd_get_number(int n, int div, int neg, int size)
+static pd_char_a *pd_get_number(int n, int div, int neg, int size)
 {
-	pd_char_a    nb;
+	pd_char_a    *nb;
 	int		    i;
 
 	i = 0;
 	if (neg == -1)
 		size++;
     nb = pd_arr_init(PD_T_CHAR, size + 2);
-	char *a_nb = (char*)nb.val;
+	char *a_nb = (char*)nb->val;
 	if (neg == -1)
 		a_nb[i++] = '-';
 	while (div > 0)
@@ -22,15 +22,15 @@ static pd_char_a pd_get_number(int n, int div, int neg, int size)
 	return (nb);
 }
 
-static pd_char_a pd_return_int_min(void)
+static pd_char_a *pd_return_int_min(void)
 {
-	pd_char_a    min;
+	pd_char_a    *min;
 
 	min = pd_str_new_s("-2147483648");
 	return (min);
 }
 
-pd_char_a    pd_math_itoa(int n)
+pd_char_a    *pd_math_itoa(int n)
 {
 	int		neg;
 	int		div;

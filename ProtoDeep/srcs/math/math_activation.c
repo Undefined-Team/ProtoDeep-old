@@ -20,16 +20,16 @@ float   pd_math_tanh(float x)
     return 1 - (2 / (pd_math_exp(2 * x) + 1));
 }
 
-pd_float_a   pd_math_softmax(pd_float_a x)
+pd_float_a*   pd_math_softmax(pd_float_a* x)
 {
     float sum = 0;
-    pd_float_a y;
+    pd_float_a* y;
 
-    PD_PROT_ARR_TYPE(x.type, PD_T_FLOAT);
-    y = pd_arr_init(PD_T_FLOAT, x.len);
-    size_t y_len = y.len;
-    float *a_y = (float*)y.val;
-    float *a_x = (float*)x.val;
+    PD_PROT_ARR_TYPE(x->type, PD_T_FLOAT);
+    y = pd_arr_init(PD_T_FLOAT, x->len);
+    size_t y_len = y->len;
+    float *a_y = (float*)y->val;
+    float *a_x = (float*)x->val;
     for (size_t i = 0; i < y_len; i++)
     {
         a_y[i] = pd_math_exp(a_x[i]);
