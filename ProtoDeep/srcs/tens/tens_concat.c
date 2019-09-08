@@ -54,11 +54,12 @@ pd_tensor *pd_tens_concat(pd_tensor *tensor_a, pd_tensor *tensor_b, int axis)
         axis = tensor_a->rank - axis;
     axis = (axis + 1) % tensor_a->rank;
     size_t new_shape[tensor_a->rank];
+    (void)new_shape;
     size_t *a_shape_a = (size_t*)tensor_a->shape.val;
     size_t *a_shape_b = (size_t*)tensor_b->shape.val;
     for (size_t i = 0; i < tensor_a->rank; i++)
     {
-        if (i != axis)
+        if ((int)i != axis)
         {
             if (a_shape_a[i] != a_shape_b[i]) return pd_tens_init(pd_arr_shape(0));
             new_shape[i] = a_shape_a[i];

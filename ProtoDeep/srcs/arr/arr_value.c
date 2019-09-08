@@ -37,7 +37,7 @@ void        *pd_arr_value_ctr(pd_arr arr, va_list *va)
 size_t      pd_arr_value(pd_arr arr, pd_type type, ...)
 {
     va_list va;
-    size_t  value;
+    size_t  value = 0;
 
     va_start(va, type);
     if (type == PD_T_FLOAT)

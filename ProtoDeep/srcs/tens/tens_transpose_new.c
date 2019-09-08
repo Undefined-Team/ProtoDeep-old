@@ -10,7 +10,7 @@ pd_size_t_a     pd_get_new_shape(pd_size_t_a shape, pd_size_t_a new_dim, size_t 
     size_t t_shape_val;
     for (size_t i = 0; i < shape.len; i++)
     {
-        t_shape_val = a_shape[a_new_dim[i]]
+        t_shape_val = a_shape[a_new_dim[i]];
         a_new_shape[i] = t_shape_val;
         t_flat_len *= t_shape_val;
     }
@@ -22,8 +22,8 @@ size_t     *pd_get_shape_mult(pd_size_t_a new_shape)
 {
     size_t *a_new_shape = (size_t*)new_shape.val;
     size_t *a_shape_mult = malloc(sizeof(size_t) * new_shape.len);
-    a_shape_mult[shape_mult.len - 1] = 1;
-    for (size_t i = shape_mult.len - 1; i > 0; i--)
+    a_shape_mult[new_shape.len - 1] = 1;
+    for (size_t i = new_shape.len - 1; i > 0; i--)
         a_shape_mult[i - 1] = a_new_shape[i] * a_shape_mult[i];
     return a_shape_mult;
 }
@@ -32,7 +32,7 @@ size_t          pd_get_index(size_t len, size_t *coord, size_t *new_dim, size_t 
 {
     size_t index = 0;
     for (size_t i = 0; i < len; i++)
-        index += coord[new_dim[i]] * shape_mult[i];
+        index += coord[new_dim[i]] * new_shape_mult[i];
     return index;
 }
 
@@ -40,8 +40,8 @@ void            pd_update_value(pd_tensor *tensor, float *flatten, size_t coord_
 {
     if (tensor->rank > 1)
     {
-        float *a_tensor = (float*)tensor.val;
-        for (size_t i = 0; i < tensor->length; i++)
+        float *a_tensor = (float*)tensor->val;
+        for (size_t i = 0; i < tensor->len; i++)
         {
             coord[coord_index] = i;
             flatten[pd_get_index(coord_index + 1, coord, new_dim, new_shape_mult)] = a_tensor[i];
@@ -49,8 +49,8 @@ void            pd_update_value(pd_tensor *tensor, float *flatten, size_t coord_
     }
     else
     {
-        pd_tensor **a_tensor = (pd_tensor**)tensor.val;
-        for (size_t i = 0; i < tensor.len; i++)
+        pd_tensor **a_tensor = (pd_tensor**)tensor->val;
+        for (size_t i = 0; i < tensor->len; i++)
         {
             coord[coord_index] = i;
             pd_update_value(a_tensor[i], flatten, coord_index + 1, coord, new_dim, new_shape_mult);
@@ -60,7 +60,7 @@ void            pd_update_value(pd_tensor *tensor, float *flatten, size_t coord_
 
 pd_tensor       *pd_tens_transpose_new(pd_tensor *tensor, pd_size_t_a new_dim)
 {
-    if (tensor.rank != new_dim.len) pd_error("There must be as many new dimensions as the rank of the tensor. (tensor.rank == new_dim.len)");
+    if (tensor->rank != new_dim.len) pd_error("There must be as many new dimensions as the rank of the tensor-> (tensor->rank == new_dim.len)");
     bool valid[new_dim.len];
     pd_mem_set(valid, false, sizeof(bool) * new_dim.len);
     size_t *t_new_dim = (size_t*)new_dim.val;
@@ -68,7 +68,7 @@ pd_tensor       *pd_tens_transpose_new(pd_tensor *tensor, pd_size_t_a new_dim)
     for (size_t i = 0; i < new_dim.len; i++)
     {
         t_index = t_new_dim[i];
-        if (t_index) >= new_dim.len)
+        if (t_index >= new_dim.len)
             pd_error("A dimension can't be greater than the number of dimensions (new_dim.val[i] < new_dim.length)");
         if (valid[t_index] == true)
             pd_error("2 dimensions can't have the same dimension");
@@ -80,7 +80,7 @@ pd_tensor       *pd_tens_transpose_new(pd_tensor *tensor, pd_size_t_a new_dim)
     pd_tensor *new_flatten = pd_tens_init(pd_arr_shape(1, flat_len));
     size_t *coord = malloc(sizeof(size_t) * tensor->shape.len);
 
-    pd_update_value(tensor, (float*)new_flatten.val, 0, coord, (size_t*)new_dim.val, new_shape_mult);
+    pd_update_value(tensor, (float*)new_flatten->val, 0, coord, (size_t*)new_dim.val, new_shape_mult);
 
     pd_tensor *transpose_tensor = pd_tens_reshape(new_flatten, new_shape);
     pd_tens_free(new_flatten);
