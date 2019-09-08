@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-pd_tensor   pd_matrix_dot(pd_tensor a, pd_tensor b)
+/*pd_tensor   pd_matrix_dot(pd_tensor a, pd_tensor b)
 {
     pd_tensor   result;
     size_t      x_a = ((size_t *)a.shape.val)[0];
@@ -23,3 +23,4 @@ pd_tensor   pd_matrix_dot(pd_tensor a, pd_tensor b)
         }
     return (result);
 }
+*/

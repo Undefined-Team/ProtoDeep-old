@@ -9,7 +9,6 @@ DEMAIN
 ---- malloc = pd_malloc
 ---- pd_dast_free -> pd_free
 
-- Fuite chelou
 ---- printArr
 - tens_sum
 

@@ -1,7 +1,7 @@
 NAME 			=	protodeep
 
 CC 				= 	gcc
-FLAGS 			=  -g -O3
+FLAGS 			=  -g -O3 -pthread
 INCLUDES		=	./includes/
 
 SRC_PATH		=	./srcs/
@@ -83,18 +83,13 @@ MATRIX_FLD		=	matrix/
 MATRIX			=	matrix_dot.c		\
 
 TENS_FLD		=	tens/
-TENS			=	tens_new.c			\
-					tens_init.c			\
+TENS			=	tens_init.c 		\
 					tens_get_shape.c	\
-					tens_concat.c 		\
 					tens_print.c 		\
+					tens_new.c 			\
 					tens_copy.c 		\
+					tens_concat.c 		\
 					tens_free.c 		\
-					tens_flatten.c		\
-					tens_reshape.c		\
-					tens_dot.c			\
-					tens_transpose.c	\
-					tens_add.c			\
 
 NN_FLD			=	nn/
 NN				=	nn_config.c			\

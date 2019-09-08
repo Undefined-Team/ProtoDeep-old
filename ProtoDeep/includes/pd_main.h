@@ -9,6 +9,7 @@
 #include <unistd.h> // For read
 #include <sys/time.h> // For timestamp
 #include <stdarg.h> // For va_arg
+#include <pthread.h>
 #include "pd_mem.h"
 #include "pd_dast.h"
 #include "pd_arr.h"

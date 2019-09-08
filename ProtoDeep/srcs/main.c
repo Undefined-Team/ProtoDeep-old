@@ -122,7 +122,7 @@ void    pd_csv_manual()
     pd_csv_free(csv_2);
 }
 
-void        tens_test(void)
+/*void        tens_test(void)
 {
     size_t new_shape[3] = {2, 2, 2};
     pd_tensor test = pd_tens_init(pd_arr_shape(3, 2, 2, 2));
@@ -200,7 +200,7 @@ void    arr_create_test()
     pd_arr test = pd_arr_create(pd_arr_shape(2, 2, 1), PD_T_STR, "wsh", "alors");
     pd_arr_print(test);
 	pd_arr_free(test);
-}
+}*/
 
 int main(void)
 {
@@ -211,15 +211,22 @@ int main(void)
     // pd_csv_with_conf();
     // printf("\n-------------- MODE MANUAL --------------\n");
     // pd_csv_manual();
-<<<<<<< HEAD
     // tens_test();
-    tens_dot_test();
+    //tens_dot_test();
+    pd_time("normal start");
+    pd_tensor* test2 = pd_tens_init_rand(pd_arr_shape(2, 2, 2), -1, 1);
+    pd_tens_print(test2);
+    pd_tensor* test3 = pd_tens_copy(test2);
+    pd_tens_print(test3);
+    pd_tensor* test4 = pd_tens_concat(test2, test3, -1);
+    pd_tens_print(test4);
+    pd_tens_free(test2);
+    pd_tens_free(test3);
+    pd_tens_free(test4);
+    pd_time("normal end");
+    //printf("salut fdp\n");
+    //pd_tens_print(test);
     // arr_create_test();
-=======
-    //tens_test();
-    tens_dot_test();
-    //arr_create_test();
->>>>>>> ae64938e64b14ecee9d4e171e8a31e880c2e0276
     // printf("\n-------------- MODE CONF --------------\n");
     // pd_csv_with_conf();
     // printf("\n-------------- MODE MANUAL --------------\n");
