@@ -9,15 +9,16 @@ static pd_char_a pd_get_number(int n, int div, int neg, int size)
 	if (neg == -1)
 		size++;
     nb = pd_arr_init(PD_T_CHAR, size + 2);
+	char *a_nb = (char*)nb.val;
 	if (neg == -1)
-		((char *)nb.val)[i++] = '-';
+		a_nb[i++] = '-';
 	while (div > 0)
 	{
-		((char *)nb.val)[i++] = n / div + '0';
+		a_nb[i++] = n / div + '0';
 		n %= div;
 		div /= 10;
 	}
-	((char *)nb.val)[i] = '\0';
+	a_nb[i] = '\0';
 	return (nb);
 }
 

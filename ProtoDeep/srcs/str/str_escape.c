@@ -7,9 +7,10 @@ pd_arr  pd_str_escape(pd_arr str)
 
     if (!str.val || str.len == 0)
         return (str);
-    if (((char *)str.val)[i] == '\"' && ((char *)str.val)[j] == '\"')
+    char *a_str = (char*)str.val;
+    if (a_str[i] == '\"' && a_str[j] == '\"')
         return (pd_str_sub(str, i + 1, j - 1));
-    if (((char *)str.val)[i] == '\'' && ((char *)str.val)[j] == '\'')
+    if (a_str[i] == '\'' && a_str[j] == '\'')
         return (pd_str_sub(str, i + 1, j - 1));
     return (str);
 }

@@ -6,7 +6,9 @@ float pd_math_mean(pd_float_a x)
 
     if (x.type != PD_T_FLOAT)
         return 0;
-    for (size_t i = 0; i < x.len; i++)
-        sum += ((float*)x.val)[i];
-    return sum / x.len;
+    size_t x_len = x.len;
+    float* a_x = (float*)x.val;
+    for (size_t i = 0; i < x_len; i++)
+        sum += a_x[i];
+    return sum / x_len;
 }
