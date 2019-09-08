@@ -43,15 +43,6 @@ static void            pd_update_value(pd_tensor *tensor, float *flatten, size_t
     size_t tensor_len = tensor->len;
     if (tensor->rank == 1)
     {
-        float *a_tensor = (float*)tensor->val;
-        for (size_t i = 0; i < tensor_len; i++)
-        {
-            coord[coord_index] = i;
-            flatten[pd_get_index(coord_index + 1, coord, new_dim, new_shape_mult)] = a_tensor[i];
-        }
-    }
-    else
-    {
         pd_tensor **a_tensor = (pd_tensor**)tensor->val;
         for (size_t i = 0; i < tensor_len; i++)
         {
@@ -59,10 +50,20 @@ static void            pd_update_value(pd_tensor *tensor, float *flatten, size_t
             pd_update_value(a_tensor[i], flatten, coord_index + 1, coord, new_dim, new_shape_mult);
         }
     }
+    else
+    {
+        float *a_tensor = (float*)tensor->val;
+        for (size_t i = 0; i < tensor_len; i++)
+        {
+            coord[coord_index] = i;
+            flatten[pd_get_index(coord_index + 1, coord, new_dim, new_shape_mult)] = a_tensor[i];
+        }
+    }
 }
 
 pd_tensor       *pd_tens_transpose(pd_tensor *tensor, pd_size_t_a *new_dim)
 {
+    pd_tens_print(tensor);
     if (tensor->rank != new_dim->len) pd_error("There must be as many new dimensions as the rank of the tensor-> (tensor->rank == new_dim->len)");
     bool valid[new_dim->len];
     pd_mem_set(valid, false, sizeof(bool) * new_dim->len);
