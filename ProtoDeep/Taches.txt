@@ -12,4 +12,5 @@ DEMAIN
 ---- printArr
 - tens_sum
 
-SILVAIN REMPLACER GESTION D ERREUR PAR FONCTION ERREUR
+- OPTIMISATION
+Aplliquer consignes d'optimisation sur lib tensor, lib math, lib str

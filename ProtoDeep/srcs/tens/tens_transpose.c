@@ -29,7 +29,6 @@ static size_t          pd_get_index(pd_size_t_a coord, pd_size_t_a new_dim, pd_s
 static pd_size_t_a     pd_get_coord(size_t reste, pd_size_t_a shape_mult)
 {
     pd_size_t_a coord = pd_arr_init(PD_T_SIZE_T, shape_mult.len);
-    // size_t quot;
     for (size_t i = 0; i < coord.len; i++)
     {
         ((size_t*)coord.val)[i] = reste / ((size_t*)shape_mult.val)[i];

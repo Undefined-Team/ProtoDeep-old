@@ -22,7 +22,7 @@ void    pd_tens_check_size(pd_tensor tensor, pd_size_t_a *shape)
         tensor_values *= t_tensor_shape_val[i];
     if (neg && shape_values)
     {
-        size_t  infered = tensor_values / shape_values;
+        size_t infered = tensor_values / shape_values;
         if (tensor_values == shape_values * infered)
         {
             ((size_t *)shape->val)[neg_idx] = infered;

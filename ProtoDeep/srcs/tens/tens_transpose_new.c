@@ -21,7 +21,7 @@ static pd_size_t_a     pd_get_new_shape(pd_size_t_a shape, pd_size_t_a new_dim, 
 static size_t     *pd_get_shape_mult(pd_size_t_a new_shape)
 {
     size_t *a_new_shape = (size_t*)new_shape.val;
-    size_t *a_shape_mult = malloc(sizeof(size_t) * new_shape.len);
+    size_t *a_shape_mult = pd_malloc(sizeof(size_t) * new_shape.len);
     a_shape_mult[new_shape.len - 1] = 1;
     for (size_t i = new_shape.len - 1; i > 0; i--)
         a_shape_mult[i - 1] = a_new_shape[i] * a_shape_mult[i];
@@ -78,10 +78,8 @@ pd_tensor       *pd_tens_transpose_new(pd_tensor *tensor, pd_size_t_a new_dim)
     pd_size_t_a new_shape = pd_get_new_shape(tensor->shape, new_dim, &flat_len);
     size_t *new_shape_mult = pd_get_shape_mult(new_shape);
     pd_tensor *new_flatten = pd_tens_init(pd_arr_shape(1, flat_len));
-    size_t *coord = malloc(sizeof(size_t) * tensor->shape.len);
-
+    size_t *coord = pd_malloc(sizeof(size_t) * tensor->shape.len);
     pd_update_value(tensor, (float*)new_flatten->val, 0, coord, (size_t*)new_dim.val, new_shape_mult);
-
     pd_tensor *transpose_tensor = pd_tens_reshape(new_flatten, new_shape);
     pd_tens_free(new_flatten);
     pd_arr_free(new_dim);

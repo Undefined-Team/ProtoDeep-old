@@ -1,0 +1,16 @@
+- Don't cast in loop and use only local variable
+pd_tensor **a_tensor = (pd_tensor**)tensor->val;
+OR
+float *a_tensor = (float*)tensor->val;
+size_t len = tensor->len;
+for (size_t i = 0; i < len; i++)
+    truck[i] = a_tensor[i];
+
+- How to change a value of param pointer (use only local variable)
+void test(int *variable)
+{
+    int t_variable = 0;
+    for (size_t i = 0; i < 10; i++)
+        t_variable += i;
+    *variable = t_variable;
+}
