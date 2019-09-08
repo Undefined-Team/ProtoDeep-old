@@ -122,41 +122,41 @@ void    pd_csv_manual()
     pd_csv_free(csv_2);
 }
 
-// void        tens_test(void)
-// {
-//     // size_t new_shape[3] = {2, 2, 2};
-//     pd_tensor test = pd_tens_init(pd_arr_shape(3, 2, 2, 2));
-//     pd_tensor test2 = pd_tens_copy(test);
-//     pd_tens_print(test);
-//     printf ("\n+\n\n");
-//     pd_tens_print(test2);
-//     printf ("\n=\n\n");
+/*void        tens_test(void)
+{
+    // size_t new_shape[3] = {2, 2, 2};
+    pd_tensor test = pd_tens_init(pd_arr_shape(3, 2, 2, 2));
+    pd_tensor test2 = pd_tens_copy(test);
+    pd_tens_print(test);
+    printf ("\n+\n\n");
+    pd_tens_print(test2);
+    printf ("\n=\n\n");
     
-//     pd_tensor test3 = pd_tens_concat(test, test2, 0);
-//     pd_tens_print(test3);
-//     pd_tens_free(test3);
+    pd_tensor test3 = pd_tens_concat(test, test2, 0);
+    pd_tens_print(test3);
+    pd_tens_free(test3);
 
-//     test3 = pd_tens_concat(test, test2, 1);
-//     pd_tens_print(test3);
-//     pd_tens_free(test3);
+    test3 = pd_tens_concat(test, test2, 1);
+    pd_tens_print(test3);
+    pd_tens_free(test3);
 
-//     test3 = pd_tens_concat(test, test2, 2);
-//     pd_tens_print(test3);
-//     pd_tens_free(test3);
+    test3 = pd_tens_concat(test, test2, 2);
+    pd_tens_print(test3);
+    pd_tens_free(test3);
 
-//     //size_t new_shape2[2] = {3, 3};
-//     test3 = pd_tens_init_rand(pd_arr_shape(3, 2, 3, 2), 0, 10);
-//     pd_tens_print(test3);
-//     pd_tens_free(test2);
-//     printf("transpose start\n");
-//     test2 = pd_tens_transpose(test3, pd_arr_shape(3, 2, 1, 0));
-//     pd_tens_print(test2);
+    //size_t new_shape2[2] = {3, 3};
+    test3 = pd_tens_init_rand(pd_arr_shape(3, 2, 3, 2), 0, 10);
+    pd_tens_print(test3);
+    pd_tens_free(test2);
+    printf("transpose start\n");
+    test2 = pd_tens_transpose(test3, pd_arr_shape(3, 2, 1, 0));
+    pd_tens_print(test2);
 
-//     pd_tens_free(test3);
+    pd_tens_free(test3);
 
-//     pd_tens_free(test);
-//     pd_tens_free(test2);
-// }
+    pd_tens_free(test);
+    pd_tens_free(test2);
+}
 
 void        tens_dot_test(void)
 {
@@ -166,7 +166,7 @@ void        tens_dot_test(void)
     // pd_tensor d = pd_tens_init(pd_arr_shape(3, 3, 4, 6));
     // pd_tensor t = pd_tens_init(pd_arr_shape(3, 3, 2, 3));
     // pd_tensor x = pd_tens_init(pd_arr_shape(5, 9, 2, 1, 1, 1));
-    pd_tensor *a = pd_tens_init_rand(pd_arr_shape(2, 3, 3), 1, 2);
+    pd_tensor a = pd_tens_init_rand(pd_arr_shape(2, 3, 3), 1, 2);
     // pd_tensor a2 = pd_tens_init_rand(pd_arr_shape(5, 3, 3, 3, 3, 3), 2, 2);
     // pd_tensor a3 = pd_tens_init_rand(pd_arr_shape(5, 3, 4, 3, 4, 3), 3, 3);
     pd_tens_print(a);
@@ -212,7 +212,7 @@ void    arr_create_test()
     pd_arr test = pd_arr_create(pd_arr_shape(2, 2, 1), PD_T_STR, "wsh", "alors");
     pd_arr_print(test);
 	pd_arr_free(test);
-}
+}*/
 
 int main(void)
 {
@@ -228,32 +228,16 @@ int main(void)
     pd_time("normal start");
     pd_tensor* test2 = pd_tens_init_rand(pd_arr_shape(2, 2, 2), -1, 1);
     pd_tens_print(test2);
-    test2 = pd_tens_flatten(test2);
-    pd_tens_print(test2);
-    test2 = pd_tens_reshape(test2, pd_arr_shape(2, 2, 2));
-    pd_tens_print(test2);
     pd_tensor* test3 = pd_tens_copy(test2);
     pd_tens_print(test3);
     pd_tensor* test4 = pd_tens_concat(test2, test3, -1);
-
     pd_tens_print(test4);
     pd_tens_free(test2);
     pd_tens_free(test3);
     pd_tens_free(test4);
-
-    pd_tensor* test5 = pd_tens_init_rand(pd_arr_shape(10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), -1, 1);
-    pd_tensor* test6 = pd_tens_init_rand(pd_arr_shape(10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), -1, 1);
     pd_time("normal end");
-    pd_tensor* test7 = pd_tens_transpose(test5, pd_arr_shape(10, 0, 5, 3, 2, 6, 4, 9, 8, 7, 1));
-    pd_time("normal end");
-    pd_tensor* test8 = pd_tens_transpose_new(test6, pd_arr_shape(10, 0, 5, 3, 2, 6, 4, 9, 8, 7, 1));
-    pd_time("normal end");
-    pd_tens_free(test5);
-    pd_tens_free(test6);
-    pd_tens_free(test7);
-    pd_tens_free(test8);
     //printf("salut fdp\n");
-    // pd_tens_print(test);
+    //pd_tens_print(test);
     // arr_create_test();
     // printf("\n-------------- MODE CONF --------------\n");
     // pd_csv_with_conf();
