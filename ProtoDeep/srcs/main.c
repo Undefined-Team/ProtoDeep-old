@@ -59,8 +59,8 @@ pd_csv   get_test_csv_2(void)
 
 void    pd_csv_with_conf()
 {
-    // pd_csv csv_1 = pd_csv_read("res/tim_test1.csv", ',', 1);
-    pd_csv csv_1 = get_test_csv_1();
+    pd_csv csv_1 = pd_csv_read("res/tim_test1.csv", ',', 1);
+    //pd_csv csv_1 = get_test_csv_1();
     pd_csv_print(csv_1);
 
     pd_char_a *del_1[1] = {pd_str_new_s("Name")};
@@ -75,20 +75,20 @@ void    pd_csv_with_conf()
     printf("Try use other file with this conf -----------------\n\n");
 
     // pd_csv csv_2 = pd_csv_read("res/tim_test2.csv", ',', 1);
-    pd_csv csv_2 = get_test_csv_2();
+    /*pd_csv csv_2 = get_test_csv_2();
     pd_csv_print(csv_2);
     pd_prep_prepare(&csv_2, &conf);
 	pd_csv_print(csv_2);
 
     pd_csv_free(csv_2);
 
-    pd_prep_free_conf(conf);
+    pd_prep_free_conf(conf);*/
 }
 
 void    pd_csv_manual()
 {
-    // pd_csv csv_1 = pd_csv_read("res/tim_test1.csv", ',', 1);
-    pd_csv csv_1 = get_test_csv_1();
+    pd_csv csv_1 = pd_csv_read("res/tim_test1.csv", ',', 1);
+    //pd_csv csv_1 = get_test_csv_1();
     pd_csv_print(csv_1);
 
     pd_char_a *del_1[1] = {pd_str_new_s("Name")};
@@ -224,7 +224,7 @@ int main(void)
     printf("\n-------------- MODE CONF --------------\n");
     pd_csv_with_conf();
     printf("\n-------------- MODE MANUAL --------------\n");
-    pd_csv_manual();
+    //pd_csv_manual();
     tens_test();
     //tens_dot_test();
     // pd_time("normal start");

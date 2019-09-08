@@ -54,14 +54,15 @@ pd_csv_col   *pd_csv_create_cols(pd_tokens_list *tokens, int header, size_t widt
     for (size_t i = 0; i < height - header; i++)
     {
         col = col_list;
-        pd_str_a **t_col_columns_val = (pd_str_a **)col->columns->val;
-        pd_str_a **t_line_tokens_val = (pd_str_a **)line->tokens->val;
+//        pd_str_a **t_col_columns_val = (pd_str_a **)col->columns->val;
+//        pd_str_a **t_line_tokens_val = (pd_str_a **)line->tokens->val;
         for (size_t j = 0; j < width; j++)
         {
             if (line->tokens->len)
-                t_col_columns_val[i] = (pd_char_a *)t_line_tokens_val[j];
+				((pd_str_a **)col->columns->val)[i] = (pd_char_a *)((pd_str_a **)line->tokens->val)[j];
             else
-                t_col_columns_val[i] = pd_arr_init(PD_T_CHAR, 0);
+                ((pd_str_a **)col->columns->val)[i] = pd_arr_init(PD_T_CHAR, 0);
+	//		printf("%s\n", (char *)t_col_columns_val[i]->val);
             col = col->next;
         }
         line = line->next;
