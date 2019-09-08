@@ -27,7 +27,7 @@ pd_tensor   *pd_matrix_dot(pd_tensor *a, pd_tensor *b)
             float sum = 0;
             for (size_t j = 0; j < y_a; j++)
                 sum += t_a_val[j] * ((float *)t_b_tensors[j]->val)[l];
-            t_val[l] = sum;
+            t_result_val[l] = sum;
         }
     }
     return (result);
