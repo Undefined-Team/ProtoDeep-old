@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-static void        pd_arr_get_values(pd_arr *arr, pd_type type, va_list *va)
+static void        pd_arr_create_get_values(pd_arr *arr, pd_type type, va_list *va)
 {
     if (type == PD_T_FLOAT)
         for (size_t i = 0; i < arr->len; i++) ((float *)arr->val)[i] = (float)va_arg(*va, double);
@@ -19,6 +19,8 @@ static void        pd_arr_get_values(pd_arr *arr, pd_type type, va_list *va)
             ((pd_arr *)arr->val)[i] = str;
         }
     }
+    else
+        pd_error("Last type must be float, size_t, char or str (in pd_arr_create).");
 }
 
 pd_arr      pd_arr_create_ctr(size_t *arr_shape, size_t rank, pd_type type, va_list *va)
@@ -35,7 +37,7 @@ pd_arr      pd_arr_create_ctr(size_t *arr_shape, size_t rank, pd_type type, va_l
     else
     {
         pd_arr values = pd_arr_init(type, arr_shape[0]);
-        pd_arr_get_values(&values, type, va);
+        pd_arr_create_get_values(&values, type, va);
         return (values);
     }
 }
@@ -49,7 +51,7 @@ pd_arr      pd_arr_create(pd_size_t_a arr_shape, pd_type type, ...)
     if (arr_shape.len == 1)
     {
         new_arr = pd_arr_init(type, ((size_t *)arr_shape.val)[0]);
-        pd_arr_get_values(&new_arr, type, &va);
+        pd_arr_create_get_values(&new_arr, type, &va);
         va_end(va);
 		pd_arr_free(arr_shape);
         return (new_arr);

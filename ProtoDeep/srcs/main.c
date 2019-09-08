@@ -166,8 +166,8 @@ void        tens_dot_test(void)
     // pd_tensor d = pd_tens_init(pd_arr_shape(3, 3, 4, 6));
     // pd_tensor t = pd_tens_init(pd_arr_shape(3, 3, 2, 3));
     // pd_tensor x = pd_tens_init(pd_arr_shape(5, 9, 2, 1, 1, 1));
-    pd_tensor a2 = pd_tens_init_rand(pd_arr_shape(5, 3, 3, 3, 3, 3), -1, 1);
-    pd_tensor a3 = pd_tens_init_rand(pd_arr_shape(5, 3, 4, 3, 4, 3), -1, 1);
+    pd_tensor a2 = pd_tens_init_rand(pd_arr_shape(5, 3, 3, 3, 3, 3), 2, 2);
+    pd_tensor a3 = pd_tens_init_rand(pd_arr_shape(5, 3, 4, 3, 4, 3), 3, 3);
     // pd_tens_print(a2);
     // pd_tensor matrix1 = pd_tens_init(pd_arr_shape(2, 3, 6));
     // pd_tensor matrix2 = pd_tens_init(pd_arr_shape(2, 10, 3));
@@ -180,12 +180,13 @@ void        tens_dot_test(void)
     // pd_tens_flatten(d);
     // pd_tensor c = pd_tens_transpose(a, pd_arr_shape(5, 2, 3, 4, 1, 0));
     pd_tensor res = pd_tens_dot(a2, a3, axis);
-    pd_tensor add1 = pd_tens_init_rand(pd_arr_shape(4, 2, 2, 2, 2), 1, 2);
-    pd_tensor add2 = pd_tens_init_rand(pd_arr_shape(3, 2, 2, 2), 2, 3);
-    pd_tensor addres = pd_tens_add(add1, add2);
-    pd_tens_print(add1);
-    pd_tens_print(add2);
-    pd_tens_print(addres);
+    // pd_tens_print(res);
+    // pd_tensor add1 = pd_tens_init_rand(pd_arr_shape(4, 2, 2, 2, 2), 1, 2);
+    // pd_tensor add2 = pd_tens_init_rand(pd_arr_shape(2, 4, 1), 2, 3);
+    // pd_tensor addres = pd_tens_add(add1, add2);
+    // pd_tens_print(add1);
+    // pd_tens_print(add2);
+    // pd_tens_print(addres);
     // pd_tens_print(matrix1);
     // pd_tens_print(matrix2);
     // pd_matrix_dot(matrix1, matrix2);
@@ -193,6 +194,12 @@ void        tens_dot_test(void)
     // pd_tens_print(matrix1);
     // pd_tens_print(matrix2);
     // pd_matrix_dot(matrix1, matrix2);
+    // pd_arr test = pd_arr_create(pd_arr_shape(3, 2, 2, 2), PD_T_SIZE_T, 1, 2, 3, 4, 5, 6, 7, 8);
+    // pd_arr test2 = pd_arr_create(pd_arr_shape(3, 2, 2, 2), PD_T_CHAR, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h');
+    // pd_arr test3 = pd_arr_create(pd_arr_shape(3, 2, 2, 2), PD_T_FLOAT, 1, 2, 3, 4, 5, 6, 7, 8);
+    // printf("%zd\n", pd_arr_size_t(test, 0, 0, 1));
+    // printf("%c\n", pd_arr_char(test2, 0, 0, 1));
+    // printf("%f\n", pd_arr_float(test3, 0, 0, 1));
 }
 
 void    arr_create_test()

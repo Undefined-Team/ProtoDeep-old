@@ -17,6 +17,6 @@ pd_arr      pd_arr_copy(pd_arr array)
     else if (array.type == PD_T_CHAR)
         pd_mem_cpy(new_array.val, array.val, sizeof(char) * array.len);
     else
-        pd_error("last type must be float, size_t or char");
+        pd_error("Last type must be float, size_t or char.");
     return new_array;
 }
