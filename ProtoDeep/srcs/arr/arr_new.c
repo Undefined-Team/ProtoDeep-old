@@ -71,7 +71,7 @@ pd_arr   *pd_arr_new(pd_type type, size_t len, void* val)
 
     PD_PROT_MALLOC(new_arr = malloc(sizeof(pd_arr)));
     new_arr->type = type;
-    if (len == 0 || !val)
+    /*if (len == 0 || !val)
     {
         new_arr->len = 0;
         new_arr->val = NULL;
@@ -80,6 +80,8 @@ pd_arr   *pd_arr_new(pd_type type, size_t len, void* val)
     {
         new_arr->len = type == PD_T_CHAR ? pd_str_clen((char*)val) : len;
         new_arr->val = val;
-    }
+    }*/
+    new_arr->len = len;
+    new_arr->val = val;
     return new_arr;
 }
