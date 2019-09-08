@@ -6,7 +6,7 @@ void        pd_prep_add_line(pd_csv_col *begin_col, size_t col_index, size_t lin
     
     while (begin_col)
     {
-        ((float*)begin_col->columns.val)[line_index] = col_index == i++ ? 1 : 0;
+        ((float*)begin_col->columns->val)[line_index] = col_index == i++ ? 1 : 0;
         begin_col = begin_col->next;
     }
 }
@@ -143,7 +143,7 @@ pd_ohe_trees    *pd_prep_ohe_init(pd_csv *csv, pd_str_a *col_names)
     col_names = pd_prep_name_sort(*csv, col_names);
     while (col && i < col_names.len)
     {
-        if (col->columns.type == PD_T_STR && pd_str_cmp((char*)col->name->val, (char*)(((pd_str_a**)col_names.val)[i]->val) ) == 0)
+        if (col->columns->type == PD_T_STR && pd_str_cmp((char*)col->name->val, (char*)(((pd_str_a**)col_names.val)[i]->val) ) == 0)
         {
             if (!begin)
             {

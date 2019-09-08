@@ -66,7 +66,7 @@ void        pd_prep_standardize(pd_csv csv, pd_stdiz_a *std_data)
 
     for (pd_csv_col *col = csv.begin; col; col = col->next)
     {
-        if (col->columns.type == PD_T_FLOAT)
+        if (col->columns->type == PD_T_FLOAT)
             col->columns = pd_prep_stdiz(col->columns, ((pd_stdiz_data*)std_data->val)[i]);
         i++;
     }
@@ -79,7 +79,7 @@ pd_stdiz_a    *pd_prep_strandardize_init(pd_csv csv)
     pd_stdiz_a *new_std_data = pd_arr_init(PD_T_STDIZ, csv.width);
     for (pd_csv_col *col = csv.begin; col; col = col->next)
     {
-        if (col->columns.type == PD_T_FLOAT)
+        if (col->columns->type == PD_T_FLOAT)
             col->columns = pd_prep_stdiz_init(col->columns, &(((pd_stdiz_data*)new_std_data->val)[i]));
         i++;
     }
