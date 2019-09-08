@@ -41,7 +41,7 @@ void    pd_tens_reshape_from_flat(pd_tensor flat, size_t *index, pd_tensor *resh
     {
         pd_tensor **t_reshape_val = (pd_tensor **)reshape->val;
         for (size_t i = 0; i < reshape->len; i++)
-            pd_tens_reshape_from_flat(flat, index, &t_reshape_val[i]);
+            pd_tens_reshape_from_flat(flat, index, t_reshape_val[i]);
     }
     else
     {
@@ -60,6 +60,7 @@ pd_tensor   *pd_tens_reshape(pd_tensor *tensor, pd_size_t_a shape)
 
     pd_tens_check_size(*tensor, &shape);
     reshape = pd_tens_init(shape);
+    flat = pd_tens_flatten(tensor);
     pd_tens_reshape_from_flat(*flat, &index, reshape);
 	pd_tens_free(flat);
     return (reshape);
