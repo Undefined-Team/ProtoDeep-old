@@ -6,18 +6,20 @@ pd_tensor *pd_tens_rec_concat(pd_tensor *tensor_a, pd_tensor *tensor_b, size_t d
     pd_tensor *new_tensor;
 
     new_tensor = pd_tens_new(tensor_a->rank, 0, NULL, pd_arr_new(PD_T_SIZE_T, 0, NULL));
+    size_t tensor_a_len = tensor_a->len;
+    size_t tensor_b_len = tensor_b->len;
     if (dim == target_dim)
     {
-        new_tensor->len = tensor_a->len + tensor_b->len;
+        new_tensor->len = tensor_a_len + tensor_b_len;
         if (dim > 0)
         {
             pd_tensor **a_new_tensor = pd_malloc(sizeof(pd_tensor*) * new_tensor->len);
             new_tensor->val = a_new_tensor;
             pd_tensor **a_tensor_a = (pd_tensor**)tensor_a->val;
             pd_tensor **a_tensor_b = (pd_tensor**)tensor_b->val;
-            for (size_t i = 0; i < tensor_a->len; i++)
+            for (size_t i = 0; i < tensor_a_len; i++)
                 a_new_tensor[j++] = pd_tens_copy(a_tensor_a[i]);
-            for (size_t i = 0; i < tensor_b->len; i++)
+            for (size_t i = 0; i < tensor_b_len; i++)
                 a_new_tensor[j++] = pd_tens_copy(a_tensor_b[i]);
         }
         else
@@ -26,20 +28,20 @@ pd_tensor *pd_tens_rec_concat(pd_tensor *tensor_a, pd_tensor *tensor_b, size_t d
             new_tensor->val = a_new_tensor;
             float *a_tensor_a = (float*)tensor_a->val;
             float *a_tensor_b = (float*)tensor_b->val;
-            for (size_t i = 0; i < tensor_a->len; i++)
+            for (size_t i = 0; i < tensor_a_len; i++)
                 a_new_tensor[j++] = a_tensor_a[i];
-            for (size_t i = 0; i < tensor_b->len; i++)
+            for (size_t i = 0; i < tensor_b_len; i++)
                 a_new_tensor[j++] = a_tensor_b[i];
         }
     }
     else
     {
-        new_tensor->len = tensor_a->len;
+        new_tensor->len = tensor_a_len;
         pd_tensor **a_new_tensor = pd_malloc(sizeof(pd_tensor*) * new_tensor->len);
         new_tensor->val = a_new_tensor;
         pd_tensor **a_tensor_a = (pd_tensor**)tensor_a->val;
         pd_tensor **a_tensor_b = (pd_tensor**)tensor_b->val;
-        for (size_t i = 0; i < tensor_a->len; i++)
+        for (size_t i = 0; i < tensor_a_len; i++)
             a_new_tensor[i] = pd_tens_rec_concat(a_tensor_a[i], a_tensor_b[i], dim - 1, target_dim);
     }
     new_tensor->shape = pd_tens_get_shape(new_tensor);
@@ -57,7 +59,8 @@ pd_tensor *pd_tens_concat(pd_tensor *tensor_a, pd_tensor *tensor_b, int axis)
     (void)new_shape;
     size_t *a_shape_a = (size_t*)tensor_a->shape.val;
     size_t *a_shape_b = (size_t*)tensor_b->shape.val;
-    for (size_t i = 0; i < tensor_a->rank; i++)
+    size_t tensor_a_rank = tensor_a->rank;
+    for (size_t i = 0; i < tensor_a_rank; i++)
     {
         if ((int)i != axis)
         {
