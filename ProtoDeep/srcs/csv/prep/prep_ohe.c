@@ -24,16 +24,16 @@ static pd_csv_col *pd_cols_generator(pd_csv_col **col, pd_ohe_trees *tbegin)
     int             index;
 
     *col = (*col)->next;
-    for (size_t i = 0; i < tbegin->new_names.len; i++)
+    for (size_t i = 0; i < tbegin->new_names->len; i++)
     {
-        last_col = pd_prep_add_col(last_col, str_arr->len, 0, pd_str_new_s((char*)(((pd_char_a*)tbegin->new_names.val)[i]->val)));
+        last_col = pd_prep_add_col(last_col, str_arr->len, 0, pd_str_new_s((char*)(((pd_char_a**)tbegin->new_names->val)[i]->val)));
         if (!begin_col)
             begin_col = last_col;
     }
     for (size_t i = 0; i < str_arr->len; i++)
     {
         index = pd_use_bin_tree(tbegin->begin, (char*)(((pd_char_a**)str_arr->val)[i]->val));
-        pd_prep_add_line(begin_col, index == -1 ? tbegin->new_names.len : (size_t)index, i);
+        pd_prep_add_line(begin_col, index == -1 ? tbegin->new_names->len : (size_t)index, i);
     }
     last_col->next = *col;
     pd_csv_free_col(f_tmp);
@@ -51,7 +51,7 @@ void    pd_prep_ohe(pd_csv *csv, pd_ohe_trees *tbegin)
 
     while (col && tbegin)
     {
-        if (col->columns.type == PD_T_STR && pd_str_cmp((char*)col->name.val, ((char*)tbegin->base_name.val) ) == 0)
+        if (col->columns->type == PD_T_STR && pd_str_cmp((char*)col->name->val, ((char*)tbegin->base_name->val) ) == 0)
         {
             tmp = pd_cols_generator(&col, tbegin); //col = last new, tmp = first new
             if (before)

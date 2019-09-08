@@ -6,7 +6,7 @@ pd_csv_conf      pd_prep_init_conf(pd_str_a *delete_indexs, pd_str_a *ohe_indexs
 
     new_conf.delete_indexs = delete_indexs;
     new_conf.ohe_indexs = ohe_indexs;
-    new_conf.std_data.len = 0;
+    new_conf.std_data = pd_arr_new(PD_T_STDIZ, 0, NULL);
     new_conf.saved_trees = NULL;
     return new_conf;
 }

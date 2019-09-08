@@ -69,6 +69,7 @@ pd_arr   *pd_arr_new(pd_type type, size_t len, void* val)
 {
     pd_arr *new_arr;
 
+    PD_PROT_MALLOC(new_arr = malloc(sizeof(pd_arr)));
     new_arr->type = type;
     if (len == 0 || !val)
     {

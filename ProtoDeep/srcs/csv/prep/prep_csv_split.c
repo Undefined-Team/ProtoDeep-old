@@ -19,9 +19,9 @@ int     pd_prep_csv_split(pd_csv csv, pd_csv *train, pd_csv *test, float f_split
     curr = test->begin;
     for (pd_csv_col *col = csv.begin; col; col = col->next)
     {
-        curr->name = pd_str_dup(col->name, col->name.len);
+        curr->name = pd_str_dup(col->name, col->name->len);
         curr->columns = pd_arr_init(PD_T_FLOAT, test->height);
-        curr->columns.val = &((float *)col->columns.val)[split];
+        curr->columns->val = &((float *)col->columns->val)[split];
         curr->next = col->next ? (pd_csv_col *)pd_malloc(sizeof(pd_csv_col)) : NULL;
         curr = curr->next;
     }

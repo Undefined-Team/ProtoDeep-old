@@ -22,16 +22,16 @@ pd_str_a  *pd_prep_name_sort(pd_csv csv, pd_str_a *col_ni)
     {
         for (size_t i = 0; i < col_ni->len; i++)
         {
-            if (pd_str_cmp( (char*)(((pd_str_a*)col_ni->val)[i].val), (char*)col->name.val ) == 0)
+            if (pd_str_cmp( (char*)(((pd_str_a**)col_ni->val)[i]->val), (char*)col->name->val ) == 0)
             {
                 if (!begin)
                 {
-                    begin = pd_prep_new_ni(((pd_char_a*)col_ni->val)[i], j);
+                    begin = pd_prep_new_ni(((pd_char_a**)col_ni->val)[i], j);
                     tmp = begin;
                 }
                 else
                 {
-                    tmp->next =  pd_prep_new_ni(((pd_char_a*)col_ni->val)[i], j);
+                    tmp->next =  pd_prep_new_ni(((pd_char_a**)col_ni->val)[i], j);
                     tmp = tmp->next;
                 }
                 real_size++;
@@ -56,7 +56,7 @@ pd_str_a  *pd_prep_name_sort(pd_csv csv, pd_str_a *col_ni)
         {
             if (((size_t*)index_a->val)[i] == tmp->index)
             {
-                ((pd_str_a*)new_col_ni->val)[i] = tmp->name;
+                ((pd_str_a**)new_col_ni->val)[i] = tmp->name;
                 break;
             }
         }

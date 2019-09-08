@@ -8,9 +8,9 @@ void    pd_prep_prepare(pd_csv *csv, pd_csv_conf *conf)
     else
         pd_prep_ohe(csv, conf->saved_trees);
     pd_prep_all_to_float(*csv);
-    if (conf->std_data.len == 0)
+    if (conf->std_data->len == 0)
     {
-        pd_stdiz_a tmp = conf->std_data;
+        pd_stdiz_a *tmp = conf->std_data;
         conf->std_data = pd_prep_strandardize_init(*csv);
         pd_arr_free(tmp);
     }
