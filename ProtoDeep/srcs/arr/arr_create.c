@@ -23,9 +23,7 @@ static void        pd_arr_create_get_values(pd_arr *arr, pd_type type, va_list *
         for (size_t i = 0; i < arr->len; i++)
         {
             char *buffer = va_arg(*va, char *);
-            size_t len = pd_str_clen(buffer);
-            pd_str_a *str = pd_arr_init(PD_T_CHAR, len);
-            str->val = buffer;
+            pd_str_a *str = pd_str_new_s(buffer);
             t_arr_val[i] = str;
         }
     }

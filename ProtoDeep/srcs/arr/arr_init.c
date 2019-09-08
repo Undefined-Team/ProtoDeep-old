@@ -10,8 +10,8 @@ pd_arr       *pd_arr_init(pd_type type, size_t len)
         if (type == PD_T_ARR)
         {
             new_arr->val = pd_malloc(sizeof(pd_arr**) * len);
-            for (size_t i = 0; i < new_arr->len; i++)
-                ((pd_arr**)new_arr->val)[i] = pd_arr_new(type, len, NULL);
+            //for (size_t i = 0; i < new_arr->len; i++)
+            //    ((pd_arr**)new_arr->val)[i] = pd_arr_new(type, len, NULL);
         }
         else if (type == PD_T_FLOAT) new_arr->val = pd_malloc(sizeof(float) * len);
         else if (type == PD_T_SIZE_T) new_arr->val = pd_malloc(sizeof(size_t) * len);

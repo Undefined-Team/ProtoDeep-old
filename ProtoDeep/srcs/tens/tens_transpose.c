@@ -41,7 +41,7 @@ static size_t          pd_get_index(size_t len, size_t *coord, size_t *new_dim, 
 static void            pd_update_value(pd_tensor *tensor, float *flatten, size_t coord_index, size_t *coord, size_t *new_dim, size_t *new_shape_mult)
 {
     size_t tensor_len = tensor->len;
-    if (tensor->rank > 1)
+    if (tensor->rank == 1)
     {
         pd_tensor **a_tensor = (pd_tensor**)tensor->val;
         for (size_t i = 0; i < tensor_len; i++)

@@ -35,8 +35,10 @@ pd_tensor   *pd_tens_flatten(pd_tensor *tensor)
 
     index = 0;
     len = pd_arr_init(PD_T_SIZE_T, 1);
+    pd_tens_print(tensor);
     ((size_t *)len->val)[0] = pd_tens_flatten_len(tensor);
     flat = pd_tens_init(len);
     pd_tens_get_values(tensor, &index, flat);
+    pd_tens_print(flat);
     return (flat);
 }
