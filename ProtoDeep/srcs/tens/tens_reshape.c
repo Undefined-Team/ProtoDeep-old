@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-void    pd_tens_check_size(pd_tensor tensor, pd_size_t_a *shape)
+void    pd_tens_check_size(pd_tensor *tensor, pd_size_t_a *shape)
 {
     size_t      shape_values = 1;
     size_t      tensor_values = 1;
@@ -17,8 +17,8 @@ void    pd_tens_check_size(pd_tensor tensor, pd_size_t_a *shape)
         }
         else
             shape_values *= t_shape_val[i];
-    size_t *t_tensor_shape_val = (size_t *)tensor.shape.val;
-    for (size_t i = 0; i < tensor.shape.len; i++)
+    size_t *t_tensor_shape_val = (size_t *)tensor->shape->val;
+    for (size_t i = 0; i < tensor->shape->len; i++)
         tensor_values *= t_tensor_shape_val[i];
     if (neg && shape_values)
     {
@@ -35,7 +35,7 @@ void    pd_tens_check_size(pd_tensor tensor, pd_size_t_a *shape)
         pd_error("Can't reshape tensor with %zd values to shape with %zd values.\n", tensor_values, shape_values);
 }
 
-void    pd_tens_reshape_from_flat(pd_tensor flat, size_t *index, pd_tensor *reshape)
+void    pd_tens_reshape_from_flat(pd_tensor *flat, size_t *index, pd_tensor *reshape)
 {
     if (reshape->rank > 1)
     {
@@ -46,22 +46,22 @@ void    pd_tens_reshape_from_flat(pd_tensor flat, size_t *index, pd_tensor *resh
     else
     {
         float *t_reshape_val = (float *)reshape->val;
-        float *t_flat_val = (float *)flat.val;
+        float *t_flat_val = (float *)flat->val;
         for (size_t i = 0; i < reshape->len; i++)
             t_reshape_val[i] = t_flat_val[(*index)++];
     }
 }
 
-pd_tensor   *pd_tens_reshape(pd_tensor *tensor, pd_size_t_a shape)
+pd_tensor   *pd_tens_reshape(pd_tensor *tensor, pd_size_t_a *shape)
 {
     pd_tensor   *reshape;
     pd_tensor   *flat;
     size_t      index = 0;
 
-    pd_tens_check_size(*tensor, &shape);
+    pd_tens_check_size(tensor, shape);
     reshape = pd_tens_init(shape);
     flat = pd_tens_flatten(tensor);
-    pd_tens_reshape_from_flat(*flat, &index, reshape);
+    pd_tens_reshape_from_flat(flat, &index, reshape);
 	pd_tens_free(flat);
     return (reshape);
 }

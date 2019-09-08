@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-pd_csv_col   *pd_csv_add_col(pd_char_a name, size_t height)
+pd_csv_col   *pd_csv_add_col(pd_char_a *name, size_t height)
 {
     pd_csv_col   *col;
 
@@ -20,9 +20,10 @@ pd_csv_col   *pd_csv_init_cols(pd_tokens_list *line, int header, size_t width, s
         line = line;
     if (header)
     {
+        pd_str_a **t_line_tokens_val = (pd_str_a **)line->tokens.val;
         for (size_t i = 0; i < width; i++)
         {
-            pd_char_a name = (pd_char_a)((pd_str_a *)line->tokens.val)[i];
+            pd_char_a *name = (pd_char_a *)t_line_tokens_val[i];
             if ((!col_list && !(col_list = pd_csv_add_col(name, height)))
                 || (col && !(col->next = pd_csv_add_col(name, height))))
                 return (NULL);
@@ -53,12 +54,14 @@ pd_csv_col   *pd_csv_create_cols(pd_tokens_list *tokens, int header, size_t widt
     for (size_t i = 0; i < height - header; i++)
     {
         col = col_list;
+        pd_str_a **t_col_columns_val = (pd_str_a **)col->columns.val;
+        pd_str_a **t_line_tokens_val = (pd_str_a **)line->tokens.val;
         for (size_t j = 0; j < width; j++)
         {
             if (line->tokens.len)
-                ((pd_str_a *)col->columns.val)[i] = (pd_char_a)((pd_str_a *)line->tokens.val)[j];
+                t_col_columns_val[i] = (pd_char_a *)t_line_tokens_val[j];
             else
-                ((pd_str_a *)col->columns.val)[i] = pd_arr_init(PD_T_CHAR, 0);
+                t_col_columns_val[i] = pd_arr_init(PD_T_CHAR, 0);
             col = col->next;
         }
         line = line->next;
@@ -68,7 +71,7 @@ pd_csv_col   *pd_csv_create_cols(pd_tokens_list *tokens, int header, size_t widt
     return (col_list);
 }
 
-pd_csv_col   *pd_csv_new_col(pd_arr columns, pd_char_a name)
+pd_csv_col   *pd_csv_new_col(pd_arr *columns, pd_char_a *name)
 {
     pd_csv_col   *elem = NULL;
 

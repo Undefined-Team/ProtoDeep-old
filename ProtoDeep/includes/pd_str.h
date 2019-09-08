@@ -7,7 +7,7 @@
 
 // Structures
 typedef struct              pds_split_list {
-    pd_arr                  word;
+    pd_arr                  *word;
     struct pds_split_list   *next;
 }                           pd_split_list;
 

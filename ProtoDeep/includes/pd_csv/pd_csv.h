@@ -9,13 +9,13 @@
 // Structures
 typedef struct              pds_tokens_list {
     struct pds_tokens_list  *next;
-    pd_arr                  tokens;
+    pd_arr                  *tokens;
 }                           pd_tokens_list;
 
 typedef struct              pds_csv_col {
-    pd_arr                  name;
+    pd_arr                  *name;
     struct pds_csv_col      *next;
-    pd_arr                  columns;
+    pd_arr                  *columns;
 }                           pd_csv_col;
 
 typedef struct              pds_csv {
