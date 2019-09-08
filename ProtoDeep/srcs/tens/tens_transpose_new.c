@@ -60,7 +60,7 @@ void            pd_update_value(pd_tensor *tensor, float *flatten, size_t coord_
 
 pd_tensor       *pd_tens_transpose_new(pd_tensor *tensor, pd_size_t_a new_dim)
 {
-    if (tensor.rank != new_dim.len) pd_error("there must be as many new dimensions as the rank of the tensor. (tensor.rank == new_dim.len)");
+    if (tensor.rank != new_dim.len) pd_error("There must be as many new dimensions as the rank of the tensor. (tensor.rank == new_dim.len)");
     bool valid[new_dim.len];
     pd_mem_set(valid, false, sizeof(bool) * new_dim.len);
     size_t *t_new_dim = (size_t*)new_dim.val;
@@ -69,7 +69,7 @@ pd_tensor       *pd_tens_transpose_new(pd_tensor *tensor, pd_size_t_a new_dim)
     {
         t_index = t_new_dim[i];
         if (t_index) >= new_dim.len)
-            pd_error("a dimension can't be greater than the number of dimensions (new_dim.val[i] < new_dim.length)");
+            pd_error("A dimension can't be greater than the number of dimensions (new_dim.val[i] < new_dim.length)");
         if (valid[t_index] == true)
             pd_error("2 dimensions can't have the same dimension");
         valid[t_index] = true;

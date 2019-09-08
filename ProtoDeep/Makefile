@@ -85,13 +85,15 @@ MATRIX_FLD		=	matrix/
 MATRIX			=	matrix_dot.c		\
 
 TENS_FLD		=	tens/
-TENS			=	tens_init.c 		\
-					tens_get_shape.c	\
-					tens_print.c 		\
-					tens_new.c 			\
-					tens_copy.c 		\
-					tens_concat.c 		\
-					tens_free.c 		\
+TENS			=	tens_init.c 			\
+					tens_get_shape.c		\
+					tens_print.c 			\
+					tens_new.c 				\
+					tens_copy.c 			\
+					tens_concat.c 			\
+					tens_transpose.c 		\
+					tens_transpose_new.c 	\
+					tens_free.c 		 	\
 
 NN_FLD			=	nn/
 NN				=	nn_config.c			\
