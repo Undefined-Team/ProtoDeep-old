@@ -1,88 +1,88 @@
 #include "pd_main.h"
 #include <string.h>
 
-// pd_csv   get_test_csv_1(void)
-// {
-//     pd_csv csv_test;
-//     pd_csv_col *tmp;
+pd_csv   get_test_csv_1(void)
+{
+    pd_csv csv_test;
+    pd_csv_col *tmp;
 
-//     csv_test.height = 4;
-//     csv_test.width = 4;
+    csv_test.height = 4;
+    csv_test.width = 4;
 
 
-//     pd_str_a col3[4] = {pd_str_new_s("Gros"), pd_str_new_s("Pitit"), pd_str_new_s("Moyen"), pd_str_new_s("Moyen")};
-//     tmp = pd_csv_new_col(pd_arr_new_s(PD_T_STR, 4, col3), pd_str_new_s("Zizi"));
-//     csv_test.begin = tmp;
+    pd_str_a *col3 = pd_arr_create(pd_arr_shape(1, 4), PD_T_STR, "Gros", "Pitit", "Moyen", "Moyen");
+    tmp = pd_csv_new_col(col3, pd_str_new_s("Zizi"));
+    csv_test.begin = tmp;
     
-//     float col1[4] = {200.77777, 1, -1, -200};
-//     tmp->next = pd_csv_new_col(pd_arr_new_s(PD_T_FLOAT, 4, col1), pd_str_new_s("Qi"));
-//     tmp = tmp->next;
+    pd_float_a *col1 = pd_arr_create(pd_arr_shape(1, 4), PD_T_FLOAT, 200.77777, 1, -1, -200);
+    tmp->next = pd_csv_new_col(col1, pd_str_new_s("Qi"));
+    tmp = tmp->next;
 
-//     pd_str_a col2[4] = {pd_str_new_s("Timothée"), pd_str_new_s("Sylvain"), pd_str_new_s("Paco"), pd_str_new_s("Tony")};
-//     tmp->next = pd_csv_new_col(pd_arr_new_s(PD_T_STR, 4, col2), pd_str_new_s("Name"));
-//     tmp = tmp->next;
+    pd_str_a *col2 = pd_arr_create(pd_arr_shape(1, 4), PD_T_STR, "Timothee", "Sylvain", "Paco", "Tony");
+    tmp->next = pd_csv_new_col(col2, pd_str_new_s("Name"));
+    tmp = tmp->next;
 
-//     pd_str_a col4[4] = {pd_str_new_s("Ca va"), pd_str_new_s("Musclée"), pd_str_new_s("Musclée"), pd_str_new_s("Musclée")};
-//     tmp->next = pd_csv_new_col(pd_arr_new_s(PD_T_STR, 4, col4), pd_str_new_s("Main droite"));
-//     tmp = tmp->next;
+    pd_str_a *col4 = pd_arr_create(pd_arr_shape(1, 4), PD_T_STR, "Ca va", "Musclee", "Musclee", "Pas trop");
+    tmp->next = pd_csv_new_col(col4, pd_str_new_s("Main droite"));
+    tmp = tmp->next;
 
-//     return csv_test;
-// }
+    return csv_test;
+}
 
-// pd_csv   get_test_csv_2(void)
-// {
-//     pd_csv csv_test;
-//     pd_csv_col *tmp;
+pd_csv   get_test_csv_2(void)
+{
+    pd_csv csv_test;
+    pd_csv_col *tmp;
 
-//     csv_test.height = 4;
-//     csv_test.width = 4;
+    csv_test.height = 4;
+    csv_test.width = 4;
 
 
-//     pd_char_a col3[4] = {pd_str_new_s("Gros"), pd_str_new_s("Pitit"), pd_str_new_s("JSP"), pd_str_new_s("Moyen")};
-//     tmp = pd_csv_new_col(pd_arr_new_s(PD_T_STR, 4, col3), pd_str_new_s("Zizi"));
-//     csv_test.begin = tmp;
+    pd_char_a *col3 = pd_arr_create(pd_arr_shape(1, 4), PD_T_STR, "Gros", "Pitit", "JSP", "Moyen");
+    tmp = pd_csv_new_col(col3, pd_str_new_s("Zizi"));
+    csv_test.begin = tmp;
 
-//     float col1[4] = {200.77777, 1, -1, -200};
-//     tmp->next = pd_csv_new_col(pd_arr_new_s(PD_T_FLOAT, 4, col1), pd_str_new_s("Qi"));
-//     tmp = tmp->next;
+    pd_float_a *col1 = pd_arr_create(pd_arr_shape(1, 4), PD_T_FLOAT, 200.77777, 1, -1, -200);
+    tmp->next = pd_csv_new_col(col1, pd_str_new_s("Qi"));
+    tmp = tmp->next;
 
-//     pd_char_a col2[4] = {pd_str_new_s("Timothée"), pd_str_new_s("Sylvain"), pd_str_new_s("Paco"), pd_str_new_s("Tony")};
-//     tmp->next = pd_csv_new_col(pd_arr_new_s(PD_T_STR, 4, col2), pd_str_new_s("Name"));
-//     tmp = tmp->next;
+    pd_char_a *col2 = pd_arr_create(pd_arr_shape(1, 4), PD_T_STR, "Timothee", "Sylvain", "Paco", "Tony");
+    tmp->next = pd_csv_new_col(col2, pd_str_new_s("Name"));
+    tmp = tmp->next;
 
-//     pd_char_a col4[4] = {pd_str_new_s("Ca va"), pd_str_new_s("Musclée"), pd_str_new_s("Musclée"), pd_str_new_s("JSP")};
-//     tmp->next = pd_csv_new_col(pd_arr_new_s(PD_T_STR, 4, col4), pd_str_new_s("Main droite"));
-//     tmp = tmp->next;
+    pd_char_a *col4 = pd_arr_create(pd_arr_shape(1, 4), PD_T_STR, "Ca va", "Musclee", "Musclee", "Pas trop");
+    tmp->next = pd_csv_new_col(col4, pd_str_new_s("Main droite"));
+    tmp = tmp->next;
 
-//     return csv_test;
-// }
+    return csv_test;
+}
 
-// void    pd_csv_with_conf()
-// {
-//     //pd_csv csv_1 = pd_csv_read("res/tim_test1.csv", ',', 1);
-//     pd_csv csv_1 = get_test_csv_1();
-//     pd_csv_print(csv_1);
+void    pd_csv_with_conf()
+{
+    //pd_csv csv_1 = pd_csv_read("res/tim_test1.csv", ',', 1);
+    pd_csv csv_1 = get_test_csv_1();
+    pd_csv_print(csv_1);
 
-//     pd_char_a del_1[1] = {pd_str_new_s("Name")};
-//     pd_char_a ohe_1[2] = {pd_str_new_s("Main droite"), pd_str_new_s("Zizi")};
-//     pd_csv_conf conf = pd_prep_init_conf(pd_arr_new_s(PD_T_STR, 1, del_1), pd_arr_new_s(PD_T_STR, 2, ohe_1));
-//     pd_prep_prepare(&csv_1, &conf);
-//     pd_csv_print(csv_1);
+    pd_char_a *del_1 = pd_arr_create(pd_arr_shape(1, 1), PD_T_STR, "Name");
+    pd_char_a *ohe_1 = pd_arr_create(pd_arr_shape(1, 4), PD_T_STR, "Main droite>", "Zizi");
+    pd_csv_conf conf = pd_prep_init_conf(del_1, ohe_1);
+    pd_prep_prepare(&csv_1, &conf);
+    pd_csv_print(csv_1);
 
-//     pd_csv_free(csv_1);
+    // pd_csv_free(csv_1);
 
-//     printf("Try use other file with this conf -----------------\n\n");
+    printf("Try use other file with this conf -----------------\n\n");
 
-//     pd_csv csv_2 = pd_csv_read("res/tim_test2.csv", ',', 1);
-//     //t_csv csv_2 = get_test_csv_2(); 
-//     pd_csv_print(csv_2);
-//     pd_prep_prepare(&csv_2, &conf);
-// 	pd_csv_print(csv_2);
+    pd_csv csv_3 = pd_csv_read("res/tim_test2.csv", ',', 1);
+    pd_csv csv_2 = get_test_csv_2(); 
+    pd_csv_print(csv_3);
+    pd_prep_prepare(&csv_2, &conf);
+	pd_csv_print(csv_2);
 
-//     pd_csv_free(csv_2);
+    // pd_csv_free(csv_2);
 
-//     pd_prep_free_conf(conf);
-// }
+    // pd_prep_free_conf(conf);
+}
 
 // void    pd_csv_manual()
 // {
@@ -125,7 +125,7 @@
 void        tens_test(void)
 {
     // size_t new_shape[3] = {2, 2, 2};
-    pd_tensor *test = pd_tens_init(pd_arr_shape(3, 2, 2, 2));
+    pd_tensor *test = pd_tens_init_rand(pd_arr_shape(3, 2, 2, 2), -1, 1);
     pd_tensor *test2 = pd_tens_copy(test);
     pd_tens_print(test);
     printf ("\n+\n\n");
@@ -220,10 +220,10 @@ int main(void)
     //t_csv   csv = csv_read("./test.csv", 1);
     //dbug_csv_print(csv);
     // printf("\n-------------- MODE CONF --------------\n");
-    // pd_csv_with_conf();
+    pd_csv_with_conf();
     // printf("\n-------------- MODE MANUAL --------------\n");
     // pd_csv_manual();
-    tens_test();
+    // tens_test();
     //tens_dot_test();
     // pd_time("normal start");
     // pd_tensor* test2 = pd_tens_init_rand(pd_arr_shape(2, 2, 2), -1, 1);
