@@ -31,7 +31,7 @@ pd_tokens_list              *pd_csv_create_tokens_list(int fd, char separator, s
 void                        pd_csv_free_tokens_list(pd_tokens_list *tokens);
 void                        pd_csv_free(pd_csv csv);
 void                        pd_csv_print(pd_csv csv);
-pd_csv_col                  *pd_csv_new_col(pd_arr columns, pd_char_a name);
+pd_csv_col                  *pd_csv_new_col(pd_arr *columns, pd_char_a *name);
 void                        pd_csv_free_col(pd_csv_col *elem);
 
 

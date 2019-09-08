@@ -106,7 +106,7 @@ static pd_csv_col *pd_cols_generator(pd_csv_col **col, pd_ohe_trees **t_tmp)
     for (size_t i = 0; i < str_arr->len; i++)
     {
         name = pd_update_bin_tree(tbegin, (char*)(((pd_char_a**)str_arr->val)[i]->val), &new_index, &total_index);
-        if (name.len == 0)
+        if (name->len == 0)
         {
             pd_prep_add_line(begin_col, new_index, i);
             pd_arr_free(name);
@@ -141,9 +141,9 @@ pd_ohe_trees    *pd_prep_ohe_init(pd_csv *csv, pd_str_a *col_names)
     pd_ohe_trees *t_tmp = NULL;
 
     col_names = pd_prep_name_sort(*csv, col_names);
-    while (col && i < col_names.len)
+    while (col && i < col_names->len)
     {
-        if (col->columns->type == PD_T_STR && pd_str_cmp((char*)col->name->val, (char*)(((pd_str_a**)col_names.val)[i]->val) ) == 0)
+        if (col->columns->type == PD_T_STR && pd_str_cmp((char*)col->name->val, (char*)(((pd_str_a**)col_names->val)[i]->val) ) == 0)
         {
             if (!begin)
             {
