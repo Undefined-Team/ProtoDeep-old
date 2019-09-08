@@ -59,13 +59,14 @@ pd_csv   get_test_csv_2(void)
 
 void    pd_csv_with_conf()
 {
-    //pd_csv csv_1 = pd_csv_read("res/tim_test1.csv", ',', 1);
-    pd_csv csv_1 = get_test_csv_1();
+    pd_csv csv_1 = pd_csv_read("res/tim_test1.csv", ',', 1);
+    // pd_csv csv_1 = get_test_csv_1();
     pd_csv_print(csv_1);
 
     pd_char_a *del_1 = pd_arr_create(pd_arr_shape(1, 1), PD_T_STR, "Name");
-    pd_char_a *ohe_1 = pd_arr_create(pd_arr_shape(1, 4), PD_T_STR, "Main droite>", "Zizi");
+    pd_char_a *ohe_1 = pd_arr_create(pd_arr_shape(1, 2), PD_T_STR, "Main droite>", "Zizi");
     pd_csv_conf conf = pd_prep_init_conf(del_1, ohe_1);
+    pd_csv_print(csv_1);
     pd_prep_prepare(&csv_1, &conf);
     pd_csv_print(csv_1);
 
