@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-pd_csv_conf      pd_prep_init_conf(pd_str_a delete_indexs, pd_str_a ohe_indexs)
+pd_csv_conf      pd_prep_init_conf(pd_str_a *delete_indexs, pd_str_a *ohe_indexs)
 {
     pd_csv_conf new_conf;
 

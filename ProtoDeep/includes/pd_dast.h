@@ -22,7 +22,7 @@
 # define pd_malloc(x)               (x > 0 ? malloc(x) : NULL)
 # define pd_free(x)                 pd_free_ctr((void**)&(x))
 # define PD_PROT_MALLOC(x)          if (!(x)) {return NULL;}
-# define PD_PROT_ARR_TYPE(x, y)     if (x != y) {return pd_arr_new(y, 0, NULL);}
+# define PD_PROT_ARR_TYPE(x, y)     if (x != y) {return NULL;}
 
 # define pd_error(...)              (fprintf(stderr, "%s%s%s[ERROR]%s %s%s: ", PD_COLOR_B, PD_COLOR_U, PD_COLOR_ERR_1, PD_COLOR_N, PD_COLOR_ERR_2, __func__), \
                                     fprintf(stderr, __VA_ARGS__), \

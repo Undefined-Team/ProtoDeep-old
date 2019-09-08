@@ -45,9 +45,9 @@ void pd_merge_sort(size_t *arr, size_t l, size_t r)
     } 
 } 
 
-void  pd_math_si_sort(pd_arr arr) 
+void  pd_math_si_sort(pd_arr *arr) 
 {
-    if (arr.type != PD_T_SIZE_T)
+    if (arr->type != PD_T_SIZE_T)
         return ;
-    pd_merge_sort((size_t*)arr.val, 0, arr.len - 1); 
+    pd_merge_sort((size_t*)arr->val, 0, arr->len - 1); 
 }
