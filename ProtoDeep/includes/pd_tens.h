@@ -15,6 +15,7 @@ typedef struct				pds_tensor {
 // Prototypes
 void        				pd_tens_print_ctr(pd_tensor *tensor, size_t space);
 pd_tensor       			*pd_tens_new(size_t rank, size_t len, void *val, pd_arr *shape);
+pd_tensor   				*pd_tens_init_new(pd_size_t_a *shape);
 pd_tensor   				*pd_tens_init(pd_size_t_a *shape);
 pd_tensor   				*pd_tens_init_rand(pd_size_t_a *shape, float bound_a, float bound_b);
 pd_size_t_a                 *pd_tens_get_shape(pd_tensor *tensor);

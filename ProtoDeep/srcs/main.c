@@ -74,15 +74,15 @@ void    pd_csv_with_conf()
 
     printf("Try use other file with this conf -----------------\n\n");
 
-    // pd_csv csv_2 = pd_csv_read("res/tim_test2.csv", ',', 1);
-    /*pd_csv csv_2 = get_test_csv_2();
+    pd_csv csv_2 = pd_csv_read("res/tim_test2.csv", ',', 1);
+    //pd_csv csv_2 = get_test_csv_2();
     pd_csv_print(csv_2);
     pd_prep_prepare(&csv_2, &conf);
 	pd_csv_print(csv_2);
 
     pd_csv_free(csv_2);
 
-    pd_prep_free_conf(conf);*/
+    pd_prep_free_conf(conf);
 }
 
 void    pd_csv_manual()
@@ -106,8 +106,8 @@ void    pd_csv_manual()
 
     printf("Try use other file with this conf -----------------\n\n");
 
-    // pd_csv csv_2 = pd_csv_read("res/tim_test2.csv", ',', 1);
-    pd_csv csv_2 = get_test_csv_2();
+    pd_csv csv_2 = pd_csv_read("res/tim_test2.csv", ',', 1);
+    //pd_csv csv_2 = get_test_csv_2();
     pd_csv_print(csv_2);
 
     pd_prep_delete(&csv_2, del_str);
@@ -221,11 +221,13 @@ int main(void)
     // pd_time("start program");
     //t_csv   csv = csv_read("./test.csv", 1);
     //dbug_csv_print(csv);
-    printf("\n-------------- MODE CONF --------------\n");
-    pd_csv_with_conf();
-    printf("\n-------------- MODE MANUAL --------------\n");
+    //printf("\n-------------- MODE CONF --------------\n");
+    //pd_csv_with_conf();
+    //printf("\n-------------- MODE MANUAL --------------\n");
     //pd_csv_manual();
-    tens_test();
+    //tens_test();
+    pd_tensor *test = pd_tens_init_new(pd_arr_shape(3, 2, 2, 3));
+    pd_tens_print(test);
     //tens_dot_test();
     // pd_time("normal start");
     // pd_tensor* test2 = pd_tens_init_rand(pd_arr_shape(2, 2, 2), -1, 1);
