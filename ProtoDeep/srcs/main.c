@@ -226,9 +226,46 @@ int main(void)
     //printf("\n-------------- MODE MANUAL --------------\n");
     //pd_csv_manual();
     //tens_test();
-    pd_tensor *test = pd_tens_init_new(pd_arr_shape(3, 2, 2, 3));
-    pd_tens_print(test);
-    pd_tens_free_new(test);
+
+    //pd_tensor *test = pd_tens_init_new_new(pd_arr_shape(3, 2, 2, 3));
+    //pd_tens_print(test);
+    //pd_tens_free_new(test);
+
+    /*pd_time("1");
+    for(size_t i = 0; i < 100; i++)
+    {
+        test = pd_tens_init_new(pd_arr_shape(10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+        pd_tens_free_new(test);
+    }
+    pd_time("1");
+    for(size_t i = 0; i < 100; i++)
+    {
+        test = pd_tens_init(pd_arr_shape(10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+        pd_tens_free(test);
+    }
+    pd_time("1");
+*/
+    pd_tensor *test;
+    /*pd_time("1");
+    for(size_t i = 0; i < 100; i++)
+    {
+        test = pd_tens_init(pd_arr_shape(10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+        pd_tens_free(test);
+    }*/
+    //pd_time("1");
+    for(size_t i = 0; i < 100; i++)
+    {
+        test = pd_tens_init_new(pd_arr_shape(10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+        pd_tens_free_new(test);
+    }
+    //pd_time("1");
+    // for(size_t i = 0; i < 100; i++)
+    // {
+    //     test = pd_tens_init_new_new(pd_arr_shape(10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+    //     pd_tens_free_new(test);
+    // }
+    //pd_time("1");
+
     //tens_dot_test();
     // pd_time("normal start");
     // pd_tensor* test2 = pd_tens_init_rand(pd_arr_shape(2, 2, 2), -1, 1);
