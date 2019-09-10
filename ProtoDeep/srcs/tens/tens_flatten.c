@@ -27,11 +27,10 @@ pd_tensor   *pd_tens_flatten(pd_tensor *tensor)
     pd_size_t_a *len;
 
     len = pd_arr_shape(1, pd_tens_nb_values(tensor));
-    flat = pd_tens_init_new_new(len);
+    flat = pd_tens_init(len);
     t_tensor_val = pd_tens_get_first_val(tensor);
     float *t_flat_val = (float *)flat->val;
     size_t flat_len = flat->len;
-    pd_tens_print(flat);
     if (flat_len > 32000)
     {
         pd_s_flatten s_flatten =

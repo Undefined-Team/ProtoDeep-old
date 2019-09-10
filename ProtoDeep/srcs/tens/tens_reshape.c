@@ -18,7 +18,6 @@ void    pd_tens_check_size(pd_tensor *tensor, pd_size_t_a *shape)
         else
             shape_values *= t_shape_val[i];
     size_t *t_tensor_shape_val = (size_t *)tensor->shape->val;
-    printf("allo\n");
     for (size_t i = 0; i < tensor->shape->len; i++)
         tensor_values *= t_tensor_shape_val[i];
     if (neg && shape_values)
@@ -63,6 +62,8 @@ pd_tensor   *pd_tens_reshape(pd_tensor *tensor, pd_size_t_a *shape)
     reshape = pd_tens_init(shape);
     t_tensor_val = pd_tens_get_first_val(tensor);
     t_reshape_val = pd_tens_get_first_val(reshape);
-    pd_mem_cpy(&t_reshape_val, &t_tensor_val, pd_tens_nb_values(tensor) * sizeof(float));
+    size_t len = pd_tens_nb_values(tensor);
+    for (size_t i = 0; i < len; i++)
+        t_reshape_val[i] = t_tensor_val[i];
     return (reshape);
 }

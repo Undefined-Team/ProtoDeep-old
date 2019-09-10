@@ -51,28 +51,28 @@ static void     pd_tens_copy_ctr(pd_tensor *dst, pd_tensor *src)
     }
 }
 
-static void     *pd_tens_copy_ctr_thread(void * p_data)
-{
-    pd_tens_copy_data st    = *(pd_tens_copy_data*)p_data;
-    pd_tensor *dst          = st.dst;
-    pd_tensor *src          = st.src;
-    size_t     i            = st.i;
-    size_t     len          = st.len;
+// static void     *pd_tens_copy_ctr_thread(void * p_data)
+// {
+//     pd_tens_copy_data st    = *(pd_tens_copy_data*)p_data;
+//     pd_tensor *dst          = st.dst;
+//     pd_tensor *src          = st.src;
+//     size_t     i            = st.i;
+//     size_t     len          = st.len;
 
-    if (src->rank > 1)
-    {
-        pd_tensor **a_dst_val = (pd_tensor**)dst->val;
-        pd_tensor **a_src_val = (pd_tensor**)src->val;
-        for (; i < len; i++) pd_tens_copy_ctr(a_dst_val[i], a_src_val[i]);
-    }
-    else
-    {
-        float *a_dst_val = (float*)dst->val;
-        float *a_src_val = (float*)src->val;
-        for (; i < len; i++) a_dst_val[i] = a_src_val[i];
-    }
-    pthread_exit(NULL);
-}
+//     if (src->rank > 1)
+//     {
+//         pd_tensor **a_dst_val = (pd_tensor**)dst->val;
+//         pd_tensor **a_src_val = (pd_tensor**)src->val;
+//         for (; i < len; i++) pd_tens_copy_ctr(a_dst_val[i], a_src_val[i]);
+//     }
+//     else
+//     {
+//         float *a_dst_val = (float*)dst->val;
+//         float *a_src_val = (float*)src->val;
+//         for (; i < len; i++) a_dst_val[i] = a_src_val[i];
+//     }
+//     pthread_exit(NULL);
+// }
 
 pd_tensor       *pd_tens_copy_new(pd_tensor *tensor)
 {
