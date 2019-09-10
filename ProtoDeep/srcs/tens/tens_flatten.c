@@ -1,42 +1,60 @@
 #include "pd_main.h"
 
-size_t      pd_tens_flatten_len(pd_tensor *tensor)
-{
-    size_t      nb_values = 1;
-    size_t      *t_shape_val = (size_t *)tensor->shape->val;
+typedef struct      pds_s_flatten {
+    size_t          begin;
+    size_t          end;
+    float           *t_flat_val;
+    float           *t_tensor_val;
+}                   pd_s_flatten;
 
-    for (size_t i = 0; i < tensor->shape->len; i++)
-        nb_values *= t_shape_val[i];
-    return (nb_values);
-}
-
-void    pd_tens_get_values(pd_tensor *tensor, size_t *index, pd_tensor *flat)
+void        *pd_tens_set_flat_val(void *p_data)
 {
-    if (tensor->rank > 1)
-    {
-        pd_tensor **t_tensor_val = (pd_tensor **)tensor->val;
-        for (size_t i = 0; i < tensor->len; i++)
-            pd_tens_get_values(t_tensor_val[i], index, flat);
-    }
-    else
-    {
-        float *t_flat_val = (float *)flat->val;
-        float *t_tensor_val = (float *)tensor->val;
-        for (size_t i = 0; i < tensor->len; i++)
-            t_flat_val[(*index)++] = t_tensor_val[i];
-    }
+    pd_s_flatten    st = *(pd_s_flatten *)p_data;
+    size_t          begin = st.begin;
+    size_t          end = st.end;
+    float           *t_flat_val = st.t_flat_val;
+    float           *t_tensor_val = st.t_tensor_val;
+
+    for (size_t i = begin; i < end; i++)
+        t_flat_val[i] = t_tensor_val[i];
+    pthread_exit(NULL);
 }
 
 pd_tensor   *pd_tens_flatten(pd_tensor *tensor)
 {
     pd_tensor   *flat;
+    float       *t_tensor_val;
     pd_size_t_a *len;
-    size_t      index = 0;
 
-    index = 0;
-    len = pd_arr_init(PD_T_SIZE_T, 1);
-    ((size_t *)len->val)[0] = pd_tens_flatten_len(tensor);
-    flat = pd_tens_init(len);
-    pd_tens_get_values(tensor, &index, flat);
+    len = pd_arr_shape(1, pd_tens_nb_values(tensor));
+    flat = pd_tens_init_new_new(len);
+    t_tensor_val = pd_tens_get_first_val(tensor);
+    float *t_flat_val = (float *)flat->val;
+    size_t flat_len = flat->len;
+    pd_tens_print(flat);
+    if (flat_len > 32000)
+    {
+        pd_s_flatten s_flatten =
+        {
+            .begin = 0,
+            .end = flat_len / 2,
+            .t_flat_val = t_flat_val,
+            .t_tensor_val = t_tensor_val,
+        };
+        pd_s_flatten s_flatten2 =
+        {
+            .begin = flat_len / 2 + 1,
+            .end = flat_len,
+            .t_flat_val = t_flat_val,
+            .t_tensor_val = t_tensor_val,
+        };
+        pthread_t thread[2];
+        pthread_create(&thread[0], NULL, pd_tens_set_flat_val, &s_flatten);
+        pthread_create(&thread[1], NULL, pd_tens_set_flat_val, &s_flatten2);
+        for (size_t i = 0; i < 2; i++) pthread_join(thread[i], NULL);
+    }
+    else
+        for (size_t i = 0; i < flat_len; i++)
+            t_flat_val[i] = t_tensor_val[i];
     return (flat);
 }

@@ -127,6 +127,18 @@ static void *pd_set_mem_float(void * p_data)
 
 pd_tensor   *pd_tens_init_new_new(pd_size_t_a *shape)
 {
+    if (shape->len == 1)
+    {
+        pd_tensor *tensor = malloc(sizeof(pd_tensor));
+        size_t nbr_float = ((size_t *)shape->val)[0];
+        
+        tensor->rank = 1;
+        tensor->len = nbr_float;
+        tensor->val = malloc(nbr_float * sizeof(float));
+        tensor->shape = shape;
+        pd_mem_set(tensor->val, 0, sizeof(float) * nbr_float);
+        return (tensor);
+    }
     size_t nbr_float;
     size_t nbr_tensor;
     size_t nbr_p_tensor;

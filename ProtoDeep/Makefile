@@ -48,6 +48,7 @@ MEM				=	mem_pack.c 		\
 DAST_FLD		=	dast/
 DAST			=	dast_free.c 		\
 					dast_time.c			\
+					dast_malloc.c		\
 
 ARR_FLD			=	arr/
 ARR				=	arr_free.c 			\
@@ -97,6 +98,8 @@ TENS			=	tens_init.c 			\
 					tens_free_new.c 		\
 					tens_reshape.c 		 	\
 					tens_flatten.c 		 	\
+					tens_get_first_val.c	\
+					tens_nb_values.c		\
 
 NN_FLD			=	nn/
 NN				=	nn_config.c			\

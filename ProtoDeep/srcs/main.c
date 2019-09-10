@@ -253,11 +253,19 @@ int main(void)
         pd_tens_free(test);
     }*/
     //pd_time("1");
-    for(size_t i = 0; i < 100; i++)
-    {
-        test = pd_tens_init_new(pd_arr_shape(10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
-        pd_tens_free_new(test);
-    }
+    test = pd_tens_init_new_new(pd_arr_shape(3, 1, 2, 3));
+    pd_tens_print(test);
+    // pd_tens_print(test);
+    pd_tensor *flat = pd_tens_flatten(test);
+    pd_tens_print(flat);
+    pd_tensor *reshape = pd_tens_reshape(flat, pd_arr_shape(3, 3, 2, 1));
+    pd_tens_print(reshape);
+    // pd_tens_free(flat);
+    // for (size_t i = 0; i < 1000; i++) {
+    //     pd_tensor *flat = pd_tens_flatten(test);
+    //     pd_tens_free_new(flat);
+    // }
+    // pd_tens_print(flat);
     //pd_time("1");
     // for(size_t i = 0; i < 100; i++)
     // {
