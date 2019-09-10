@@ -85,7 +85,7 @@ MATRIX			=	matrix_dot.c		\
 
 TENS_FLD		=	tens/
 TENS			=	tens_init.c 			\
-					tens_init_new.c		\
+					tens_init_new.c			\
 					tens_get_shape.c		\
 					tens_print.c 			\
 					tens_new.c 				\
@@ -93,6 +93,7 @@ TENS			=	tens_init.c 			\
 					tens_concat.c 			\
 					tens_transpose.c 		\
 					tens_free.c 		 	\
+					tens_free_new.c 		\
 					tens_reshape.c 		 	\
 					tens_flatten.c 		 	\
 

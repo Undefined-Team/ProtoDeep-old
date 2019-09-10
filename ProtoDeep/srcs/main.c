@@ -228,6 +228,7 @@ int main(void)
     //tens_test();
     pd_tensor *test = pd_tens_init_new(pd_arr_shape(3, 2, 2, 3));
     pd_tens_print(test);
+    pd_tens_free_new(test);
     //tens_dot_test();
     // pd_time("normal start");
     // pd_tensor* test2 = pd_tens_init_rand(pd_arr_shape(2, 2, 2), -1, 1);

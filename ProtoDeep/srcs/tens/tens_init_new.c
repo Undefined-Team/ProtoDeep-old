@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-static size_t *pd_get_shape_mult(size_t *a_shape, size_t shape_len, size_t *nbr_float, size_t *nbr_p_tensor)
+static size_t *pd_get_shape_div(size_t *a_shape, size_t shape_len, size_t *nbr_float, size_t *nbr_p_tensor)
 {
     size_t *a_shape_div = malloc(sizeof(size_t) * shape_len);
     size_t t_nbr_p_tensor = a_shape[0];
@@ -27,18 +27,16 @@ pd_tensor   *pd_tens_init_new(pd_size_t_a *shape)
     size_t nbr_p_tensor;
     size_t shape_len = shape->len;
     size_t *a_shape = (size_t*)shape->val;
+    pd_free(shape);
 
-    size_t *shape_div = pd_get_shape_mult(a_shape, shape_len, &nbr_float, &nbr_p_tensor);
+    size_t *shape_div = pd_get_shape_div(a_shape, shape_len, &nbr_float, &nbr_p_tensor);
     nbr_tensor = nbr_p_tensor + 1;
 
-    pd_arr_print(pd_arr_new(PD_T_SIZE_T, shape->len, shape_div));
-    printf("%zd %zd %zd\n", nbr_p_tensor, nbr_tensor, nbr_float);
-    // exit(0);
     float       *mem_float      = pd_malloc(sizeof(float) * nbr_float);
     pd_tensor   **mem_p_tensor  = pd_malloc(sizeof(pd_tensor*) * nbr_p_tensor);
     pd_tensor   *mem_tensor     = pd_malloc(sizeof(pd_tensor) * nbr_tensor);
-
-    // MALLOC TT LES SHAPE D UN COUP
+    pd_arr      *new_shapes     = pd_malloc(sizeof(pd_arr) * shape_len);
+    pd_mem_set(mem_float, 0, sizeof(float) * nbr_float);
 
     size_t i = 0;
     size_t j = 0;
@@ -51,19 +49,18 @@ pd_tensor   *pd_tens_init_new(pd_size_t_a *shape)
     pd_size_t_a *new_shape;
     while (i < shape_len - 1)
     {
-        new_shape = pd_arr_new(PD_T_SIZE_T, rank, &shape[i]);
+        new_shape = &new_shapes[i];
+        pd_arr_val(new_shape, PD_T_SIZE_T, rank, &a_shape[i]);
         t_shape_div = shape_div[i];
         t_shape = a_shape[i];
         while (j < t_shape_div)
         {
-            printf("i = %zd j = %zd ipt = %zd, it = %zd\n", i, j, i_p_tensor, i_tensor);
             mem_tensor[j].val = &mem_p_tensor[i_p_tensor];
-            printf("cc\n");
             step = t_shape;
             mem_tensor[j].len = step;
             mem_tensor[j].rank = rank;
             mem_tensor[j].shape = new_shape;
-            while (i_p_tensor < step)
+            for (size_t k = 0; k < step; k++)
                 mem_p_tensor[i_p_tensor++] = &mem_tensor[i_tensor++];
             j++;
         }
@@ -73,7 +70,8 @@ pd_tensor   *pd_tens_init_new(pd_size_t_a *shape)
 
     size_t i_float = 0;
     step = a_shape[i];
-    new_shape = pd_arr_new(PD_T_SIZE_T, 1, &shape[i]);
+    new_shape = &new_shapes[i];
+    pd_arr_val(new_shape, PD_T_SIZE_T, 1, &a_shape[i]);
     t_shape_div = shape_div[i];
     while (j < t_shape_div)
     {
@@ -84,5 +82,6 @@ pd_tensor   *pd_tens_init_new(pd_size_t_a *shape)
         i_float += step;
         j++;
     }
+    pd_free(shape_div);
     return &mem_tensor[0];
 }
