@@ -2,7 +2,12 @@
 # define PD_TENS_H
 
 // Macro
-# define pd_tens_print(x)	pd_tens_print_ctr(x, 0)
+# define pd_tens_print(x)							pd_tens_print_ctr(x, 0)
+typedef enum {PD_TENS_INIT, PD_TENS_INIT_VAL, PD_TENS_INIT_RAND, PD_TENS_INIT_CPY} pd_tens_init_type;
+# define pd_tens_init(shape)						pd_tens_init_ctr(shape, PD_TENS_INIT, 0, 0)
+# define pd_tens_init_val(shape, value) 			pd_tens_init_ctr(shape, PD_TENS_INIT_VAL, value, 0)
+# define pd_tens_init_rand(shape, bound_1, bound_2) pd_tens_init_ctr(shape, PD_TENS_INIT_RAND, bound_1, bound_2)
+# define pd_tens_copy(tensor)						pd_tens_init_ctr(tensor, PD_TENS_INIT_CPY, 0, 0)
 
 // Structures
 typedef struct				pds_tensor {
@@ -15,12 +20,13 @@ typedef struct				pds_tensor {
 // Prototypes
 void        				pd_tens_print_ctr(pd_tensor *tensor, size_t space);
 pd_tensor       			*pd_tens_new(size_t rank, size_t len, void *val, pd_arr *shape);
-pd_tensor   				*pd_tens_init_new(pd_size_t_a *shape);
-pd_tensor   				*pd_tens_init_new_new(pd_size_t_a *shape);
-pd_tensor   				*pd_tens_init(pd_size_t_a *shape);
-pd_tensor   				*pd_tens_init_rand(pd_size_t_a *shape, float bound_a, float bound_b);
+// pd_tensor   				*pd_tens_init_new(pd_size_t_a *shape);
+pd_tensor  					*pd_tens_init_ctr(void *shape, pd_tens_init_type init_type, float in_a, float in_b);
+// pd_tensor   				*pd_tens_init(pd_size_t_a *shape);
+// pd_tensor   				*pd_tens_init_rand(pd_size_t_a *shape, float bound_a, float bound_b);
 pd_size_t_a                 *pd_tens_get_shape(pd_tensor *tensor);
-pd_tensor 					*pd_tens_copy(pd_tensor *tensor);
+pd_tensor       			*pd_tens_copy_new(pd_tensor *tensor);
+// pd_tensor 					*pd_tens_copy(pd_tensor *tensor);
 pd_tensor 					*pd_tens_concat(pd_tensor *tensor_a, pd_tensor *tensor_b, int axis);
 void        				pd_tens_free_new(pd_tensor *tensor);
 void        				pd_tens_free(pd_tensor *tensor);

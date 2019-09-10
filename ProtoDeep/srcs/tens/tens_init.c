@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-pd_tensor       *pd_tens_init_ctr(size_t *shape, size_t rank)
+static pd_tensor       *pd_tens_init_ctro(size_t *shape, size_t rank)
 {
     pd_tensor *new_tensor;
 
@@ -24,12 +24,12 @@ pd_tensor       *pd_tens_init_ctr(size_t *shape, size_t rank)
     rank--;
     shape++;
     for (size_t i = 0; i < new_tensor_len; i++)
-        a_new_tensor[i] = pd_tens_init_ctr(shape, rank);
+        a_new_tensor[i] = pd_tens_init_ctro(shape, rank);
     new_tensor->shape = pd_tens_get_shape(new_tensor);
     return new_tensor;
 }
 
-pd_tensor   *pd_tens_init_rand_ctr(size_t *shape, size_t rank, float bound_a, float bound_b)
+static pd_tensor   *pd_tens_init_rand_ctro(size_t *shape, size_t rank, float bound_a, float bound_b)
 {
     pd_tensor *new_tensor;
 
@@ -53,14 +53,14 @@ pd_tensor   *pd_tens_init_rand_ctr(size_t *shape, size_t rank, float bound_a, fl
     rank--;
     shape++;
     for (size_t i = 0; i < new_tensor_len; i++)
-        a_new_tensor[i] = pd_tens_init_rand_ctr(shape, rank, bound_a, bound_b);
+        a_new_tensor[i] = pd_tens_init_rand_ctro(shape, rank, bound_a, bound_b);
     new_tensor->shape = pd_tens_get_shape(new_tensor);
     return new_tensor;
 }
 
 pd_tensor   *pd_tens_init(pd_size_t_a *shape)
 {
-    pd_tensor *tensor = pd_tens_init_ctr((size_t*)shape->val, shape->len);
+    pd_tensor *tensor = pd_tens_init_ctro((size_t*)shape->val, shape->len);
     pd_arr_free(shape);
     return tensor;
 }
@@ -68,7 +68,7 @@ pd_tensor   *pd_tens_init(pd_size_t_a *shape)
 
 pd_tensor   *pd_tens_init_rand(pd_size_t_a *shape, float bound_a, float bound_b)
 {
-    pd_tensor *tensor = pd_tens_init_rand_ctr((size_t*)shape->val, shape->len, bound_a, bound_b);
+    pd_tensor *tensor = pd_tens_init_rand_ctro((size_t*)shape->val, shape->len, bound_a, bound_b);
     pd_arr_free(shape);
     return tensor;
 }
