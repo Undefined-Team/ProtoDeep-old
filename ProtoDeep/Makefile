@@ -44,7 +44,8 @@ STR				=	str_len.c			\
 					str_cmp.c 			\
 
 MEM_FLD			=	mem/
-MEM				=	mem_pack.c 		\
+MEM				=	mem_pack.c 			\
+					mem_qcpy.c			\
 
 DAST_FLD		=	dast/
 DAST			=	dast_free.c 		\

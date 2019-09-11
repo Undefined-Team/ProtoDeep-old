@@ -63,7 +63,8 @@ pd_tensor   *pd_tens_reshape(pd_tensor *tensor, pd_size_t_a *shape)
     t_tensor_val = pd_tens_get_first_val(tensor);
     t_reshape_val = pd_tens_get_first_val(reshape);
     size_t len = pd_tens_nb_values(tensor);
-    for (size_t i = 0; i < len; i++)
-        t_reshape_val[i] = t_tensor_val[i];
+    pd_mem_qcpy(t_reshape_val, t_tensor_val, len * sizeof(float));
+    // for (size_t i = 0; i < len; i++)
+    //     t_reshape_val[i] = t_tensor_val[i];
     return (reshape);
 }
