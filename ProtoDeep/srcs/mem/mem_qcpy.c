@@ -269,16 +269,16 @@ void    pd_mem_qcpy(void *dst, void *src, size_t len)
         pd_mem_qcpy_2147483648,
         pd_mem_qcpy_4294967296
     };
-    for (size_t i = 32; i > 0; i--)
+    for (size_t i = 32; i > 4; i--)
     {
-        while ((len >> i))
+        if ((len >> i))
         {
-            // printf("%zd\n", i);
-            if (qcpy[(i / 4) - 1](dst_tmp, src_tmp))
+            if (qcpy[i - 4](dst_tmp, src_tmp))
                 return;
             len -= (1 << i);
             dst_tmp += (1 << i);
             src_tmp += (1 << i);
+            break;
         }
     }
     char *d = (char *)dst_tmp;
