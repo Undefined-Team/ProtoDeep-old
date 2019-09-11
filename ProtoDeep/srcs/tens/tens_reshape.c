@@ -55,13 +55,16 @@ void    pd_tens_reshape_from_flat(pd_tensor *flat, size_t *index, pd_tensor *res
 pd_tensor   *pd_tens_reshape(pd_tensor *tensor, pd_size_t_a *shape)
 {
     pd_tensor   *reshape;
-    pd_tensor   *flat;
-    size_t      index = 0;
+    float       *t_tensor_val;
+    float       *t_reshape_val;
 
     pd_tens_check_size(tensor, shape);
     reshape = pd_tens_init(shape);
-    flat = pd_tens_flatten(tensor);
-    pd_tens_reshape_from_flat(flat, &index, reshape);
-	pd_tens_free(flat);
+    t_tensor_val = pd_tens_get_first_val(tensor);
+    t_reshape_val = pd_tens_get_first_val(reshape);
+    size_t len = pd_tens_nb_values(tensor);
+    pd_mem_qcpy(t_reshape_val, t_tensor_val, len * sizeof(float));
+    // for (size_t i = 0; i < len; i++)
+    //     t_reshape_val[i] = t_tensor_val[i];
     return (reshape);
 }

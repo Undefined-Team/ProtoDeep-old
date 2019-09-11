@@ -19,7 +19,7 @@
 # define PD_COLOR_4                 "\x1b[38;2;255;127;17m"
 # define PD_COLOR_5                 "\x1b[38;2;255;1;251m"
 
-# define pd_malloc(x)               (x > 0 ? malloc(x) : NULL)
+# define pd_malloc(x)               pd_dast_malloc(x)
 # define pd_free(x)                 pd_free_ctr((void**)&(x))
 # define PD_PROT_MALLOC(x)          if (!(x)) {return NULL;}
 # define PD_PROT_ARR_TYPE(x, y)     if (x != y) {return NULL;}
@@ -43,6 +43,7 @@ typedef enum {false,true} bool;
 // Prototypes
 void	                            pd_free_ctr(void **ap);
 double                              pd_dast_update_time(void);
+void                                *pd_dast_malloc(size_t len);
 
 extern char                         *pd_color_t[];
 

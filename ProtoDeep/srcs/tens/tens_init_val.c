@@ -39,6 +39,7 @@ pd_tensor *pd_tens_init_val(pd_size_t_a *shape, float val)
     pd_free(shape);
 
     size_t *shape_div = pd_get_shape_div(a_shape, shape_len, &nbr_float, &nbr_p_tensor, &nbr_tensor);
+    // printf("%zd %zd %zd\n", nbr_float, nbr_p_tensor, nbr_tensor);
 
     float       *mem_float      = pd_malloc(sizeof(float) * nbr_float);
     pd_tensor   **mem_p_tensor  = pd_malloc(sizeof(pd_tensor*) * nbr_p_tensor);

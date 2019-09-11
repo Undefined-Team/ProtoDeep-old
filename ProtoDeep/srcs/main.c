@@ -160,25 +160,35 @@ void        tens_test(void)
     pd_tens_free(test2);*/
 }
 
-/*void        tens_dot_test(void)
+void        tens_dot_test(void)
 {
-    // pd_tensor a = pd_tens_init(pd_arr_shape(5, 3, 4, 5, 6, 7));
-    // pd_tensor b = pd_tens_init(pd_arr_shape(5, 3, 4, 5, 6, 7));
+    // pd_tensor *test = pd_tens_init_rand(pd_arr_shape(3, 1, 2, 3), -1, 1);
+    // pd_tens_print(test);
+    // pd_tens_print(test);
+    // pd_tensor *flat = pd_tens_flatten(test);
+    // pd_tens_print(flat);
+    // pd_tensor *reshape = pd_tens_reshape(flat, pd_arr_shape(3, 3, 2, 1));
+    // pd_tens_print(reshape);
+    // pd_tensor *a = pd_tens_init_rand(pd_arr_shape(5, 3, 4, 5, 6, 7), 2, 2);
+    // pd_tensor *b = pd_tens_init_rand(pd_arr_shape(5, 3, 4, 5, 6, 7), 3, 3);
     // pd_tensor c = pd_tens_init(pd_arr_shape(2, 3, 4));
     // pd_tensor d = pd_tens_init(pd_arr_shape(3, 3, 4, 6));
     // pd_tensor t = pd_tens_init(pd_arr_shape(3, 3, 2, 3));
     // pd_tensor x = pd_tens_init(pd_arr_shape(5, 9, 2, 1, 1, 1));
-    pd_tensor a = pd_tens_init_rand(pd_arr_shape(2, 3, 3), 1, 2);
-    // pd_tensor a2 = pd_tens_init_rand(pd_arr_shape(5, 3, 3, 3, 3, 3), 2, 2);
-    // pd_tensor a3 = pd_tens_init_rand(pd_arr_shape(5, 3, 4, 3, 4, 3), 3, 3);
-    pd_tens_print(a);
-    a = pd_tens_flatten(a);
-    pd_tens_print(a);
+    // pd_tensor a = pd_tens_init_rand(pd_arr_shape(2, 3, 3), 1, 2);
+    //pd_tensor *a2 = pd_tens_init_rand(pd_arr_shape(4, 1, 2, 3, 4), 1, 2);
+    // pd_tens_print(a2);
+    // pd_tens_print(a2);
+    //pd_tens_print(a2);
+    // pd_tensor *a3 = pd_tens_init_rand(pd_arr_shape(5, 3, 4, 3, 4, 3), 3, 3);
+    // pd_tens_print(a);
+    // a = pd_tens_flatten(a);
+    // pd_tens_print(a);
     // pd_tens_print(a);
     // pd_tens_print(a2);
     // pd_tensor matrix1 = pd_tens_init(pd_arr_shape(2, 3, 6));
     // pd_tensor matrix2 = pd_tens_init(pd_arr_shape(2, 10, 3));
-    // pd_arr axis = pd_arr_create(pd_arr_shape(2, 2, 2), PD_T_SIZE_T, 4, 0, 0, 4);
+    // pd_arr *axis = pd_arr_create(pd_arr_shape(2, 2, 2), PD_T_SIZE_T, 4, 0, 0, 4);
     // pd_arr ton_dar_le_hibou = pd_arr_create(pd_arr_shape(2, 2, 2), PD_T_STR, "ton", "dar", "le", "hibou");
     // pd_arr_print(ton_dar_le_hibou);
     // pd_tens_reshape(t, pd_arr_shape(5, 9, 2, 1, 1, 1));
@@ -197,7 +207,17 @@ void        tens_test(void)
     // pd_tens_print(matrix1);
     // pd_tens_print(matrix2);
     // pd_matrix_dot(matrix1, matrix2);
-    // pd_tens_dot(a, b, axis);
+    //for (size_t i = 0; i < 500; i++) {
+    //     pd_tensor *reshape = pd_tens_flatten(a2);
+    //    pd_tens_free(reshape);
+    //}
+    // pd_tens_print(reshape);
+    // pd_tens_print(flat);
+    // for (size_t i = 0; i < 1000; i++)
+    // {
+    //     pd_tensor *dot = pd_tens_dot(a2, a3, pd_arr_copy(axis));
+    //     pd_tens_free(dot);
+    // }
     // pd_tens_print(matrix1);
     // pd_tens_print(matrix2);
     // pd_matrix_dot(matrix1, matrix2);
@@ -209,7 +229,7 @@ void        tens_test(void)
     // printf("%f\n", pd_arr_float(test3, 0, 0, 1));
 }
 
-void    arr_create_test()
+/*void    arr_create_test()
 {
     pd_arr test = pd_arr_create(pd_arr_shape(2, 2, 1), PD_T_STR, "wsh", "alors");
     pd_arr_print(test);
@@ -226,6 +246,7 @@ int main(void)
     //printf("\n-------------- MODE MANUAL --------------\n");
     //pd_csv_manual();
     //tens_test();
+    tens_dot_test();
 
     //pd_tensor *test = pd_tens_init_new_new(pd_arr_shape(3, 2, 2, 3));
     //pd_tens_print(test);
@@ -245,17 +266,20 @@ int main(void)
     }
     pd_time("1");
 */
+    // pd_tensor *flat = pd_tens_init_val(pd_arr_shape(1, 1), 1);
+    // pd_tens_print(flat);
+    // exit(0);
     pd_tensor *test;
     test = pd_tens_init_val(pd_arr_shape(10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1), 2);
-    //pd_tens_print(test);
-    pd_tensor *test2;//
+    // pd_tens_print(test);
+    pd_tensor *test2;
 
     for(size_t i = 0; i < 1; i++)
     {
         test2 = pd_tens_transpose(test, pd_arr_shape(10, 1, 0, 2, 3, 4, 5, 6, 7, 8, 9, 10));
-        pd_tens_free_new(test2);
+        pd_tens_free(test2);
     }
-
+    pd_tens_free(test);
     // test = pd_tens_init_val(pd_arr_shape(10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), 0);
     //pd_tensor *test2 = pd_tens_cpy(test);
     //pd_tens_print(test2);
@@ -286,6 +310,13 @@ int main(void)
         test = pd_tens_init(pd_arr_shape(10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
         pd_tens_free(test);
     }*/
+    //pd_time("1");
+    // pd_tens_free(flat);
+    // for (size_t i = 0; i < 1000; i++) {
+    //     pd_tensor *flat = pd_tens_flatten(test);
+    //     pd_tens_free_new(flat);
+    // }
+    // pd_tens_print(flat);
     //pd_time("1");
     // for(size_t i = 0; i < 100; i++)
     // {

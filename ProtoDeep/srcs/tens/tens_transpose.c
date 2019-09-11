@@ -61,37 +61,6 @@ static void            pd_update_value(pd_tensor *tensor, float *flatten, size_t
     }
 }
 
-pd_tensor       *pd_tens_transpose(pd_tensor *tensor, pd_size_t_a *new_dim)
-{
-    if (tensor->rank != new_dim->len) pd_error("There must be as many new dimensions as the rank of the tensor-> (tensor->rank == new_dim->len)");
-    bool valid[new_dim->len];
-    pd_mem_set(valid, false, sizeof(bool) * new_dim->len);
-    size_t *t_new_dim = (size_t*)new_dim->val;
-    size_t t_index;
-    size_t new_dim_len = new_dim->len;
-    for (size_t i = 0; i < new_dim_len; i++)
-    {
-        t_index = t_new_dim[i];
-        if (t_index >= new_dim_len)
-            pd_error("A dimension can't be greater than the number of dimensions (new_dim->val[i] < new_dim->length)");
-        if (valid[t_index] == true)
-            pd_error("2 dimensions can't have the same dimension");
-        valid[t_index] = true;
-    }
-    size_t flat_len;
-    pd_size_t_a *new_shape = pd_get_new_shape(tensor->shape, new_dim, &flat_len);
-    size_t *new_shape_mult = pd_get_shape_mult(new_shape);
-    pd_tensor *new_flatten = pd_tens_init(pd_arr_shape(1, flat_len));
-    size_t *coord = pd_malloc(sizeof(size_t) * tensor->shape->len);
-    pd_update_value(tensor, (float*)new_flatten->val, 0, coord, (size_t*)new_dim->val, new_shape_mult);
-    pd_tensor *transpose_tensor = pd_tens_reshape(new_flatten, new_shape);
-    pd_tens_free_new(new_flatten);
-    pd_arr_free(new_dim);
-    pd_free(new_shape_mult);
-    pd_free(coord);
-    return transpose_tensor;
-}
-
 // pd_tensor       *pd_tens_transpose(pd_tensor *tensor, pd_size_t_a *new_dim)
 // {
 //     if (tensor->rank != new_dim->len) pd_error("There must be as many new dimensions as the rank of the tensor-> (tensor->rank == new_dim->len)");
@@ -112,18 +81,44 @@ pd_tensor       *pd_tens_transpose(pd_tensor *tensor, pd_size_t_a *new_dim)
 //     size_t flat_len;
 //     pd_size_t_a *new_shape = pd_get_new_shape(tensor->shape, new_dim, &flat_len);
 //     size_t *new_shape_mult = pd_get_shape_mult(new_shape);
-// //pd_tensor *new_flatten = pd_tens_init(pd_arr_shape(1, flat_len));
+//     pd_tensor *new_flatten = pd_tens_init(pd_arr_shape(1, flat_len));
 //     size_t *coord = pd_malloc(sizeof(size_t) * tensor->shape->len);
-
-//     pd_tensor *new_tensor = pd_tens_init(new_shape);
-//     pd_tensor *tmp_tensor = new_tensor;
-//     while (tmp_tensor->rank > 1) tmp_tensor = ((pd_tensor**)tmp_tensor->val)[0];
-//     pd_update_value(tensor, (float*)tmp_tensor->val, 0, coord, (size_t*)new_dim->val, new_shape_mult);
-//     //pd_tensor *transpose_tensor = pd_tens_reshape(new_flatten, new_shape);
-//     //pd_tens_free(new_flatten);
-    
+//     pd_update_value(tensor, (float*)new_flatten->val, 0, coord, (size_t*)new_dim->val, new_shape_mult);
+//     pd_tensor *transpose_tensor = pd_tens_reshape(new_flatten, new_shape);
+//     pd_tens_free(new_flatten);
 //     pd_arr_free(new_dim);
 //     pd_free(new_shape_mult);
 //     pd_free(coord);
-//     return new_tensor;
+//     return transpose_tensor;
 // }
+
+pd_tensor       *pd_tens_transpose(pd_tensor *tensor, pd_size_t_a *new_dim)
+{
+    if (tensor->rank != new_dim->len) pd_error("There must be as many new dimensions as the rank of the tensor-> (tensor->rank == new_dim->len)");
+    bool valid[new_dim->len];
+    pd_mem_set(valid, false, sizeof(bool) * new_dim->len);
+    size_t *t_new_dim = (size_t*)new_dim->val;
+    size_t t_index;
+    size_t new_dim_len = new_dim->len;
+    for (size_t i = 0; i < new_dim_len; i++)
+    {
+        t_index = t_new_dim[i];
+        if (t_index >= new_dim_len)
+            pd_error("A dimension can't be greater than the number of dimensions (new_dim->val[i] < new_dim->length)");
+        if (valid[t_index] == true)
+            pd_error("2 dimensions can't have the same dimension");
+        valid[t_index] = true;
+    }
+    size_t flat_len;
+    pd_size_t_a *new_shape = pd_get_new_shape(tensor->shape, new_dim, &flat_len);
+    size_t *new_shape_mult = pd_get_shape_mult(new_shape);
+    size_t *coord = pd_malloc(sizeof(size_t) * tensor->shape->len);
+    pd_tensor *new_tensor = pd_tens_init(new_shape);
+    pd_tensor *tmp_tensor = new_tensor;
+    while (tmp_tensor->rank > 1) tmp_tensor = ((pd_tensor**)tmp_tensor->val)[0];
+    pd_update_value(tensor, (float*)tmp_tensor->val, 0, coord, (size_t*)new_dim->val, new_shape_mult);
+    pd_arr_free(new_dim);
+    pd_free(new_shape_mult);
+    pd_free(coord);
+    return new_tensor;
+}

@@ -44,11 +44,13 @@ STR				=	str_len.c			\
 					str_cmp.c 			\
 
 MEM_FLD			=	mem/
-MEM				=	mem_pack.c 		\
+MEM				=	mem_pack.c 			\
+					mem_qcpy.c			\
 
 DAST_FLD		=	dast/
 DAST			=	dast_free.c 		\
 					dast_time.c			\
+					dast_malloc.c		\
 
 ARR_FLD			=	arr/
 ARR				=	arr_free.c 			\
@@ -99,9 +101,11 @@ TENS			=	tens_copy_old.c 		\
 					tens_new.c 				\
 					tens_transpose.c 		\
 					tens_free.c 		 	\
-					tens_free_new.c 		\
 					tens_reshape.c 		 	\
 					tens_flatten.c 		 	\
+					tens_get_first_val.c	\
+					tens_nb_values.c		\
+					tens_dot.c				\
 
 NN_FLD			=	nn/
 NN				=	nn_config.c			\

@@ -1,10 +1,10 @@
-#include "pd_main->h"
+#include "pd_main.h"
 
 pd_arr      *pd_tens_get_counter_axis(size_t len, pd_arr *axis)
 {
     size_t          j_a = 0;
     size_t          j_b = 0;
-    pd_arr          counter_axis;
+    pd_arr          *counter_axis;
     
     counter_axis = pd_arr_init(PD_T_ARR, 2);
     ((pd_arr **)counter_axis->val)[0] = pd_arr_init(PD_T_SIZE_T, len - ((pd_arr **)axis->val)[0]->len);
@@ -36,22 +36,23 @@ pd_arr      *pd_tens_get_counter_axis(size_t len, pd_arr *axis)
 
 pd_arr   *pd_tens_get_new_axes(pd_arr *counter_axis, pd_arr *axis)
 {
-    pd_arr          new_axes = pd_arr_init(PD_T_ARR, 2);
+    pd_arr          *new_axes = pd_arr_init(PD_T_ARR, 2);
 
     ((pd_arr **)new_axes->val)[0] = pd_arr_init(PD_T_SIZE_T, ((pd_arr **)counter_axis->val)[0]->len + ((pd_arr **)axis->val)[0]->len);
     ((pd_arr **)new_axes->val)[1] = pd_arr_init(PD_T_SIZE_T, ((pd_arr **)counter_axis->val)[1]->len + ((pd_arr **)axis->val)[1]->len);
+    size_t *t_counter_axis_a_val = (size_t *)((pd_arr **)counter_axis->val)[0]->val;
+    size_t *t_counter_axis_b_val = (size_t *)((pd_arr **)counter_axis->val)[1]->val;
+    size_t *new_axes_a_val = (size_t *)((pd_arr **)new_axes->val)[0]->val;
+    size_t *new_axes_b_val = (size_t *)((pd_arr **)new_axes->val)[1]->val;
+    size_t counter_axis_len = ((pd_arr **)counter_axis->val)[0]->len;
+    size_t *t_axis_a_val = (size_t *)((pd_arr **)axis->val)[0]->val;
+    size_t *t_axis_b_val = (size_t *)((pd_arr **)axis->val)[1]->val;
 
-    size_t *new_axes_a_val = (size_t *)((pd_arr **)new_axes->val)[0];
-    size_t *new_axes_b_val = (size_t *)((pd_arr **)new_axes->val)[1];
-
-    for (size_t i = 0; i < ((pd_arr **)counter_axis->val)[0]->len; i++)
+    for (size_t i = 0; i < counter_axis_len; i++)
     {
         new_axes_a_val[i] = t_counter_axis_a_val[i];
         new_axes_b_val[i] = t_counter_axis_b_val[i];
     }
-
-    size_t *counter_axis_len = ((pd_arr **)counter_axis->val)[0]->len;
-
     for (size_t i = counter_axis_len; i < counter_axis_len + ((pd_arr **)axis->val)[0]->len; i++)
     {
         new_axes_a_val[i] = t_axis_a_val[i - counter_axis_len];
@@ -89,13 +90,13 @@ pd_tensor   *pd_tens_get_res(pd_tensor *a, pd_tensor *b, pd_arr *new_axes, pd_si
 	return (res);
 }
 
-pd_tensor    pd_tens_dot(pd_tensor *a, pd_tensor *b, pd_arr axis)
+pd_tensor    *pd_tens_dot(pd_tensor *a, pd_tensor *b, pd_arr *axis)
 {
     pd_arr          *counter_axis;
     pd_size_t_a     *n = pd_arr_create(pd_arr_shape(1, 2), PD_T_SIZE_T, 1, 1);
     pd_size_t_a     *m = pd_arr_create(pd_arr_shape(1, 2), PD_T_SIZE_T, 1, 1);
     pd_arr          *old = pd_arr_init(PD_T_ARR, 2);
-    pd_arr          *new_axes;
+    pd_arr          *new_axes = NULL;
 
     size_t *t_n_val = (size_t *)n->val;
     size_t *t_m_val = (size_t *)m->val;
