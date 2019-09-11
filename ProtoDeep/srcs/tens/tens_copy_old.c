@@ -76,29 +76,29 @@ static void     *pd_tens_copy_ctr_thread(void * p_data)
 
 pd_tensor       *pd_tens_copy_new(pd_tensor *tensor)
 {
-    // pd_tensor *new_tensor = pd_tens_init_new_new(pd_arr_copy(tensor->shape));
-    // size_t len = tensor->len / 2;
-    // pd_tens_copy_data s_tcd_a =
-    // {
-    //     .dst = new_tensor,
-    //     .src = tensor,
-    //     .i = 0,
-    //     .len = len,
-    // };
-    // pd_tens_copy_data s_tcd_b =
-    // {
-    //     .dst = new_tensor,
-    //     .src = tensor,
-    //     .i = len,
-    //     .len = tensor->len,
-    // };
-    // pthread_t thread[2];
-    // pthread_create(&thread[0], NULL, pd_tens_copy_ctr_thread, &s_tcd_a);
-    // pthread_create(&thread[1], NULL, pd_tens_copy_ctr_thread, &s_tcd_b);
-    // for(size_t i = 0; i < 2; i++) pthread_join(thread[i], NULL);
-    // return new_tensor;
-
     pd_tensor *new_tensor = pd_tens_init(pd_arr_copy(tensor->shape));
-    pd_tens_copy_ctr(new_tensor, tensor);
+    size_t len = tensor->len / 2;
+    pd_tens_copy_data s_tcd_a =
+    {
+        .dst = new_tensor,
+        .src = tensor,
+        .i = 0,
+        .len = len,
+    };
+    pd_tens_copy_data s_tcd_b =
+    {
+        .dst = new_tensor,
+        .src = tensor,
+        .i = len,
+        .len = tensor->len,
+    };
+    pthread_t thread[2];
+    pthread_create(&thread[0], NULL, pd_tens_copy_ctr_thread, &s_tcd_a);
+    pthread_create(&thread[1], NULL, pd_tens_copy_ctr_thread, &s_tcd_b);
+    for(size_t i = 0; i < 2; i++) pthread_join(thread[i], NULL);
+    return new_tensor;
+
+    // pd_tensor *new_tensor = pd_tens_init(pd_arr_copy(tensor->shape));
+    // pd_tens_copy_ctr(new_tensor, tensor);
     return new_tensor;
 }

@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-static size_t *pd_get_shape_div(size_t *a_shape, size_t shape_len, size_t *nbr_float, size_t *nbr_p_tensor)
+size_t *pd_get_shape_div(size_t *a_shape, size_t shape_len, size_t *nbr_float, size_t *nbr_p_tensor, size_t *nbr_tensor)
 {
     size_t *a_shape_div = malloc(sizeof(size_t) * shape_len);
     size_t t_nbr_p_tensor = a_shape[0];
@@ -17,32 +17,48 @@ static size_t *pd_get_shape_div(size_t *a_shape, size_t shape_len, size_t *nbr_f
     shape_mult *= a_shape[i];
     *nbr_float = shape_mult;
     *nbr_p_tensor = t_nbr_p_tensor;
+    *nbr_tensor = t_nbr_p_tensor + 1;
     return a_shape_div;
 }
 
-typedef struct          pds_s_mem_tensor {
-    size_t              shape_len;
-    pd_arr              *new_shapes;
-    size_t              *a_shape;
-    size_t              *shape_div;
-    pd_tensor           *mem_tensor;
-    pd_tensor           **mem_p_tensor;
-}                       pd_s_mem_tensor;
+pd_s_mem_tensor pd_get_mem_tensor(size_t shape_len, pd_arr *new_shapes, size_t *a_shape, size_t *shape_div, pd_tensor *mem_tensor, pd_tensor **mem_p_tensor)
+{
+    pd_s_mem_tensor s_mem_tensor =
+    {
+        .shape_len = shape_len,
+        .new_shapes = new_shapes,
+        .a_shape = a_shape,
+        .shape_div = shape_div,
+        .mem_tensor = mem_tensor,
+        .mem_p_tensor = mem_p_tensor,
+    };
+    return s_mem_tensor;
+}
 
-typedef struct          pds_s_mem_p_tensor {
-    size_t              nbr_p_tensor;
-    pd_tensor           *mem_tensor;
-    pd_tensor           **mem_p_tensor;
-}                       pd_s_mem_p_tensor;
+pd_s_mem_p_tensor pd_get_mem_p_tensor(size_t nbr_p_tensor, pd_tensor *mem_tensor, pd_tensor **mem_p_tensor)
+{
+    pd_s_mem_p_tensor s_mem_p_tensor =
+    {
+        .nbr_p_tensor = nbr_p_tensor,
+        .mem_tensor = mem_tensor,
+        .mem_p_tensor = mem_p_tensor,
+    };
+    return s_mem_p_tensor;
+}
 
-typedef struct          pds_s_mem_float {
-    size_t              shape_len;
-    pd_arr              *new_shapes;
-    size_t              *a_shape;
-    size_t              *shape_div;
-    pd_tensor           *mem_tensor;
-    float               *mem_float;
-}                       pd_s_mem_float;
+pd_s_mem_float pd_get_mem_float(size_t shape_len, pd_arr *new_shapes, size_t *a_shape, size_t *shape_div, pd_tensor *mem_tensor, float *mem_float)
+{
+    pd_s_mem_float s_mem_float =
+    {
+        .shape_len = shape_len,
+        .new_shapes = new_shapes,
+        .a_shape = a_shape,
+        .shape_div = shape_div,
+        .mem_tensor = mem_tensor,
+        .mem_float = mem_float,
+    };
+    return s_mem_float;
+}
 
 static void *pd_set_mem_tensor(void * p_data)
 {
@@ -125,7 +141,7 @@ static void *pd_set_mem_float(void * p_data)
     pthread_exit(NULL);
 }
 
-typedef struct          pds_s_val_float {
+/*typedef struct          pds_s_val_float {
     pd_tens_init_type   init_type;
     float               *mem_float;
     pd_tensor           *tens_src;
@@ -158,11 +174,11 @@ static void        *pd_apply_float_thread(void *p_data)
         for (;i < len; i++) mem_float[i] = cpy_src[i];
     }
     pthread_exit(NULL);
-}
+}*/
 
-pd_tensor   *pd_tens_init_ctr(void *in, pd_tens_init_type init_type, float in_a, float in_b)
+pd_tensor   *pd_tens_init_ctr(pd_s_mem_tensor s_mem_tensor, pd_s_mem_p_tensor s_mem_p_tensor, pd_s_mem_float s_mem_float)
 {
-    size_t nbr_float;
+    /*size_t nbr_float;
     size_t nbr_tensor;
     size_t nbr_p_tensor;
     size_t shape_len;
@@ -259,12 +275,11 @@ pd_tensor   *pd_tens_init_ctr(void *in, pd_tens_init_type init_type, float in_a,
         .shape_div = shape_div,
         .mem_tensor = mem_tensor,
         .mem_float = mem_float,
-    };
+    };*/
     pthread_t thread_b[3];
     pthread_create(&thread_b[0], NULL, pd_set_mem_tensor, &s_mem_tensor);
     pthread_create(&thread_b[1], NULL, pd_set_mem_p_tensor, &s_mem_p_tensor);
     pthread_create(&thread_b[2], NULL, pd_set_mem_float, &s_mem_float);
     for(size_t i = 0; i < 3; i++) pthread_join(thread_b[i], NULL);
-    pd_free(shape_div);
-    return &mem_tensor[0];
+    return &s_mem_p_tensor.mem_tensor[0];
 }
