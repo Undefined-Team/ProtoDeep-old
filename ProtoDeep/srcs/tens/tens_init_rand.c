@@ -15,7 +15,7 @@ pd_tensor *pd_tens_init_rand(pd_size_t_a *shape, float bound_a, float bound_b)
     float       *mem_float      = pd_malloc(sizeof(float) * nbr_float);
     pd_tensor   **mem_p_tensor  = pd_malloc(sizeof(pd_tensor*) * nbr_p_tensor);
     pd_tensor   *mem_tensor     = pd_malloc(sizeof(pd_tensor) * nbr_tensor);
-    pd_arr      *new_shapes     = pd_malloc(sizeof(pd_arr) * shape_len); 
+    pd_arr      *new_shapes     = pd_malloc(sizeof(pd_arr) * shape_len);
 
     float bounds[2] = {bound_a, bound_b};
 
