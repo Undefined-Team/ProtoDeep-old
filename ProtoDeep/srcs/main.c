@@ -270,16 +270,17 @@ int main(void)
     // pd_tens_print(flat);
     // exit(0);
     pd_tensor *test;
-    test = pd_tens_init_val(pd_arr_shape(10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1), 2);
-    // pd_tens_print(test);
+    test = pd_tens_init_rand(pd_arr_shape(0, 2, 0), 1, -1);
+    pd_tens_print(test);
     pd_tensor *test2;
 
     for(size_t i = 0; i < 1; i++)
     {
-        test2 = pd_tens_transpose(test, pd_arr_shape(10, 1, 0, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+        // test2 = pd_tens_transpose(test, pd_arr_shape(10, 1, 0, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+        test2 = pd_tens_init_val(pd_arr_shape(11, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1), 2);
         pd_tens_free(test2);
     }
-    pd_tens_free(test);
+    // pd_tens_free(test);
     // test = pd_tens_init_val(pd_arr_shape(10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), 0);
     //pd_tensor *test2 = pd_tens_cpy(test);
     //pd_tens_print(test2);
