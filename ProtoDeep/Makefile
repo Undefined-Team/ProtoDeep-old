@@ -91,6 +91,8 @@ TENS			=	tens_init.c				\
 					tens_get.c 				\
 					tens_print.c 			\
 					tens_free.c				\
+					tens_flatten.c			\
+					tens_reshape.c			\
 
 NN_FLD			=	nn/
 NN				=	nn_config.c			\
