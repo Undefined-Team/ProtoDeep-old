@@ -46,9 +46,18 @@ pd_tensor   *pd_tens_reshape(pd_tensor *tensor, pd_size_t_a *shape)
     reshape = pd_tens_init(shape);
     t_tensor_val = tensor->val;
     t_reshape_val = reshape->val;
-    size_t len = pd_tens_nb_val(tensor);
+    size_t len = tensor->len;
     pd_mem_cpy(t_reshape_val, t_tensor_val, len * sizeof(float));
-    // for (size_t i = 0; i < len; i++)
-    //     t_reshape_val[i] = t_tensor_val[i];
     return (reshape);
+}
+
+pd_tensor   *pd_tens_reshape_inplace(pd_tensor *tensor, pd_size_t_a *shape)
+{
+    pd_free(tensor->shape);
+    tensor->shape = (size_t *)shape->val;
+    tensor->shape_len = shape->len;
+    pd_free(tensor->shape_m);
+    tensor->shape_m = pd_get_shape_mult((size_t *)shape->val, shape->len, &tensor->len);
+    pd_free(shape);
+    return (tensor);
 }

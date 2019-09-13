@@ -90,7 +90,6 @@ TENS			=	tens_init.c				\
 					tens_get_val.c 			\
 					tens_print.c 			\
 					tens_flatten.c			\
-					tens_nb_val.c			\
 					tens_reshape.c			\
 
 NN_FLD			=	nn/

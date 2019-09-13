@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-static size_t     *pd_get_shape_mult(size_t *shape, pd_count shape_len, size_t *len)
+size_t     *pd_get_shape_mult(size_t *shape, pd_count shape_len, size_t *len)
 {
     // A OPTIMIZER LES PTR
     size_t *shape_m = pd_malloc(sizeof(size_t) * shape_len);
