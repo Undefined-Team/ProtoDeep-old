@@ -3,7 +3,7 @@
 
 // Macro
 # define pd_tens_print(x)							pd_tens_print_ctr(x, 0)
-//typedef enum {PD_TENS_INIT, PD_TENS_INIT_VAL, PD_TENS_INIT_RAND, PD_TENS_INIT_CPY} pd_tens_init_type;
+typedef enum {PD_TENS_INIT, PD_TENS_INIT_VAL, PD_TENS_INIT_RAND, PD_TENS_INIT_CPY} pd_tens_init_type;
 //# define pd_tens_init(shape)						pd_tens_init_ctr(shape, PD_TENS_INIT, 0, 0)
 //# define pd_tens_init_val(shape, value) 			pd_tens_init_ctr(shape, PD_TENS_INIT_VAL, value, 0)
 //# define pd_tens_init_rand(shape, bound_1, bound_2) pd_tens_init_ctr(shape, PD_TENS_INIT_RAND, bound_1, bound_2)
@@ -27,12 +27,6 @@ typedef struct          	pds_s_mem_tensor {
     pd_tensor           	**mem_p_tensor;
 }                       	pd_s_mem_tensor;
 
-typedef struct          	pds_s_mem_p_tensor {
-    size_t              	nbr_p_tensor;
-    pd_tensor           	*mem_tensor;
-    pd_tensor           	**mem_p_tensor;
-}                       	pd_s_mem_p_tensor;
-
 typedef struct          	pds_s_mem_float {
     size_t              	shape_len;
     pd_arr              	*new_shapes;
@@ -40,14 +34,16 @@ typedef struct          	pds_s_mem_float {
     size_t              	*shape_div;
     pd_tensor           	*mem_tensor;
     float               	*mem_float;
+    pd_tens_init_type       init_type;
+    void                    *init_src;
 }                       	pd_s_mem_float;
 
 // Prototypes
 size_t 						*pd_get_shape_div(size_t *a_shape, size_t shape_len, size_t *nbr_float, size_t *nbr_p_tensor, size_t *nbr_tensor);
+void                        pd_init_error(size_t *shape, size_t len);
 pd_s_mem_tensor 			pd_get_mem_tensor(size_t shape_len, pd_arr *new_shapes, size_t *a_shape, size_t *shape_div, pd_tensor *mem_tensor, pd_tensor **mem_p_tensor);
-pd_s_mem_p_tensor 			pd_get_mem_p_tensor(size_t nbr_p_tensor, pd_tensor *mem_tensor, pd_tensor **mem_p_tensor);
-pd_s_mem_float 				pd_get_mem_float(size_t shape_len, pd_arr *new_shapes, size_t *a_shape, size_t *shape_div, pd_tensor *mem_tensor, float *mem_float);
-pd_tensor   				*pd_tens_init_ctr(pd_s_mem_tensor s_mem_tensor, pd_s_mem_p_tensor s_mem_p_tensor, pd_s_mem_float s_mem_float);
+pd_s_mem_float              pd_get_mem_float(size_t shape_len, pd_arr *new_shapes, size_t *a_shape, size_t *shape_div, pd_tensor *mem_tensor, float *mem_float, pd_tens_init_type init_type, void *init_src);
+pd_tensor                   *pd_tens_init_ctr(pd_s_mem_tensor s_mem_tensor, pd_s_mem_float s_mem_float);
 pd_tensor 					*pd_tens_init(pd_size_t_a *shape);
 pd_tensor 					*pd_tens_init_val(pd_size_t_a *shape, float val);
 pd_tensor 					*pd_tens_init_rand(pd_size_t_a *shape, float bound_a, float bound_b);

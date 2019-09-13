@@ -1,8 +1,8 @@
 NAME 			=	protodeep
 
 CC 				= 	gcc
-FLAGS 			=  -g -O3 -pthread -Wall -Werror -Wextra
-# FLAGS 			=  -g -O3 -pthread
+# FLAGS 			=  -g -O3 -pthread -Wall -Werror -Wextra
+FLAGS 			=  -g -O3 -pthread
 INCLUDES		=	./includes/
 
 SRC_PATH		=	./srcs/

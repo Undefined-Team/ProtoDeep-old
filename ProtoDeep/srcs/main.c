@@ -236,135 +236,25 @@ void        tens_dot_test(void)
 	pd_arr_free(test);
 }*/
 
+void    paco_main(void)
+{
+    pd_tensor *test = pd_tens_init_val(pd_arr_shape(10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1), 2);
+    //pd_tens_print(test) --> pour print un tensor 
+    pd_tensor *transposed;
+    for(size_t i = 0; i < 10; i++)
+    {
+        transposed = pd_tens_transpose(test, pd_arr_shape(10, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
+        pd_tens_free(transposed);
+    }
+}
+
 int main(void)
 {
-    // pd_time("start program");
-    //t_csv   csv = csv_read("./test.csv", 1);
-    //dbug_csv_print(csv);
     //printf("\n-------------- MODE CONF --------------\n");
     //pd_csv_with_conf();
     //printf("\n-------------- MODE MANUAL --------------\n");
     //pd_csv_manual();
     //tens_test();
     tens_dot_test();
-
-    //pd_tensor *test = pd_tens_init_new_new(pd_arr_shape(3, 2, 2, 3));
-    //pd_tens_print(test);
-    //pd_tens_free_new(test);
-
-    /*pd_time("1");
-    for(size_t i = 0; i < 100; i++)
-    {
-        test = pd_tens_init_new(pd_arr_shape(10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
-        pd_tens_free_new(test);
-    }
-    pd_time("1");
-    for(size_t i = 0; i < 100; i++)
-    {
-        test = pd_tens_init(pd_arr_shape(10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
-        pd_tens_free(test);
-    }
-    pd_time("1");
-*/
-    // pd_tensor *flat = pd_tens_init_val(pd_arr_shape(1, 1), 1);
-    // pd_tens_print(flat);
-    // exit(0);
-    pd_tensor *test;
-    test = pd_tens_init_val(pd_arr_shape(10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1), 2);
-    // pd_tens_print(test);
-    pd_tensor *test2;
-
-    for(size_t i = 0; i < 1; i++)
-    {
-        test2 = pd_tens_transpose(test, pd_arr_shape(10, 1, 0, 2, 3, 4, 5, 6, 7, 8, 9, 10));
-        pd_tens_free(test2);
-    }
-    pd_tens_free(test);
-    // test = pd_tens_init_val(pd_arr_shape(10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), 0);
-    //pd_tensor *test2 = pd_tens_cpy(test);
-    //pd_tens_print(test2);
-    //= pd_tens_copy(test);
-    //pd_tens_free_new(test2);
-    // pd_tensor *test2;
-    // for(size_t i = 0; i < 100; i++)
-    // {
-    //     test2 = pd_tens_cpy(test);
-    //     pd_tens_free_new(test2);
-    // }
-    // printf("salut\n");
-    // for(size_t i = 0; i < 100; i++)
-    // {
-    //     test2 = pd_tens_copy_new(test);
-    //     pd_tens_free_new(test2);
-    // }
-
-    // for(size_t i = 0; i < 100; i++)
-    // {
-    //     test2 = pd_tens_copy_new(test);
-    //     pd_tens_free_new(test2);
-    // }
-
-    /*pd_time("1");
-    for(size_t i = 0; i < 100; i++)
-    {
-        test = pd_tens_init(pd_arr_shape(10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
-        pd_tens_free(test);
-    }*/
-    //pd_time("1");
-    // pd_tens_free(flat);
-    // for (size_t i = 0; i < 1000; i++) {
-    //     pd_tensor *flat = pd_tens_flatten(test);
-    //     pd_tens_free_new(flat);
-    // }
-    // pd_tens_print(flat);
-    //pd_time("1");
-    // for(size_t i = 0; i < 100; i++)
-    // {
-    //     test = pd_tens_init_new(pd_arr_shape(10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
-    //     pd_tens_free_new(test);
-    // }
-    // //pd_time("1");
-    // for(size_t i = 0; i < 100; i++)
-    // {
-    //     test = pd_tens_init_new_new(pd_arr_shape(10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
-    //     pd_tens_free_new(test);
-    // }
-    //pd_time("1");
-
-    //tens_dot_test();
-    // pd_time("normal start");
-    // pd_tensor* test2 = pd_tens_init_rand(pd_arr_shape(2, 2, 2), -1, 1);
-    // pd_tens_print(test2);
-    // pd_tensor* test3 = pd_tens_copy(test2);
-    // pd_tens_print(test3);
-    // pd_tensor* test4 = pd_tens_concat(test2, test3, -1);
-    // pd_tens_print(test4);
-    // pd_tens_free(test2);
-    // pd_tens_free(test3);
-    // pd_tens_free(test4);
-    // pd_time("normal end");
-    //printf("salut fdp\n");
-    //pd_tens_print(test);
-    // arr_create_test();
-    // printf("\n-------------- MODE CONF --------------\n");
-    // pd_csv_with_conf();
-    // printf("\n-------------- MODE MANUAL --------------\n");
-    // pd_csv_manual();
-    // tens_test();
-    //tens_dot_test();
-    //t_arr test = pd_str_new_s("Zizi");
-    //void *test = pdmalloc(1);
-    //(void)test;
-    /*pd_network network;
-
-    pd_nn_init_network(&network);
-    pd_nn_add(&network, pd_nn_convolution(16, 3, 2, PD_A_RELU));
-    size_t pool_size[2] = {2, 2};
-    pd_nn_add(&network, pd_nn_maxpool(pool_size, 2));
-    pd_nn_add(&network, pd_nn_dense(16, PD_A_RELU));
-    pd_nn_add(&network, pd_nn_dense(16, PD_A_RELU));
-    pd_nn_validate(&network);
-    pd_nn_print(network);*/
-    // pd_time("end program");
-    // pd_error("It's the end of program but I want to show the error function %s", ":)");
+    paco_main();
 }
