@@ -24,6 +24,7 @@ float *pd_tens_get_mpval(pd_tensor *tensor, ...)
     return val;
 }
 
+
 float pd_tens_get_val(pd_tensor *tensor, size_t *coord)
 {
     size_t *shape_mult = tensor->shape_m;
