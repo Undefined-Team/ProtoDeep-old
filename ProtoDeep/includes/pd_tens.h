@@ -41,6 +41,7 @@ pd_tensor 					*pd_tens_init(pd_size_t_a *shape);
 pd_tensor 					*pd_tens_init_val(pd_size_t_a *shape, float val);
 pd_tensor 					*pd_tens_init_rand(pd_size_t_a *shape, float bound_a, float bound_b);
 pd_tensor 					*pd_tens_init_cpy(pd_tensor *tens_src);
+pd_tensor                   *pd_tens_init_val_new(pd_size_t_a *new_shape, float val);
 
 pd_tensor       			*pd_tens_new(size_t rank, size_t len, void *val, pd_arr *shape);
 

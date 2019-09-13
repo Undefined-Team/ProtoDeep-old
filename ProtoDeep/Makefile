@@ -93,6 +93,7 @@ TENS			=	tens_copy_old.c 		\
 					tens_init_ctr.c			\
 					tens_init.c 			\
 					tens_init_val.c 		\
+					tens_init_val_new.c 	\
 					tens_init_rand.c 		\
 					tens_init_cpy.c 		\
 					tens_get_shape.c		\

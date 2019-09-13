@@ -260,21 +260,55 @@ void    paco_main(void)
 
 void    new_transpose_main(void)
 {
-    pd_ntensor *tensor = pd_ntens_init_val(pd_arr_shape(3, 2, 2, 2), 2);
-    printf("eeee\n");
-    for (size_t i = 0; i < tensor->shape_len; i++)
-        printf("%zd\n", tensor->shape_m[i]);
-    for (size_t z = 0; z < 2; z++)
+    // pd_ntensor *tensor = pd_ntens_init_val(pd_arr_shape(3, 2, 2, 2), 2);
+    // printf("eeee\n");
+    // for (size_t i = 0; i < tensor->shape_len; ++i)
+    //     printf("%zd\n", tensor->shape_m[i]);
+    // printf("%zd\n", tensor->len);
+    // for (size_t z = 0; z < 2; z++)
+    // {
+    //     for (size_t y = 0; y < 2; y++)
+    //     {
+    //         for (size_t x = 0; x < 2; x++)
+    //         {
+    //             printf("%f ", pd_ntens_get_val(tensor, z, y, x));
+    //         }
+    //     }   
+    // }
+    // printf("\n");
+    // pd_ntensor *test;
+    // for (size_t i = 1; i < 10; i++)
+    // {
+    //     test = pd_ntens_init_val(pd_arr_shape(10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1), 2);
+    //     pd_free(test->val);
+    //     pd_free(test->shape);
+    //     pd_free(test->shape_m);
+    //     pd_free(test);
+    //     // pd_tens_free(test);
+    // }
+
+    
+    pd_ntensor *test = pd_ntens_init_val(pd_arr_shape(1, 1000000000), 2);
+    float val;
+    for (size_t i = 0; i < 10; i++)
+        val = pd_ntens_get_val(test, 999999999);
+}
+
+void        new_old_init_main(void)
+{
+    // pd_tensor *test2 = pd_tens_init_val_new(pd_arr_shape(2, 2, 2), 2);
+    // pd_tens_print(test2);
+    // test2 = pd_tens_init_val_new(pd_arr_shape(2, 2, 2), 2);
+    // pd_tens_print(test2);
+    // pd_tens_free(test);
+    pd_tensor *test;
+    for (size_t i = 0; i < 10; i++)
     {
-        for (size_t y = 0; y < 2; y++)
-        {
-            for (size_t x = 0; x < 2; x++)
-            {
-                printf("%f ", pd_ntens_get_val(tensor, z, y, x));
-            }
-        }   
+        // test = pd_tens_init_val_new(pd_arr_shape(10, 10, 9, 8, 7, 6, 5, 4, 3, 2,2), 2);
+        test = pd_tens_init_val_new(pd_arr_shape(3, 2, 2, 3), 2);
+        // pd_tens_free(test);
+        pd_free(test);
     }
-    printf("\n");
 }
 
 int main(void)
@@ -294,4 +328,5 @@ int main(void)
     // exit(0);
     // transpose_init_main();
     new_transpose_main();
+    // new_old_init_main();
 }

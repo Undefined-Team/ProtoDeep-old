@@ -11,6 +11,8 @@ typedef struct  pds_ntensor {
     size_t      len;
     size_t      *shape;
     size_t      *shape_m;
+    // size_t      *coord_o;
+    // size_t      *shape_mco;
     size_t      shape_len;
 }               pd_ntensor;
 
