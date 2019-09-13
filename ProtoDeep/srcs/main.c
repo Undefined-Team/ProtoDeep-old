@@ -288,10 +288,13 @@ void    new_transpose_main(void)
     // }
 
     
-    pd_tensor *test = pd_tens_init_val(pd_arr_shape(1, 1000000000), 2);
-    float val;
-    for (size_t i = 0; i < 10; i++)
-        val = pd_tens_get_val(test, 999999999);
+    // pd_tensor *test = pd_tens_init_val(pd_arr_shape(1, 1000000000), 2);
+    // float val;
+    // for (size_t i = 0; i < 10; i++)
+    //     val = pd_tens_get_mval(test, 999999999);
+    
+    pd_tensor *test = pd_tens_init_val(pd_arr_shape(2 , 2, 2), 2);
+    pd_tens_print(test);
 }
 
 int main(void)
