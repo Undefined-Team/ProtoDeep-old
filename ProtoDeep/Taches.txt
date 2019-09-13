@@ -3,19 +3,16 @@
 - Faire la gestion d'erreur
 - Include juste les dependences de chaque fichier pour reduire le poid et l execution
 
-DEMAIN
----- faire la lib arr 
----- Modifier le T_STR_A
----- malloc = pd_malloc
----- pd_dast_free -> pd_free
 
 ---- printArr
+- tens_get
+- tens_concat
+- tens_tranpose
 - tens_sum
 
 - OPTIMISATION
 Aplliquer consignes d'optimisation sur lib tensor, lib math, lib str
 - str split (optimisation et changer . = ->)
-- FAIRE LE BON MEMSET ET MEMCPY ET OPTI LE INIT
 
 - A la fin du projet
 1 - verifier les functions utilisé dans le projet

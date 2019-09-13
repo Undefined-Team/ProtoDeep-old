@@ -88,7 +88,9 @@ MATRIX			=	matrix_dot.c		\
 TENS_FLD		=	tens/
 TENS			=	tens_init.c				\
 					tens_get_val.c 			\
+					tens_get.c 				\
 					tens_print.c 			\
+					tens_free.c				\
 
 NN_FLD			=	nn/
 NN				=	nn_config.c			\
