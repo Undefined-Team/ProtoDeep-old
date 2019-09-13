@@ -85,30 +85,8 @@ CSV				=	csv_read.c			\
 MATRIX_FLD		=	matrix/
 MATRIX			=	matrix_dot.c		\
 
-#					tens_concat.c
-# 					tens_init_transpose.c
-
 TENS_FLD		=	tens/
-TENS			=	tens_copy_old.c 		\
-					tens_init_ctr.c			\
-					tens_init.c 			\
-					tens_init_val.c 		\
-					tens_init_val_new.c 	\
-					tens_init_rand.c 		\
-					tens_init_cpy.c 		\
-					tens_get_shape.c		\
-					tens_print.c 			\
-					tens_new.c 				\
-					tens_transpose.c 		\
-					tens_free.c 		 	\
-					tens_reshape.c 		 	\
-					tens_flatten.c 		 	\
-					tens_get_first_val.c	\
-					tens_nb_values.c		\
-					tens_dot.c				\
-
-NTENS_FLD		=	ntens/
-NTENS			=	tens_init.c				\
+TENS			=	tens_init.c				\
 					tens_get_val.c 			\
 
 NN_FLD			=	nn/
@@ -126,7 +104,6 @@ SRC_FLDS		=	math/				\
 					csv/csv/			\
 					csv/prep/			\
 					tens/				\
-					ntens/				\
 					matrix/				\
 					nn/					\
 
@@ -138,7 +115,6 @@ SRC				+=	$(addprefix $(MEM_FLD), $(MEM))
 SRC				+=	$(addprefix $(DAST_FLD), $(DAST))
 SRC				+=	$(addprefix $(ARR_FLD), $(ARR))
 SRC				+=	$(addprefix $(TENS_FLD), $(TENS))
-SRC				+=	$(addprefix $(NTENS_FLD), $(NTENS))
 SRC				+=	$(addprefix $(MATRIX_FLD), $(MATRIX))
 SRC				+=	$(addprefix $(NN_FLD), $(NN))
 

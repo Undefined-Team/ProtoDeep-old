@@ -236,31 +236,31 @@ void        tens_dot_test(void)
 	pd_arr_free(test);
 }*/
 
-void    transpose_init_main(void)
-{
-    pd_tensor *test;
-    for(size_t i = 0; i < 10; i++)
-    {
-        test = pd_tens_init_val(pd_arr_shape(10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1), 2);
-        pd_tens_free(test);
-    }
-}
+// void    transpose_init_main(void)
+// {
+//     pd_tensor *test;
+//     for(size_t i = 0; i < 10; i++)
+//     {
+//         test = pd_tens_init_val(pd_arr_shape(10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1), 2);
+//         pd_tens_free(test);
+//     }
+// }
 
-void    paco_main(void)
-{
-    pd_tensor *test = pd_tens_init_val(pd_arr_shape(10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1), 2);
-    //pd_tens_print(test) --> pour print un tensor 
-    pd_tensor *transposed;
-    for(size_t i = 0; i < 10; i++)
-    {
-        transposed = pd_tens_transpose(test, pd_arr_shape(10, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
-        pd_tens_free(transposed);
-    }
-}
+// void    paco_main(void)
+// {
+//     pd_tensor *test = pd_tens_init_val(pd_arr_shape(10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1), 2);
+//     //pd_tens_print(test) --> pour print un tensor 
+//     pd_tensor *transposed;
+//     for(size_t i = 0; i < 10; i++)
+//     {
+//         transposed = pd_tens_transpose(test, pd_arr_shape(10, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
+//         pd_tens_free(transposed);
+//     }
+// }
 
 void    new_transpose_main(void)
 {
-    // pd_ntensor *tensor = pd_ntens_init_val(pd_arr_shape(3, 2, 2, 2), 2);
+    // pd_tensor *tensor = pd_tens_init_val(pd_arr_shape(3, 2, 2, 2), 2);
     // printf("eeee\n");
     // for (size_t i = 0; i < tensor->shape_len; ++i)
     //     printf("%zd\n", tensor->shape_m[i]);
@@ -271,15 +271,15 @@ void    new_transpose_main(void)
     //     {
     //         for (size_t x = 0; x < 2; x++)
     //         {
-    //             printf("%f ", pd_ntens_get_val(tensor, z, y, x));
+    //             printf("%f ", pd_tens_get_val(tensor, z, y, x));
     //         }
     //     }   
     // }
     // printf("\n");
-    // pd_ntensor *test;
+    // pd_tensor *test;
     // for (size_t i = 1; i < 10; i++)
     // {
-    //     test = pd_ntens_init_val(pd_arr_shape(10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1), 2);
+    //     test = pd_tens_init_val(pd_arr_shape(10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1), 2);
     //     pd_free(test->val);
     //     pd_free(test->shape);
     //     pd_free(test->shape_m);
@@ -288,27 +288,10 @@ void    new_transpose_main(void)
     // }
 
     
-    pd_ntensor *test = pd_ntens_init_val(pd_arr_shape(1, 1000000000), 2);
+    pd_tensor *test = pd_tens_init_mval(pd_arr_shape(1, 1000000000), 2);
     float val;
     for (size_t i = 0; i < 10; i++)
-        val = pd_ntens_get_val(test, 999999999);
-}
-
-void        new_old_init_main(void)
-{
-    // pd_tensor *test2 = pd_tens_init_val_new(pd_arr_shape(2, 2, 2), 2);
-    // pd_tens_print(test2);
-    // test2 = pd_tens_init_val_new(pd_arr_shape(2, 2, 2), 2);
-    // pd_tens_print(test2);
-    // pd_tens_free(test);
-    pd_tensor *test;
-    for (size_t i = 0; i < 10; i++)
-    {
-        // test = pd_tens_init_val_new(pd_arr_shape(10, 10, 9, 8, 7, 6, 5, 4, 3, 2,2), 2);
-        test = pd_tens_init_val_new(pd_arr_shape(3, 2, 2, 3), 2);
-        // pd_tens_free(test);
-        pd_free(test);
-    }
+        val = pd_tens_get_mval(test, 999999999);
 }
 
 int main(void)

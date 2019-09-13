@@ -1,43 +1,86 @@
 #include "pd_main.h"
 
-pd_tensor *pd_tens_init(pd_size_t_a *shape)
+static size_t     *pd_get_shape_mult(size_t *shape, pd_count shape_len, size_t *len)
 {
-    size_t nbr_float;
-    size_t nbr_tensor;
-    size_t nbr_p_tensor;
-    pd_count shape_len = shape->len;
+    // A OPTIMIZER LES PTR
+    size_t *shape_m = pd_malloc(sizeof(size_t) * shape_len);
+    --shape_len;
+    shape_m[shape_len] = 1;
+    if (shape[0] == 0) pd_error("Shape can't have a dimension of length 0 (Bad shape)");
+    size_t new_len = shape[0];
+    for (pd_count i = shape_len; i > 0; --i)
+    {
+        if (shape[i] == 0) pd_error("Shape can't have a dimension of length 0 (Bad shape)");
+        shape_m[i - 1] = shape[i] * shape_m[i];
+        new_len *= shape[i];
+    }
+    *len = new_len;
+    return shape_m;
+}
+
+pd_tensor *pd_tens_init_ctr(size_t *shape, size_t shape_len)
+{
     if (shape_len == 0) pd_error("Rank must be greater than 0 (Bad shape <-> length ?)");
+    pd_tensor *new_tensor = pd_malloc(sizeof(pd_tensor));
+    new_tensor->shape = shape;
+    new_tensor->shape_len = shape_len;
+    new_tensor->shape_m = pd_get_shape_mult(shape, shape_len, &new_tensor->len);
+    new_tensor->val = pd_malloc(sizeof(float) * new_tensor->len);
+    return new_tensor;
+}
+
+pd_tensor *pd_tens_init(pd_arr *shape)
+{
+    pd_count shape_len = shape->len;
     size_t *a_shape = (size_t*)shape->val;
     pd_free(shape);
 
-    size_t *shape_div = pd_get_shape_div(a_shape, shape_len, &nbr_float, &nbr_p_tensor, &nbr_tensor);
-
-    float       *mem_float      = pd_malloc(sizeof(float) * nbr_float);
-    pd_tensor   **mem_p_tensor  = pd_malloc(sizeof(pd_tensor*) * nbr_p_tensor);
-    pd_tensor   *mem_tensor     = pd_malloc(sizeof(pd_tensor) * nbr_tensor);
-    pd_arr      *new_shapes     = pd_malloc(sizeof(pd_arr) * shape_len); 
+    pd_tensor *new_tensor = pd_tens_init_ctr(a_shape, shape_len);
     
-    pd_s_mem_tensor s_mem_tensor =
-    {
-        .shape_len = shape_len,
-        .new_shapes = new_shapes,
-        .a_shape = a_shape,
-        .shape_div = shape_div,
-        .mem_tensor = mem_tensor,
-        .mem_p_tensor = mem_p_tensor,
-    };
-    pd_s_mem_float s_mem_float =
-    {
-        .shape_len = shape_len,
-        .new_shapes = new_shapes,
-        .a_shape = a_shape,
-        .shape_div = shape_div,
-        .mem_tensor = mem_tensor,
-        .mem_float = mem_float,
-        .init_type = PD_TENS_INIT,
-        .init_src = NULL,
-    };
-    pd_tensor *ret = pd_tens_init_ctr(&s_mem_tensor, &s_mem_float);
-    pd_free(shape_div);
-    return ret;
+    return new_tensor;
+}
+
+pd_tensor *pd_tens_init_val(pd_arr *shape, float new_val)
+{
+    pd_count shape_len = shape->len;
+    size_t *a_shape = (size_t*)shape->val;
+    pd_free(shape);
+
+    pd_tensor *new_tensor = pd_tens_init_ctr(a_shape, shape_len);
+    
+    size_t len = new_tensor->len;
+    float *val = new_tensor->val;
+    while (len-- > 0) *val++ = new_val;
+    return new_tensor;
+}
+
+pd_tensor *pd_tens_init_rand(pd_arr *shape, float bound_1, float bound_2)
+{
+    pd_count shape_len = shape->len;
+    size_t *a_shape = (size_t*)shape->val;
+    pd_free(shape);
+
+    pd_tensor *new_tensor = pd_tens_init_ctr(a_shape, shape_len);
+    
+    size_t len = new_tensor->len;
+    float *val = new_tensor->val;
+    while (len-- > 0) *val++ = pd_math_rand(bound_1, bound_2);
+    return new_tensor;
+}
+
+pd_tensor *pd_tens_init_cpy(pd_tensor *tensor_src)
+{
+    pd_count shape_len = tensor_src->len;
+    size_t *a_shape = pd_malloc(sizeof(size_t) * shape_len);
+    size_t *tmp_a_shape = a_shape;
+    size_t *shape_src = tensor_src->shape;
+    for (pd_count i = 0; i < shape_len; ++i) *tmp_a_shape++ = *shape_src++;
+
+    pd_tensor *new_tensor = pd_tens_init_ctr(a_shape, shape_len);
+    
+    size_t len = new_tensor->len;
+    float *val = new_tensor->val;
+    float *val_src = tensor_src->val;
+    while (len-- > 0) *val++ = *val_src++;
+    return new_tensor;
 }
