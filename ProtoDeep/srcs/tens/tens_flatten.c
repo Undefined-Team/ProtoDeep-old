@@ -15,8 +15,9 @@ void        *pd_tens_set_flat_val(void *p_data)
     float           *t_flat_val = st.t_flat_val;
     float           *t_tensor_val = st.t_tensor_val;
 
-    for (size_t i = begin; i < end; i++)
-        t_flat_val[i] = t_tensor_val[i];
+    pd_mem_cpy(&t_flat_val[begin], &t_tensor_val[begin], (end - begin) * sizeof(float));
+    // for (size_t i = begin; i < end; i++)
+    //     t_flat_val[i] = t_tensor_val[i];
     pthread_exit(NULL);
 }
 
@@ -55,6 +56,6 @@ pd_tensor   *pd_tens_flatten(pd_tensor *tensor)
     // else
     //     for (size_t i = 0; i < flat_len; i++)
     //         t_flat_val[i] = t_tensor_val[i];
-    pd_mem_qcpy(t_flat_val, t_tensor_val, flat_len * sizeof(float));
+    pd_mem_cpy(t_flat_val, t_tensor_val, flat_len * sizeof(float));
     return (flat);
 }

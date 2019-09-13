@@ -7,9 +7,10 @@ void    pd_tens_check_size(pd_tensor *tensor, pd_size_t_a *shape)
     size_t      neg = 0;
     size_t      neg_idx = 0;
     size_t      *t_shape_val = (size_t *)shape->val;
+    size_t      shape_len = shape->len;
 
-    for (size_t i = 0; i < shape->len; i++)
-        if (t_shape_val[i] == 0)
+    for (pd_count i = 0; i < shape_len; i++)
+        if (!t_shape_val[i])
         {
             neg_idx = i;
             if (neg++)
@@ -18,7 +19,7 @@ void    pd_tens_check_size(pd_tensor *tensor, pd_size_t_a *shape)
         else
             shape_values *= t_shape_val[i];
     size_t *t_tensor_shape_val = (size_t *)tensor->shape->val;
-    for (size_t i = 0; i < tensor->shape->len; i++)
+    for (pd_count i = 0; i < tensor->shape->len; i++)
         tensor_values *= t_tensor_shape_val[i];
     if (neg && shape_values)
     {
@@ -35,23 +36,6 @@ void    pd_tens_check_size(pd_tensor *tensor, pd_size_t_a *shape)
         pd_error("Can't reshape tensor with %zd values to shape with %zd values.\n", tensor_values, shape_values);
 }
 
-void    pd_tens_reshape_from_flat(pd_tensor *flat, size_t *index, pd_tensor *reshape)
-{
-    if (reshape->rank > 1)
-    {
-        pd_tensor **t_reshape_val = (pd_tensor **)reshape->val;
-        for (size_t i = 0; i < reshape->len; i++)
-            pd_tens_reshape_from_flat(flat, index, t_reshape_val[i]);
-    }
-    else
-    {
-        float *t_reshape_val = (float *)reshape->val;
-        float *t_flat_val = (float *)flat->val;
-        for (size_t i = 0; i < reshape->len; i++)
-            t_reshape_val[i] = t_flat_val[(*index)++];
-    }
-}
-
 pd_tensor   *pd_tens_reshape(pd_tensor *tensor, pd_size_t_a *shape)
 {
     pd_tensor   *reshape;
@@ -63,7 +47,7 @@ pd_tensor   *pd_tens_reshape(pd_tensor *tensor, pd_size_t_a *shape)
     t_tensor_val = pd_tens_get_first_val(tensor);
     t_reshape_val = pd_tens_get_first_val(reshape);
     size_t len = pd_tens_nb_values(tensor);
-    pd_mem_qcpy(t_reshape_val, t_tensor_val, len * sizeof(float));
+    pd_mem_cpy(t_reshape_val, t_tensor_val, len * sizeof(float));
     // for (size_t i = 0; i < len; i++)
     //     t_reshape_val[i] = t_tensor_val[i];
     return (reshape);

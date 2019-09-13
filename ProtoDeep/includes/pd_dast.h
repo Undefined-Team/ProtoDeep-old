@@ -37,6 +37,8 @@
                                     printf(__VA_ARGS__), \
                                     printf("%s\n", PD_COLOR_N))
 
+# define pd_count                   register size_t
+
 // Structures
 typedef enum {false,true} bool;
 
