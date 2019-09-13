@@ -106,6 +106,9 @@ TENS			=	tens_copy_old.c 		\
 					tens_nb_values.c		\
 					tens_dot.c				\
 
+NTENS_FLD		=	ntens/
+NTENS			=	tens_init.c				\
+
 NN_FLD			=	nn/
 NN				=	nn_config.c			\
 					nn_dense.c			\
