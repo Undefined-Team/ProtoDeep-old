@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-float pd_ntens_get_val(pd_ntensor *tensor, ...)
+float pd_tens_get_val(pd_tensor *tensor, ...)
 {
     va_list arg;
     va_start(arg, tensor);
@@ -12,7 +12,7 @@ float pd_ntens_get_val(pd_ntensor *tensor, ...)
     return *val;
 }
 
-float *pd_ntens_get_pval(pd_ntensor *tensor, ...)
+float *pd_tens_get_pval(pd_tensor *tensor, ...)
 {
     va_list arg;
     va_start(arg, tensor);
