@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-size_t      pd_tens_nb_values(pd_tensor *tensor)
+size_t      pd_tens_nb_val(pd_tensor *tensor)
 {
     size_t      nb_values = 1;
     size_t      *t_shape_val = tensor->shape;

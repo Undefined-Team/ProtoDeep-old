@@ -29,6 +29,7 @@ float       *pd_tens_get_pval(pd_tensor *tensor, size_t *coord);
 void        pd_tens_print(pd_tensor *tensor);
 
 pd_tensor   *pd_tens_flatten(pd_tensor *tensor);
-size_t      pd_tens_nb_values(pd_tensor *tensor);
+size_t      pd_tens_nb_val(pd_tensor *tensor);
+pd_tensor   *pd_tens_reshape(pd_tensor *tensor, pd_size_t_a *shape);
 
 #endif
