@@ -258,8 +258,30 @@ void    paco_main(void)
     }
 }
 
+void    new_transpose_main(void)
+{
+    pd_ntensor *tensor = pd_ntens_init_val(pd_arr_shape(3, 2, 2, 2), 2);
+    printf("eeee\n");
+    for (size_t i = 0; i < tensor->shape_len; i++)
+        printf("%zd\n", tensor->shape_m[i]);
+    for (size_t z = 0; z < 2; z++)
+    {
+        for (size_t y = 0; y < 2; y++)
+        {
+            for (size_t x = 0; x < 2; x++)
+            {
+                printf("%f ", pd_ntens_get_val(tensor, z, y, x));
+            }
+        }   
+    }
+    printf("\n");
+}
+
 int main(void)
 {
+    // pd_time("start program");
+    //t_csv   csv = csv_read("./test.csv", 1);
+    //dbug_csv_print(csv);
     //printf("\n-------------- MODE CONF --------------\n");
     //pd_csv_with_conf();
     //printf("\n-------------- MODE MANUAL --------------\n");
@@ -270,5 +292,6 @@ int main(void)
     // pd_tensor *test = pd_tens_init_val(pd_arr_shape(2, 2, 2), 2);
     // pd_tens_print(test);
     // exit(0);
-    transpose_init_main();
+    // transpose_init_main();
+    new_transpose_main();
 }

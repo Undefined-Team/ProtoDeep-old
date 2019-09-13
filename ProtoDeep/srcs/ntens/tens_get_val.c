@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-float pd_get_val(pd_ntens tensor, ...)
+float pd_ntens_get_val(pd_ntensor *tensor, ...)
 {
     va_list arg;
     va_start(arg, tensor);
@@ -8,11 +8,11 @@ float pd_get_val(pd_ntens tensor, ...)
     pd_count shape_len = tensor->shape_len;
     float *val = tensor->val;
     for (pd_count i = 0; i < shape_len; ++i)
-        val += *shape_mult++ * (size_t)va_arg(va, unsigned int);
+        val += *shape_mult++ * (size_t)va_arg(arg, unsigned int);
     return *val;
 }
 
-float *pd_get_pval(pd_ntens tensor, ...)
+float *pd_ntens_get_pval(pd_ntensor *tensor, ...)
 {
     va_list arg;
     va_start(arg, tensor);
@@ -20,6 +20,6 @@ float *pd_get_pval(pd_ntens tensor, ...)
     pd_count shape_len = tensor->shape_len;
     float *val = tensor->val;
     for (pd_count i = 0; i < shape_len; ++i)
-        val += *shape_mult++ * (size_t)va_arg(va, unsigned int);
+        val += *shape_mult++ * (size_t)va_arg(arg, unsigned int);
     return val;
 }

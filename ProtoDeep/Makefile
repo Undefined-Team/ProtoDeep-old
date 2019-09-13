@@ -106,6 +106,10 @@ TENS			=	tens_copy_old.c 		\
 					tens_nb_values.c		\
 					tens_dot.c				\
 
+NTENS_FLD		=	ntens/
+NTENS			=	tens_init.c				\
+					tens_get_val.c 			\
+
 NN_FLD			=	nn/
 NN				=	nn_config.c			\
 					nn_dense.c			\
@@ -121,6 +125,7 @@ SRC_FLDS		=	math/				\
 					csv/csv/			\
 					csv/prep/			\
 					tens/				\
+					ntens/				\
 					matrix/				\
 					nn/					\
 
@@ -132,6 +137,7 @@ SRC				+=	$(addprefix $(MEM_FLD), $(MEM))
 SRC				+=	$(addprefix $(DAST_FLD), $(DAST))
 SRC				+=	$(addprefix $(ARR_FLD), $(ARR))
 SRC				+=	$(addprefix $(TENS_FLD), $(TENS))
+SRC				+=	$(addprefix $(NTENS_FLD), $(NTENS))
 SRC				+=	$(addprefix $(MATRIX_FLD), $(MATRIX))
 SRC				+=	$(addprefix $(NN_FLD), $(NN))
 
