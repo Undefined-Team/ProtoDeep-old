@@ -15,7 +15,7 @@ DEMAIN
 - OPTIMISATION
 Aplliquer consignes d'optimisation sur lib tensor, lib math, lib str
 - str split (optimisation et changer . = ->)
-
+- FAIRE LE BON MEMSET ET MEMCPY ET OPTI LE INIT
 
 - A la fin du projet
 1 - verifier les functions utilisé dans le projet

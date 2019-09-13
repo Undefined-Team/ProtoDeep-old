@@ -236,6 +236,16 @@ void        tens_dot_test(void)
 	pd_arr_free(test);
 }*/
 
+void    transpose_init_main(void)
+{
+    pd_tensor *test;
+    for(size_t i = 0; i < 10; i++)
+    {
+        test = pd_tens_init_val(pd_arr_shape(10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1), 2);
+        pd_tens_free(test);
+    }
+}
+
 void    paco_main(void)
 {
     pd_tensor *test = pd_tens_init_val(pd_arr_shape(10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1), 2);
@@ -255,6 +265,10 @@ int main(void)
     //printf("\n-------------- MODE MANUAL --------------\n");
     //pd_csv_manual();
     //tens_test();
-    tens_dot_test();
-    paco_main();
+    //tens_dot_test();
+    //paco_main();
+    // pd_tensor *test = pd_tens_init_val(pd_arr_shape(2, 2, 2), 2);
+    // pd_tens_print(test);
+    // exit(0);
+    transpose_init_main();
 }
