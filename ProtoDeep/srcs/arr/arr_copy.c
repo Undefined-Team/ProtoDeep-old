@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-pd_arr      *pd_arr_copy(pd_arr* array)
+pd_arr      *pd_arr_cpy(pd_arr* array)
 {
     pd_arr *new_array;
 
@@ -8,7 +8,7 @@ pd_arr      *pd_arr_copy(pd_arr* array)
     if (array->type == PD_T_ARR)
     {
         for (size_t i = 0; i < array->len; i++)
-            ((pd_arr**)new_array->val)[i] = pd_arr_copy(((pd_arr**)array->val)[i]);
+            ((pd_arr**)new_array->val)[i] = pd_arr_cpy(((pd_arr**)array->val)[i]);
     }
     else if (array->type == PD_T_FLOAT)
         pd_mem_cpy(new_array->val, array->val, sizeof(float) * array->len);

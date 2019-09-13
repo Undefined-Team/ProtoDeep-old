@@ -42,6 +42,6 @@ pd_size_t_a                         *pd_arr_shape(size_t len, ...);
 pd_arr                              *pd_arr_concat_shape(pd_type type, pd_arr *a, pd_arr *b);
 pd_char_a                           *pd_arr_get_shape(pd_arr *shape);
 pd_arr                              *pd_arr_create(pd_size_t_a *arr_shape, pd_type type, ...);
-pd_arr                              *pd_arr_copy(pd_arr *array);
+pd_arr                              *pd_arr_cpy(pd_arr *array);
 
 #endif
