@@ -87,6 +87,7 @@ MATRIX			=	matrix_dot.c		\
 
 TENS_FLD		=	tens/
 TENS			=	tens_new.c				\
+					tens_shape_mult.c 		\
 					tens_init.c 			\
 					tens_get_val.c 			\
 					tens_get.c 				\
@@ -95,6 +96,7 @@ TENS			=	tens_new.c				\
 					tens_cpy.c				\
 					tens_flatten.c			\
 					tens_reshape.c			\
+					tens_transpose.c		\
 					tens_dot.c				\
 
 NN_FLD			=	nn/
