@@ -311,14 +311,14 @@ void    new_transpose_main(void)
 
 void flatten_main()
 {
-    for (size_t i = 0; i < 1000000; i++)
+    for (size_t i = 0; i < 1; i++)
     {
         pd_tensor *tens = pd_tens_init_val(pd_arr_shape(3, 5, 5, 5), 2);
-        // pd_tens_print(tens);
+        pd_tens_print(tens);
         pd_tensor *flat = pd_tens_flatten(tens);
-        // pd_tens_print(flat);
-        pd_tensor *reshape = pd_tens_reshape(flat, pd_arr_shape(3, 25, 1, 5));
-        // pd_tens_print(reshape);
+        pd_tens_print(flat);
+        pd_tensor *reshape = pd_tens_reshape(flat, pd_arr_shape(3, 25, 0, 5));
+        pd_tens_print(reshape);
         free(tens->val);
         free(tens->shape);
         free(tens->shape_m);
