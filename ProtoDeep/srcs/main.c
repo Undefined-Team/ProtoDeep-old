@@ -298,6 +298,8 @@ void    new_transpose_main(void)
     pd_tensor *test2 = pd_tens_cpy(test);
     pd_tens_free(test);
     pd_tens_print(test2);
+    pd_tensor *test3 = pd_tens_get(test2, 0);
+    pd_tens_print(test3);
     pd_tens_free(test2);
 
 }
@@ -335,6 +337,6 @@ int main(void)
     // exit(0);
     // transpose_init_main();
     new_transpose_main();
-    flatten_main();
+    // flatten_main();
     // new_old_init_main();
 }
