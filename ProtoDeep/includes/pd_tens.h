@@ -35,9 +35,9 @@ void        pd_tens_free(pd_tensor *tensor);
 
 
 pd_tensor   *pd_tens_flatten(pd_tensor *tensor);
-pd_tensor   *pd_tens_flatten_copy(pd_tensor *tensor);
+pd_tensor   *pd_tens_flatten_cpy(pd_tensor *tensor);
 pd_tensor   *pd_tens_reshape(pd_tensor *tensor, pd_size_t_a *shape);
-pd_tensor   *pd_tens_reshape_copy(pd_tensor *tensor, pd_size_t_a *shape);
+pd_tensor   *pd_tens_reshape_cpy(pd_tensor *tensor, pd_size_t_a *shape);
 pd_tensor   *pd_tens_dot(pd_tensor *a, pd_tensor *b, pd_arr *axis);
 
 #endif

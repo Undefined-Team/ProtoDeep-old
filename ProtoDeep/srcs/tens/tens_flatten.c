@@ -1,6 +1,6 @@
 #include "pd_main.h"
 
-pd_tensor   *pd_tens_flatten_copy(pd_tensor *tensor)
+pd_tensor   *pd_tens_flatten_cpy(pd_tensor *tensor)
 {
     pd_tensor   *flat;
     float       *t_tensor_val;

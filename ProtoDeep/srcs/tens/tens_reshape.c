@@ -38,7 +38,7 @@ void    pd_tens_check_size(pd_tensor *tensor, pd_size_t_a *shape)
         pd_error("Can't reshape tensor with %zd values to shape with %zd values.\n", tensor_values, shape_values);
 }
 
-pd_tensor   *pd_tens_reshape_copy(pd_tensor *tensor, pd_size_t_a *shape)
+pd_tensor   *pd_tens_reshape_cpy(pd_tensor *tensor, pd_size_t_a *shape)
 {
     pd_tensor   *reshape;
     float       *t_tensor_val;
@@ -52,7 +52,6 @@ pd_tensor   *pd_tens_reshape_copy(pd_tensor *tensor, pd_size_t_a *shape)
 
 pd_tensor   *pd_tens_reshape(pd_tensor *tensor, pd_size_t_a *shape)
 {
-    printf("ALLO\n");
     pd_arr_print(shape);
     pd_tens_check_size(tensor, shape);
             pd_arr_print(shape);
@@ -60,7 +59,7 @@ pd_tensor   *pd_tens_reshape(pd_tensor *tensor, pd_size_t_a *shape)
     tensor->shape = (size_t *)shape->val;
     tensor->shape_len = shape->len;
     pd_free(tensor->shape_m);
-    tensor->shape_m = pd_get_shape_mult((size_t *)shape->val, shape->len, &tensor->len);
+    tensor->shape_m = pd_tens_shape_mult((size_t *)shape->val, shape->len);
     pd_free(shape);
     return (tensor);
 }
