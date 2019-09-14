@@ -296,7 +296,6 @@ void    new_transpose_main(void)
     pd_tensor *test = pd_tens_init_rand(pd_arr_shape(2, 1, 1), -10 , 10);
     pd_tens_print(test);
     pd_tensor *test2 = pd_tens_cpy(test);
-    printf("%zd\n", test2->len);
     pd_tens_free(test);
     pd_tens_print(test2);
     pd_tensor *test3 = pd_tens_get(test2, pd_arr_shape(1, 0));
@@ -307,6 +306,12 @@ void    new_transpose_main(void)
     pd_tens_print(test4);
     pd_tens_free(test4);
 
+    test = pd_tens_init_rand(pd_arr_shape(2, 2, 2), -10 , 10);
+    pd_tens_print(test);
+    test2 = pd_tens_transpose_cpy(test, pd_arr_shape(2, 1, 0));
+    pd_tens_print(test2);
+    pd_tens_free(test);
+    pd_tens_free(test2);
 }
 
 void flatten_main()
