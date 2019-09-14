@@ -52,9 +52,7 @@ pd_tensor   *pd_tens_reshape_cpy(pd_tensor *tensor, pd_size_t_a *shape)
 
 pd_tensor   *pd_tens_reshape(pd_tensor *tensor, pd_size_t_a *shape)
 {
-    pd_arr_print(shape);
     pd_tens_check_size(tensor, shape);
-            pd_arr_print(shape);
     pd_free(tensor->shape);
     tensor->shape = (size_t *)shape->val;
     tensor->shape_len = shape->len;
