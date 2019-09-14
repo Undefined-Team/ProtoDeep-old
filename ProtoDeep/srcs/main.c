@@ -293,14 +293,19 @@ void    new_transpose_main(void)
     // for (size_t i = 0; i < 10; i++)
     //     val = pd_tens_get_mval(test, 999999999);
     
-    pd_tensor *test = pd_tens_init_rand(pd_arr_shape(2 , 2, 2), -10 , 10);
+    pd_tensor *test = pd_tens_init_rand(pd_arr_shape(2, 1, 1), -10 , 10);
     pd_tens_print(test);
     pd_tensor *test2 = pd_tens_cpy(test);
+    printf("%zd\n", test2->len);
     pd_tens_free(test);
     pd_tens_print(test2);
-    pd_tensor *test3 = pd_tens_get(test2, 0);
+    pd_tensor *test3 = pd_tens_get(test2, pd_arr_shape(1, 0));
+    pd_tensor *test4 = pd_tens_get_cpy(test2, pd_arr_shape(1, 0));
     pd_tens_print(test3);
+    pd_free(test3);
     pd_tens_free(test2);
+    pd_tens_print(test4);
+    pd_tens_free(test4);
 
 }
 
