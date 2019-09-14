@@ -16,6 +16,7 @@ typedef struct  pds_tensor {
 }               pd_tensor;
 
 // Prototypes
+size_t     *pd_get_shape_mult(size_t *shape, pd_count shape_len, size_t *len);
 pd_tensor   *pd_tens_init(pd_arr *shape);
 pd_tensor   *pd_tens_init_val(pd_arr *shape, float new_val);
 pd_tensor   *pd_tens_init_rand(pd_arr *shape, float bound_1, float bound_2);
@@ -31,6 +32,8 @@ void        pd_tens_print(pd_tensor *tensor);
 void        pd_tens_free(pd_tensor *tensor);
 
 pd_tensor   *pd_tens_flatten(pd_tensor *tensor);
+pd_tensor   *pd_tens_flatten_inplace(pd_tensor *tensor);
 pd_tensor   *pd_tens_reshape(pd_tensor *tensor, pd_size_t_a *shape);
+pd_tensor   *pd_tens_reshape_inplace(pd_tensor *tensor, pd_size_t_a *shape);
 
 #endif

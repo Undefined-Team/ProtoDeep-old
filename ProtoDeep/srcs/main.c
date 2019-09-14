@@ -310,19 +310,13 @@ void flatten_main()
     {
         pd_tensor *tens = pd_tens_init_val(pd_arr_shape(3, 5, 5, 5), 2);
         // pd_tens_print(tens);
-        pd_tensor *flat = pd_tens_flatten(tens);
+        pd_tensor *flat = pd_tens_flatten_inplace(tens);
         // pd_tens_print(flat);
-        pd_tensor *reshape = pd_tens_reshape(flat, pd_arr_shape(3, 25, 1, 5));
+        pd_tensor *reshape = pd_tens_reshape_inplace(flat, pd_arr_shape(3, 25, 1, 5));
         // pd_tens_print(reshape);
         free(tens->val);
         free(tens->shape);
         free(tens->shape_m);
-        free(reshape->val);
-        free(reshape->shape);
-        free(reshape->shape_m);
-        free(flat->val);
-        free(flat->shape);
-        free(flat->shape_m);
     }
 }
 
