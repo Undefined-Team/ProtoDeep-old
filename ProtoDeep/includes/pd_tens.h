@@ -25,6 +25,7 @@ float       pd_tens_get_mval(pd_tensor *tensor, ...);
 float       *pd_tens_get_mpval(pd_tensor *tensor, ...);
 float       pd_tens_get_val(pd_tensor *tensor, size_t *coord);
 float       *pd_tens_get_pval(pd_tensor *tensor, size_t *coord);
+pd_tensor   *pd_tens_get(pd_tensor *tensor, pd_size_t_a *coord);
 
 void        pd_tens_print(pd_tensor *tensor);
 void        pd_tens_free(pd_tensor *tensor);
