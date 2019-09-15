@@ -389,8 +389,8 @@ int main(void)
     // pd_tens_print(test);
     // exit(0);
     // transpose_init_main();
-    new_tens_main();
+    // new_tens_main();
     // flatten_main();
     // new_old_init_main();
-    // pd_transpose_test();
+    pd_transpose_test();
 }
