@@ -39,17 +39,6 @@ static size_t       pd_get_index(size_t len, size_t *coord, size_t *new_dim, siz
     return index;
 }
 
-// static void         pd_coord_update(size_t *shape, size_t *coord)
-// {
-//     if (*coord == *shape)
-//     {
-//         *coord = 0;
-//         --coord;
-//         ++(*coord);
-//         pd_coord_update(shape - 1, coord);
-//     }
-// }
-
 static void         pd_coord_update(size_t *n_shape, size_t *coord, size_t *n_shape_m, size_t *n_max, size_t *index)
 {
     if (*coord == *n_shape)
@@ -73,40 +62,6 @@ static void pd_set_shape_shapem_max(size_t *old_shape, size_t *old_shape_m, size
         *n_max++   = (*n_shape++ - 1) * *n_shape_m++;
     }
 }
-
-// void        pd_tens_transpose(pd_tensor *tensor, pd_size_t_a *new_dim)
-// {
-//     size_t shape_len = tensor->shape_len;
-//     size_t *t_new_dim = pd_error_manager(new_dim, shape_len);
-//     size_t len = tensor->len;
-//     size_t *coord;
-//     if (!(coord = pd_malloc(sizeof(size_t) * shape_len))) return ;
-
-//     size_t *coord_x = coord - 1;
-//     for (pd_count i = 0; i < shape_len; ++i) *++coord_x = 0;
-//     size_t *shape_x = tensor->shape + (shape_len - 1);
-
-//     float *new_val;
-//     if (!(new_val = pd_malloc(sizeof(float) * len))) return ;
-//     float *val = tensor->val;
-
-//     size_t *new_shape = pd_get_new_shape(tensor->shape, new_dim);
-//     size_t *new_shape_m = pd_tens_shape_mult(new_shape, shape_len);
-//     while (len-- > 0)
-//     {
-//         pd_coord_update(shape_x, coord_x);
-//         new_val[pd_get_index(shape_len, coord, t_new_dim, new_shape_m)] = *val++;
-//         ++(*coord_x);
-//     }
-//     pd_arr_free(new_dim);
-//     pd_free(coord);
-//     pd_free(tensor->val);
-//     pd_free(tensor->shape);
-//     pd_free(tensor->shape_m);
-//     tensor->val = new_val;
-//     tensor->shape = new_shape;
-//     tensor->shape_m = new_shape_m;
-// }
 
 void        pd_tens_transpose(pd_tensor *tensor, pd_size_t_a *new_dim)
 {
@@ -173,32 +128,3 @@ pd_tensor       *pd_tens_transpose_cpy(pd_tensor *tensor, pd_size_t_a *new_dim)
     pd_arr_free(new_dim);
     return pd_tens_new(new_val, len, new_shape, new_shape_m, shape_len);
 }
-
-// pd_tensor       *pd_tens_transpose_cpy(pd_tensor *tensor, pd_size_t_a *new_dim)
-// {
-//     size_t shape_len = tensor->shape_len;
-//     size_t *t_new_dim = pd_error_manager(new_dim, shape_len);
-//     size_t len = tensor->len;
-
-//     size_t *coord;
-//     PD_PROT_MALLOC(coord = pd_malloc(sizeof(size_t) * shape_len));
-//     size_t *coord_x = coord - 1;
-//     for (pd_count i = 0; i < shape_len; ++i) *++coord_x = 0;
-//     size_t *shape_x = tensor->shape + (shape_len - 1);
-
-//     float *new_val;
-//     PD_PROT_MALLOC(new_val = pd_malloc(sizeof(float) * len));
-//     float *val = tensor->val;
-
-//     size_t *new_shape = pd_get_new_shape(tensor->shape, new_dim);
-//     size_t *new_shape_m = pd_tens_shape_mult(new_shape, shape_len);
-//     while (len-- > 0)
-//     {
-//         pd_coord_update(shape_x, coord_x);
-//         new_val[pd_get_index(shape_len, coord, t_new_dim, new_shape_m)] = *val++;
-//         ++(*coord_x);
-//     }
-//     pd_arr_free(new_dim);
-//     pd_free(coord);
-//     return pd_tens_new(new_val, len, new_shape, new_shape_m, shape_len);
-// }
