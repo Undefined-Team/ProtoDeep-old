@@ -39,22 +39,18 @@ static size_t       pd_get_index(size_t len, size_t *coord, size_t *new_dim, siz
     return index;
 }
 
-static void         pd_coord_update(size_t *n_shape, size_t *coord, size_t *n_shape_m, size_t *n_max, float **beg_val, float **end_val)
+static void         pd_coord_update(size_t *n_shape, size_t *coord, size_t *n_shape_m, size_t *n_max, size_t *index)
 {
     if (*coord == *n_shape)
     {
         *coord = 0;
         --coord;
         ++(*coord);
-        *beg_val -= *n_max;
-        *end_val += *n_max;
-        pd_coord_update(n_shape - 1, coord, n_shape_m - 1, n_max - 1, beg_val, end_val);
+        *index -= *n_max;
+        pd_coord_update(n_shape - 1, coord, n_shape_m - 1, n_max - 1, index);
     }
     else
-    {
-        *beg_val += *n_shape_m;
-        *end_val -= *n_shape_m;
-    }
+        *index += *n_shape_m;
 }
 
 static void pd_set_shape_shapem_max(size_t *old_shape, size_t *old_shape_m, size_t *new_dim, size_t *n_shape, size_t *n_shape_m, size_t *n_max, size_t shape_len)
@@ -117,13 +113,14 @@ pd_tensor       *pd_tens_transpose_cpy(pd_tensor *tensor, pd_size_t_a *new_dim)
     float *t_beg_val = tensor->val;
     float *t_end_val = t_beg_val + len - 1;
 
+    size_t index = 0;
     pd_count tmp_len = len / 2;
     while (tmp_len-- > 0)
     {
-        *beg_val++ = *t_beg_val;
-        *end_val-- = *t_end_val;
+        *beg_val++ = *(t_beg_val + index);
+        *end_val-- = *(t_end_val - index);
         ++(*coord_x);
-        pd_coord_update(n_shape, coord_x, n_shape_m, n_max, &t_beg_val, &t_end_val);
+        pd_coord_update(n_shape, coord_x, n_shape_m, n_max, &index);
     }
     size_t *new_shape = pd_get_new_shape(tensor->shape, new_dim);
     size_t *new_shape_m = pd_tens_shape_mult(new_shape, shape_len);
