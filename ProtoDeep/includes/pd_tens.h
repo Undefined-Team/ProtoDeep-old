@@ -22,6 +22,7 @@ size_t      *pd_tens_shape_mult_init(size_t *shape, pd_count shape_len, size_t *
 size_t      *pd_tens_shape_mult(size_t *shape, pd_count shape_len);
 pd_tensor   *pd_tens_init(pd_arr *shape);
 pd_tensor   *pd_tens_init_val(pd_arr *shape, float new_val);
+pd_tensor   *pd_tens_init_id(pd_arr *shape);
 pd_tensor   *pd_tens_init_rand(pd_arr *shape, float bound_1, float bound_2);
 
 float       pd_tens_get_mval(pd_tensor *tensor, ...);
@@ -41,6 +42,7 @@ pd_tensor   *pd_tens_reshape(pd_tensor *tensor, pd_size_t_a *shape);
 pd_tensor   *pd_tens_reshape_cpy(pd_tensor *tensor, pd_size_t_a *shape);
 void        pd_tens_transpose(pd_tensor *tensor, pd_size_t_a *new_dim);
 pd_tensor   *pd_tens_transpose_cpy(pd_tensor *tensor, pd_size_t_a *new_dim);
+pd_tensor   *pd_tens_transpose_cpy_2(pd_tensor *tensor, pd_size_t_a *new_dim);
 pd_tensor   *pd_tens_dot(pd_tensor *a, pd_tensor *b, pd_arr *axis);
 
 #endif

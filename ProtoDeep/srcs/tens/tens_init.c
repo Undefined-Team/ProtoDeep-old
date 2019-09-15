@@ -36,6 +36,21 @@ pd_tensor *pd_tens_init_val(pd_arr *shape, float new_val)
     return new_tensor;
 }
 
+pd_tensor *pd_tens_init_id(pd_arr *shape)
+{
+    pd_count shape_len = shape->len;
+    size_t *a_shape = (size_t*)shape->val;
+    pd_free(shape);
+
+    pd_tensor *new_tensor = pd_tens_init_ctr(a_shape, shape_len);
+    
+    size_t len = new_tensor->len;
+    float *val = new_tensor->val;
+    pd_count new_val = 0;
+    while (len-- > 0) *val++ = new_val++;
+    return new_tensor;
+}
+
 pd_tensor *pd_tens_init_rand(pd_arr *shape, float bound_1, float bound_2)
 {
     pd_count shape_len = shape->len;

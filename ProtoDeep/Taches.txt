@@ -5,9 +5,7 @@
 
 
 ---- printArr
-- tens_get
 - tens_concat
-- tens_tranpose
 - tens_sum
 
 - OPTIMISATION
