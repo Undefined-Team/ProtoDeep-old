@@ -114,19 +114,20 @@ void        pd_tens_transpose(pd_tensor *tensor, pd_size_t_a *new_dim)
     size_t *t_new_dim = pd_error_manager(new_dim, shape_len);
     size_t *new_shape;
     size_t *new_shape_m;
-    PD_PROT_MALLOC(new_shape = pd_malloc(sizeof(size_t) * shape_len));
-    PD_PROT_MALLOC(new_shape_m = pd_malloc(sizeof(size_t) * shape_len));
+    if(!(new_shape = pd_malloc(sizeof(size_t) * shape_len))
+    || !(new_shape_m = pd_malloc(sizeof(size_t) * shape_len))) return ;
     size_t *t_new_shape = new_shape;
     size_t *t_new_shape_m = new_shape_m;
     size_t *shape = tensor->shape;
     size_t *shape_m = tensor->shape_m;
     while (shape_len-- > 0)
     {
-        *t_new_shape++ = shape[*new_dim];
-        *t_new_shape_m++ = shape_m[*new_dim++];
+        *t_new_shape++ = shape[*t_new_dim];
+        *t_new_shape_m++ = shape_m[*t_new_dim++];
     }
     pd_free(shape);
     pd_free(shape_m);
+    pd_arr_free(new_dim);
     tensor->shape = new_shape;
     tensor->shape_m = new_shape_m;
 }
