@@ -306,10 +306,11 @@ void    new_tens_main(void)
     pd_tens_print(test4);
     pd_tens_free(test4);
 
-    test = pd_tens_init_id(pd_arr_shape(3, 2, 2, 2));
+    test = pd_tens_init_id(pd_arr_shape(3, 3, 3, 2));
     pd_tens_print(test);
     test2 = pd_tens_transpose_cpy(test, pd_arr_shape(3, 1, 2, 0));
     pd_tens_print(test2);
+    pd_tens_free(test2);
 
     pd_tens_transpose(test, pd_arr_shape(3, 1, 2, 0));
     pd_tens_print(test);
@@ -317,7 +318,6 @@ void    new_tens_main(void)
     // printf("%f\n", pd_tens_get_mval(test, 1, 1, 1, 0));
     // pd_tens_print(test);
     pd_tens_free(test);
-    pd_tens_free(test2);
 }
 
 void flatten_main()
