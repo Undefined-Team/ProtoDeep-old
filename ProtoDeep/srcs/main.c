@@ -306,13 +306,17 @@ void    new_tens_main(void)
     pd_tens_print(test4);
     pd_tens_free(test4);
 
-    test = pd_tens_init_id(pd_arr_shape(3, 3, 3, 2));
+    test = pd_tens_init_id(pd_arr_shape(4, 2, 2, 2, 2));
+    // test = pd_tens_init_id(pd_arr_shape(5, 5, 4, 3, 2, 1));
     pd_tens_print(test);
-    test2 = pd_tens_transpose_cpy(test, pd_arr_shape(3, 1, 2, 0));
+
+    test2 = pd_tens_transpose_cpy(test, pd_arr_shape(4, 3, 1, 0, 2));
+    // test2 = pd_tens_transpose_cpy(test, pd_arr_shape(5, 4, 3, 1, 0, 2));
     pd_tens_print(test2);
     pd_tens_free(test2);
 
-    pd_tens_transpose(test, pd_arr_shape(3, 1, 2, 0));
+    pd_tens_transpose(test, pd_arr_shape(4, 3, 1, 0, 2));
+    // pd_tens_transpose(test, pd_arr_shape(5, 4, 3, 1, 0, 2));
     pd_tens_print(test);
     // pd_tens_transpose_2(test, pd_arr_shape(3, 0, 2, 1));
     // printf("%f\n", pd_tens_get_mval(test, 1, 1, 1, 0));
@@ -389,8 +393,8 @@ int main(void)
     // pd_tens_print(test);
     // exit(0);
     // transpose_init_main();
-    // new_tens_main();
+    new_tens_main();
     // flatten_main();
     // new_old_init_main();
-    pd_transpose_test();
+    // pd_transpose_test();
 }

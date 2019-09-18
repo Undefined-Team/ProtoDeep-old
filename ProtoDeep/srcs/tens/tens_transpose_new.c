@@ -61,39 +61,57 @@ void        pd_tens_transpose(pd_tensor *tensor, pd_size_t_a *new_dim)
     tensor->shape_m = new_shape_m;
 }
 
-//-----------------------------------------------------------
+//----------------------------------------------
 
-static void pd_set_shape_shapem_max(size_t *old_shape, size_t *old_shape_m, size_t *new_dim, size_t *n_shape, size_t *n_shape_m, int *n_max, size_t shape_len)
-{
-    int *old_n_map = n_max;
-    *n_max-- = 0;
-    while (shape_len-- > 1)
-    {
-        *n_shape   = old_shape[*new_dim];
-        *n_shape_m = old_shape_m[*new_dim--];
-        *n_max--   = (*n_shape-- - 1) * *n_shape_m + *old_n_map;
-        *old_n_map-- = *n_shape_m-- - *old_n_map;
-    }
-    *n_shape   = old_shape[*new_dim];
-    *n_shape_m = old_shape_m[*new_dim];
-    *old_n_map = *n_shape_m - *old_n_map;
-}
-
-
-static void         pd_coord_update(size_t *n_shape, size_t *coord, size_t *n_shape_m, int *n_max, size_t *index)
+static void         pd_coord_update_new(size_t *n_shape, size_t *coord, size_t *n_shape_m, size_t *n_max, size_t *index)
 {
     if (*coord == *n_shape)
     {
         *coord = 0;
         --coord;
         ++(*coord);
-        pd_coord_update(n_shape - 1, coord, n_shape_m - 1, n_max - 1, index);
+        pd_coord_update_new(n_shape - 1, coord, n_shape_m - 1, n_max - 1, index);
     }
     else
-        *index += *n_max;
+    {
+        // *index =  *(n_max + 1) + *n_shape_m;
+        // printf("%zd %zd %zd\n", *index, *(n_max + 1), *n_shape_m);
+        // *(n_max + 1) = *index;
+
+        *index =  *(n_max - 1);
+        *index += *n_shape_m;
+        printf("%zd %zd %zd", *index, *(n_max), *n_shape_m);
+        *(n_max) = *index;
+    }
 }
 
-pd_tensor       *pd_tens_transpose_cpy(pd_tensor *tensor, pd_size_t_a *new_dim)
+static void         pd_coord_update_first_new(size_t *n_shape, size_t *coord, size_t *n_shape_m, size_t *n_max, size_t *index)
+{
+    if (*coord == *n_shape)
+    {
+        *coord = 0;
+        --coord;
+        ++(*coord);
+        pd_coord_update_new(n_shape - 1, coord, n_shape_m - 1, n_max - 1, index);
+    }
+    else
+    {
+        *index += *n_shape_m; 
+        printf("%zd    ", *index);
+    }
+}
+
+static void pd_set_shape_shapem_max_new(size_t *old_shape, size_t *old_shape_m, size_t *new_dim, size_t *n_shape, size_t *n_shape_m, size_t *n_max, size_t shape_len)
+{
+    while (shape_len-- > 0)
+    {
+        *n_shape++   = old_shape[*new_dim];
+        *n_shape_m++ = old_shape_m[*new_dim++];
+        *n_max++   = 0;
+    }
+}
+
+pd_tensor       *pd_tens_transpose_cpy_new(pd_tensor *tensor, pd_size_t_a *new_dim)
 {
     size_t shape_len = tensor->shape_len;
     size_t *t_new_dim = pd_error_manager(new_dim, shape_len);
@@ -101,13 +119,12 @@ pd_tensor       *pd_tens_transpose_cpy(pd_tensor *tensor, pd_size_t_a *new_dim)
 
     size_t b_shape[shape_len];
     size_t b_shape_m[shape_len];
-    int b_max[shape_len];
+    size_t b_max[shape_len];
+    pd_set_shape_shapem_max_new(tensor->shape, tensor->shape_m, t_new_dim, b_shape, b_shape_m, b_max, shape_len);
+
     size_t *n_shape = b_shape + (shape_len - 1);
     size_t *n_shape_m = b_shape_m + (shape_len - 1);
-    int *n_max = b_max + (shape_len - 1);
-    size_t *n_new_dim = t_new_dim + (shape_len - 1);
-    pd_set_shape_shapem_max(tensor->shape, tensor->shape_m, n_new_dim, n_shape, n_shape_m, n_max, shape_len);
-
+    size_t *n_max = b_max + (shape_len - 1);
 
     size_t coord[shape_len];
     size_t *coord_x = coord - 1;
@@ -120,21 +137,22 @@ pd_tensor       *pd_tens_transpose_cpy(pd_tensor *tensor, pd_size_t_a *new_dim)
     float *t_beg_val = tensor->val;
     float *t_end_val = t_beg_val + len - 1;
 
+    size_t index = 0;
+    pd_count tmp_len = len / 2;
     for (size_t i = 0; i < shape_len ; i++) printf("%zd ", b_shape[i]);
     printf("\n");
     for (size_t i = 0; i < shape_len ; i++) printf("%zd ", b_shape_m[i]);
-    printf("\n");
-    for (size_t i = 0; i < shape_len ; i++) printf("%d ", b_max[i]);
     printf("\n\n");
-
-    size_t index = 0;
-    pd_count tmp_len = len / 2;
     while (tmp_len-- > 0)
     {
+        // printf("%zd\n", index);
+            pd_coord_update_first_new(n_shape, coord_x, n_shape_m, n_max, &index);
         *beg_val++ = *(t_beg_val + index);
         *end_val-- = *(t_end_val - index);
         ++(*coord_x);
-        pd_coord_update(n_shape, coord_x, n_shape_m, n_max, &index);
+        printf("    ----   ");
+        for (size_t i = 0; i < shape_len ; i++) printf("%zd ", coord[i]);
+        printf("\n");
     }
     size_t *new_shape = pd_get_new_shape(tensor->shape, new_dim);
     size_t *new_shape_m = pd_tens_shape_mult(new_shape, shape_len);
