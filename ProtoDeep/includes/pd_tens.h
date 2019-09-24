@@ -35,14 +35,12 @@ pd_tensor   *pd_tens_get_cpy(pd_tensor *tensor, pd_size_t_a *coord);
 void        pd_tens_print(pd_tensor *tensor);
 void        pd_tens_free(pd_tensor *tensor);
 
-
 pd_tensor   *pd_tens_flatten(pd_tensor *tensor);
 pd_tensor   *pd_tens_flatten_cpy(pd_tensor *tensor);
 pd_tensor   *pd_tens_reshape(pd_tensor *tensor, pd_size_t_a *shape);
 pd_tensor   *pd_tens_reshape_cpy(pd_tensor *tensor, pd_size_t_a *shape);
 void        pd_tens_transpose(pd_tensor *tensor, pd_size_t_a *new_dim);
 pd_tensor   *pd_tens_transpose_cpy(pd_tensor *tensor, pd_size_t_a *new_dim);
-pd_tensor       *pd_tens_transpose_cpy_new(pd_tensor *tensor, pd_size_t_a *new_dim);
 pd_tensor   *pd_tens_dot(pd_tensor *a, pd_tensor *b, pd_arr *axis);
 
 #endif

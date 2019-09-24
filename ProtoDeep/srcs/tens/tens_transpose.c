@@ -61,8 +61,6 @@ void        pd_tens_transpose(pd_tensor *tensor, pd_size_t_a *new_dim)
     tensor->shape_m = new_shape_m;
 }
 
-//-----------------------------------------------------------
-
 static void pd_set_shape_shapem_max(size_t *old_shape, size_t *old_shape_m, size_t *new_dim, size_t *n_shape, int *n_max, size_t shape_len)
 {
     int *old_n_map = n_max;
@@ -71,14 +69,11 @@ static void pd_set_shape_shapem_max(size_t *old_shape, size_t *old_shape_m, size
     while (shape_len-- > 1)
     {
         *n_shape   = old_shape[*new_dim];
-        // *n_shape_m = old_shape_m[*new_dim--];
         n_shape_m = old_shape_m[*new_dim--];
         *n_max--   = (*n_shape-- - 1) * n_shape_m + *old_n_map;
         *old_n_map-- = n_shape_m - *old_n_map;
     }
     *n_shape   = old_shape[*new_dim];
-    // *n_shape_m = old_shape_m[*new_dim];
-    // *old_n_map = *n_shape_m - *old_n_map;
     *old_n_map = old_shape_m[*new_dim] - *old_n_map;
 }
 
@@ -103,10 +98,8 @@ pd_tensor       *pd_tens_transpose_cpy(pd_tensor *tensor, pd_size_t_a *new_dim)
     size_t len = tensor->len;
 
     size_t b_shape[shape_len];
-    // size_t b_shape_m[shape_len];
     int b_max[shape_len];
     size_t *n_shape = b_shape + (shape_len - 1);
-    // size_t *n_shape_m = b_shape_m + (shape_len - 1);
     int *n_max = b_max + (shape_len - 1);
     size_t *n_new_dim = t_new_dim + (shape_len - 1);
     pd_set_shape_shapem_max(tensor->shape, tensor->shape_m, n_new_dim, n_shape, n_max, shape_len);
@@ -121,20 +114,6 @@ pd_tensor       *pd_tens_transpose_cpy(pd_tensor *tensor, pd_size_t_a *new_dim)
     float *beg_val = new_val;
     float *t_beg_val = tensor->val;
     float *t_end_val = t_beg_val + len - 1;
-
-    // printf("shape = ");
-    // for (size_t i = 0; i < shape_len ; i++) printf("%zd ", tensor->shape[i]);
-    // printf("\n");
-    // printf("newdi = ");
-    // for (size_t i = 0; i < shape_len ; i++) printf("%zd ", t_new_dim[i]);
-    // printf("\n");
-    
-    // for (size_t i = 0; i < shape_len ; i++) printf("%zd ", b_shape[i]);
-    // printf("\n");
-    // for (size_t i = 0; i < shape_len ; i++) printf("%zd ", b_shape_m[i]);
-    // printf("\n");
-    // for (size_t i = 0; i < shape_len ; i++) printf("%d ", b_max[i]);
-    // printf("\n\n");
 
     size_t index = 0;
     pd_count tmp_len = len / 2;
