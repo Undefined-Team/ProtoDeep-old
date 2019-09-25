@@ -34,10 +34,10 @@ Comment construisons nous un reseau ? Cela ce divise en 2 etapes:
 
 --------------------------- Exemple d'un neural_network.csv
 
-layer_name, layer_grade, layer_type, param, before_linked_layers
-je_suis_le_premier, input, fullco, {neuron_nbr: 15; activ_func: relu}, []
-je_suis_le_apres, hidden, fullco, {neuron_nbr: 20; activ_func: relu}, [je_suis_le_premier]
-ok_je_sors, output, fullco, {neuron_nbr: output_nbr; activ_func: sigmoid}, [je_suis_le_apres]
+layer_name, layer_grade, layer_type, param, before_linked_layers, before_weight
+je_suis_le_premier, input, fullco, {neuron_nbr: 15; activ_func: relu}, [], NULL
+je_suis_le_apres, hidden, fullco, {neuron_nbr: 20; activ_func: relu}, [je_suis_le_premier], NULL
+ok_je_sors, output, fullco, {neuron_nbr: output_nbr; activ_func: sigmoid}, [je_suis_le_apres], NULL
 
 --------------------------- FONCTIONS pd_cr
 
