@@ -1,0 +1,109 @@
+                                            PARTIE 2 - UTILISATIONS DU RESEAU
+
+--------------------------- HYPOTHESES
+
+Comment gerer l'erreur si il y a plusieurs layer output ?
+    Simplement concat les valeur predict enssemble et les target enssemble et comparer ces deux tenseurs
+
+Comment faire un gradient stochastique ou gradient normal si on veut laisser à l'utilisateur sa liberté ?
+    Il suffit que la fonction de predict revoi le tenseur de comparaison des valeurs predict et target, donc
+    si on veut faire un batch de 16, on concataine le retour de cette fonction 16 fois, on calcul l'erreur
+    de ce gros tenseur et on backprop.
+
+--------------------------- EXEMPLE D'UTILISATION MANUEL (TensorFlow == pd_nn)
+
+implicit variables
+    inputs_train, inputs_test, targets_train, targets_test, network, generations
+
+batch_size = 16
+inputs_len = inputs.len
+
+best_accuracy = -1;
+best_generation = -1;
+
+while gen < generations
+    while i < inputs_len:
+
+        results = NULL;
+        test_results = NULL;
+
+        while j < batch_size && i < inputs_len
+
+            actual_result = pd_nn_predict(network, inputs_train[i])
+            results = pd_tens_concat(results, actual_result)
+
+            // 1 Utilisation de dataset test pour counter l'overfit
+            test_actual_result = pd_nn_predict(network, inputs_test[i])
+            test_results = pd_tens_concat(test_results, test_actual_result)
+
+            i++
+            j++
+
+        error = pd_nn_get_error(results, targets_train[i - batch_size : i])
+        pd_tens_free(results)
+        pd_nn_backprop(network, error)
+
+
+        // 2 Utilisation de dataset test pour counter l'overfit
+        accuracy = pd_nn_get_accuracy(results, targets_test[i - batch_size : i])
+        pd_tens_free(test_results)
+        if accuracy > best_accuracy
+            best_accuracy = accuracy
+            best_generation = gen
+
+    gen++
+
+// Resultats du counter d'overfit
+printf("La meilleur generation de ce reseau a une accuracy de %f et est à la generation %d\n", best_accuracy, best_generation);
+
+--------------------------- FONCTIONS pd_nn
+
+pd_nn_predict(network, inputs, targets)
+Descrition:
+    Forward une seul fois et return les resultats
+Param:
+    un tenseur des inputs pour le/les layers inputs
+Return:
+    un tenseur des resultats de/des layers outputs
+
+
+pd_nn_get_error(predict, target, error_function)
+Description:
+    Fonction qui compare 2 tenseurs de meme shape et retourn l'erreur
+Param:
+    predict : un tenseur des valeurs predites
+    target : un tenseur des valeurs targets
+    error_function : id de la fonction d'erreur à utiliser
+Return:
+    l'erreur
+
+--------------------------- STRUCTURES
+
+pd_network
+    pd_arr          *inputs_layer
+    pd_arr          *outputs_layer
+    pd_layer        **layers
+    size_t          layers_nbr
+
+pd_layer
+    pd_tensor       *actv_and_grad
+        tenseur des valeurs d'activation quand forward, et des valeurs gradient quand backprop
+    pd_tensor       *before_weight
+        tenseur des poids des layers lié à nous
+    pd_arr          *before_layer
+        liste des layers lié à nous
+    pd_arr          *front_layer
+        liste des layers auquelle nous sommes lié
+    pd_layer_type   layer_type 
+        type de layer (PD_FULLCO, PD_CONV, PD_MAXPOOL, PD_LSTM)
+    void            *param
+        struct de param associé à un layer_type, donc à caster
+    pd_layer_grade  layer_grade
+        grade du layer = PD_GR_INPUT, PD_GR_HIDDEN, PD_GR_OUTPUT
+    pd_arr          *layer_name
+        Nom / Id du layer
+    pd_layer_state  layer_state
+        etat du layer, 0 ou 1, permet de differencier les layers deja forward ou backprop pour la recursion de dependence.
+        0 ou 1 n'est pas un id car on peut forward plusieurs fois avant de backprop donc en fait, quand on forward ou backprop, la nouvelle
+        valeur est l'inverse de la premiere rencontré
+    

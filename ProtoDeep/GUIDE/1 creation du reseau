@@ -1,0 +1,54 @@
+                                            PARTIE 1 - CREATION DU RESEAU
+
+--------------------------- HYPOTHESES
+
+Regles
+    1 Il y a 3 type de layer, les inputs layer, les hidden layer et les outputs layers. Il peut y en avoir autant que vous voulez
+    des 3 types.
+
+    2 Tout hidden layer peut etre connecter à n'importe quelle autre layer tant que ca ne creer pas une boucle dans le reseau
+
+    3 Nous utilisons une logique de dependence pour le forward, le backprop et la verification non bouclé du reseau
+        1 Le forward commence a la fin pour la dependence
+        2 le backprop commence au debut pour la dependence
+        3 peu importe pour la verification des boucles
+
+
+Comment construisons nous un reseau ? Cela ce divise en 2 etapes:
+    1 La redaction de la recette
+    2 La compilation
+
+    1 La redaction de la recette
+        Cela correspond au fait qu'on utilise des pd_nn_add() pour link des layers. En fait, cela ne va pas link des layers
+        mais ecrire les instructions dans un char* ou json ou structure de donnée.
+
+        Pourquoi faire cela ?
+            1       Pour exporter le reseau sous format texte donc plus tard on peut faire une app de creation de reseau
+            1.5     Faudra creer un converter de reseau compilé vers json/csv pour enregister un reseau entrainé
+            2       Pour pouvoir malloc tous les layers en un seul malloc, ce qui permet, grace au nombre de layer, de tout free
+             sans malloc de tableau de layer dans la variable network
+
+    2 La compilation du reseau
+        On prend la recette precedament preparé OU importé, et on va la compiler en reseau donc la mettre en memoire.
+        Cela va en meme temps verifier qu'il n'y a pas de boucle ou autre genre d'erreur dans le reseau
+
+--------------------------- Exemple d'un neural_network.csv
+
+layer_name, layer_grade, layer_type, param, before_linked_layers
+je_suis_le_premier, input, fullco, {neuron_nbr: 15; activ_func: relu}, []
+je_suis_le_apres, hidden, fullco, {neuron_nbr: 20; activ_func: relu}, [je_suis_le_premier]
+ok_je_sors, output, fullco, {neuron_nbr: output_nbr; activ_func: sigmoid}, [je_suis_le_apres]
+
+--------------------------- FONCTIONS pd_cr
+
+pd_cr_layer_add(network_csv, layer_name, layer_grade, layer_type, param, before_layers_names)
+Description:
+    Ajoute un layer dans le network_csv
+Param:
+    network_csv:            csv du network pour l'ajouter
+    layer_names:            nom du layer
+    layer_type:             type du layer (FULLCO, CONV, MAXPOOL, LSTM etc...)
+    param:                  parametre du layers (Nbr de neuronnes, fonction d'activation etc...)
+    before_layers_names:    noms des layers connecté à celui-ci
+Return:
+    Void
